@@ -51,6 +51,9 @@
     <ClInclude Include="population_metadata.h">
       <Filter>Header Files\API</Filter>
     </ClInclude>
+    <ClInclude Include="galapagos_types.h">
+      <Filter>Header Files\API</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="galapagos.cpp">

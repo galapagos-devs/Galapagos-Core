@@ -1,9 +1,9 @@
 #ifndef _CHROMOSOME_METADATA_H_
 #define _CHROMOSOME_METADATA_H_
 
+#include "galapagos_types.h"
 #include "chromosome.h"
 #include "population.h"
-#include "galapagos.h"
 #include <string>
 #include <cstdint>
 

@@ -1,7 +1,7 @@
 #ifndef _POPULATION_METADATA_H_
 #define _POPULATION_METADATA_H_
 
-#include "galapagos.h"
+#include "galapagos_types.h"
 #include "creature.h"
 #include "chromosome_metadata.h"
 #include <cstdint>
@@ -16,7 +16,7 @@ public:
 	term_cond_t termination_condition;
 	fitness_func_t fitness_function;
 
-	virtual chromosome_metadata* operator[] (int) = 0;
+	//virtual chromosome_metadata* operator[] (int) = 0;
 };
 
 #endif /* _POPULATION_METADATA_H_ */

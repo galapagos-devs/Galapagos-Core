@@ -4,7 +4,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3ef15228-b80c-4338-aeef-80be4777ff6e</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Galapagos.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,7 +23,15 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Galapagos.py" />
+    <Compile Include="galapagos\api\population_metadata.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="galapagos\api\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="galapagos\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="galapagos-env\">
@@ -34,6 +43,10 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>X64</Architecture>
     </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="galapagos\" />
+    <Folder Include="galapagos\api\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
