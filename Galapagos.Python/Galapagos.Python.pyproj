@@ -29,6 +29,12 @@
     <Compile Include="galapagos\api\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="galapagos\version.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="setup.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="galapagos\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -47,6 +53,10 @@
   <ItemGroup>
     <Folder Include="galapagos\" />
     <Folder Include="galapagos\api\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="mypy.ini" />
+    <Content Include="setup.cfg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

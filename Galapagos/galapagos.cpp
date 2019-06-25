@@ -1,4 +1,5 @@
 #include "galapagos.h"
+#include "genetic_factory.h"
 
 GALAPAGOS_API population_metadata* create_population_metadata()
 {
@@ -25,7 +26,7 @@ GALAPAGOS_API uint32_t get_population_metadata_survival_rate(population_metadata
 	return population_metadata->survival_rate;
 }
 
-GALAPAGOS_API population* create_population(population_metadata* metadata)
+GALAPAGOS_API population* create_population(population_metadata* population_metadata)
 {
-	return nullptr;
+	return genetic_factory::create_population(population_metadata);
 }

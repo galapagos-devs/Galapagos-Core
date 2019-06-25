@@ -6,7 +6,7 @@
 
 class crossover : genetic_operator {
 public:
-	virtual chromosome* operator()(chromosome* x, chromosome* y) = 0;
+	virtual chromosome* operator()(chromosome* x, chromosome* y) abstract;
 };
 
 #endif /* _CROSSOVER_H_ */ 

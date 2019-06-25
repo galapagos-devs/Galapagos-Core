@@ -161,6 +161,7 @@
     <ClInclude Include="crossover.h" />
     <ClInclude Include="galapagos.h" />
     <ClInclude Include="galapagos_types.h" />
+    <ClInclude Include="genetic_factory.h" />
     <ClInclude Include="mutation.h" />
     <ClInclude Include="genetic_operator.h" />
     <ClInclude Include="population.h" />
@@ -170,6 +171,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="galapagos.cpp" />
+    <ClCompile Include="genetic_factory.cpp" />
+    <ClCompile Include="population.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

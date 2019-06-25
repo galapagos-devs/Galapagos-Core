@@ -16,6 +16,12 @@
     <Filter Include="Header Files\API">
       <UniqueIdentifier>{6ea45f7a-badc-4ddc-aa01-9286622eb62c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\API\Factory">
+      <UniqueIdentifier>{76e7e47d-99aa-41b5-a1ba-f83d66690434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Factory">
+      <UniqueIdentifier>{f4469027-4bcb-4efd-b1a6-731abf279922}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="galapagos.h">
@@ -54,9 +60,18 @@
     <ClInclude Include="galapagos_types.h">
       <Filter>Header Files\API</Filter>
     </ClInclude>
+    <ClInclude Include="genetic_factory.h">
+      <Filter>Header Files\API\Factory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="galapagos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="genetic_factory.cpp">
+      <Filter>Source Files\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="population.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

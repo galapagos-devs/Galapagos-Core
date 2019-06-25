@@ -6,7 +6,7 @@
 
 class termination_condition {
 public:
-	virtual bool operator()(population* population) = 0;
+	virtual bool operator()(population* population) abstract;
 };
 
 #endif /* _TERMINATION_CONDITION_H_ */ 

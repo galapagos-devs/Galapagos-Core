@@ -6,7 +6,7 @@
 
 class selection_algorithm {
 public:
-	virtual chromosome* operator()(population* population) = 0;
+	virtual chromosome* operator()(population* population) abstract;
 };
 
 #endif /* _SELECTION_ALGORITHM_H_ */ 

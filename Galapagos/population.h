@@ -6,13 +6,13 @@
 
 class population {
 public:
-	virtual uint32_t get_size() = 0;
+	virtual uint32_t get_size() abstract;
 
-	virtual creature* operator[] (int) = 0;
+	virtual creature* operator[] (int) abstract;
 
-	virtual creature* get_optimal_creature() = 0;
+	virtual creature* get_optimal_creature() abstract;
 
-	virtual void evolve() = 0;
+	virtual void evolve() abstract;
 };
 
 #endif /* _POPULATION_H_ */

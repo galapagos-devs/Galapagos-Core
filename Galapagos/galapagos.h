@@ -17,6 +17,6 @@ GALAPAGOS_API uint32_t get_population_metadata_size(population_metadata* populat
 GALAPAGOS_API void set_population_metadata_survival_rate(population_metadata* population_metadata, uint32_t survival_rate);
 GALAPAGOS_API uint32_t get_population_metadata_survival_rate(population_metadata* population_metadata);
 
-GALAPAGOS_API population* create_population(population_metadata* metadata);
+GALAPAGOS_API population* create_population(population_metadata* population_metadata);
 
 #endif /* _GALAPAGOS_H_ */

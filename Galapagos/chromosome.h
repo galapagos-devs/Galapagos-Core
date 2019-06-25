@@ -4,7 +4,7 @@
 class chromosome {
 public:
 	// TODO: can we use templates to avoid manual casts?
-	virtual double get_distance(chromosome* other) = 0;
+	virtual double get_distance(chromosome* other) abstract;
 };
 
 #endif /* _CHROMOSOME_H_ */

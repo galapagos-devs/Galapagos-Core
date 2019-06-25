@@ -7,15 +7,13 @@
 #include <string>
 #include <cstdint>
 
-class chromosome_metadata {
-public:
+struct chromosome_metadata {
 	std::string name;
 	double croosover_rate;
 	double mutation_rate;
 };
 
-class bin_chromosome_metadata : chromosome_metadata {
-public:
+struct bin_chromosome_metadata : chromosome_metadata {
 	uint32_t gene_count;
 	bin_crossover_t crossovers;
 	bin_mutation_t mutations;
