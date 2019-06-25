@@ -4,14 +4,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3ef15228-b80c-4338-aeef-80be4777ff6e</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Galapagos.Python.py</StartupFile>
+    <StartupFile>Galapagos.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Galapagos.Python</Name>
     <RootNamespace>Galapagos.Python</RootNamespace>
-    <InterpreterId>Global|VisualStudio|galapagos python environment (3.7)</InterpreterId>
+    <InterpreterId>MSBuild|galapagos-env|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,10 +22,18 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Galapagos.Python.py" />
+    <Compile Include="Galapagos.py" />
   </ItemGroup>
   <ItemGroup>
-    <InterpreterReference Include="Global|VisualStudio|galapagos python environment (3.7)" />
+    <Interpreter Include="galapagos-env\">
+      <Id>galapagos-env</Id>
+      <Version>3.7</Version>
+      <Description>galapagos-env (Python 3.7 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

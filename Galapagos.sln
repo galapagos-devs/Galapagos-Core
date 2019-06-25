@@ -3,18 +3,48 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Galapagos", "Galapagos\Galapagos.vcxitems", "{F7A25A1A-4450-48FD-A2ED-014D4174630A}"
-EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Galapagos.Python", "Galapagos.Python\Galapagos.Python.pyproj", "{3EF15228-B80C-4338-AEEF-80BE4777FF6E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Galapagos", "Galapagos\Galapagos.vcxproj", "{A486D0C3-8C87-4A53-84CF-81E8FBB43079}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3EF15228-B80C-4338-AEEF-80BE4777FF6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EF15228-B80C-4338-AEEF-80BE4777FF6E}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{3EF15228-B80C-4338-AEEF-80BE4777FF6E}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{3EF15228-B80C-4338-AEEF-80BE4777FF6E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3EF15228-B80C-4338-AEEF-80BE4777FF6E}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{3EF15228-B80C-4338-AEEF-80BE4777FF6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EF15228-B80C-4338-AEEF-80BE4777FF6E}.Release|ARM.ActiveCfg = Release|Any CPU
+		{3EF15228-B80C-4338-AEEF-80BE4777FF6E}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{3EF15228-B80C-4338-AEEF-80BE4777FF6E}.Release|x64.ActiveCfg = Release|Any CPU
+		{3EF15228-B80C-4338-AEEF-80BE4777FF6E}.Release|x86.ActiveCfg = Release|Any CPU
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Debug|ARM.ActiveCfg = Debug|Win32
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Debug|ARM64.ActiveCfg = Debug|Win32
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Debug|x64.ActiveCfg = Debug|x64
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Debug|x64.Build.0 = Debug|x64
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Debug|x86.ActiveCfg = Debug|Win32
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Debug|x86.Build.0 = Debug|Win32
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Release|Any CPU.ActiveCfg = Release|Win32
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Release|ARM.ActiveCfg = Release|Win32
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Release|ARM64.ActiveCfg = Release|Win32
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Release|x64.ActiveCfg = Release|x64
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Release|x64.Build.0 = Release|x64
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Release|x86.ActiveCfg = Release|Win32
+		{A486D0C3-8C87-4A53-84CF-81E8FBB43079}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
