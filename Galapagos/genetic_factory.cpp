@@ -8,3 +8,13 @@ population* genetic_factory::create_population(population_metadata* population_m
 	population *population_ptr = (population*)&population_obj;
 	return population_ptr;
 }
+
+selection_algorithm* genetic_factory::create_selection_algorithm(selection_algo_t selection_algorithm)
+{
+	return nullptr;
+}
+
+termination_condition** genetic_factory::create_termination_conditions(term_cond_t termination_condition)
+{
+	return nullptr;
+}

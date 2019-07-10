@@ -11,7 +11,7 @@ struct population_metadata {
 	double distance_threshold;
 	bool cooperative_coevolution;
 	selection_algo_t selection_algorithm;
-	term_cond_t termination_condition;
+	term_cond_t termination_conditions;
 	fitness_func_t fitness_function;
 	uint32_t num_chromosome_metadata;
 	chromosome_metadata* chromosome_metadata[0];

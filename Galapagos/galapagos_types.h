@@ -4,6 +4,7 @@
 #include "creature.h"
 #include <functional>
 
+// Metadata enumerations
 namespace BINARY_CROSSOVER {
 	enum BINARY_CROSSOVER : uint16_t {
 		SINGLE_POINT = 1 << 0,

@@ -10,6 +10,8 @@ public:
 	
 	// TODO: can we use templates to avoid manual casts?
 	virtual chromosome* get_chromosome(std::string name) abstract;
+
+	virtual creature* breed_with(creature* other) abstract;
 };
 
 
