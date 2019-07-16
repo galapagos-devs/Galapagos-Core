@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Factory">
       <UniqueIdentifier>{f4469027-4bcb-4efd-b1a6-731abf279922}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Selection Algorithms">
+      <UniqueIdentifier>{7c263719-7c2f-4981-8e2c-a2d69614aed3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="galapagos.h">
@@ -73,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="population.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tournament_selection.cpp">
+      <Filter>Source Files\Selection Algorithms</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

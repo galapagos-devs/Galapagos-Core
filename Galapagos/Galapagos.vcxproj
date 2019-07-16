@@ -173,6 +173,7 @@
     <ClCompile Include="galapagos.cpp" />
     <ClCompile Include="genetic_factory.cpp" />
     <ClCompile Include="population.cpp" />
+    <ClCompile Include="tournament_selection.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

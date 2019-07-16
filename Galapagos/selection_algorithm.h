@@ -6,7 +6,6 @@
 
 class selection_algorithm {
 public:
-	virtual creature* operator()(population* population) abstract;
 	virtual creature* invoke(population* population) abstract;
 };
 
