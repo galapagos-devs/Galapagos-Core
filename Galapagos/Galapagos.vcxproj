@@ -156,16 +156,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="chromosome.h" />
-    <ClInclude Include="chromosome_metadata.h" />
     <ClInclude Include="creature.h" />
     <ClInclude Include="crossover.h" />
     <ClInclude Include="galapagos.h" />
-    <ClInclude Include="galapagos_types.h" />
+    <ClInclude Include="galapagos_metadata.h" />
     <ClInclude Include="genetic_factory.h" />
     <ClInclude Include="mutation.h" />
     <ClInclude Include="genetic_operator.h" />
     <ClInclude Include="population.h" />
-    <ClInclude Include="population_metadata.h" />
     <ClInclude Include="selection_algorithm.h" />
     <ClInclude Include="stochastic.h" />
     <ClInclude Include="termination_condition.h" />
