@@ -10,6 +10,8 @@ public:
 
 	virtual creature* operator[] (int) abstract;
 
+	virtual creature* get_creature(int i) abstract;  // get the ith creature.
+
 	virtual creature* get_optimal_creature() abstract;
 
 	virtual void evolve() abstract;
