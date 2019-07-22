@@ -1,5 +1,18 @@
 #include "galapagos.h"
 #include "genetic_factory.h"
+#include "stochastic.h"
+#include "stochastic.cpp"
+
+galapagos_session::galapagos_session()
+{
+	stochastic_internal* default_rng = new stochastic_internal();
+	_stochastic = (stochastic*)default_rng;
+}
+
+galapagos_session::~galapagos_session()
+{
+	delete _stochastic;
+}
 
 galapagos_session& galapagos_session::get_instance()
 {
