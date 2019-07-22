@@ -6,8 +6,8 @@
 
 population* genetic_factory::create_population(population_metadata* population_metadata)
 {
-	population_internal population_obj(population_metadata);
-	population *population_ptr = (population*)&population_obj;
+	population_internal* population_obj = new population_internal(population_metadata);
+	population *population_ptr = (population*)population_obj;
 	return population_ptr;
 }
 
