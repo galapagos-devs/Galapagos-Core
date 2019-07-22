@@ -66,6 +66,9 @@
     <ClInclude Include="genetic_factory.h">
       <Filter>Header Files\API\Factory</Filter>
     </ClInclude>
+    <ClInclude Include="stochastic.h">
+      <Filter>Header Files\API</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="galapagos.cpp">
