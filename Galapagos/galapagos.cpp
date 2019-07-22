@@ -33,12 +33,12 @@ GALAPAGOS_API uint32_t get_population_metadata_size(population_metadata* populat
 	return population_metadata->size;
 }
 
-GALAPAGOS_API void set_population_metadata_survival_rate(population_metadata* population_metadata, uint32_t survival_rate)
+GALAPAGOS_API void set_population_metadata_survival_rate(population_metadata* population_metadata, double survival_rate)
 {
 	population_metadata->survival_rate = survival_rate;
 }
 
-GALAPAGOS_API uint32_t get_population_metadata_survival_rate(population_metadata* population_metadata)
+GALAPAGOS_API double get_population_metadata_survival_rate(population_metadata* population_metadata)
 {
 	return population_metadata->survival_rate;
 }

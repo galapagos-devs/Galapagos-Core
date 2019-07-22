@@ -4,9 +4,9 @@
 #include <vector>
 #include <algorithm>
 
+#include "galapagos_metadata.h"
 #include "genetic_factory.h"
 #include "population.h"
-#include "population_metadata.h"
 #include "creature.h"
 
 class population_internal : population {
@@ -34,7 +34,7 @@ public:
 	}
 
 	// Returns the number of creaters in the population.
-	uint32_t get_size() override {
+	size_t get_size() override {
 		return _population_metadata->size;
 	}
 
@@ -49,8 +49,8 @@ public:
 
 	// Progresses the genetic algorithum until the termination conditions are met.
 	void evolve() override {
-		selection_algorithm* selection_algorithm = genetic_factory::create_selection_algorithm(_population_metadata->selection_algorithm);
-		std::vector<termination_condition*> termination_conditions = genetic_factory::create_termination_conditions(_population_metadata->termination_conditions);
+		selection_algorithm* selection_algorithm = genetic_factory::create_selection_algorithm(_population_metadata);
+		std::vector<termination_condition*> termination_conditions = genetic_factory::create_termination_conditions(_population_metadata);
 
 		std::vector<creature*> new_generation;
 		new_generation.resize(get_size());
@@ -71,8 +71,8 @@ private:
 		creature* optimal_creature = nullptr;
 		double optimal_fitness = 0;
 
-		uint32_t size = get_size();
-		for (uint32_t i = 0; i < size; i++) {
+		size_t size = get_size();
+		for (size_t i = 0; i < size; i++) {
 			creature* current_creature = _creatures[i];
 			double current_fitness = current_creature->get_fitness();
 
@@ -94,7 +94,7 @@ private:
 			return x->get_fitness() > y->get_fitness();
 			});  //TODO - check the complexity of this sort
 
-		size_t surviving_creature_count = _population_metadata->survival_rate * population_size;
+		size_t surviving_creature_count = (size_t)(_population_metadata->survival_rate * population_size);
 		for (size_t i = 0; i < surviving_creature_count; i++)
 			new_generation[i] = _creatures[i];
 

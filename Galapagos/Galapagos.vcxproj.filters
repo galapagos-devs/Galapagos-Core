@@ -54,19 +54,13 @@
     <ClInclude Include="termination_condition.h">
       <Filter>Header Files\API</Filter>
     </ClInclude>
-    <ClInclude Include="chromosome_metadata.h">
-      <Filter>Header Files\API</Filter>
-    </ClInclude>
-    <ClInclude Include="population_metadata.h">
-      <Filter>Header Files\API</Filter>
-    </ClInclude>
-    <ClInclude Include="galapagos_types.h">
-      <Filter>Header Files\API</Filter>
-    </ClInclude>
     <ClInclude Include="genetic_factory.h">
       <Filter>Header Files\API\Factory</Filter>
     </ClInclude>
     <ClInclude Include="stochastic.h">
+      <Filter>Header Files\API</Filter>
+    </ClInclude>
+    <ClInclude Include="galapagos_metadata.h">
       <Filter>Header Files\API</Filter>
     </ClInclude>
   </ItemGroup>

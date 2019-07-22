@@ -1,8 +1,9 @@
 #ifndef _CREATURE_H_
 #define _CREATURE_H_
 
-#include "chromosome.h"
 #include <string>
+
+#include "chromosome.h"
 
 class creature {
 public:

@@ -1,12 +1,13 @@
 #ifndef _POPULATION_H_
 #define _POPULATION_H_
 
-#include "creature.h"
 #include <cstdint>
+
+#include "creature.h"
 
 class population {
 public:
-	virtual uint32_t get_size() abstract;
+	virtual size_t get_size() abstract;
 
 	virtual creature* operator[] (int) abstract;
 
