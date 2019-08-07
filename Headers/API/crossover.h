@@ -1,8 +1,8 @@
 #ifndef _CROSSOVER_H_
 #define _CROSSOVER_H_
 
+#include "../../Headers/API/chromosome.h"
 #include "operator.h"
-#include "chromosome.h"
 
 class crossover : genetic_operator {
 public:

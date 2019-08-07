@@ -1,8 +1,8 @@
 #ifndef _SELECTION_ALGORITHM_H_
 #define _SELECTION_ALGORITHM_H_
 
-#include "creature.h"
-#include "population.h"
+#include "../../Headers/API/creature.h"
+#include "../../Headers/API/population.h"
 
 class selection_algorithm {
 public:

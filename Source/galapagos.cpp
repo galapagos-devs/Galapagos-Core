@@ -1,7 +1,8 @@
-#include "galapagos.h"
-#include "genetic_factory.h"
-#include "stochastic.h"
-#include "stochastic.cpp"
+#include "../Headers/API/galapagos.h"
+
+#include "../Headers/API/Factory/genetic_factory.h"
+#include "../Headers/API/stochastic.h"
+#include "../Source/stochastic.cpp"
 
 galapagos_session::galapagos_session()
 {

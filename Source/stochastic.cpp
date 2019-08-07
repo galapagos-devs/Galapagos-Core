@@ -1,11 +1,12 @@
 #ifndef _STOCHASTIC_CPP_
 #define _STOCHASTIC_CPP_
 
+#include "../Headers/API/stochastic.h"
+
 #include <stdlib.h>
 #include <exception>
 #include <random>
 
-#include "stochastic.h"
 
 class stochastic_internal : stochastic {
 public:

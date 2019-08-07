@@ -3,9 +3,9 @@
 
 #include <cstdint>
 
-#include "stochastic.h"
-#include "galapagos_metadata.h"
-#include "population.h"
+#include "../../Headers/API/galapagos_metadata.h"
+#include "../../Headers/API/population.h"
+#include "../../Headers/API/stochastic.h"
 
 class galapagos_session {
 public:

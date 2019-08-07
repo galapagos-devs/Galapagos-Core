@@ -1,13 +1,14 @@
 #ifndef _POPULATION_CPP_
 #define _POPULATION_CPP_
 
+#include "../Headers/API/population.h"
+
 #include <vector>
 #include <algorithm>
 
-#include "galapagos_metadata.h"
-#include "genetic_factory.h"
-#include "population.h"
-#include "creature.h"
+#include "../Headers/API/creature.h"
+#include "../Headers/API/Factory/genetic_factory.h"
+#include "../Headers/API/galapagos_metadata.h"
 
 class population_internal : population {
 	/*
