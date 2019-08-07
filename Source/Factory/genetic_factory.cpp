@@ -1,9 +1,9 @@
-#include "../../Headers/API/Factory/genetic_factory.h"
+#include "../API/Factory/genetic_factory.h"
 
 #include <vector>
 
-#include "../../Headers/API/population.h"
 #include "../../Source/population.cpp"
+#include "../API/population.h"
 
 population* genetic_factory::create_population(population_metadata* population_metadata)
 {

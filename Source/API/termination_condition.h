@@ -1,8 +1,8 @@
 #ifndef _TERMINATION_CONDITION_H_
 #define _TERMINATION_CONDITION_H_
 
-#include "../../Headers/API/chromosome.h"
-#include "../../Headers/API/population.h"
+#include "../../Source/API/chromosome.h"
+#include "../../Source/API/population.h"
 
 class termination_condition {
 public:

@@ -1,7 +1,7 @@
 #ifndef _TOURNAMENT_SELECTION_CPP_
 #define _TOURNAMENT_SELECTION_CPP_
 
-#include "../../Headers/API/selection_algorithm.h"
+#include "../API/selection_algorithm.h"
 
 class tournament_selection : selection_algorithm {
 

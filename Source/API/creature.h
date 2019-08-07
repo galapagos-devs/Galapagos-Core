@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "../../Headers/API/chromosome.h"
+#include "../../Source/API/chromosome.h"
 
 class creature {
 public:

@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <functional>
 
-#include "../../Headers/API/creature.h"
+#include "../../Source/API/creature.h"
 
 typedef std::function<double(creature* creature)> fitness_func_t;
 

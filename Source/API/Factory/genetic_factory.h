@@ -3,10 +3,10 @@
 
 #include <vector>
 
-#include "../../../Headers/API/galapagos_metadata.h"
-#include "../../../Headers/API/population.h"
-#include "../../../Headers/API/selection_algorithm.h"
-#include "../../../Headers/API/termination_condition.h"
+#include "../../../Source/API/galapagos_metadata.h"
+#include "../../../Source/API/population.h"
+#include "../../../Source/API/selection_algorithm.h"
+#include "../../../Source/API/termination_condition.h"
 
 class genetic_factory {
 public:
