@@ -1,19 +1,20 @@
 CC = gcc
 LDFLAGS = -shared
 
+SRCS = ./Source
+HEADRS = ./Source/API
 TARGET_LIB = galapagos.so
-SRCS = galapagos.c
-DEPS = galapagos.h
-OBJECTS = galapagos.o #$(SRCS:.c=.o)
 
 all: $(TARGET_LIB)
 
-$(TARGET_LIB): $(OBJECTS)
-	$(CC) $(LDFLAGS) -o $(TARGET_LIB) $(OBJECTS)
+$(TARGET_LIB): genetic_factory.o galapagos.o
+	$(CC) $(LDFLAGS) -o $(TARGET_LIB) galapagos.o genetic_factory.h
 
-$(OBJECTS): galapagos.c galapagos.h $(DEPS) #get all headers?
-	$(CC) -c galapagos.c galapagos.h
+galapagos.o: $(SRCS)/galapagos.cpp $(HEADRS)/genetic_factory.h
+	$(CC) -c $(SRCS)/galapagos.cpp
 	
-.PHONY clean
+genetic_factory.o: $(SRCS)/Factory/genetic_factory.cpp
+	$(CC) -c $(SRCS)/Factory/genetic_factory.cpp
+	
 clean:
-	-rm -f $(TARGET_LIB) $(OBJS)
+	-rm -f $(TARGET_LIB) galapagos.o genetic_factory.o
