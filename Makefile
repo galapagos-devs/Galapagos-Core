@@ -8,7 +8,7 @@ TARGET_LIB = galapagos.so
 all: $(TARGET_LIB)
 
 $(TARGET_LIB): genetic_factory.o galapagos.o
-	$(CC) $(LDFLAGS) -o $(TARGET_LIB) galapagos.o genetic_factory.h
+	$(CC) $(LDFLAGS) -o $(TARGET_LIB) galapagos.o genetic_factory.o
 
 galapagos.o: $(SRCS)/galapagos.cpp $(HEADRS)/genetic_factory.h
 	$(CC) -c $(SRCS)/galapagos.cpp
