@@ -6,8 +6,8 @@
 
 class termination_condition {
 public:
-	virtual bool operator()(population* population) abstract;
-	virtual bool invoke(population* population) abstract;
+	virtual bool operator()(population* population) = 0;
+	virtual bool invoke(population* population) = 0;
 };
 
-#endif /* _TERMINATION_CONDITION_H_ */ 
+#endif /* _TERMINATION_CONDITION_H_ */
