@@ -1,10 +1,10 @@
+CC = g++
+CFLAGS = -c -Wall
+LDFLAGS = -shared
+
 SRCS = ./Source
 HEADERS = ./Source/API
 TARGET_LIB = galapagos.so
-
-CC = g++
-CFLAGS = -c -Wall -I$(HEADERS)
-LDFLAGS = -shared
 
 all: $(TARGET_LIB)
 

@@ -41,7 +41,7 @@ public:
 		//std::mt19937 rng;
 		//std::uniform_real_distribution<double> dist(0, 1);
 		//return dist(rng);
-		return 0;
+		return 0; // temp!
 	}
 };
 
