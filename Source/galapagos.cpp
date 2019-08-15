@@ -1,9 +1,8 @@
 #include "API/galapagos.h"
-
-#include "../Headers/API/Factory/genetic_factory.h"
-#include "../Source/stochastic.cpp"
+#include "API/Factory/genetic_factory.h"
 #include "API/Factory/genetic_factory.h"
 #include "API/stochastic.h"
+#include "stochastic.cpp"
 
 galapagos_session::galapagos_session()
 {
@@ -38,12 +37,12 @@ GALAPAGOS_API population_metadata* create_population_metadata()
 	return session.create_population_metadata();
 }
 
-GALAPAGOS_API void set_population_metadata_size(population_metadata* population_metadata, uint32_t size)
+GALAPAGOS_API void set_population_metadata_size(population_metadata* population_metadata, size_t size)
 {
 	population_metadata->size = size;
 }
 
-GALAPAGOS_API uint32_t get_population_metadata_size(population_metadata* population_metadata)
+GALAPAGOS_API size_t get_population_metadata_size(population_metadata* population_metadata)
 {
 	return population_metadata->size;
 }

@@ -6,7 +6,7 @@
 
 class selection_algorithm {
 public:
-	virtual creature* invoke(population* population) abstract;
+	virtual creature* invoke(population* population) = 0;
 };
 
-#endif /* _SELECTION_ALGORITHM_H_ */  
+#endif /* _SELECTION_ALGORITHM_H_ */

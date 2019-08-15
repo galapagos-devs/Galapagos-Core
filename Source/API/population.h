@@ -7,13 +7,13 @@
 
 class population {
 public:
-	virtual size_t get_size() abstract;
+	virtual size_t get_size() = 0;
 
-	virtual creature* operator[] (int) abstract;
+	virtual creature* operator[] (int) = 0;
 
-	virtual creature* get_optimal_creature() abstract;
+	virtual creature* get_optimal_creature() = 0;
 
-	virtual void evolve() abstract;
+	virtual void evolve() = 0;
 };
 
 #endif /* _POPULATION_H_ */
