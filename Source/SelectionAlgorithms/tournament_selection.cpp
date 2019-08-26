@@ -1,10 +1,5 @@
-#ifndef _TOURNAMENT_SELECTION_CPP_
-#define _TOURNAMENT_SELECTION_CPP_
+#include "tournament_selection.h"
 
-#include "../API/selection_algorithm.h"
+tournament_selection::~tournament_selection() {
 
-class tournament_selection : selection_algorithm {
-
-};
-
-#endif /* _TOURNAMENT_SELECTION_CPP_ */
+}

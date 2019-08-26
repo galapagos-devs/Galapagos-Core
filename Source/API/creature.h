@@ -3,10 +3,12 @@
 
 #include <string>
 
-#include "../../Source/API/chromosome.h"
+#include "chromosome.h"
 
 class creature {
 public:
+	virtual ~creature() = 0;
+
 	virtual double get_fitness() = 0;
 
 	// TODO: can we use templates to avoid manual casts?

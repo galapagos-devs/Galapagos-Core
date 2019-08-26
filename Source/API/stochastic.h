@@ -3,6 +3,8 @@
 
 class stochastic {
 public:
+	virtual ~stochastic() = 0;
+
 	virtual bool flip_coin() = 0;
 
 	virtual bool evaulate_probability(double probability) = 0;
@@ -13,5 +15,7 @@ public:
 
 	virtual double rand_percent() = 0;
 };
+
+inline stochastic::~stochastic() { }
 
 #endif /* _STOCHASTIC_H_ */

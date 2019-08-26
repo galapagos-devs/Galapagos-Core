@@ -3,9 +3,9 @@
 
 #include <cstdint>
 
-#include "../../Source/API/galapagos_metadata.h"
-#include "../../Source/API/population.h"
-#include "../../Source/API/stochastic.h"
+#include "galapagos_metadata.h"
+#include "population.h"
+#include "stochastic.h"
 
 class galapagos_session {
 public:
@@ -22,7 +22,11 @@ public:
 	population* create_population(population_metadata* population_metadata);
 };
 
+#ifdef WIN32
 #define GALAPAGOS_API extern "C" __declspec(dllexport)
+#else
+#define GALAPAGOS_API extern "C" __attribute__((visibility("default")))
+#endif
 
 GALAPAGOS_API population_metadata* create_population_metadata();
 
