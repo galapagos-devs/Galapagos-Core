@@ -4,6 +4,13 @@
 #include "API/stochastic.h"
 #include "stochastic.cpp"
 
+// We need to forward declare a default implementation for abstract constructors
+// TODO: Where should we put these methods?
+population::~population() { }
+selection_algorithm::~selection_algorithm() { }
+stochastic::~stochastic() { }
+
+// Implementation of root galapgos "session" object
 galapagos_session::galapagos_session()
 {
 	stochastic_internal* default_rng = new stochastic_internal();
@@ -31,6 +38,7 @@ population* galapagos_session::create_population(population_metadata* population
 	return genetic_factory::create_population(population_metadata);
 }
 
+// Exported (.so/.dll) "C-style" interface to the galapagos library
 GALAPAGOS_API population_metadata* create_population_metadata()
 {
 	galapagos_session& session = galapagos_session::get_instance();

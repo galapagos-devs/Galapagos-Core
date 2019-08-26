@@ -19,7 +19,7 @@ private:
 
 	std::vector<creature*> _creatures;
 	creature* _optimal_creature;
-	
+
 public:
 	population_internal(population_metadata* population_metadata)
 	{

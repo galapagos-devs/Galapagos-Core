@@ -6,6 +6,8 @@
 
 class mutation : genetic_operator {
 public:
+	virtual ~mutation() = 0;
+
 	virtual chromosome* operator()(chromosome* chromosome) = 0;
 };
 

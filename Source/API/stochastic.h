@@ -3,6 +3,8 @@
 
 class stochastic {
 public:
+	virtual ~stochastic() = 0;
+
 	virtual bool flip_coin() = 0;
 
 	virtual bool evaulate_probability(double probability) = 0;

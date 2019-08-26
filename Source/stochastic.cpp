@@ -10,6 +10,8 @@
 
 class stochastic_internal : stochastic {
 public:
+	~stochastic_internal() { }
+	
 	bool flip_coin() override {
 		return (rand_int(2) > 0);
 	}

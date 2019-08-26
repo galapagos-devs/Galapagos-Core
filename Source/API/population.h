@@ -7,6 +7,8 @@
 
 class population {
 public:
+	virtual ~population() = 0;
+
 	virtual size_t get_size() = 0;
 
 	virtual creature* operator[] (int) = 0;

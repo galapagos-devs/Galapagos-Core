@@ -4,7 +4,7 @@
 #include "../API/selection_algorithm.h"
 
 class tournament_selection : selection_algorithm {
-
+  ~tournament_selection() { }
 };
 
 #endif /* _TOURNAMENT_SELECTION_CPP_ */

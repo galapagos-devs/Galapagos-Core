@@ -6,6 +6,8 @@
 
 class selection_algorithm {
 public:
+	virtual ~selection_algorithm() = 0;
+
 	virtual creature* invoke(population* population) = 0;
 };
 
