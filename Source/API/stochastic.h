@@ -16,4 +16,6 @@ public:
 	virtual double rand_percent() = 0;
 };
 
+inline stochastic::~stochastic() { }
+
 #endif /* _STOCHASTIC_H_ */

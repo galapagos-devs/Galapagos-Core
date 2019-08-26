@@ -1,50 +1,43 @@
-#ifndef _STOCHASTIC_CPP_
-#define _STOCHASTIC_CPP_
-
-#include "API/stochastic.h"
-
 #include <stdlib.h>
 #include <exception>
 #include <random>
 
+#include "stochastic.h"
 
-class stochastic_internal : stochastic {
-public:
-	~stochastic_internal() { }
-	
-	bool flip_coin() override {
-		return (rand_int(2) > 0);
-	}
+//stochastic::~stochastic() { }
 
-	bool evaulate_probability(double probability) {
-		// TODO: why can't we use std::exception?
-		//if (probability < 0 || probability > 1)
-		//	throw std::exception("evaulate_probability"); // TODO: how do we want to format exceptions. this should probably be a clean galapagos exception.
+stochastic_internal::~stochastic_internal() { }
 
-		double R = rand_percent();
-		return R < probability;
-	}
+bool stochastic_internal::flip_coin() {
+	return (rand_int(2) > 0);
+}
 
-	int rand_int(int max) override {
-		// TODO: why can't we call the rand() function?
-		//return rand() % max;
-		return 0; // temp!
-	}
+bool stochastic_internal::evaulate_probability(double probability) {
+	// TODO: why can't we use std::exception?
+	//if (probability < 0 || probability > 1)
+	//	throw std::exception("evaulate_probability"); // TODO: how do we want to format exceptions. this should probably be a clean galapagos exception.
 
-	int rand_int(int min, int max) override {
-		// TODO: why can't we call the rand() function?
-		//return rand() % (max - min + 1) + min;
-		return 0; // temp!
-	}
+	double R = rand_percent();
+	return R < probability;
+}
 
-	double rand_percent() override {
-		// TODO: why can't we use std::mt19937?
-		// TODO: this will only work for compilers that support C++11. I think that is ok in 2019.
-		//std::mt19937 rng;
-		//std::uniform_real_distribution<double> dist(0, 1);
-		//return dist(rng);
-		return 0; // temp!
-	}
-};
+int stochastic_internal::rand_int(int max) {
+	// TODO: why can't we call the rand() function?
+	//return rand() % max;
+	return 0; // temp!
+}
 
-#endif /* _STOCHASTIC_CPP_ */
+int stochastic_internal::rand_int(int min, int max) {
+	// TODO: why can't we call the rand() function?
+	//return rand() % (max - min + 1) + min;
+	return 0; // temp!
+}
+
+double stochastic_internal::rand_percent() {
+	// TODO: why can't we use std::mt19937?
+	// TODO: this will only work for compilers that support C++11. I think that is ok in 2019.
+	//std::mt19937 rng;
+	//std::uniform_real_distribution<double> dist(0, 1);
+	//return dist(rng);
+	return 0; // temp!
+}

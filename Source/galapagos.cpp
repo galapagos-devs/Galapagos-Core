@@ -1,14 +1,7 @@
 #include "API/galapagos.h"
 #include "API/Factory/genetic_factory.h"
-#include "API/Factory/genetic_factory.h"
 #include "API/stochastic.h"
-#include "stochastic.cpp"
-
-// We need to forward declare a default implementation for abstract constructors
-// TODO: Where should we put these methods?
-population::~population() { }
-selection_algorithm::~selection_algorithm() { }
-stochastic::~stochastic() { }
+#include "stochastic.h"
 
 // Implementation of root galapgos "session" object
 galapagos_session::galapagos_session()

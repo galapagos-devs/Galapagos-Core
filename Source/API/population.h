@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-#include "../../Source/API/creature.h"
+#include "creature.h"
 
 class population {
 public:
@@ -17,5 +17,7 @@ public:
 
 	virtual void evolve() = 0;
 };
+
+inline population::~population() { }
 
 #endif /* _POPULATION_H_ */
