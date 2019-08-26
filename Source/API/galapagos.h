@@ -22,7 +22,11 @@ public:
 	population* create_population(population_metadata* population_metadata);
 };
 
+#ifdef WIN32
 #define GALAPAGOS_API extern "C" __declspec(dllexport)
+#else
+#define GALAPAGOS_API extern "C" __attribute__((visibility("default")))
+#endif
 
 GALAPAGOS_API population_metadata* create_population_metadata();
 
