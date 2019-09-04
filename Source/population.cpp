@@ -25,6 +25,10 @@ size_t population_internal::get_size() {
 }
 
 creature* population_internal::operator[] (int i) {
+	return get_creature(i);
+}
+
+creature* population_internal::get_creature(int i) {
 	return _creatures[i];
 }
 
@@ -41,7 +45,7 @@ void population_internal::evolve() {
 	std::vector<creature*> new_generation;
 	new_generation.resize(get_size());
 
-	while (_has_terminated(termination_conditions)) {
+	while (!_has_terminated(termination_conditions)) {
 		size_t surviving_creature_count = _elitism(new_generation);
 		_breed_new_generation(new_generation, surviving_creature_count, selection_algorithm);
 	}
