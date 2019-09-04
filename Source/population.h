@@ -27,6 +27,8 @@ public:
 
 	creature* operator[] (int i) override;
 
+	creature* get_creature(int i) override;
+
 	// Returns the most optimal creature in turms of fitness.
 	creature* get_optimal_creature();
 
