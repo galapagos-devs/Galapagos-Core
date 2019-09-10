@@ -15,7 +15,7 @@ tournament_selection::~tournament_selection() {
 // Consideres tournament_size creates from the population and returns the most fit creature.
 creature* tournament_selection::invoke(population* population) {
   galapagos_session& session = galapagos_session::get_instance();
-	stochastic* stochastic = session._stochastic;
+	stochastic* stochastic = session.__stochastic__;
 
 	size_t population_size = population->get_size();
 
