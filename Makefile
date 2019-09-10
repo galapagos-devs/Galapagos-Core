@@ -7,6 +7,9 @@ HEADERS = ./Source/API
 OBJS = population.o tournament_selection.o stochastic.o genetic_factory.o galapagos.o
 TARGET_LIB = galapagos.so
 
+test:
+	$(CC) -Wall -o gtest ./Tests/Unit/selection_algorithm_tests.cpp $(SRCS)/stochastic.cpp $(SRCS)/Factory/genetic_factory.cpp $(SRCS)/population.cpp $(SRCS)/galapagos.cpp $(SRCS)/SelectionAlgorithms/tournament_selection.cpp
+
 all: $(TARGET_LIB)
 
 $(TARGET_LIB): $(OBJS)
@@ -28,4 +31,4 @@ stochastic.o: $(SRCS)/stochastic.cpp
 	$(CC) $(CFLAGS) $(SRCS)/stochastic.cpp
 
 clean:
-	-rm -f $(TARGET_LIB) $(OBJS) $(TARGET_LIB)
+	-rm -f $(TARGET_LIB) $(OBJS) $(TARGET_LIB) gtest

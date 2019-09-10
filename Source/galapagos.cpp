@@ -12,7 +12,7 @@ galapagos_session::galapagos_session()
 
 galapagos_session::~galapagos_session()
 {
-	delete _stochastic;
+	delete __stochastic__;
 }
 
 galapagos_session& galapagos_session::get_instance()
