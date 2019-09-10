@@ -7,7 +7,7 @@
 galapagos_session::galapagos_session()
 {
 	stochastic_internal* default_rng = new stochastic_internal();
-	_stochastic = (stochastic*)default_rng;
+	__stochastic__ = (stochastic*)default_rng;
 }
 
 galapagos_session::~galapagos_session()

@@ -9,7 +9,7 @@
 
 class galapagos_session {
 public:
-	stochastic* _stochastic; // TODO: maybe this should be private and unit test objects should be 'friends' with this class.
+	stochastic* __stochastic__;
 
 public:
 	galapagos_session();
