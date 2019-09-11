@@ -58,7 +58,7 @@ GALAPAGOS_API double get_population_metadata_survival_rate(population_metadata* 
 	return population_metadata->survival_rate;
 }
 
-GALAPAGOS_API void set_population_metadata_distance_threshold(population_metadata* double distance_threshold) {
+GALAPAGOS_API void set_population_metadata_distance_threshold(population_metadata* population_metadata, double distance_threshold) {
 	population_metadata->distance_threshold = distance_threshold;
 }
 

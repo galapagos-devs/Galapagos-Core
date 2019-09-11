@@ -31,9 +31,9 @@ struct bin_chromosome_metadata : chromosome_metadata {
 };
 
 // selection algorithms
-struct slection_algorithm_metadata { };
+struct selection_algorithm_metadata { };
 
-struct tournament_selection_metadata : slection_algorithm_metadata {
+struct tournament_selection_metadata : selection_algorithm_metadata {
 	size_t tournament_size;
 };
 
@@ -47,7 +47,7 @@ struct population_metadata {
 	double distance_threshold;
 	bool cooperative_coevolution;
 	size_t num_selection_algorithm_metadata;
-	slection_algorithm_metadata* selection_algorithm_metadata;
+	selection_algorithm_metadata* selection_algorithm_metadata;
 	size_t num_termination_condition_metadata;
 	termination_condition_metadata* termination_condition_metadata;
 	fitness_func_t fitness_function;
