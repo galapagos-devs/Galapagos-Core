@@ -2,11 +2,14 @@
 #include "../../Source/API/creature.h"
 #include "../../Source/SelectionAlgorithms/tournament_selection.h"
 
+#define CATCH_CONFIG_MAIN // This tells Catch to provide a main() - only do this in one cpp file
+#include "../catch.hpp"
 #include "../fakeit.hpp"
 
+using namespace catch
 using namespace fakeit;
 
-int tournament_selection_test() {
+TEST_CASE( "tournament selection invoked", "[selection algorithm][tournament selection]" ) {
   size_t tournament_size = 2;
   int desired_creature_index = 1;
 
@@ -36,9 +39,7 @@ int tournament_selection_test() {
   creature* selected_creature = selection_algorithm.invoke(mocked_population);
   creature* desired_creature = mocked_population->get_creature(desired_creature_index);
 
-  int error_code = 0; // TODO: should we define this in an enum? how does ctest expect error code.
-  if(selected_creature != desired_creature)
-    error_code = 1; //?
+  REQUIRE(selected_creature == desired_creature)
 
   delete mocked_stochastic;
   delete mocked_creature0;
