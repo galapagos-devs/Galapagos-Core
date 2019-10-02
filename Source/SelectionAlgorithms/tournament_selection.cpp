@@ -43,3 +43,20 @@ creature* tournament_selection::invoke(population* population) {
 
   return champion;
 }
+
+
+GALAPAGOS_API tournament_selection_metadata* create_tournament_selection_metadata() {
+  return new tournament_selection_metadata();
+}
+
+GALAPAGOS_API void delete_tournament_selection_metadata(tournament_selection_metadata* tournament_selection_metadata){
+  delete tournament_selection_metadata;
+}
+
+GALAPAGOS_API void set_tournament_selection_metadata_tournament_size(tournament_selection_metadata* tournament_selection_metadata, size_t tournament_size) {
+  tournament_selection_metadata->tournament_size = tournament_size;
+}
+
+GALAPAGOS_API size_t get_tournament_selection_metadata_tournament_size(tournament_selection_metadata* tournament_selection_metadata) {
+  return tournament_selection_metadata->tournament_size;
+}

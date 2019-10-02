@@ -3,7 +3,7 @@
 #include "creature.h"
 
 fitness_threshold::fitness_threshold(size_t fitness_threshold) {
-  _fitness_threshold = tournament_size;
+  _fitness_threshold = fitness_threshold;
 }
 
 fitness_threshold::~fitness_threshold() {
