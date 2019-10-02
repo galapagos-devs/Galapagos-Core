@@ -1,0 +1,5 @@
+if(EXISTS "C:/Users/Shane/github/Galapagos/build/Tests/tests_tests-b858cb2.cmake")
+  include("C:/Users/Shane/github/Galapagos/build/Tests/tests_tests-b858cb2.cmake")
+else()
+  add_test(tests_NOT_BUILT-b858cb2 tests_NOT_BUILT-b858cb2)
+endif()

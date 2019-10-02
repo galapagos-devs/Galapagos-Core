@@ -12,4 +12,6 @@ public:
 	virtual bool invoke(population* population) = 0;
 };
 
+inline termination_condition::~termination_condition() { }
+
 #endif /* _TERMINATION_CONDITION_H_ */

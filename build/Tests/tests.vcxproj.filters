@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Shane\github\Galapagos\Tests\test_runner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Shane\github\Galapagos\Tests\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="C:\Users\Shane\github\Galapagos\build\Source\SelectionAlgorithms\SelectionAlgorithms.dir\$(Configuration)\tournament_selection.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Shane\github\Galapagos\build\Source\TerminationConditions\TerminationConditions.dir\$(Configuration)\fitness_threshold.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Shane\github\Galapagos\build\Source\galapagos.dir\$(Configuration)\galapagos.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Shane\github\Galapagos\build\Source\galapagos.dir\$(Configuration)\population.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Shane\github\Galapagos\build\Source\galapagos.dir\$(Configuration)\stochastic.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Shane\github\Galapagos\build\Source\galapagos.dir\$(Configuration)\genetic_factory.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Shane\github\Galapagos\build\Tests\Unit\Unit.dir\$(Configuration)\selection_algorithm_tests.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+    <Object Include="C:\Users\Shane\github\Galapagos\build\Tests\Unit\Unit.dir\$(Configuration)\termination_condition_tests.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Object Libraries">
+      <UniqueIdentifier>{C0738FA3-EC98-3595-814A-28D4C7D702CB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{CFFA6476-4F00-33F5-A4EC-F4EC701CAA4F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

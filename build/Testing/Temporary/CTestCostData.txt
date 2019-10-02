@@ -1,0 +1,5 @@
+tournament-selection 0 1
+fitness-threshold 0 1
+tournament-selection invoked 1 0.020332
+fitness-threshold invoked 1 0.0256447
+---

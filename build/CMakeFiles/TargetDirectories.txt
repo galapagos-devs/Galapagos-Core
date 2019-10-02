@@ -1,0 +1,17 @@
+C:/Users/Shane/github/Galapagos/build/CMakeFiles/NightlyMemoryCheck.dir
+C:/Users/Shane/github/Galapagos/build/CMakeFiles/Experimental.dir
+C:/Users/Shane/github/Galapagos/build/CMakeFiles/Continuous.dir
+C:/Users/Shane/github/Galapagos/build/CMakeFiles/Nightly.dir
+C:/Users/Shane/github/Galapagos/build/CMakeFiles/RUN_TESTS.dir
+C:/Users/Shane/github/Galapagos/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Shane/github/Galapagos/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/Shane/github/Galapagos/build/Source/CMakeFiles/galapagos.dir
+C:/Users/Shane/github/Galapagos/build/Source/CMakeFiles/RUN_TESTS.dir
+C:/Users/Shane/github/Galapagos/build/Source/SelectionAlgorithms/CMakeFiles/SelectionAlgorithms.dir
+C:/Users/Shane/github/Galapagos/build/Source/SelectionAlgorithms/CMakeFiles/RUN_TESTS.dir
+C:/Users/Shane/github/Galapagos/build/Source/TerminationConditions/CMakeFiles/TerminationConditions.dir
+C:/Users/Shane/github/Galapagos/build/Source/TerminationConditions/CMakeFiles/RUN_TESTS.dir
+C:/Users/Shane/github/Galapagos/build/Tests/CMakeFiles/tests.dir
+C:/Users/Shane/github/Galapagos/build/Tests/CMakeFiles/RUN_TESTS.dir
+C:/Users/Shane/github/Galapagos/build/Tests/Unit/CMakeFiles/Unit.dir
+C:/Users/Shane/github/Galapagos/build/Tests/Unit/CMakeFiles/RUN_TESTS.dir

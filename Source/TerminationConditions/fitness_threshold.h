@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-##include "../API/termination_condition.h"
+#include "../API/termination_condition.h"
 
 class fitness_threshold : termination_condition {
 private:
@@ -16,6 +16,6 @@ public:
 
   bool operator()(population* population) override;
   bool invoke(population* population) override;
-}
+};
 
 #endif /* _FITNESS_THRESHOLD_H_ */

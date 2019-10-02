@@ -1,0 +1,5 @@
+add_test( [==[tournament-selection invoked]==] C:/Users/Shane/github/Galapagos/build/Tests/Debug/tests.exe [==[tournament-selection invoked]==])
+set_tests_properties( [==[tournament-selection invoked]==] PROPERTIES WORKING_DIRECTORY C:/Users/Shane/github/Galapagos/build/Tests)
+add_test( [==[fitness-threshold invoked]==] C:/Users/Shane/github/Galapagos/build/Tests/Debug/tests.exe [==[fitness-threshold invoked]==])
+set_tests_properties( [==[fitness-threshold invoked]==] PROPERTIES WORKING_DIRECTORY C:/Users/Shane/github/Galapagos/build/Tests)
+set( tests_TESTS [==[tournament-selection invoked]==] [==[fitness-threshold invoked]==])
