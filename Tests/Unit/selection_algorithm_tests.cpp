@@ -2,15 +2,13 @@
 #include "../../Source/API/creature.h"
 #include "../../Source/SelectionAlgorithms/tournament_selection.h"
 
-#define CATCH_CONFIG_MAIN // This tells Catch to provide a main() - only do this in one cpp file
 #include "../catch.hpp"
 #include "../fakeit.hpp"
 
-using namespace catch
 using namespace fakeit;
 
-TEST_CASE( "tournament selection invoked", "[selection algorithm][tournament selection]" ) {
-  size_t tournament_size = 2;
+TEST_CASE( "tournament-selection invoked", "[unit][selection-algorithm][tournament-selection]" ) {
+  size_t test_tournament_size = 2;
   int desired_creature_index = 1;
 
   Mock<stochastic> stochastic_mock;
@@ -32,19 +30,9 @@ TEST_CASE( "tournament selection invoked", "[selection algorithm][tournament sel
   });
   population* mocked_population = &population_mock.get();
 
-  galapagos_session& session = galapagos_session::get_instance();
-  session.__stochastic__ = mocked_stochastic;
-
-  tournament_selection selection_algorithm = tournament_selection(tournament_size);
+  tournament_selection selection_algorithm = tournament_selection(mocked_stochastic, test_tournament_size);
   creature* selected_creature = selection_algorithm.invoke(mocked_population);
   creature* desired_creature = mocked_population->get_creature(desired_creature_index);
 
-  REQUIRE(selected_creature == desired_creature)
-
-  delete mocked_stochastic;
-  delete mocked_creature0;
-  delete mocked_creature1;
-  delete mocked_population;
-
-  return error_code;
+  REQUIRE(selected_creature == desired_creature);
 }
