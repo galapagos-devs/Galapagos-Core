@@ -1,15 +1,11 @@
 include(../External/Catch/Catch.cmake)
-#include(../Source)
-
-#set(SOURCE_LIBS)
 add_subdirectory(Unit)
 
 add_executable(tests
-  $<TARGET_OBJECTS:SelectionAlgorithms>
-  $<TARGET_OBJECTS:TerminationConditions>
-  $<TARGET_OBJECTS:galapagos>
+  $<TARGET_OBJECTS:StaticSelectionAlgorithms>
+  $<TARGET_OBJECTS:StaticTerminationConditions>
+  $<TARGET_OBJECTS:StaticGalapagos>
   $<TARGET_OBJECTS:Unit>
-  #${SOURCE_LIBS}
   test_runner.cpp
 )
 

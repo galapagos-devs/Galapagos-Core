@@ -1,16 +1,21 @@
 add_subdirectory(SelectionAlgorithms)
 add_subdirectory(TerminationConditions)
 
-add_library(galapagos STATIC
+set(SRCS
   galapagos.cpp
   population.cpp
   stochastic.cpp
   Factory/genetic_factory.cpp
-  $<TARGET_OBJECTS:SelectionAlgorithms>
-  $<TARGET_OBJECTS:TerminationConditions>
 )
 
-set(SOURCE_LIBS
-  $<TARGET_OBJECTS:SelectionAlgorithms>
-  $<TARGET_OBJECTS:galapagos>
-)
+if(BUILD_STATIC_LIBS)
+  add_library(StaticGalapagos STATIC ${SRCS})
+  target_link_libraries(StaticGalapagos
+    $<TARGET_OBJECTS:StaticSelectionAlgorithms>
+    $<TARGET_OBJECTS:StaticTerminationConditions>
+  )
+endif()
+
+if(BUILD_SHARED_LIBS)
+  add_library(SharedGalapagos SHARED ${SRCS})
+endif()
