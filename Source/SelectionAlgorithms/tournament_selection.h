@@ -1,8 +1,14 @@
 #ifndef _TOURNAMENT_SELECTION_H_
 #define _TOURNAMENT_SELECTION_H_
 
+<<<<<<< HEAD
 #include "../API/galapagos.h"
+=======
+#include <functional>
+
+>>>>>>> origin/integration
 #include "../API/selection_algorithm.h"
+#include "../API/stochastic.h"
 
 struct tournament_selection_metadata : selection_algorithm_metadata {
 	size_t tournament_size;
@@ -10,10 +16,11 @@ struct tournament_selection_metadata : selection_algorithm_metadata {
 
 class tournament_selection : selection_algorithm {
 private:
+  stochastic* _stochastic_instance;
   size_t _tournament_size;
 
 public:
-  tournament_selection(size_t tournament_size);
+  tournament_selection(stochastic* stochastic_instance, size_t tournament_size);
 
   ~tournament_selection();
 
