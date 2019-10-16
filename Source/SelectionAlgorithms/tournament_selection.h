@@ -1,12 +1,7 @@
 #ifndef _TOURNAMENT_SELECTION_H_
 #define _TOURNAMENT_SELECTION_H_
 
-<<<<<<< HEAD
 #include "../API/galapagos.h"
-=======
-#include <functional>
-
->>>>>>> origin/integration
 #include "../API/selection_algorithm.h"
 #include "../API/stochastic.h"
 
