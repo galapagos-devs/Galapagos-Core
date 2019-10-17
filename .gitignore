@@ -2,3 +2,5 @@ Build/*
 bin/*
 Docs/Build
 Docs/xml
+Docs/html
+.idea/

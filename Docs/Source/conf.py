@@ -65,4 +65,5 @@ html_static_path = ['_static']
 
 # -- Options for Breathe Extension -------------------------------------------
 
-breathe_projects = {'Galapagos-Core': 'xml'}
+breathe_projects = {'Galapagos-Core': '../xml'}
+breathe_default_project = 'Galapagos-Core'

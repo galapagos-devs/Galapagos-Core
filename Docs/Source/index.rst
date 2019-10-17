@@ -11,6 +11,13 @@ Welcome to Galapagos-Core's documentation!
    :caption: Contents:
 
 
+.. doxygenclass:: stochastic
+   :members:
+
+.. warning::
+
+   You are really stupid. This is a
+   cross reference :cpp:class:`you are stupid <stochastic>`
 
 Indices and tables
 ==================

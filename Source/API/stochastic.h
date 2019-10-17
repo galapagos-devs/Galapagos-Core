@@ -1,11 +1,15 @@
 #ifndef _STOCHASTIC_H_
 #define _STOCHASTIC_H_
 
+/*! Brief Description of the stochastic_internal class.
+ *  This is the detailed description it is SuPoSeD tO Be LoNgEr.
+ *
+ */
 class stochastic {
 public:
 	virtual ~stochastic() = 0;
 
-	virtual bool flip_coin() = 0;
+	virtual bool flip_coin() = 0; //!< Is either *true* or **false**.
 
 	virtual bool evaulate_probability(double probability) = 0;
 
