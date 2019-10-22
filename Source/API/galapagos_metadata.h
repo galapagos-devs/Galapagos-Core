@@ -19,9 +19,9 @@ struct chromosome_metadata {
 	double crossover_rate;
 	double mutation_rate;
 	size_t num_crossovers;
-	crossover_metadata** crossovers;
+	crossover_metadata** crossover_metadata;
 	size_t num_mutations;
-	mutation_metadata** mutations;
+	mutation_metadata** mutation_metadata;
 };
 
 struct population_metadata {
@@ -29,12 +29,12 @@ struct population_metadata {
 	double survival_rate;
 	double distance_threshold;
 	bool cooperative_coevolution;
-	size_t num_selection_algorithm_metadata;
+	size_t num_selection_algorithms;
 	selection_algorithm_metadata** selection_algorithm_metadata;
-	size_t num_termination_condition_metadata;
+	size_t num_termination_conditions;
 	termination_condition_metadata** termination_condition_metadata;
 	fitness_func_t fitness_function;
-	size_t num_chromosome_metadata;
+	size_t num_chromosomes;
 	chromosome_metadata** chromosome_metadata;
 };
 
