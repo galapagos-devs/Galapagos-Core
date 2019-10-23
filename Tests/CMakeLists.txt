@@ -1,4 +1,6 @@
+include(CTest)
 include(../External/Catch/Catch.cmake)
+
 add_subdirectory(Unit)
 
 add_executable(tests

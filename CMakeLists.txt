@@ -28,6 +28,5 @@ endif()
 
 # Tests
 if(BUILD_TESTS)
-  include(CTest)
   add_subdirectory(Tests)
 endif()
