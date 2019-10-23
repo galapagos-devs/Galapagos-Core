@@ -1,7 +1,6 @@
 set(SRCS
   tournament_selection.h
-  tournament_selection.cpp
-)
+  tournament_selection.cpp)
 
 if(BUILD_STATIC_LIBS)
   add_library(StaticSelectionAlgorithms OBJECT ${SRCS})

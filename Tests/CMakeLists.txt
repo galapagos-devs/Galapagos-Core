@@ -6,7 +6,6 @@ add_executable(tests
   $<TARGET_OBJECTS:StaticTerminationConditions>
   $<TARGET_OBJECTS:StaticGalapagos>
   $<TARGET_OBJECTS:Unit>
-  test_runner.cpp
-)
+  test_runner.cpp)
 
 catch_discover_tests(tests)
