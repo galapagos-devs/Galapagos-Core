@@ -3,8 +3,10 @@ add_subdirectory(TerminationConditions)
 
 set(SRCS
   galapagos.cpp
-  population.cpp
-  stochastic.cpp
+  population_internal.h
+  population_internal.cpp
+  stochastic_internal.h
+  stochastic_internal.cpp
   Factory/genetic_factory.cpp)
 
 set(SOURCE_NAME Galapagos)

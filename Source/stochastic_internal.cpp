@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <random>
 
-#include "stochastic.h"
+#include "stochastic_internal.h"
 
 stochastic_internal::~stochastic_internal() { }
 

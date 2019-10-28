@@ -1,7 +1,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "population.h"
+#include "population_internal.h"
 #include "API/Factory/genetic_factory.h"
 
 // Public members
