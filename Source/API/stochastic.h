@@ -11,7 +11,7 @@ public:
 
 	virtual bool flip_coin() = 0; //!< Is either *true* or **false**.
 
-	virtual bool evaulate_probability(double probability) = 0;
+	virtual bool evaluate_probability(double probability) = 0;
 
 	virtual int rand_int(int max) = 0;
 

@@ -9,7 +9,7 @@ public:
 
   bool flip_coin();
 
-	bool evaulate_probability(double probability);
+	bool evaluate_probability(double probability);
 
 	int rand_int(int max) override;
 

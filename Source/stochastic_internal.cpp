@@ -10,9 +10,9 @@ bool stochastic_internal::flip_coin() {
 	return (rand_int(2) > 0);
 }
 
-bool stochastic_internal::evaulate_probability(double probability) {
+bool stochastic_internal::evaluate_probability(double probability) {
 	if (probability < 0 || probability > 1)
-		throw std::runtime_error("evaulate_probability"); // TODO: how do we want to format exceptions. this should probably be a clean galapagos exception.
+		throw std::runtime_error("evaluate_probability"); // TODO: how do we want to format exceptions. this should probably be a clean galapagos exception.
 
 	double R = rand_percent();
 	return R < probability;
