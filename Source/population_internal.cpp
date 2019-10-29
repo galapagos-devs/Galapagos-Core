@@ -6,11 +6,13 @@
 
 // Public members
 
-population_internal::population_internal(population_metadata* population_metadata)
-{
+population_internal::population_internal(population_metadata* population_metadata) {
 	_population_metadata = population_metadata;
 
 	_creatures.resize(get_size());
+	for (size_t i = 0; i < get_size(); i++)
+	    _creatures[i] = genetic_factory::create_creature(population_metadata->creature_metadata);
+
 	_optimal_creature = nullptr;
 }
 
@@ -37,17 +39,28 @@ creature* population_internal::get_optimal_creature() {
 	return _optimal_creature;
 }
 
-// Progresses the genetic algorithum until the termination conditions are met.
+// Progresses the genetic algorithm until the termination conditions are met.
 void population_internal::evolve() {
-	selection_algorithm* selection_algorithm = genetic_factory::create_selection_algorithm(_population_metadata);
-	std::vector<termination_condition*> termination_conditions = genetic_factory::create_termination_conditions(_population_metadata);
+    // Initialize list of selection algorithms
+    std::vector<selection_algorithm*> selection_algorithms;
+    for(size_t i = 0; i < _population_metadata->num_selection_algorithms)
+        selection_algorithms.push_back(
+            genetic_factory::create_selection_algorithm(
+                _population_metadata->selection_algorithm_metadata[i]));
+
+    // Initialize list of termination conditions
+    std::vector<termination_condition*> termination_conditions;
+    for(size_t i = 0; i < _population_metadata->num_termination_conditions)
+        termination_conditions.push_back(
+            genetic_factory::create_termination_conditions(
+                _population_metadata->termination_conditions_metadata[i]));
 
 	std::vector<creature*> new_generation;
 	new_generation.resize(get_size());
 
-	while (!_has_terminated(termination_conditions)) {
+	while (!_has_terminated(termination_conditions)) {  // TODO -- Figure out how to handle multiple selection_algorithms.
 		size_t surviving_creature_count = _elitism(new_generation);
-		_breed_new_generation(new_generation, surviving_creature_count, selection_algorithm);
+		_breed_new_generation(new_generation, surviving_creature_count, selection_algorithms[0]);
 	}
 
 		// clean-up memory
