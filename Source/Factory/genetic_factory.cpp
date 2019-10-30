@@ -25,3 +25,11 @@ selection_algorithm* genetic_factory::create_selection_algorithm(selection_algor
 termination_condition* genetic_factory::create_termination_condition(termination_condition_metadata* termination_condition_metadata) {
 	return nullptr;
 }
+
+crossover* genetic_factory::create_crossover(crossover_metadata* crossover_metadata) {
+	return nullptr;
+}
+
+mutation* genetic_factory::create_mutation(mutation_metadata* mutation_metadata) {
+	return nullptr;
+}

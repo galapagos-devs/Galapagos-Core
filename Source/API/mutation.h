@@ -8,7 +8,7 @@ class mutation : genetic_operator {
 public:
 	virtual ~mutation() = 0;
 
-	virtual chromosome* operator()(chromosome* chromosome) = 0;
+	virtual chromosome* invoke(chromosome* chromosome) = 0;
 };
 
 inline mutation::~mutation { }

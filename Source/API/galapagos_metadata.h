@@ -24,6 +24,12 @@ struct chromosome_metadata {
 	mutation_metadata** mutation_metadata;
 };
 
+struct creature_metadata {
+    fitness_func_t fitness_function;
+	size_t num_chromosomes;
+	chromosome_metadata** chromosome_metadata;
+};
+
 struct population_metadata {
 	size_t size;
 	double survival_rate;
@@ -33,9 +39,7 @@ struct population_metadata {
 	selection_algorithm_metadata** selection_algorithm_metadata;
 	size_t num_termination_conditions;
 	termination_condition_metadata** termination_condition_metadata;
-	fitness_func_t fitness_function;
-	size_t num_chromosomes;
-	chromosome_metadata** chromosome_metadata;
+    creature_metadata* creature_metadata;
 };
 
 #endif /* _GALAPAGOS_METADATA_H_ */
