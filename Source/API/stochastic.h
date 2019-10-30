@@ -13,11 +13,17 @@ public:
 
 	virtual bool evaluate_probability(double probability) = 0;
 
+	virtual size_t weight_proportionate_selection(double* weights, size_t num_weights) = 0;
+
 	virtual int rand_int(int max) = 0;
 
 	virtual int rand_int(int min, int max) = 0;
 
-	virtual double rand_percent() = 0;
+	virtual double rand_double() = 0;
+
+	virtual double rand_double(int max) = 0;
+
+	virtual double rand_double(int min, int max) = 0;
 };
 
 inline stochastic::~stochastic() { }

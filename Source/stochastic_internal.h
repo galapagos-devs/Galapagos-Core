@@ -7,15 +7,21 @@ class stochastic_internal : stochastic {
 public:
 	~stochastic_internal();
 
-  bool flip_coin();
+    bool flip_coin() override;
 
-	bool evaluate_probability(double probability);
+	bool evaluate_probability(double probability) override;
+
+	size_t weight_proportionate_selection(double* weights, size_t num_weights) override;
 
 	int rand_int(int max) override;
 
 	int rand_int(int min, int max) override;
 
-	double rand_percent() override;
+	double rand_double() override;
+
+	double rand_double(int max) override;
+
+	double rand_double(int min, int max) override;
 };
 
 #endif /* _STOCHASTIC_INTERNAL_H_ */
