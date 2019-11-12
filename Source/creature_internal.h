@@ -11,6 +11,7 @@
 #include "API/crossover.h"
 #include "API/mutation.h"
 #include "API/galapagos_metadata.h"
+#include "API/stochastic.h"
 
 // TODO: type alias only works with C++11 or later
 template <class TOperator, class TMetadata>
@@ -35,6 +36,7 @@ public:
     creature* breed_with(creature* mate) override;
 
 private:
+    // Templated function for _get_crossover and _get_mutation.
     template <class TOperator, class TMetadata>
     TOperator* _get_genetic_operator(TMetadata** operator_metadata, size_t num_operators,
         create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator);

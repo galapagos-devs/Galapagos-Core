@@ -4,7 +4,8 @@
 #include "population_internal.h"
 #include "API/Factory/genetic_factory.h"
 
-// Public members
+
+//region Public Members
 
 population_internal::population_internal(population_metadata* population_metadata) {
 	_population_metadata = population_metadata;
@@ -41,35 +42,31 @@ creature* population_internal::get_optimal_creature() {
 
 // Progresses the genetic algorithm until the termination conditions are met.
 void population_internal::evolve() {
-    // Initialize list of selection algorithms
-    std::vector<selection_algorithm*> selection_algorithms;
-    for(size_t i = 0; i < _population_metadata->num_selection_algorithms)
-        selection_algorithms.push_back(
-            genetic_factory::create_selection_algorithm(
-                _population_metadata->selection_algorithm_metadata[i]));
-
-    // Initialize list of termination conditions
-    std::vector<termination_condition*> termination_conditions;
-    for(size_t i = 0; i < _population_metadata->num_termination_conditions)
-        termination_conditions.push_back(
-            genetic_factory::create_termination_conditions(
-                _population_metadata->termination_conditions_metadata[i]));
+    // Initialize selection algorithm and termination conditions from meta data.
+    std::vector<selection_algorithm*> selection_algorithms = _create_selection_algorithms();
+    std::vector<termination_condition*> termination_conditions = _create_termination_conditions();
 
 	std::vector<creature*> new_generation;
 	new_generation.resize(get_size());
 
+	// Run the genetic algorithm till termination conditions are met.
 	while (!_has_terminated(termination_conditions)) {  // TODO -- Figure out how to handle multiple selection_algorithms.
+        _optimal_creature = _find_optimal_creature();
 		size_t surviving_creature_count = _elitism(new_generation);
 		_breed_new_generation(new_generation, surviving_creature_count, selection_algorithms[0]);
 	}
 
-		// clean-up memory
-	delete selection_algorithm;
-	for (size_t i = 0; i < termination_conditions.size(); i++)
-		delete termination_conditions[i];
-}
+	// clean-up memory
+    for (auto & selection_algorithm : selection_algorithms)
+        delete selection_algorithm;
 
-// Private members
+	for (auto & termination_condition : termination_conditions)
+		delete termination_condition;
+}
+//endregion
+
+//region Private Members
+
 creature* population_internal::_find_optimal_creature() {
 	creature* optimal_creature = nullptr;
 	double optimal_fitness = 0;
@@ -86,6 +83,28 @@ creature* population_internal::_find_optimal_creature() {
 	}
 
 	return optimal_creature;
+}
+
+std::vector<selection_algorithm*> population_internal::_create_selection_algorithms() {
+    std::vector<selection_algorithm*> selection_algorithms;
+
+    for(size_t i = 0; i < _population_metadata->num_selection_algorithms; i++) {
+        selection_algorithm* selection_algorithm = genetic_factory::create_selection_algorithm(
+                _population_metadata->selection_algorithm_metadata[i]);
+        selection_algorithms.push_back(selection_algorithm);
+    }
+    return selection_algorithms;
+}
+
+std::vector<termination_condition*> population_internal::_create_termination_conditions() {
+    std::vector<termination_condition*> termination_conditions;
+
+    for(size_t i = 0; i < _population_metadata->num_termination_conditions; i++) {
+        termination_condition* termination_condition =genetic_factory::create_termination_condition(
+                _population_metadata->termination_condition_metadata[i]);
+        termination_conditions.push_back(termination_condition);
+    }
+    return termination_conditions;
 }
 
 // Copies the n best creatures into the next generation based on the survival rate as definied in the metadata.
@@ -132,3 +151,4 @@ bool population_internal::_has_terminated(std::vector<termination_condition*>& t
 	}
 	return false;
 }
+//endregion

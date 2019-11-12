@@ -20,25 +20,31 @@ private:
 public:
 	population_internal(population_metadata* population_metadata);
 
-	~population_internal();
+	~population_internal() override;
 
-	// Returns the number of creaters in the population.
+	// Returns the number of creates in the population.
 	size_t get_size() override;
 
 	creature* operator[] (int i) override;
 
 	creature* get_creature(int i) override;
 
-	// Returns the most optimal creature in turms of fitness.
-	creature* get_optimal_creature();
+	// Returns the most optimal creature in terms of fitness.
+	creature* get_optimal_creature() override;
 
-	// Progresses the genetic algorithum until the termination conditions are met.
+	// Progresses the genetic algorithm until the termination conditions are met.
 	void evolve() override;
 
 private:
 	creature* _find_optimal_creature();
 
-	// Copies the n best creatures into the next generation based on the survival rate as definied in the metadata.
+	// Creates all the selection algorithms from the population metadata.
+    std::vector<selection_algorithm*> _create_selection_algorithms();
+
+    // Creates all the termination conditions from the population metadata.
+    std::vector<termination_condition*> _create_termination_conditions();
+
+    // Copies the n best creatures into the next generation based on the survival rate as defined in the metadata.
 	size_t _elitism(std::vector<creature*>& new_generation);
 
 	// Breeds population_size - surviving_creature_count, new creates from the current population.
