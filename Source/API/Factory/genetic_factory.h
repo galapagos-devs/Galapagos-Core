@@ -8,6 +8,8 @@
 #include "../selection_algorithm.h"
 #include "../termination_condition.h"
 #include "../chromosome.h"
+#include "../crossover.h"
+#include "../mutation.h"
 
 class genetic_factory {
 public:

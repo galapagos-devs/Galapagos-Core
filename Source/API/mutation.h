@@ -2,15 +2,15 @@
 #define _MUTATION_H_
 
 #include "chromosome.h"
-#include "operator.h"
+#include "genetic_operator.h"
 
 class mutation : genetic_operator {
 public:
-	virtual ~mutation() = 0;
+	virtual ~mutation() override;
 
 	virtual chromosome* invoke(chromosome* chromosome) = 0;
 };
 
-inline mutation::~mutation { }
+//inline mutation::~mutation { }
 
 #endif /* _MUTATION_H_ */
