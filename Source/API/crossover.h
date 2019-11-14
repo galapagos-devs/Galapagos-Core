@@ -2,15 +2,15 @@
 #define _CROSSOVER_H_
 
 #include "chromosome.h"
-#include "operator.h"
+#include "genetic_operator.h"
 
 class crossover : genetic_operator {
 public:
-	virtual ~crossover() = 0;
+	virtual ~crossover() override;
 
-	virtual chromosome* operator()(chromosome* x, chromosome* y)  = 0;
+	virtual chromosome* invoke(chromosome* x, chromosome* y) = 0;
 };
 
-inline crossover::~crossover { }
+//inline crossover::~crossover { }
 
 #endif /* _CROSSOVER_H_ */

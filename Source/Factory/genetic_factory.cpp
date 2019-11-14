@@ -1,20 +1,35 @@
 #include <vector>
 
 #include "../API/Factory/genetic_factory.h"
-//#include "../population.h"
+//#include "../population_internal.h"
 
-population* genetic_factory::create_population(population_metadata* population_metadata)
-{
+// Core hierarchy
+population* genetic_factory::create_population(population_metadata* population_metadata) {
 	return nullptr;
 }
 
-selection_algorithm* genetic_factory::create_selection_algorithm(population_metadata* population_metadata)
-{
+creature* genetic_factory::create_creature(creature_metadata* creature_metadata) {
 	return nullptr;
 }
 
-std::vector<termination_condition*> genetic_factory::create_termination_conditions(population_metadata* population_metadata)
-{
-	std::vector<termination_condition*> termination_conditions;
-	return termination_conditions;
+chromosome* genetic_factory::create_chromosome(chromosome_metadata* chromosome_metadata) {
+	return nullptr;
+}
+
+
+// Plugin objects
+selection_algorithm* genetic_factory::create_selection_algorithm(selection_algorithm_metadata* selection_algorithm_metadata) {
+	return nullptr;
+}
+
+termination_condition* genetic_factory::create_termination_condition(termination_condition_metadata* termination_condition_metadata) {
+	return nullptr;
+}
+
+crossover* genetic_factory::create_crossover(crossover_metadata* crossover_metadata) {
+	return nullptr;
+}
+
+mutation* genetic_factory::create_mutation(mutation_metadata* mutation_metadata) {
+	return nullptr;
 }
