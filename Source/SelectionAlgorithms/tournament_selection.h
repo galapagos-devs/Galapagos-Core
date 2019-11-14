@@ -17,7 +17,7 @@ private:
 public:
   tournament_selection(stochastic* stochastic_instance, size_t tournament_size);
 
-  ~tournament_selection();
+  ~tournament_selection() override;
 
   creature* invoke(population* population) override;
 };
