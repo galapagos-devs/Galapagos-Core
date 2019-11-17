@@ -23,8 +23,7 @@ private:
     creature_metadata* _creature_metadata;
     std::map<std::string, chromosome*> _chromosomes;
     stochastic* _stochastic_instance;
-
-
+    
 public:
     creature_internal(creature_metadata* creature_metadata, stochastic* stochastic_instance);
 

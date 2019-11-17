@@ -1,9 +1,11 @@
 #include <vector>
 #include <algorithm>
 
-#include "population_internal.h"
-#include "API/Factory/genetic_factory.h"
+#include "genetic_factory.h"
 
+#include "population_internal.h"
+#include "creature_internal.h"
+#include "stochastic_internal.h"
 
 //region Public Members
 
@@ -12,7 +14,7 @@ population_internal::population_internal(population_metadata* population_metadat
 
 	_creatures.resize(get_size());
 	for (size_t i = 0; i < get_size(); i++)
-	    _creatures[i] = genetic_factory::create_creature(population_metadata->creature_metadata);
+	    _creatures[i] = new creature_internal(population_metadata->creature_metadata, nullptr); // TODO: how are we getting an instance of stochastic?
 
 	_optimal_creature = nullptr;
 }
@@ -32,12 +34,12 @@ creature* population_internal::operator[] (int i) {
 }
 
 creature* population_internal::get_creature(int i) {
-	return _creatures[i];
+	return (creature*)_creatures[i];
 }
 
 // Returns the most optimal creature in turms of fitness.
 creature* population_internal::get_optimal_creature() {
-	return _optimal_creature;
+	return (creature*)_optimal_creature;
 }
 
 // Progresses the genetic algorithm until the termination conditions are met.

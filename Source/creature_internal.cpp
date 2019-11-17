@@ -30,7 +30,7 @@ chromosome* creature_internal::get_chromosome(std::string name) {
 }
 
 creature* creature_internal::breed_with(creature* mate) {
-    creature* child = genetic_factory::create_creature(_creature_metadata);
+    creature_internal* child = new creature_internal(_creature_metadata, _stochastic_instance);
 
     for(size_t i = 0; i < _creature_metadata->num_chromosomes; i++) {
         chromosome_metadata* chromosome_metadata = _creature_metadata->chromosome_metadata[i];
@@ -82,15 +82,14 @@ TOperator* creature_internal::_get_genetic_operator(TMetadata** operator_metadat
 }
 
 crossover* creature_internal::_get_crossover(crossover_metadata** crossover_metadata, size_t num_crossovers) {
-    return _get_genetic_operator<crossover, crossover_metadata>(crossover_metadata, num_crossovers, genetic_factory::create_crossover);
+    return _get_genetic_operator<crossover, crossover_metadata>(crossover_metadata, num_crossovers, genetic_factory::create_crossover); // <-TODO: how do we pass in create_genetic_operator_a
 }
 
 mutation* creature_internal::_get_mutation(mutation_metadata** mutation_metadata, size_t num_mutations) {
-    return _get_genetic_operator<mutation, mutation_metadata>(mutation_metadata, num_mutations, genetic_factory::create_mutation);
+    return _get_genetic_operator<mutation, mutation_metadata>(mutation_metadata, num_mutations, genetic_factory::create_mutation); // <-TODO: how do we pass in create_genetic_operator_a
 }
 
 void creature_internal::_set_chromosome(std::string name, chromosome* new_chromosome) {
     delete _chromosomes[name];
     _chromosomes[name] = new_chromosome;
 }
-

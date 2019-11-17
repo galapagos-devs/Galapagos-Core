@@ -7,6 +7,8 @@
 #include "API/termination_condition.h"
 #include "API/galapagos_metadata.h"
 
+#include "creature_internal.h
+
 class population_internal : population {
   /*
 	The internal implementation of the population object from the public API.
@@ -14,8 +16,8 @@ class population_internal : population {
 private:
 	population_metadata* _population_metadata;
 
-	std::vector<creature*> _creatures;
-	creature* _optimal_creature;
+	std::vector<creature_internal*> _creatures;
+	creature_internal* _optimal_creature;
 
 public:
 	population_internal(population_metadata* population_metadata);
