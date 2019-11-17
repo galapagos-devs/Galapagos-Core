@@ -9,19 +9,23 @@
 
 //region Public Members
 
-population_internal::population_internal(population_metadata* population_metadata) {
+population_internal::population_internal(population_metadata* population_metadata, stochastic* stochastic_instance) {
 	_population_metadata = population_metadata;
+	_stochastic_instance = stochastic_instance;
 
 	_creatures.resize(get_size());
 	for (size_t i = 0; i < get_size(); i++)
-	    _creatures[i] = new creature_internal(population_metadata->creature_metadata, nullptr); // TODO: how are we getting an instance of stochastic?
+	    _creatures[i] = new creature_internal(population_metadata->creature_metadata, stochastic_instance); // TODO: how are we getting an instance of stochastic?
 
 	_optimal_creature = nullptr;
 }
 
 population_internal::~population_internal() {
+	// deleting the population should delete all other objects in the object
+	// tree from the bottom up.
 	for (size_t i = 0; i < get_size(); i++)
 		delete _creatures[i];
+		delete _stochastic_instance; // we should only need to delete this here.
 }
 
 // Returns the number of creaters in the population.

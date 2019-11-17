@@ -19,8 +19,10 @@ private:
 	std::vector<creature_internal*> _creatures;
 	creature_internal* _optimal_creature;
 
+	stochastic* _stochastic_instance;
+
 public:
-	population_internal(population_metadata* population_metadata);
+	population_internal(population_metadata* population_metadata, stochastic* stochastic_instance);
 
 	~population_internal() override;
 
