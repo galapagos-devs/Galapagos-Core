@@ -1,5 +1,5 @@
 #include "creature_internal.h"
-#include "API/Factory/genetic_factory.h"
+#include "genetic_factory.h"
 #include "API/stochastic.h"
 
 // Constructor/Destructor
@@ -82,11 +82,11 @@ TOperator* creature_internal::_get_genetic_operator(TMetadata** operator_metadat
 }
 
 crossover* creature_internal::_get_crossover(crossover_metadata** crossover_metadata, size_t num_crossovers) {
-    return _get_genetic_operator<crossover, crossover_metadata>(crossover_metadata, num_crossovers, genetic_factory::create_crossover); // <-TODO: how do we pass in create_genetic_operator_a
+    return nullptr; //_get_genetic_operator<crossover, crossover_metadata>(crossover_metadata, num_crossovers, genetic_factory::create_crossover); // <-TODO: how do we pass in create_genetic_operator_a
 }
 
 mutation* creature_internal::_get_mutation(mutation_metadata** mutation_metadata, size_t num_mutations) {
-    return _get_genetic_operator<mutation, mutation_metadata>(mutation_metadata, num_mutations, genetic_factory::create_mutation); // <-TODO: how do we pass in create_genetic_operator_a
+    return nullptr; //_get_genetic_operator<mutation, mutation_metadata>(mutation_metadata, num_mutations, genetic_factory::create_mutation); // <-TODO: how do we pass in create_genetic_operator_a
 }
 
 void creature_internal::_set_chromosome(std::string name, chromosome* new_chromosome) {

@@ -6,8 +6,9 @@
 #include "API/selection_algorithm.h"
 #include "API/termination_condition.h"
 #include "API/galapagos_metadata.h"
+#include "API/stochastic.h"
 
-#include "creature_internal.h
+#include "creature_internal.h"
 
 class population_internal : population {
   /*
@@ -40,7 +41,7 @@ public:
 	void evolve() override;
 
 private:
-	creature* _find_optimal_creature();
+	creature_internal* _find_optimal_creature();
 
 	// Creates all the selection algorithms from the population metadata.
     std::vector<selection_algorithm*> _create_selection_algorithms();
@@ -49,10 +50,10 @@ private:
     std::vector<termination_condition*> _create_termination_conditions();
 
     // Copies the n best creatures into the next generation based on the survival rate as defined in the metadata.
-	size_t _elitism(std::vector<creature*>& new_generation);
+	size_t _elitism(std::vector<creature_internal*>& new_generation);
 
 	// Breeds population_size - surviving_creature_count, new creates from the current population.
-	void _breed_new_generation(std::vector<creature*>& new_generation, size_t surviving_creature_count, selection_algorithm* selection_algorithm);
+	void _breed_new_generation(std::vector<creature_internal*>& new_generation, size_t surviving_creature_count, selection_algorithm* selection_algorithm);
 
 	// Checks if any of the termination conditions have been met.
 	bool _has_terminated(std::vector<termination_condition*>& termination_conditions);

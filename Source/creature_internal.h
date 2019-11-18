@@ -13,7 +13,6 @@
 #include "API/galapagos_metadata.h"
 #include "API/stochastic.h"
 
-// TODO: type alias only works with C++11 or later
 template <class TOperator, class TMetadata>
 using create_genetic_operator_a = std::function<TOperator*(TMetadata* metadata)>;
 
@@ -29,7 +28,7 @@ private:
 public:
     creature_internal(creature_metadata* creature_metadata, stochastic* stochastic_instance);
 
-    ~creature_internal();
+    ~creature_internal() override;
 
     double get_fitness() override;
 

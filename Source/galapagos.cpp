@@ -7,7 +7,7 @@
 **************************/
 GALAPAGOS_API population* create_population(population_metadata* population_metadata) {
 	stochastic_internal* stochastic_instance = new stochastic_internal();
-	return new population_internal(population_metadata, stochastic_instance);
+	return (population*)new population_internal(population_metadata, (stochastic*)stochastic_instance);
 }
 
 GALAPAGOS_API void delete_population(population* population) {
