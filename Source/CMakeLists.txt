@@ -9,7 +9,7 @@ set(SRCS
         population_internal.cpp
         stochastic_internal.h
         stochastic_internal.cpp
-        Factory/genetic_factory.cpp)
+        genetic_factory.cpp)
 
 set(SOURCE_NAME Galapagos)
 

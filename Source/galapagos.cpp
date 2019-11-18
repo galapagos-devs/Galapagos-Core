@@ -30,7 +30,6 @@ GALAPAGOS_API void population_evolve(population* population) {
     population->evolve();
 }
 
-
 /***************************
 *****Galapagos Creature*****
 ***************************/
