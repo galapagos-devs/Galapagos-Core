@@ -5,7 +5,7 @@
 
 class stochastic_internal : stochastic {
 public:
-	~stochastic_internal();
+	~stochastic_internal() override;
 
   bool flip_coin() override;
 

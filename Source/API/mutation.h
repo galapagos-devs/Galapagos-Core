@@ -9,6 +9,4 @@ public:
 	virtual chromosome* invoke(chromosome* chromosome) = 0;
 };
 
-//inline mutation::~mutation { }
-
 #endif /* _MUTATION_H_ */
