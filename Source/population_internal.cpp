@@ -134,10 +134,10 @@ void population_internal::_breed_new_generation(std::vector<creature_internal*>&
 	size_t population_size = get_size();
 
 	for (size_t i = surviving_creature_count; i < population_size; i++) {
-		creature* parent1 = selection_algorithm->invoke(this);
-		creature* parent2 = selection_algorithm->invoke(this);
-		creature* child = parent1->breed_with(parent2);
-		new_generation[i] = (creature_internal*)child;
+		creature_internal* parent1 = (creature_internal*)selection_algorithm->invoke(this);
+		creature_internal* parent2 = (creature_internal*)selection_algorithm->invoke(this);
+		creature_internal* child = parent1->breed_with(parent2);
+		new_generation[i] = child;
 	}
 
 	for (size_t i = 0; i < population_size; i++) {

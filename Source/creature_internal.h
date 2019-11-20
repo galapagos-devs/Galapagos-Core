@@ -34,7 +34,7 @@ public:
 
     chromosome* get_chromosome(std::string name) override;
 
-    creature* breed_with(creature* mate) override;
+    creature_internal* breed_with(creature_internal* mate);
 
 private:
     // Templated function for _get_crossover and _get_mutation.
