@@ -1,6 +1,7 @@
 set(CHROMOSOMES_NAME Chromosome)
 
 set(SRCS
+        chromosome_internal.h
         vector_chromosome.h)
 
 if(BUILD_STATIC_LIBS)
