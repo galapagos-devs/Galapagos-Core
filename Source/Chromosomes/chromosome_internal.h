@@ -12,7 +12,7 @@
 template<class TChromosome>
 class chromosome_internal : chromosome {
 public:
-    inline double get_distance(chromosome* other) {
+    inline double get_distance(chromosome* other) override {
         TChromosome* dynamic = dynamic_cast<TChromosome*>(other);
         if(dynamic == nullptr)
             throw std::runtime_error("get_distance mismatched types");
