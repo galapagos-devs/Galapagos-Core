@@ -4,10 +4,8 @@
 #include "chromosome.h"
 #include "genetic_operator.h"
 
-class crossover : genetic_operator {
+class crossover : public genetic_operator {
 public:
-	virtual ~crossover() override;
-
 	virtual chromosome* invoke(chromosome* x, chromosome* y) = 0;
 };
 

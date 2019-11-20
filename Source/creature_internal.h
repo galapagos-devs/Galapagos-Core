@@ -42,8 +42,8 @@ private:
     TOperator* _get_genetic_operator(TMetadata** operator_metadata, size_t num_operators,
         create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator);
 
-    crossover* _get_crossover(crossover_metadata** crossover_metadata, size_t num_crossovers);
-    mutation* _get_mutation(mutation_metadata** mutation_metadata, size_t num_mutations);
+    crossover* _get_crossover(crossover_metadata** metadata, size_t num_crossovers);
+    mutation* _get_mutation(mutation_metadata** metadata, size_t num_mutations);
 
     void _set_chromosome(std::string name, chromosome* new_chromosome);
 };

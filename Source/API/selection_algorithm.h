@@ -6,11 +6,9 @@
 
 class selection_algorithm {
 public:
-	virtual ~selection_algorithm() = 0;
+	virtual ~selection_algorithm() = default;
 
 	virtual creature* invoke(population* population) = 0;
 };
-
-inline selection_algorithm::~selection_algorithm() { }
 
 #endif /* _SELECTION_ALGORITHM_H_ */
