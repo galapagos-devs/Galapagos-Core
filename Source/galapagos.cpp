@@ -1,11 +1,13 @@
 #include "API/galapagos.h"
-#include "API/Factory/genetic_factory.h"
+#include "population_internal.h"
+#include "stochastic_internal.h"
 
 /**************************
 *****Galapagos Session*****
 **************************/
 GALAPAGOS_API population* create_population(population_metadata* population_metadata) {
-	return genetic_factory::create_population(population_metadata);
+	stochastic_internal* stochastic_instance = new stochastic_internal();
+	return (population*)new population_internal(population_metadata, (stochastic*)stochastic_instance);
 }
 
 GALAPAGOS_API void delete_population(population* population) {
@@ -27,7 +29,6 @@ GALAPAGOS_API creature* population_get_optimal_creature(population* population) 
 GALAPAGOS_API void population_evolve(population* population) {
     population->evolve();
 }
-
 
 /***************************
 *****Galapagos Creature*****

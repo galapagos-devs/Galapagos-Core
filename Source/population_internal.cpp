@@ -1,25 +1,31 @@
 #include <vector>
 #include <algorithm>
 
-#include "population_internal.h"
-#include "API/Factory/genetic_factory.h"
+#include "genetic_factory.h"
 
+#include "population_internal.h"
+#include "creature_internal.h"
+#include "stochastic_internal.h"
 
 //region Public Members
 
-population_internal::population_internal(population_metadata* population_metadata) {
+population_internal::population_internal(population_metadata* population_metadata, stochastic* stochastic_instance) {
 	_population_metadata = population_metadata;
+	_stochastic_instance = stochastic_instance;
 
 	_creatures.resize(get_size());
 	for (size_t i = 0; i < get_size(); i++)
-	    _creatures[i] = genetic_factory::create_creature(population_metadata->creature_metadata);
+	    _creatures[i] = new creature_internal(population_metadata->creature_metadata, stochastic_instance); // TODO: how are we getting an instance of stochastic?
 
 	_optimal_creature = nullptr;
 }
 
 population_internal::~population_internal() {
+	// deleting the population should delete all other objects in the object
+	// tree from the bottom up.
 	for (size_t i = 0; i < get_size(); i++)
 		delete _creatures[i];
+		delete _stochastic_instance; // we should only need to delete this here.
 }
 
 // Returns the number of creaters in the population.
@@ -32,12 +38,12 @@ creature* population_internal::operator[] (int i) {
 }
 
 creature* population_internal::get_creature(int i) {
-	return _creatures[i];
+	return (creature*)_creatures[i];
 }
 
 // Returns the most optimal creature in turms of fitness.
 creature* population_internal::get_optimal_creature() {
-	return _optimal_creature;
+	return (creature*)_optimal_creature;
 }
 
 // Progresses the genetic algorithm until the termination conditions are met.
@@ -46,7 +52,7 @@ void population_internal::evolve() {
     std::vector<selection_algorithm*> selection_algorithms = _create_selection_algorithms();
     std::vector<termination_condition*> termination_conditions = _create_termination_conditions();
 
-	std::vector<creature*> new_generation;
+	std::vector<creature_internal*> new_generation;
 	new_generation.resize(get_size());
 
 	// Run the genetic algorithm till termination conditions are met.
@@ -67,13 +73,13 @@ void population_internal::evolve() {
 
 //region Private Members
 
-creature* population_internal::_find_optimal_creature() {
-	creature* optimal_creature = nullptr;
+creature_internal* population_internal::_find_optimal_creature() {
+	creature_internal* optimal_creature = nullptr;
 	double optimal_fitness = 0;
 
 	size_t size = get_size();
 	for (size_t i = 0; i < size; i++) {
-		creature* current_creature = _creatures[i];
+		creature_internal* current_creature = _creatures[i];
 		double current_fitness = current_creature->get_fitness();
 
 		if (current_fitness > optimal_fitness) {
@@ -108,11 +114,11 @@ std::vector<termination_condition*> population_internal::_create_termination_con
 }
 
 // Copies the n best creatures into the next generation based on the survival rate as definied in the metadata.
-size_t population_internal::_elitism(std::vector<creature*>& new_generation) {
+size_t population_internal::_elitism(std::vector<creature_internal*>& new_generation) {
 	size_t population_size = get_size();
 
 	// Sorts the creatures by decending fitness
-	std::sort(_creatures.begin(), _creatures.end(), [](creature* x, creature* y) {
+	std::sort(_creatures.begin(), _creatures.end(), [](creature_internal* x, creature_internal* y) {
 		return x->get_fitness() > y->get_fitness();
 		});  //TODO - check the complexity of this sort
 
@@ -124,13 +130,13 @@ size_t population_internal::_elitism(std::vector<creature*>& new_generation) {
 }
 
 // Breeds population_size - surviving_creature_count, new creates from the current population.
-void population_internal::_breed_new_generation(std::vector<creature*>& new_generation, size_t surviving_creature_count, selection_algorithm* selection_algorithm) {
+void population_internal::_breed_new_generation(std::vector<creature_internal*>& new_generation, size_t surviving_creature_count, selection_algorithm* selection_algorithm) {
 	size_t population_size = get_size();
 
 	for (size_t i = surviving_creature_count; i < population_size; i++) {
-		creature* parent1 = selection_algorithm->invoke(this);
-		creature* parent2 = selection_algorithm->invoke(this);
-		creature* child = parent1->breed_with(parent2);
+		creature_internal* parent1 = (creature_internal*)selection_algorithm->invoke(this);
+		creature_internal* parent2 = (creature_internal*)selection_algorithm->invoke(this);
+		creature_internal* child = parent1->breed_with(parent2);
 		new_generation[i] = child;
 	}
 

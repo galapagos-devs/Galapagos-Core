@@ -7,7 +7,7 @@ class stochastic_internal : stochastic {
 public:
 	~stochastic_internal();
 
-    bool flip_coin() override;
+  bool flip_coin() override;
 
 	bool evaluate_probability(double probability) override;
 
