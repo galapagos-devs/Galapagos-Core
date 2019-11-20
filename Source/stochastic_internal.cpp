@@ -1,11 +1,11 @@
-#include <stdlib.h>
+#include <cstdlib>
 #include <stdexcept>
 #include <random>
 #include <numeric>
 
 #include "stochastic_internal.h"
 
-stochastic_internal::~stochastic_internal() { }
+stochastic_internal::~stochastic_internal() = default;
 
 bool stochastic_internal::flip_coin() {
 	return (rand_int(2) > 0);

@@ -4,29 +4,28 @@
 #include "../API/chromosome.h"
 #include "../API/galapagos_metadata.h"
 
+#include "chromosome_internal.h"
+
 struct vector_chromosome_metadata : chromosome_metadata {
     uint norm_rank;
     uint size;
 };
 
-class vector_chromosome : chromosome {
+class vector_chromosome : chromosome_internal<vector_chromosome> {
 private:
     uint _norm_rank; // k-value to be used with the k-norm defined in get_distance
     uint _size;
 
     double* _genes;
 
+protected:
+    double get_distance(vector_chromosome* other) override;
+
 public:
     //region Constructor & Destructor
 
     explicit vector_chromosome(vector_chromosome_metadata* metadata);
     ~vector_chromosome() override;
-
-    //endregion
-
-    //region Inherited Methods
-
-    double get_distance(chromosome* other) override;
 
     //endregion
 
