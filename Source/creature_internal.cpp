@@ -1,5 +1,3 @@
-#include <stdexcept>
-
 #include "API/stochastic.h"
 
 #include "creature_internal.h"
@@ -28,10 +26,6 @@ double creature_internal::get_fitness() {
     return _creature_metadata->fitness_function(this);
 }
 
-chromosome* creature_internal::get_chromosome(std::string name) {
-    return  _chromosomes[name];
-}
-
 creature_internal* creature_internal::breed_with(creature_internal* mate) {
     creature_internal* child = new creature_internal(_creature_metadata, _stochastic_instance);
 
@@ -44,10 +38,10 @@ creature_internal* creature_internal::breed_with(creature_internal* mate) {
         mutation* mutation = _get_mutation(chromosome_metadata->mutation_metadata, chromosome_metadata->num_mutations);
 
         // Conditionally apply cross-over
-        chromosome* child_chromosome = get_chromosome(chromosome_name);
+        chromosome* child_chromosome = get_chromosome<chromosome>(chromosome_name);
         if(_stochastic_instance->evaluate_probability(chromosome_metadata->crossover_rate))
             child_chromosome = crossover->invoke(
-                get_chromosome(chromosome_name), mate->get_chromosome(chromosome_name));
+                get_chromosome<chromosome>(chromosome_name), mate->get_chromosome<chromosome>(chromosome_name));
 
         // Conditionally apply mutation
         if(_stochastic_instance->evaluate_probability(chromosome_metadata->crossover_rate))
@@ -84,14 +78,14 @@ TOperator* creature_internal::_get_genetic_operator(TMetadata** operator_metadat
     return genetic_operators[chosen_index];
 }
 
-crossover* creature_internal::_get_crossover(crossover_metadata** crossover_metadata, size_t num_crossovers) {
-    throw std::runtime_error("_get_crossover not implemented"); // TODO: how do we want to format exceptions. this should probably be a clean galapagos exception.
-    //return _get_genetic_operator<crossover, crossover_metadata>(crossover_metadata, num_crossovers, genetic_factory::create_crossover); // <-TODO: how do we pass in create_genetic_operator_a
+crossover* creature_internal::_get_crossover(crossover_metadata** metadata, size_t num_crossovers) {
+    return _get_genetic_operator<crossover, crossover_metadata>(metadata, num_crossovers,
+            create_genetic_operator_a<crossover, crossover_metadata>(genetic_factory::create_crossover));
 }
 
-mutation* creature_internal::_get_mutation(mutation_metadata** mutation_metadata, size_t num_mutations) {
-    throw std::runtime_error("_get_mutation not implemented"); // TODO: how do we want to format exceptions. this should probably be a clean galapagos exception.
-    //return _get_genetic_operator<mutation, mutation_metadata>(mutation_metadata, num_mutations, genetic_factory::create_mutation); // <-TODO: how do we pass in create_genetic_operator_a
+mutation* creature_internal::_get_mutation(mutation_metadata** metadata, size_t num_mutations) {
+    return _get_genetic_operator<mutation, mutation_metadata>(metadata, num_mutations,
+            create_genetic_operator_a<mutation, mutation_metadata>(genetic_factory::create_mutation));
 }
 
 void creature_internal::_set_chromosome(std::string name, chromosome* new_chromosome) {

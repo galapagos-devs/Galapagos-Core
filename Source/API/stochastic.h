@@ -1,13 +1,15 @@
 #ifndef _STOCHASTIC_H_
 #define _STOCHASTIC_H_
 
+#include <cstdlib>
+
 /*! Brief Description of the stochastic_internal class.
  *  This is the detailed description it is SuPoSeD tO Be LoNgEr.
  *
  */
 class stochastic {
 public:
-	virtual ~stochastic() = 0;
+	virtual ~stochastic() = default;
 
 	virtual bool flip_coin() = 0; //!< Is either *true* or **false**.
 
@@ -25,7 +27,5 @@ public:
 
 	virtual double rand_double(int min, int max) = 0;
 };
-
-inline stochastic::~stochastic() { }
 
 #endif /* _STOCHASTIC_H_ */

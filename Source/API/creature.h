@@ -1,20 +1,26 @@
 #ifndef _CREATURE_H_
 #define _CREATURE_H_
 
+#include <stdexcept>
 #include <string>
+#include <map>
 
 #include "chromosome.h"
 
 class creature {
+protected:
+    std::map<std::string, chromosome*> _chromosomes;
+
 public:
-	virtual ~creature() = 0;
+	virtual ~creature() = default;
 
 	virtual double get_fitness() = 0;
 
-	// TODO: can we use templates to avoid manual casts?
-	virtual chromosome* get_chromosome(std::string name) = 0;
+	template <class TChromosome>
+	inline TChromosome* get_chromosome(const std::string& name) {
+        chromosome* chromosome =  _chromosomes[name];
+        return dynamic_cast<TChromosome*>(chromosome);
+	}
 };
-
-inline creature::~creature() { }
 
 #endif /* _CREATURE_H_ */

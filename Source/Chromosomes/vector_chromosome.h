@@ -13,17 +13,18 @@ struct vector_chromosome_metadata : chromosome_metadata {
     size_t size;
 };
 
-class vector_chromosome : chromosome {
+class vector_chromosome : chromosome_internal<vector_chromosome> {
 private:
     uint _norm_rank; // k-value to be used with the k-norm defined in get_distance
     size_t _size;
+
+protected:
+    double get_distance(vector_chromosome* other) override;
 
 public:
     explicit vector_chromosome(vector_chromosome_metadata* metadata);
 
     ~vector_chromosome() override;
-
-    double get_distance(chromosome* other) override;
 
     //region Indexing
 

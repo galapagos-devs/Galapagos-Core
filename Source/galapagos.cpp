@@ -38,5 +38,5 @@ GALAPAGOS_API double creature_get_fitness(creature* creature) {
 }
 
 GALAPAGOS_API chromosome* creature_get_chromosome(creature* creature, std::string name) {
-    return creature->get_chromosome(name);
+    return creature->get_chromosome<chromosome>(name);
 }
