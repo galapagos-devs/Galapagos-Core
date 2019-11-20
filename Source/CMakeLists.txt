@@ -23,7 +23,7 @@ if(BUILD_STATIC_LIBS)
 endif()
 
 if(BUILD_SHARED_LIBS)
-    add_library(SharedGalapagos SHARED ${SRCS})
+    add_library(SharedGalapagos SHARED ${SRCS} Chromosomes/chromosome_internal.h)
     set_target_properties(SharedGalapagos PROPERTIES
             OUTPUT_NAME ${SOURCE_NAME})
 endif()
