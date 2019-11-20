@@ -2,7 +2,6 @@
 #define _CREATURE_INTERNAL_H_
 
 #include <string>
-#include <map>
 #include <vector>
 #include <functional>
 
@@ -21,8 +20,6 @@ class creature_internal : creature {
 private:
     creature_metadata* _creature_metadata;
 
-    std::map<std::string, chromosome*> _chromosomes;
-
     stochastic* _stochastic_instance;
 
 public:
@@ -31,8 +28,6 @@ public:
     ~creature_internal() override;
 
     double get_fitness() override;
-
-    chromosome* get_chromosome(std::string name) override;
 
     creature_internal* breed_with(creature_internal* mate);
 
