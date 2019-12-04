@@ -23,7 +23,7 @@ if(BUILD_STATIC_LIBS)
 endif()
 
 if(BUILD_SHARED_LIBS)
-    add_library(SharedGalapagos SHARED ${SRCS})
+    add_library(SharedGalapagos SHARED ${SRCS} Mutations/mutation_internal.h Mutations/gaussian_mutation.h Mutations/gaussian_mutation.cpp)
     set_target_properties(SharedGalapagos PROPERTIES
             OUTPUT_NAME ${SOURCE_NAME})
 endif()

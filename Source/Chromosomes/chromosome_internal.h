@@ -2,15 +2,15 @@
 // Created by kosie on 11/19/2019.
 //
 
-#ifndef GALAPAGOS_CHROMOSOME_INTERNAL_H
-#define GALAPAGOS_CHROMOSOME_INTERNAL_H
+#ifndef _GALAPAGOS_CHROMOSOME_INTERNAL_H_
+#define _GALAPAGOS_CHROMOSOME_INTERNAL_H_
 
 #include <stdexcept>
 
 #include "../API/chromosome.h"
 
 template<class TChromosome>
-class chromosome_internal : chromosome {
+class chromosome_internal : public chromosome {
 public:
     inline double get_distance(chromosome* other) override {
         TChromosome* dynamic = dynamic_cast<TChromosome*>(other);
@@ -23,4 +23,4 @@ protected:
     virtual double get_distance(TChromosome* other) = 0;
 };
 
-#endif //GALAPAGOS_CHROMOSOME_INTERNAL_H
+#endif /* _GALAPAGOS_CHROMOSOME_INTERNAL_H_ */
