@@ -18,16 +18,19 @@ option(BUILD_TESTS "Build the test executable." OFF)
 
 # File names
 set(SOURCE_NAME Galapagos CACHE INTERNAL
-    "Name of the lib built in the `Source` directory")
+        "Name of the lib built from the `Source` directory")
+
+set(CHROMOSOMES_NAME Chromosomes CACHE INTERNAL
+        "Name of the lib built from the `Source/Chromosomes` director")
 
 set(SELECTION_ALGORITHMS_NAME SelectionAlgorithms CACHE INTERNAL
-    "Name of the lib built in the `Source/SelectionAlogrithms` directory")
+        "Name of the lib built from the `Source/SelectionAlogrithms` directory")
 
 set(TERMINATION_CONDITIONS_NAME TerminationConditions CACHE INTERNAL
-    "Name of the lib built in the `Source/TerminationConditions` directory")
+        "Name of the lib built from the `Source/TerminationConditions` directory")
 
 set(NAME_DELIMITER - CACHE INTERNAL
-    "The symbol used as a delimiter for Galapagos Satellite libs.")
+        "The symbol used as a delimiter between Galapagos Satellite libs.")
 
 # Tests depend on static lib
 if(BUILD_TESTS)

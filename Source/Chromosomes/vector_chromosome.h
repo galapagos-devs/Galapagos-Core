@@ -5,6 +5,7 @@
 #ifndef _GALAPAGOS_VECTOR_CHROMOSOME_H_
 #define _GALAPAGOS_VECTOR_CHROMOSOME_H_
 
+#include "../API/chromosome.h"
 #include "../API/galapagos_metadata.h"
 #include "chromosome_internal.h"
 
