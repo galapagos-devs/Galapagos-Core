@@ -1,7 +1,3 @@
-//
-// Created by kosie on 12/3/2019.
-//
-
 #include "../../Source/Chromosomes/vector_chromosome.h"
 #include "../../Source/Mutations/gaussian_mutation.h"
 #include "../../Source/Mutations/randomization_mutation.h"

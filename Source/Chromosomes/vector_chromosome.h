@@ -9,12 +9,16 @@
 struct vector_chromosome_metadata : chromosome_metadata {
     uint norm_rank;
     size_t size;
+    double gene_infimun;
+    double gene_supremum;
 };
 
 class vector_chromosome : public chromosome_internal<vector_chromosome> {
 private:
     uint _norm_rank; // k-value to be used with the k-norm defined in get_distance
     size_t _size;
+    double _gene_infimun; // lowest possible value any gene will ever take
+    double _gene_supremum; // greatest possible value any gene will ever take
 
     double* _genes;
 
@@ -51,6 +55,9 @@ public:
 
     double dot(vector_chromosome* other);
     vector_chromosome* cross(vector_chromosome** others, size_t num_chromosomes);
+
+    double gene_inf();  // _gene_infimum getter
+    double gene_sup(); // _gene_supremum getter
 
     //endregion
 
