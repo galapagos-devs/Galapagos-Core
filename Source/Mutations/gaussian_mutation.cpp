@@ -32,7 +32,7 @@ chromosome *gaussian_mutation::invoke(vector_chromosome *chromosome) {
     double* seed = new double[chromosome->_size];
     size_t index = _stochastic_instance->rand_int(chromosome->_size);
 
-    double x = _stochastic_instance->rand_double(); // how do we determine the bounds on this?
+    double x = _stochastic_instance->rand_double(); // TODO: how do we determine the bounds on this?
     gaussian_t g = gaussian(_height, _mean, _variance);
 
     for(size_t i = 0; i < chromosome->_size; i++)
