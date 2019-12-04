@@ -32,9 +32,12 @@ public:
 
     //region Indexing
 
-    double get_gene(uint index);
-    double* get_gene_slice(uint start_index, uint end_index);
-    double* get_gene_slice(uint start_index, uint end_index, uint step_size);
+    size_t num_genes();
+
+    void set_gene(size_t index, double value);
+    double get_gene(size_t index);
+    double* get_gene_slice(size_t start_index, size_t end_index);
+    double* get_gene_slice(size_t start_index, size_t end_index, size_t step_size);
 
     //endregion
 
