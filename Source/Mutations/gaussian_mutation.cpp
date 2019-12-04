@@ -21,10 +21,9 @@ gaussian_mutation::~gaussian_mutation() = default;
 typedef std::function<double (double)> gaussian_t;
 gaussian_t gaussian(double height, double mean, double variance) {
     return [height, mean, variance](double x) {
-        double scalar = 1 / (variance * sqrt(2 * M_PI));
-        double exponent = -0.5 * pow(((x - mean) / variance), 2);
-        double exponential = exp(exponent);
-        return height * scalar * exponential;
+        double scalar = 1 / sqrt(2 * M_PI * variance);
+        double exponent = -pow(x - mean, 2) / (2 * variance);
+        return height * scalar * exp(exponent);
     };
 }
 
@@ -39,6 +38,7 @@ chromosome *gaussian_mutation::invoke(vector_chromosome *chromosome) {
         seed[i] = chromosome->get_gene(i);
     seed[index] += g(x);
 
+    // TODO: this information flow needs to be reworked. are we holding onto metadata?
     vector_chromosome* child = new vector_chromosome(nullptr, seed);
     return child;
 }

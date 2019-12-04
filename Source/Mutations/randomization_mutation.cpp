@@ -16,6 +16,7 @@ chromosome *randomization_mutation::invoke(vector_chromosome *chromosome) {
     for(size_t i = 0; i < chromosome->_size; i++)
         seed[i] = _stochastic_instance->rand_double(); // TODO: how do we determine the bounds on this?
 
+    // TODO: this information flow needs to be reworked. are we holding onto metadata?
     vector_chromosome* child = new vector_chromosome(nullptr, seed);
     return child;
 }

@@ -10,8 +10,12 @@
 #include "../API/mutation.h"
 
 template <class TChromosome>
-class mutation_internal : mutation {
+class mutation_internal : public mutation {
 public:
+    inline double get_weight() override {
+        return  1; // TODO: how should this be reflected in the metadata?
+    };
+
     inline chromosome* invoke(chromosome* chromosome) override {
         TChromosome* dynamic = dynamic_cast<TChromosome*>(chromosome);
         if(dynamic == nullptr)

@@ -27,7 +27,7 @@ protected:
 
 public:
     explicit vector_chromosome(vector_chromosome_metadata* metadata);
-    vector_chromosome(vector_chromosome_metadata* metadata, double* seed);
+    explicit vector_chromosome(vector_chromosome_metadata* metadata, double* seed);
 
     ~vector_chromosome() override;
 

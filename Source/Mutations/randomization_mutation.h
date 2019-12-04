@@ -14,7 +14,7 @@ struct randomization_mutation_metadata : mutation_metadata {
 
 };
 
-class randomization_mutation : mutation_internal<vector_chromosome> {
+class randomization_mutation : public mutation_internal<vector_chromosome> {
 private:
     stochastic* _stochastic_instance;
 

@@ -16,7 +16,7 @@ struct gaussian_mutation_metadata : mutation_metadata {
     double variance;
 };
 
-class gaussian_mutation : mutation_internal<vector_chromosome> {
+class gaussian_mutation : public mutation_internal<vector_chromosome> {
 private:
     double _height;
     double _mean;
