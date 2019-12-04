@@ -1,12 +1,9 @@
-//
-// Created by Shane on 11/13/2019.
-//
-
 #ifndef _GALAPAGOS_VECTOR_CHROMOSOME_H_
 #define _GALAPAGOS_VECTOR_CHROMOSOME_H_
 
 #include "../API/chromosome.h"
 #include "../API/galapagos_metadata.h"
+
 #include "chromosome_internal.h"
 
 struct vector_chromosome_metadata : chromosome_metadata {
@@ -17,27 +14,26 @@ struct vector_chromosome_metadata : chromosome_metadata {
 class vector_chromosome : public chromosome_internal<vector_chromosome> {
 private:
     uint _norm_rank; // k-value to be used with the k-norm defined in get_distance
+    size_t _size;
 
     double* _genes;
-
-public:
-    size_t _size; // This should be public so consumers know the max index
 
 protected:
     double get_distance(vector_chromosome* other) override;
 
 public:
-    explicit vector_chromosome(vector_chromosome_metadata* metadata);
-    explicit vector_chromosome(vector_chromosome_metadata* metadata, double* seed);
+    //region Constructor & Destructor
 
+    explicit vector_chromosome(vector_chromosome_metadata* metadata);
     ~vector_chromosome() override;
+
+    //endregion
 
     //region Indexing
 
-    double get_gene(size_t index);
-    double* get_slice(size_t end_index);
-    double* get_slice(size_t start_index, size_t end_index);
-    double* get_slice(size_t start_index, size_t end_index, size_t step_size);
+    double get_gene(size_t index) ;
+    double* get_gene_slice(size_t start_index, size_t end_index);
+    double* get_gene_slice(size_t start_index, size_t end_index, size_t step_size);
 
     //endregion
 
