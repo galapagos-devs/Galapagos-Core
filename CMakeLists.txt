@@ -17,20 +17,28 @@ option(BUILD_STATIC_LIBS "Build the static libraries." OFF)
 option(BUILD_TESTS "Build the test executable." OFF)
 
 # File names
-set(SOURCE_NAME Galapagos CACHE INTERNAL
+set(SOURCE_NAME Galapagos
+        CACHE INTERNAL
         "Name of the lib built from the `Source` directory")
 
-set(CHROMOSOMES_NAME Chromosomes CACHE INTERNAL
+set(CHROMOSOMES_NAME Chromosomes
+        CACHE INTERNAL
         "Name of the lib built from the `Source/Chromosomes` director")
 
-set(SELECTION_ALGORITHMS_NAME SelectionAlgorithms CACHE INTERNAL
+set(SELECTION_ALGORITHMS_NAME SelectionAlgorithms
+        CACHE INTERNAL
         "Name of the lib built from the `Source/SelectionAlogrithms` directory")
 
-set(TERMINATION_CONDITIONS_NAME TerminationConditions CACHE INTERNAL
+set(TERMINATION_CONDITIONS_NAME TerminationConditions
+        CACHE INTERNAL
         "Name of the lib built from the `Source/TerminationConditions` directory")
 
-set(NAME_DELIMITER - CACHE INTERNAL
+set(NAME_DELIMITER -
+        CACHE INTERNAL
         "The symbol used as a delimiter between Galapagos Satellite libs.")
+
+# C++ Standard
+set(CMAKE_CXX_STANDARD 17)
 
 # Tests depend on static lib
 if(BUILD_TESTS)

@@ -34,11 +34,19 @@ public:
 
     //endregion
 
-    //region Indexing
+    //region Attributes
 
     size_t num_genes();
 
+    double gene_inf();  // _gene_infimum getter
+    double gene_sup(); // _gene_supremum getter
+
+    //endregion
+
+    //region Getters & Setters
+
     void set_gene(size_t index, double value);
+
     double get_gene(size_t index);
     double* get_gene_slice(size_t start_index, size_t end_index);
     double* get_gene_slice(size_t start_index, size_t end_index, size_t step_size);
@@ -55,9 +63,6 @@ public:
 
     double dot(vector_chromosome* other);
     vector_chromosome* cross(vector_chromosome** others, size_t num_chromosomes);
-
-    double gene_inf();  // _gene_infimum getter
-    double gene_sup(); // _gene_supremum getter
 
     //endregion
 
