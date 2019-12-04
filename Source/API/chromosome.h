@@ -3,7 +3,7 @@
 
 class chromosome {
 public:
-	virtual ~chromosome() = 0;
+	virtual ~chromosome() = default;
 
 	virtual double get_distance(chromosome* other) = 0;
 };
