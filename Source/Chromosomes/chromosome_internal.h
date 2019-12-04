@@ -1,7 +1,3 @@
-//
-// Created by kosie on 11/19/2019.
-//
-
 #ifndef _GALAPAGOS_CHROMOSOME_INTERNAL_H_
 #define _GALAPAGOS_CHROMOSOME_INTERNAL_H_
 

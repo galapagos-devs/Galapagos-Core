@@ -25,26 +25,29 @@ public:
     //region Constructor & Destructor
 
     explicit vector_chromosome(vector_chromosome_metadata* metadata);
+    explicit vector_chromosome(vector_chromosome* other);
     ~vector_chromosome() override;
 
     //endregion
 
     //region Indexing
 
-    double get_gene(size_t index) ;
-    double* get_gene_slice(size_t start_index, size_t end_index);
-    double* get_gene_slice(size_t start_index, size_t end_index, size_t step_size);
+    double get_gene(uint index);
+    double* get_gene_slice(uint start_index, uint end_index);
+    double* get_gene_slice(uint start_index, uint end_index, uint step_size);
 
     //endregion
 
     //region Math Operations
 
-    vector_chromosome* add (vector_chromosome* other);
-    vector_chromosome* subtract (vector_chromosome* other);
+    double norm();
+
+    vector_chromosome* add(vector_chromosome* other);
+    vector_chromosome* subtract(vector_chromosome* other);
     vector_chromosome* multiply(double scalar);
 
-    vector_chromosome* cross (vector_chromosome* other);
-    vector_chromosome* dot (vector_chromosome* other);
+    double dot(vector_chromosome* other);
+    vector_chromosome* cross(vector_chromosome** others, size_t num_chromosomes);
 
     //endregion
 
