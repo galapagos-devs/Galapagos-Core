@@ -1,7 +1,3 @@
-//
-// Created by kosie on 12/3/2019.
-//
-
 #include "randomization_mutation.h"
 
 randomization_mutation::randomization_mutation(randomization_mutation_metadata *metadata,
@@ -12,11 +8,14 @@ randomization_mutation::randomization_mutation(randomization_mutation_metadata *
 randomization_mutation::~randomization_mutation() = default;
 
 chromosome *randomization_mutation::invoke(vector_chromosome *chromosome) {
-    double* seed = new double[chromosome->_size];
-    for(size_t i = 0; i < chromosome->_size; i++)
-        seed[i] = _stochastic_instance->rand_double(); // TODO: how do we determine the bounds on this?
+    vector_chromosome* child = new vector_chromosome(chromosome);
+    double min = child->gene_inf();
+    double max = child->gene_sup();
 
-    // TODO: this information flow needs to be reworked. are we holding onto metadata?
-    vector_chromosome* child = new vector_chromosome(nullptr, seed);
+    for(size_t i = 0; i < chromosome->num_genes(); i++) {
+        double value = _stochastic_instance->rand_double(min, max)
+        child->set_gene(i, value);
+    }
+
     return child;
 }
