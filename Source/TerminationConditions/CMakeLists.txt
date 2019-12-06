@@ -1,5 +1,3 @@
-set(TERMINATION_CONDITIONS_NAME TerminationConditions)
-
 set(SRCS
   fitness_threshold.h
   fitness_threshold.cpp)

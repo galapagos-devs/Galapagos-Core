@@ -1,5 +1,3 @@
-set(CHROMOSOMES_NAME Chromosome)
-
 set(SRCS
         chromosome_internal.h
         vector_chromosome.h
