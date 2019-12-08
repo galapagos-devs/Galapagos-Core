@@ -1,7 +1,3 @@
-//
-// Created by kosie on 12/3/2019.
-//
-
 #ifndef _GALAPAGOS_GAUSSIAN_MUTATION_H_
 #define _GALAPAGOS_GAUSSIAN_MUTATION_H_
 
@@ -11,16 +7,14 @@
 #include "../Chromosomes/vector_chromosome.h"
 
 struct gaussian_mutation_metadata : mutation_metadata {
-    double height;
     double mean;
-    double variance;
+    double standard_deviation;
 };
 
 class gaussian_mutation : public mutation_internal<vector_chromosome> {
 private:
-    double _height;
     double _mean;
-    double _variance;
+    double _standard_deviation;
 
     stochastic* _stochastic_instance;
 
@@ -30,7 +24,7 @@ protected:
 public:
     explicit  gaussian_mutation(gaussian_mutation_metadata* metadata, stochastic* stochastic_instance);
 
-    ~gaussian_mutation() override;
+    ~gaussian_mutation() /*override*/;
 };
 
 #endif /* _GALAPAGOS_GAUSSIAN_MUTATION_H_ */
