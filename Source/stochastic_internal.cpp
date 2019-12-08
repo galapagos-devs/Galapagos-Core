@@ -1,11 +1,12 @@
-#include <cstdlib>
-#include <stdexcept>
-#include <random>
-#include <numeric>
+#include <ctime>
 
 #include "stochastic_internal.h"
 
 stochastic_internal::~stochastic_internal() = default;
+
+uint32_t stochastic_internal::get_seed() {
+    return std::time(0);
+}
 
 bool stochastic_internal::flip_coin() {
 	return (rand_int(2) > 0);
@@ -33,14 +34,15 @@ size_t stochastic_internal::weight_proportionate_selection(double* weights, size
 }
 
 int stochastic_internal::rand_int(int max) {
-	return rand() % max;
+	return rand_int(0, max);
 }
 
 int stochastic_internal::rand_int(int min, int max) {
-	return rand() % (max - min + 1) + min;
+    std::mt19937 rng(get_seed());
+    std::uniform_real_distribution<double> dist(min, max);
+	return dist(rng);
 }
 
-// TODO: std::mt19937 will only work for compilers that support C++11. I think that is ok in 2019.
 double stochastic_internal::rand_double() {
     return rand_double(0, 1);
 }
@@ -50,7 +52,13 @@ double stochastic_internal::rand_double(int max) {
 }
 
 double stochastic_internal::rand_double(int min, int max) {
-	std::mt19937 rng;
+	std::mt19937 rng(get_seed());
 	std::uniform_real_distribution<double> dist(min, max);
 	return dist(rng);
+}
+
+double stochastic_internal::rand_gaussian(double mean, double standard_deviation) {
+    std::mt19937 rng(get_seed());
+    std::normal_distribution<double> dist(mean, standard_deviation);
+    return dist(rng);
 }

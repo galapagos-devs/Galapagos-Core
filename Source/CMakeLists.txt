@@ -1,5 +1,6 @@
 add_subdirectory(Chromosomes)
 add_subdirectory(Crossovers)
+add_subdirectory(Mutations)
 add_subdirectory(SelectionAlgorithms)
 add_subdirectory(TerminationConditions)
 
@@ -20,7 +21,8 @@ if(BUILD_STATIC_LIBS)
     target_link_libraries(StaticGalapagos
             $<TARGET_OBJECTS:StaticSelectionAlgorithms>
             $<TARGET_OBJECTS:StaticTerminationConditions>
-            $<TARGET_OBJECTS:StaticChromosomes>)
+            $<TARGET_OBJECTS:StaticChromosomes>
+            $<TARGET_OBJECTS:StaticMutations>)
 
     set_target_properties(StaticGalapagos
             PROPERTIES

@@ -7,7 +7,9 @@ class stochastic_internal : stochastic {
 public:
 	~stochastic_internal() override;
 
-  bool flip_coin() override;
+    uint32_t get_seed() override;
+
+    bool flip_coin() override;
 
 	bool evaluate_probability(double probability) override;
 
@@ -22,6 +24,8 @@ public:
 	double rand_double(int max) override;
 
 	double rand_double(int min, int max) override;
+
+	double rand_gaussian(double mean, double standard_deviation) override;
 };
 
 #endif /* _STOCHASTIC_INTERNAL_H_ */

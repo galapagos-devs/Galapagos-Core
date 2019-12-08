@@ -37,6 +37,10 @@ set(TERMINATION_CONDITIONS_NAME TerminationConditions
         CACHE INTERNAL
         "Name of the lib built from the `Source/TerminationConditions` directory")
 
+set(MUTATIONS_NAME Mutations
+        CACHE INTERNAL
+        "Name of the lib built from the `Source/Mutations` directory")
+
 set(NAME_DELIMITER -
         CACHE INTERNAL
         "The symbol used as a delimiter between Galapagos Satellite libs.")
