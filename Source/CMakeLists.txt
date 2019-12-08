@@ -1,4 +1,5 @@
 add_subdirectory(Chromosomes)
+add_subdirectory(Crossovers)
 add_subdirectory(SelectionAlgorithms)
 add_subdirectory(TerminationConditions)
 

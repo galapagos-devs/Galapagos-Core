@@ -25,6 +25,10 @@ set(CHROMOSOMES_NAME Chromosomes
         CACHE INTERNAL
         "Name of the lib built from the `Source/Chromosomes` director")
 
+set(CROSSOVERS_NAME Crossovers
+        CACHE INTERNAL
+        "Name of the lib built from the `Source/Crossovers` director")
+
 set(SELECTION_ALGORITHMS_NAME SelectionAlgorithms
         CACHE INTERNAL
         "Name of the lib built from the `Source/SelectionAlogrithms` directory")
