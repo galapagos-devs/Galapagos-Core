@@ -24,7 +24,7 @@ protected:
 public:
     explicit  randomization_mutation(randomization_mutation_metadata* metadata, stochastic* stochastic_instance);
 
-    ~randomization_mutation() override;
+    ~randomization_mutation() /*override*/;
 
 };
 

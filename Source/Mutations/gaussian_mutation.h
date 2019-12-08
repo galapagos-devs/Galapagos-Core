@@ -24,7 +24,7 @@ protected:
 public:
     explicit  gaussian_mutation(gaussian_mutation_metadata* metadata, stochastic* stochastic_instance);
 
-    ~gaussian_mutation() override;
+    ~gaussian_mutation() /*override*/;
 };
 
 #endif /* _GALAPAGOS_GAUSSIAN_MUTATION_H_ */

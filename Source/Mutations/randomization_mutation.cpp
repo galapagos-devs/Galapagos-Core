@@ -1,3 +1,4 @@
+#include "../Chromosomes/vector_chromosome.h"
 #include "randomization_mutation.h"
 
 randomization_mutation::randomization_mutation(randomization_mutation_metadata *metadata,
@@ -13,7 +14,7 @@ chromosome *randomization_mutation::invoke(vector_chromosome *chromosome) {
     double max = child->gene_sup();
 
     for(size_t i = 0; i < chromosome->num_genes(); i++) {
-        double value = _stochastic_instance->rand_double(min, max)
+        double value = _stochastic_instance->rand_double(min, max);
         child->set_gene(i, value);
     }
 

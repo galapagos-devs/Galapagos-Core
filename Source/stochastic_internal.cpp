@@ -1,9 +1,11 @@
+#include <ctime>
+
 #include "stochastic_internal.h"
 
 stochastic_internal::~stochastic_internal() = default;
 
 uint32_t stochastic_internal::get_seed() {
-    return time(0);
+    return std::time(0);
 }
 
 bool stochastic_internal::flip_coin() {
