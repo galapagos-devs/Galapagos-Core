@@ -1,5 +1,3 @@
-set(SELECTION_ALGORITHMS_NAME SelectionAlgorithms)
-
 set(SRCS
         tournament_selection.h
         tournament_selection.cpp)

@@ -1,18 +1,22 @@
-set(CHROMOSOMES_NAME Chromosome)
+# File names
+set(CROSSOVERS_NAME Crossovers
+        CACHE INTERNAL
+        "Name of the lib built from the `Source/Crossovers` director")
 
-set(SRCS
-        chromosome_internal.h
-        vector_chromosome.h
-        vector_chromosome.cpp)
+set(MUTATIONS_NAME Mutations
+        CACHE INTERNAL
+        "Name of the lib built from the `Source/Mutations` directory")
+
+# Add chromosome implementations
+add_subdirectory(Vector)
 
 if(BUILD_STATIC_LIBS)
-    add_library(StaticChromosomes OBJECT ${SRCS})
-    set_target_properties(StaticChromosomes PROPERTIES
-            OUTPUT_NAME ${SOURCE_NAME}${NAME_DELIMITER}${CHROMOSOMES_NAME})
-endif()
+    add_library(StaticChromosomes STATIC ${SRCS})
 
-if(BUILD_SHARED_LIBS)
-    add_library(SharedChromosomes SHARED ${SRCS})
-    set_target_properties(SharedChromosomes PROPERTIES
-            OUTPUT_NAME ${SOURCE_NAME}${NAME_DELIMITER}${CHROMOSOMES_NAME})
+    target_link_libraries(StaticGalapagos
+            $<TARGET_OBJECTS:StaticVectorChromosome>)
+
+    set_target_properties(StaticGalapagos
+            PROPERTIES
+            OUTPUT_NAME ${SOURCE_NAME})
 endif()

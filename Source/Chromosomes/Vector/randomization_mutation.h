@@ -5,10 +5,12 @@
 #ifndef _GALAPAGOS_RANDOMIZATION_MUTATION_H_
 #define _GALAPAGOS_RANDOMIZATION_MUTATION_H_
 
-#include "../API/galapagos_metadata.h"
-#include "../API/stochastic.h"
-#include "mutation_internal.h"
-#include "../Chromosomes/vector_chromosome.h"
+#include "../../API/galapagos_metadata.h"
+#include "../../API/stochastic.h"
+
+#include "../mutation_internal.h"
+
+#include "vector_chromosome.h"
 
 struct randomization_mutation_metadata : mutation_metadata {
 
