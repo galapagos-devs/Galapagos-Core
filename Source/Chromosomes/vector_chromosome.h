@@ -7,7 +7,7 @@
 #include "chromosome_internal.h"
 
 struct vector_chromosome_metadata : chromosome_metadata {
-    uint norm_rank;
+    uint32_t norm_rank;
     size_t size;
     double gene_infimum;
     double gene_supremum;
@@ -15,7 +15,7 @@ struct vector_chromosome_metadata : chromosome_metadata {
 
 class vector_chromosome : public chromosome_internal<vector_chromosome> {
 private:
-    uint _norm_rank; // k-value to be used with the k-norm defined in get_distance
+    uint32_t _norm_rank; // k-value to be used with the k-norm defined in get_distance
     size_t _size;
     double _gene_infimum; // lowest possible value any gene will ever take
     double _gene_supremum; // greatest possible value any gene will ever take
