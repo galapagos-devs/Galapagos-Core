@@ -26,6 +26,9 @@ public:
 
     //endregion
 
+private:
+    std::vector<int> _get_cut_points(size_t chromosome_len);
+
 protected:
     chromosome* invoke(vector_chromosome* x, vector_chromosome* y) override;
 };

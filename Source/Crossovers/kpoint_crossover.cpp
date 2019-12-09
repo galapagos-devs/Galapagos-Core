@@ -23,15 +23,14 @@ kpoint_crossover::~kpoint_crossover() = default;
 //endregion
 
 
-chromosome* kpoint_crossover::invoke(vector_chromosome* x, vector_chromosome* y) {
-    size_t len = x->num_genes();
+std::vector<int> kpoint_crossover::_get_cut_points(size_t chromosome_len) {
     std::vector<int> cuts(_cut_points);
 
     // Construct list of unique cuts
     size_t i = 0;
     while (i < _cut_points) {
         // we can't have a cut at the first or last index
-        int proposed_cut = _stochastic_instance->rand_int(1, len-2);
+        int proposed_cut = _stochastic_instance->rand_int(1, chromosome_len-2);
 
         // Check if proposed_cut is contained in cuts
         if (std::find(cuts.begin(), cuts.end(), proposed_cut) != cuts.end()) {
@@ -40,6 +39,14 @@ chromosome* kpoint_crossover::invoke(vector_chromosome* x, vector_chromosome* y)
         }
     }
     std::sort(cuts.begin(), cuts.end());
+
+    return cuts;
+}
+
+chromosome* kpoint_crossover::invoke(vector_chromosome* x, vector_chromosome* y) {
+    size_t len = x->num_genes();
+    std::vector<int> cuts(_cut_points);
+    cuts = _get_cut_points(len);
 
     // Extract child DNA
     int cut_index = 0;
