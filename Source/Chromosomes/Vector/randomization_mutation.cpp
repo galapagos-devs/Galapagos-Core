@@ -1,4 +1,4 @@
-#include "../Chromosomes/vector_chromosome.h"
+#include "vector_chromosome.h"
 #include "randomization_mutation.h"
 
 randomization_mutation::randomization_mutation(randomization_mutation_metadata *metadata,

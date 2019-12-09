@@ -1,10 +1,10 @@
 #ifndef _GALAPAGOS_VECTOR_CHROMOSOME_H_
 #define _GALAPAGOS_VECTOR_CHROMOSOME_H_
 
-#include "../API/chromosome.h"
-#include "../API/galapagos_metadata.h"
+#include "../../API/chromosome.h"
+#include "../../API/galapagos_metadata.h"
 
-#include "chromosome_internal.h"
+#include "../chromosome_internal.h"
 
 struct vector_chromosome_metadata : chromosome_metadata {
     uint32_t norm_rank;

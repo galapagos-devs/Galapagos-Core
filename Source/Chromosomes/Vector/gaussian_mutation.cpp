@@ -1,7 +1,6 @@
 #include <cmath>
 #include <functional>
 
-#include "../Chromosomes/vector_chromosome.h"
 #include "gaussian_mutation.h"
 
 gaussian_mutation::gaussian_mutation(gaussian_mutation_metadata *metadata, stochastic* stochastic_instance) {

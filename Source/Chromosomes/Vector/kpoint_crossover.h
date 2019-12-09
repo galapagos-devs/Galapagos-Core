@@ -1,13 +1,13 @@
 #ifndef _GALAPAGOS_KPOINT_CROSSOVER_H_
 #define _GALAPAGOS_KPOINT_CROSSOVER_H_
 
-#include "../API/crossover.h"
-#include "../API/galapagos_metadata.h"
-#include "../API/stochastic.h"
+#include "../../API/crossover.h"
+#include "../../API/galapagos_metadata.h"
+#include "../../API/stochastic.h"
 
-#include "../Chromosomes/vector_chromosome.h"
+#include "../crossover_internal.h"
 
-#include "crossover_internal.h"
+#include "vector_chromosome.h"
 
 struct kpoint_crossover_metadata : crossover_metadata {
     size_t cut_points;
