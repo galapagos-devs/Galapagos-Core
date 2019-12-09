@@ -22,6 +22,7 @@ if(BUILD_STATIC_LIBS)
             $<TARGET_OBJECTS:StaticSelectionAlgorithms>
             $<TARGET_OBJECTS:StaticTerminationConditions>
             $<TARGET_OBJECTS:StaticChromosomes>
+            $<TARGET_OBJECTS:StaticCrossovers>
             $<TARGET_OBJECTS:StaticMutations>)
 
     set_target_properties(StaticGalapagos

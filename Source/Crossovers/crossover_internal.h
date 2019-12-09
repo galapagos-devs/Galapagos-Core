@@ -9,9 +9,9 @@ template<class TChromosome>
 class crossover_internal : public crossover {
 public:
     inline chromosome* invoke(chromosome* x, chromosome* y) override {
-        TChromosome* dynamic_x = dynamic_cast<TChromosome*>(x);
-        TChromosome* dynamic_y = dynamic_cast<TChromosome*>(y);
-        if(dynamic_x == nullptr or dynamic_y == nullptr)
+        auto* dynamic_x = dynamic_cast<TChromosome*>(x);
+        auto* dynamic_y = dynamic_cast<TChromosome*>(y);
+        if(dynamic_x == nullptr || dynamic_y == nullptr)
             throw std::runtime_error("invoke mismatched types");
         return  invoke(dynamic_x, dynamic_y);
     }

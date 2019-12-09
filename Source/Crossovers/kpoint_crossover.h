@@ -22,11 +22,12 @@ public:
 
     explicit kpoint_crossover(stochastic* stochastic_instance, kpoint_crossover_metadata* metadata);
     explicit kpoint_crossover(kpoint_crossover* other);
-    ~kpoint_crossover() override ;
+    ~kpoint_crossover();
 
     //endregion
 
-    vector_chromosome* invoke(vector_chromosome* x, vector_chromosome* y) override;
+protected:
+    chromosome* invoke(vector_chromosome* x, vector_chromosome* y) override;
 };
 
 
