@@ -1,6 +1,42 @@
 #include "API/galapagos.h"
+
+#include <utility>
+#include "genetic_factory.h"
 #include "population_internal.h"
 #include "stochastic_internal.h"
+
+/****************************
+*****Galapagos Bootstrap*****
+****************************/
+GALAPAGOS_API void gc_initialize() {
+    // find all dlls in current directory that export the symbol 'gc_bootstrap'
+    // call gc_bootstrap on each of the discovered dlls (this should register plugins with the framework)
+}
+
+GALAPAGOS_API void gc_register_selection_algorithm(try_create_selection_algorithm_t try_create) {
+    genetic_factory& factory = genetic_factory::get_instance();
+    factory.register_selection_algorithm(try_create);
+}
+
+GALAPAGOS_API void gc_register_termination_condition(try_create_termination_condition_t try_create) {
+    genetic_factory& factory = genetic_factory::get_instance();
+    factory.register_termination_condition(try_create);
+}
+
+GALAPAGOS_API void gc_register_chromosome(try_create_chromosome_t try_create) {
+    genetic_factory& factory = genetic_factory::get_instance();
+    factory.register_chromosome(try_create);
+}
+
+GALAPAGOS_API void gc_register_crossover(try_create_crossover_t try_create) {
+    genetic_factory& factory = genetic_factory::get_instance();
+    factory.register_crossover(try_create);
+}
+
+GALAPAGOS_API void gc_register_mutation(try_create_mutation_t try_create) {
+    genetic_factory& factory = genetic_factory::get_instance();
+    factory.register_mutation(try_create);
+}
 
 /**************************
 *****Galapagos Session*****

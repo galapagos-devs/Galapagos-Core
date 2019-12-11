@@ -3,7 +3,7 @@
 
 #include "API/stochastic.h"
 
-class stochastic_internal : stochastic {
+class stochastic_internal : public stochastic {
 public:
 	~stochastic_internal() override;
 

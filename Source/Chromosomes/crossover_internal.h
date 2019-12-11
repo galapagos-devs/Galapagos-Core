@@ -8,6 +8,10 @@
 template<class TChromosome>
 class crossover_internal : public crossover {
 public:
+    inline double get_weight() override {
+        return  1; // TODO: how should this be reflected in the metadata?
+    };
+
     inline chromosome* invoke(chromosome* x, chromosome* y) override {
         auto* dynamic_x = dynamic_cast<TChromosome*>(x);
         auto* dynamic_y = dynamic_cast<TChromosome*>(y);

@@ -2,9 +2,9 @@
 
 #include "tournament_selection.h"
 
-tournament_selection::tournament_selection(stochastic* stochastic_instance, size_t tournament_size) {
+tournament_selection::tournament_selection(stochastic* stochastic_instance, tournament_selection_metadata* metadata) {
   _stochastic_instance = stochastic_instance;
-  _tournament_size = tournament_size;
+  _tournament_size = metadata->tournament_size;
 }
 
 tournament_selection::~tournament_selection() {

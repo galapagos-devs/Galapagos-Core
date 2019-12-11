@@ -8,9 +8,10 @@ creature_internal::creature_internal(creature_metadata* creature_metadata, stoch
     _creature_metadata = creature_metadata;
     _stochastic_instance = stochastic_instance;
 
+    genetic_factory& factory = genetic_factory::get_instance();
     for(size_t i = 0; i < _creature_metadata->num_chromosomes; i++) {
         chromosome_metadata* chromosome_metadata = _creature_metadata->chromosome_metadata[i];
-        _chromosomes[chromosome_metadata->name] = genetic_factory::create_chromosome(chromosome_metadata);
+        _chromosomes[chromosome_metadata->name] = factory.create_chromosome(chromosome_metadata);
     }
 }
 
@@ -44,7 +45,7 @@ creature_internal* creature_internal::breed_with(creature_internal* mate) {
                 get_chromosome<chromosome>(chromosome_name), mate->get_chromosome<chromosome>(chromosome_name));
 
         // Conditionally apply mutation
-        if(_stochastic_instance->evaluate_probability(chromosome_metadata->crossover_rate))
+        if(_stochastic_instance->evaluate_probability(chromosome_metadata->mutation_rate))
             child_chromosome = mutation->invoke(child_chromosome);
 
         child->_set_chromosome(chromosome_name, child_chromosome);
@@ -79,13 +80,19 @@ TOperator* creature_internal::_get_genetic_operator(TMetadata** operator_metadat
 }
 
 crossover* creature_internal::_get_crossover(crossover_metadata** metadata, size_t num_crossovers) {
-    return _get_genetic_operator<crossover, crossover_metadata>(metadata, num_crossovers,
-            create_genetic_operator_a<crossover, crossover_metadata>(genetic_factory::create_crossover));
+    genetic_factory& factory = genetic_factory::get_instance();
+    create_genetic_operator_a<crossover, crossover_metadata>  create_crossover = [&factory](crossover_metadata* metadatai) {
+        return factory.create_crossover(metadatai);
+    };
+    return _get_genetic_operator<crossover, crossover_metadata>(metadata, num_crossovers, create_crossover);
 }
 
 mutation* creature_internal::_get_mutation(mutation_metadata** metadata, size_t num_mutations) {
-    return _get_genetic_operator<mutation, mutation_metadata>(metadata, num_mutations,
-            create_genetic_operator_a<mutation, mutation_metadata>(genetic_factory::create_mutation));
+    genetic_factory& factory = genetic_factory::get_instance();
+    create_genetic_operator_a<mutation, mutation_metadata>  create_mutation = [&factory](mutation_metadata* metadatai) {
+        return factory.create_mutation(metadatai);
+    };
+    return _get_genetic_operator<mutation, mutation_metadata>(metadata, num_mutations, create_mutation);
 }
 
 void creature_internal::_set_chromosome(std::string name, chromosome* new_chromosome) {
