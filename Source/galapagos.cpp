@@ -1,6 +1,5 @@
 #include "API/galapagos.h"
 
-#include <utility>
 #include "genetic_factory.h"
 #include "population_internal.h"
 #include "stochastic_internal.h"
@@ -8,9 +7,29 @@
 /****************************
 *****Galapagos Bootstrap*****
 ****************************/
-GALAPAGOS_API void gc_initialize() {
+#include <experimental/filesystem> // TODO: is this still experimental
+#include <windows.h>
+GALAPAGOS_API void gc_initialize() { // TODO: currently hard coded to work against windows
     // find all dlls in current directory that export the symbol 'gc_bootstrap'
-    // call gc_bootstrap on each of the discovered dlls (this should register plugins with the framework)
+    for (const auto& dir_entry : std::experimental::filesystem::recursive_directory_iterator(".")) {
+        std::experimental::filesystem::path entry_path = dir_entry.path();
+        if(entry_path.extension() == "\\.dll") {
+            // found a dll, check if it exports gc_bootstrap
+            HMODULE lib = LoadLibrary((LPCSTR)entry_path.c_str()); // TODO: this LPCSTR cast seems reckless
+            if(lib) { // on load failures we will ignore the entry.
+                auto gc_bootstrap = GetProcAddress(lib, "gc_bootstrap");
+                if (gc_bootstrap) {
+                    // found a galapagos extension, call gc_bootstrap to register plugins
+                    gc_bootstrap();
+                    // we now have a mem leak because we are not going to unload this lib. we should hold onto the lib
+                    // pointers and delete them at the end of a galapagos session. perhaps an dedicated object is needed to
+                    // mange this.
+                } else {
+                    FreeLibrary(lib); // library is not galapagos extension. unload the library.
+                }
+            }
+        }
+    }
 }
 
 GALAPAGOS_API void gc_register_selection_algorithm(try_create_selection_algorithm_t try_create) {
