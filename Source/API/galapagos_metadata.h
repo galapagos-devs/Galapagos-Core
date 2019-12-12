@@ -9,10 +9,11 @@
 
 typedef std::function<double(creature* creature)> fitness_func_t;
 
-struct crossover_metadata { };
-struct mutation_metadata { virtual ~mutation_metadata() = default; }; // It seems base struct need at least 1 virtual member to be considered polymorphic
-struct selection_algorithm_metadata { };
-struct termination_condition_metadata { };
+// It seems base struct need at least 1 virtual member to be considered polymorphic
+struct crossover_metadata { virtual ~crossover_metadata() = default; };
+struct mutation_metadata { virtual ~mutation_metadata() = default; };
+struct selection_algorithm_metadata { virtual ~selection_algorithm_metadata() = default; };
+struct termination_condition_metadata { virtual ~termination_condition_metadata() = default; };
 
 struct chromosome_metadata {
 	std::string name;

@@ -7,12 +7,13 @@
 /****************************
 *****Galapagos Bootstrap*****
 ****************************/
-#include <experimental/filesystem> // TODO: is this still experimental
 #include <windows.h>
+#include <experimental/filesystem> // TODO: is this still experimental
+namespace fs = std::experimental::filesystem; // namespace alias
 GALAPAGOS_API void gc_initialize() { // TODO: currently hard coded to work against windows
     // find all dlls in current directory that export the symbol 'gc_bootstrap'
-    for (const auto& dir_entry : std::experimental::filesystem::recursive_directory_iterator(".")) {
-        std::experimental::filesystem::path entry_path = dir_entry.path();
+    for (const auto& dir_entry : fs::recursive_directory_iterator(".")) {
+        fs::path entry_path = dir_entry.path();
         if(entry_path.extension() == "\\.dll") {
             // found a dll, check if it exports gc_bootstrap
             HMODULE lib = LoadLibrary((LPCSTR)entry_path.c_str()); // TODO: this LPCSTR cast seems reckless
