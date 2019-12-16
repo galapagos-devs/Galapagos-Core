@@ -1,5 +1,6 @@
 #include "API/galapagos.h"
 
+#include "galapagos_assemblies.h"
 #include "genetic_factory.h"
 #include "population_internal.h"
 #include "stochastic_internal.h"
@@ -15,8 +16,11 @@ GALAPAGOS_API void gc_initialize() { // TODO: currently hard coded to work again
     for (const auto& dir_entry : fs::recursive_directory_iterator(".")) {
         fs::path entry_path = dir_entry.path();
         if(entry_path.extension() == "\\.dll") {
+            gc_satellite lib((LPCSTR)entry_path.c_str()); // TODO: this LPCSTR cast seems reckless
+            lib.bootstrap();
+
             // found a dll, check if it exports gc_bootstrap
-            HMODULE lib = LoadLibrary((LPCSTR)entry_path.c_str()); // TODO: this LPCSTR cast seems reckless
+            /*HMODULE lib = LoadLibrary((LPCSTR)entry_path.c_str());
             if(lib) { // on load failures we will ignore the entry.
                 auto gc_bootstrap = GetProcAddress(lib, "gc_bootstrap");
                 if (gc_bootstrap) {
@@ -28,7 +32,7 @@ GALAPAGOS_API void gc_initialize() { // TODO: currently hard coded to work again
                 } else {
                     FreeLibrary(lib); // library is not galapagos extension. unload the library.
                 }
-            }
+            }*/
         }
     }
 }
