@@ -25,7 +25,7 @@ population_internal::~population_internal() {
 	// tree from the bottom up.
 	for (size_t i = 0; i < get_size(); i++)
 		delete _creatures[i];
-		delete _stochastic_instance; // we should only need to delete this here.
+    delete _stochastic_instance; // we should only need to delete this here.
 }
 
 // Returns the number of creaters in the population.
@@ -95,7 +95,8 @@ std::vector<selection_algorithm*> population_internal::_create_selection_algorit
     std::vector<selection_algorithm*> selection_algorithms;
 
     for(size_t i = 0; i < _population_metadata->num_selection_algorithms; i++) {
-        selection_algorithm* selection_algorithm = genetic_factory::create_selection_algorithm(
+        genetic_factory& factory = genetic_factory::get_instance();
+        selection_algorithm* selection_algorithm = factory.create_selection_algorithm(
                 _population_metadata->selection_algorithm_metadata[i]);
         selection_algorithms.push_back(selection_algorithm);
     }
@@ -106,7 +107,8 @@ std::vector<termination_condition*> population_internal::_create_termination_con
     std::vector<termination_condition*> termination_conditions;
 
     for(size_t i = 0; i < _population_metadata->num_termination_conditions; i++) {
-        termination_condition* termination_condition =genetic_factory::create_termination_condition(
+        genetic_factory& factory = genetic_factory::get_instance();
+        termination_condition* termination_condition = factory.create_termination_condition(
                 _population_metadata->termination_condition_metadata[i]);
         termination_conditions.push_back(termination_condition);
     }

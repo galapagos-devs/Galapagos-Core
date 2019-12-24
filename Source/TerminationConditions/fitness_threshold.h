@@ -10,12 +10,12 @@ struct fitness_threshold_metadata : selection_algorithm_metadata {
     size_t fitness_threshold;
 };
 
-class fitness_threshold : termination_condition {
+class fitness_threshold : public termination_condition {
 private:
     size_t _fitness_threshold;
 
 public:
-    explicit fitness_threshold(size_t fitness_threshold);
+    explicit fitness_threshold(fitness_threshold_metadata* metadata);
 
     ~fitness_threshold() override;
 

@@ -1,6 +1,66 @@
 #include "API/galapagos.h"
+
+#include "galapagos_assemblies.h"
+#include "genetic_factory.h"
 #include "population_internal.h"
 #include "stochastic_internal.h"
+
+/****************************
+*****Galapagos Bootstrap*****
+****************************/
+#include <windows.h>
+#include <experimental/filesystem> // TODO: is this still experimental
+namespace fs = std::experimental::filesystem; // namespace alias
+GALAPAGOS_API void gc_initialize() { // TODO: currently hard coded to work against windows
+    // find all dlls in current directory that export the symbol 'gc_bootstrap'
+    for (const auto& dir_entry : fs::recursive_directory_iterator(".")) {
+        fs::path entry_path = dir_entry.path();
+        if(entry_path.extension() == "\\.dll") {
+            gc_satellite lib((LPCSTR)entry_path.c_str()); // TODO: this LPCSTR cast seems reckless
+            lib.bootstrap();
+
+            // found a dll, check if it exports gc_bootstrap
+            /*HMODULE lib = LoadLibrary((LPCSTR)entry_path.c_str());
+            if(lib) { // on load failures we will ignore the entry.
+                auto gc_bootstrap = GetProcAddress(lib, "gc_bootstrap");
+                if (gc_bootstrap) {
+                    // found a galapagos extension, call gc_bootstrap to register plugins
+                    gc_bootstrap();
+                    // we now have a mem leak because we are not going to unload this lib. we should hold onto the lib
+                    // pointers and delete them at the end of a galapagos session. perhaps an dedicated object is needed to
+                    // mange this.
+                } else {
+                    FreeLibrary(lib); // library is not galapagos extension. unload the library.
+                }
+            }*/
+        }
+    }
+}
+
+GALAPAGOS_API void gc_register_selection_algorithm(try_create_selection_algorithm_t try_create) {
+    genetic_factory& factory = genetic_factory::get_instance();
+    factory.register_selection_algorithm(try_create);
+}
+
+GALAPAGOS_API void gc_register_termination_condition(try_create_termination_condition_t try_create) {
+    genetic_factory& factory = genetic_factory::get_instance();
+    factory.register_termination_condition(try_create);
+}
+
+GALAPAGOS_API void gc_register_chromosome(try_create_chromosome_t try_create) {
+    genetic_factory& factory = genetic_factory::get_instance();
+    factory.register_chromosome(try_create);
+}
+
+GALAPAGOS_API void gc_register_crossover(try_create_crossover_t try_create) {
+    genetic_factory& factory = genetic_factory::get_instance();
+    factory.register_crossover(try_create);
+}
+
+GALAPAGOS_API void gc_register_mutation(try_create_mutation_t try_create) {
+    genetic_factory& factory = genetic_factory::get_instance();
+    factory.register_mutation(try_create);
+}
 
 /**************************
 *****Galapagos Session*****

@@ -1,7 +1,3 @@
-//
-// Created by kosie on 12/3/2019.
-//
-
 #ifndef _GALAPAGOS_MUTATION_INTERNAL_H_
 #define _GALAPAGOS_MUTATION_INTERNAL_H_
 
