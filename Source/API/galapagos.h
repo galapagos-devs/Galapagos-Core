@@ -3,6 +3,7 @@
 
 #include <functional>
 
+#include "stochastic.h"
 #include "galapagos_metadata.h"
 #include "selection_algorithm.h"
 #include "termination_condition.h"
@@ -33,22 +34,12 @@ GALAPAGOS_API void gc_register_termination_condition(try_create_termination_cond
 GALAPAGOS_API void gc_register_chromosome(try_create_chromosome_t try_create);
 GALAPAGOS_API void gc_register_crossover(try_create_crossover_t try_create);
 GALAPAGOS_API void gc_register_mutation(try_create_mutation_t try_create);
+GALAPAGOS_API stochastic* gc_get_stochastic();
 
-/*****************************
-*****Galapagos Population*****
-*****************************/
-GALAPAGOS_API population* create_population(population_metadata* population_metadata);
-GALAPAGOS_API void delete_population(population* population);
-
-GALAPAGOS_API size_t population_get_size(population* population);
-GALAPAGOS_API creature* population_get_creature(population* population, int i);
-GALAPAGOS_API creature* population_get_optimal_creature(population* population);
-GALAPAGOS_API void population_evolve(population* population);
-
-/***************************
-*****Galapagos Creature*****
+/**************************
+*****Galapagos Session*****
 ***************************/
-GALAPAGOS_API double creature_get_fitness(creature* creature);
-GALAPAGOS_API chromosome* creature_get_chromosome(creature* creature, std::string name);
+GALAPAGOS_API population* gc_create_population(population_metadata* population_metadata);
+GALAPAGOS_API void gc_delete_population(population* population);
 
 #endif /* _GALAPAGOS_H_ */

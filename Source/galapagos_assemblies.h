@@ -30,6 +30,10 @@ private:
     std::function<void(try_create_chromosome_t)> _register_chromosome;
     std::function<void(try_create_crossover_t)> _register_crossover;
     std::function<void(try_create_mutation_t)> _register_mutation;
+    std::function<stochastic*(void)> _get_stochastic;
+
+    std::function<population*(population_metadata*)> _create_population;
+    std::function<void(population*)> _delete_population;
 
 public:
     inline gc_core(LPCSTR assembly_location) {
@@ -54,6 +58,18 @@ public:
         _register_mutation =
                 load_assembly_func<void(try_create_mutation_t)>(
                         _assembly, "gc_register_mutation");
+
+        _get_stochastic =
+                load_assembly_func<stochastic*(void)>(
+                        _assembly, "gc_get_stochastic");
+
+        _create_population =
+                load_assembly_func<population*(population_metadata*)>(
+                        _assembly, "gc_create_population");
+
+        _delete_population =
+                load_assembly_func<void(population*)>(
+                        _assembly, "gc_delete_population");
     }
 
     inline ~gc_core() {
@@ -78,6 +94,18 @@ public:
 
     inline void register_mutation(try_create_mutation_t try_create) {
         _register_mutation(try_create);
+    }
+
+    inline stochastic* get_stochastic() {
+        return  _get_stochastic();
+    }
+
+    inline population* create_population(population_metadata* metadata) {
+        return _create_population(metadata);
+    }
+
+    inline void delete_population(population* population) {
+        _delete_population(population);
     }
 };
 

@@ -16,6 +16,7 @@ struct selection_algorithm_metadata { virtual ~selection_algorithm_metadata() = 
 struct termination_condition_metadata { virtual ~termination_condition_metadata() = default; };
 
 struct chromosome_metadata {
+    virtual  ~chromosome_metadata() = default;
 	std::string name;
 	double crossover_rate;
 	double mutation_rate;

@@ -1,5 +1,6 @@
 #include "../../Source/API/galapagos.h"
 #include "../../Source/API/galapagos_metadata.h"
+#include "../../Source/galapagos_assemblies.h"
 #include "../../Source/Chromosomes/Vector/vector_chromosome.h"
 #include "../../Source/Chromosomes/Vector/gaussian_mutation.h"
 #include "../../Source/Chromosomes/Vector/randomization_mutation.h"
@@ -14,46 +15,72 @@ using namespace fakeit;
 
 TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     // population metadata
-    population_metadata* population_metadata = new population_metadata();
-    population_metadata->size = 500;
-    population_metadata->survival_rate = 0.25;
-    population_metadata->distance_threshold = 0; //?
-    population_metadata->cooperative_coevolution = false;
+    population_metadata* population_metadata1 = new population_metadata();
+    population_metadata1->size = 500;
+    population_metadata1->survival_rate = 0.25;
+    population_metadata1->distance_threshold = 0; //?
+    population_metadata1->cooperative_coevolution = false;
 
     // selection algorithm metadata
-    selection_algorithm_metadata* selection_algorithm_metadata = new tournament_selection_metadata();
-    selection_algorithm_metadata->tournament_size = 2;
-    population_metadata->num_selection_algorithms = 1;
-    population_metadata->selection_algorithm_metadata = new selection_algorithm_metadata*[0];
-    population_metadata->selection_algorithm_metadata[0] = selection_algorithm_metadata;
+    tournament_selection_metadata* tournament_selection_metadata1 = new tournament_selection_metadata();
+    tournament_selection_metadata1->tournament_size = 2;
+
+    population_metadata1->num_selection_algorithms = 1;
+    population_metadata1->selection_algorithm_metadata = new selection_algorithm_metadata*[population_metadata1->num_selection_algorithms];
+    population_metadata1->selection_algorithm_metadata[0] = tournament_selection_metadata1;
 
     // termination condition metadata
-    termination_condition_metadata* termination_condition_metadata = new fitness_threshold_metadata();
-    termination_condition_metadata->fitness_threshold = 10; //?
-    population_metadata->num_termination_conditions = 1;
-    population_metadata->termination_condition_metadata = new termination_condition_metadata*[0];
-    population_metadata->termination_condition_metadata[0] = termination_condition_metadata;
+    fitness_threshold_metadata* fitness_threshold_metadata1 = new fitness_threshold_metadata();
+    fitness_threshold_metadata1->fitness_threshold = 10; //?
+
+    population_metadata1->num_termination_conditions = 1;
+    population_metadata1->termination_condition_metadata = new termination_condition_metadata*[population_metadata1->num_termination_conditions];
+    population_metadata1->termination_condition_metadata[0] = (termination_condition_metadata*)fitness_threshold_metadata1;
 
     // creature metadata
-    creature_metadata* creature_metadata = new creature_metadata();
-    population_metadata->creature_metadata = creature_metadata;
-    population_metadata->creature_metadata->fitness_function = nullptr;
+    creature_metadata* creature_metadata1 = new creature_metadata();
+    creature_metadata1->fitness_function = nullptr;
+
+    population_metadata1->creature_metadata = creature_metadata1;
 
     // chromosome metadata
-    chromosome_metadata = new vector_chromosome_metadata();
-    creature_metadata->num_chromosomes = 1;
-    creature_metadata->chromosome_metadata = new creature_metadata*[0];
-    creature_metadata->chromosome_metadata[0] = chromosome_metadata;
-    chromosome_metadata->name = "vars";
+    vector_chromosome_metadata* vector_chromosome_metadata1 = new vector_chromosome_metadata();
+    vector_chromosome_metadata1->name = "X";
+    vector_chromosome_metadata1->norm_rank = 2;
+    vector_chromosome_metadata1->size = 3;
+    vector_chromosome_metadata1->gene_infimum = -500;
+    vector_chromosome_metadata1->gene_supremum = 500;
+    vector_chromosome_metadata1->crossover_rate = 1;
+    vector_chromosome_metadata1->mutation_rate = 0.1;
+
+    creature_metadata1->num_chromosomes = 1;
+    creature_metadata1->chromosome_metadata = new chromosome_metadata*[creature_metadata1->num_chromosomes];
+    creature_metadata1->chromosome_metadata[0] = (chromosome_metadata*)vector_chromosome_metadata1;
 
     // crossover metadata
-    crossover_metadata* crossover_metadata = new kpoint_crossover_metadata();
-    chromosome_metadata->crossover_rate = 1;
-    chromosome_metadata->crossover_metadata = crossover_metadata;
+    kpoint_crossover_metadata* kpoint_crossover_metadata1 = new kpoint_crossover_metadata();
+    kpoint_crossover_metadata1->cut_points = 1;
+
+    vector_chromosome_metadata1->num_crossovers = 1;
+    vector_chromosome_metadata1->crossover_metadata = new crossover_metadata*[vector_chromosome_metadata1->num_crossovers];
+    vector_chromosome_metadata1->crossover_metadata[0] = (crossover_metadata*)kpoint_crossover_metadata1;
+
+    // mutation metadata
+    randomization_mutation_metadata* randomization_mutation_metadata1 = new randomization_mutation_metadata();
+    gaussian_mutation_metadata* gaussian_mutation_metadata1 = new gaussian_mutation_metadata();
+    gaussian_mutation_metadata1->mean = 0;
+    gaussian_mutation_metadata1->standard_deviation = 1;
+
+    vector_chromosome_metadata1->num_mutations = 2;
+    vector_chromosome_metadata1->mutation_metadata = new mutation_metadata*[vector_chromosome_metadata1->num_mutations];
+    vector_chromosome_metadata1->mutation_metadata[0] = (mutation_metadata*)randomization_mutation_metadata1;
+    vector_chromosome_metadata1->mutation_metadata[1] = (mutation_metadata*)gaussian_mutation_metadata1;
 
     // invoke algorithm against metadata
-    population* population = create_population(population_metadata);
-    population->evolve();
+    gc_core lib("Galapagos.dll");
+    population* population1 = lib.create_population(population_metadata1);
+    population1->evolve();
+    lib.delete_population(population1);
 }
 
 // TODO: we should figure out what problem we want to use for throughput testing.
