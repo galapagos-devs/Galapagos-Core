@@ -1,5 +1,5 @@
-#ifndef _GALAPAGOS_GAUSSIAN_MUTATION_H_
-#define _GALAPAGOS_GAUSSIAN_MUTATION_H_
+#ifndef _GAUSSIAN_MUTATION_H_
+#define _GAUSSIAN_MUTATION_H_
 
 #include "../../API/galapagos_metadata.h"
 #include "../../API/stochastic.h"
@@ -27,4 +27,4 @@ public:
     ~gaussian_mutation() /*override*/;
 };
 
-#endif /* _GALAPAGOS_GAUSSIAN_MUTATION_H_ */
+#endif /* _GAUSSIAN_MUTATION_H_ */

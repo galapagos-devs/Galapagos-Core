@@ -1,5 +1,5 @@
-#ifndef _GALAPAGOS_KPOINT_CROSSOVER_H_
-#define _GALAPAGOS_KPOINT_CROSSOVER_H_
+#ifndef _KPOINT_CROSSOVER_H_
+#define _KPOINT_CROSSOVER_H_
 
 #include "../../API/crossover.h"
 #include "../../API/galapagos_metadata.h"
@@ -35,4 +35,4 @@ protected:
 
 
 
-#endif /* _GALAPAGOS_KPOINT_CROSSOVER_H_ */
+#endif /* _KPOINT_CROSSOVER_H_ */

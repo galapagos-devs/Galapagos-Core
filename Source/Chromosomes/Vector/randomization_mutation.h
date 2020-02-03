@@ -2,8 +2,8 @@
 // Created by kosie on 12/3/2019.
 //
 
-#ifndef _GALAPAGOS_RANDOMIZATION_MUTATION_H_
-#define _GALAPAGOS_RANDOMIZATION_MUTATION_H_
+#ifndef _RANDOMIZATION_MUTATION_H_
+#define _RANDOMIZATION_MUTATION_H_
 
 #include "../../API/galapagos_metadata.h"
 #include "../../API/stochastic.h"
@@ -30,4 +30,4 @@ public:
 
 };
 
-#endif /* _GALAPAGOS_RANDOMIZATION_MUTATION_H_ */
+#endif /* _RANDOMIZATION_MUTATION_H_ */

@@ -8,7 +8,6 @@
 /****************************
 *****Galapagos Bootstrap*****
 ****************************/
-#include <windows.h>
 #include <experimental/filesystem> // TODO: is this still experimental
 namespace fs = std::experimental::filesystem; // namespace alias
 GALAPAGOS_API void gc_initialize() { // TODO: currently hard coded to work against windows
@@ -18,21 +17,6 @@ GALAPAGOS_API void gc_initialize() { // TODO: currently hard coded to work again
         if(entry_path.extension() == "\\.dll") {
             gc_satellite lib((LPCSTR)entry_path.c_str()); // TODO: this LPCSTR cast seems reckless
             lib.bootstrap();
-
-            // found a dll, check if it exports gc_bootstrap
-            /*HMODULE lib = LoadLibrary((LPCSTR)entry_path.c_str());
-            if(lib) { // on load failures we will ignore the entry.
-                auto gc_bootstrap = GetProcAddress(lib, "gc_bootstrap");
-                if (gc_bootstrap) {
-                    // found a galapagos extension, call gc_bootstrap to register plugins
-                    gc_bootstrap();
-                    // we now have a mem leak because we are not going to unload this lib. we should hold onto the lib
-                    // pointers and delete them at the end of a galapagos session. perhaps an dedicated object is needed to
-                    // mange this.
-                } else {
-                    FreeLibrary(lib); // library is not galapagos extension. unload the library.
-                }
-            }*/
         }
     }
 }
@@ -62,41 +46,21 @@ GALAPAGOS_API void gc_register_mutation(try_create_mutation_t try_create) {
     factory.register_mutation(try_create);
 }
 
+stochastic* gc_stochastic_instance = nullptr;
+GALAPAGOS_API stochastic* gc_get_stochastic() {
+    if(gc_stochastic_instance == nullptr)
+        gc_stochastic_instance = new stochastic_internal();
+    return gc_stochastic_instance;
+}
+
 /**************************
 *****Galapagos Session*****
 **************************/
 GALAPAGOS_API population* create_population(population_metadata* population_metadata) {
-	stochastic_internal* stochastic_instance = new stochastic_internal();
+	stochastic* stochastic_instance = gc_get_stochastic();
 	return (population*)new population_internal(population_metadata, (stochastic*)stochastic_instance);
 }
 
 GALAPAGOS_API void delete_population(population* population) {
 	delete population;
-}
-
-GALAPAGOS_API size_t population_get_size(population* population) {
-    return population->get_size();
-}
-
-GALAPAGOS_API creature* population_get_creature(population* population, int i) {
-    return population->get_creature(i);
-}
-
-GALAPAGOS_API creature* population_get_optimal_creature(population* population) {
-    return population->get_optimal_creature();
-}
-
-GALAPAGOS_API void population_evolve(population* population) {
-    population->evolve();
-}
-
-/***************************
-*****Galapagos Creature*****
-***************************/
-GALAPAGOS_API double creature_get_fitness(creature* creature) {
-    return creature->get_fitness();
-}
-
-GALAPAGOS_API chromosome* creature_get_chromosome(creature* creature, std::string name) {
-    return creature->get_chromosome<chromosome>(name);
 }

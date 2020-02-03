@@ -8,14 +8,14 @@ set(SRCS
         vector_chromosome.h
         vector_chromosome.cpp)
 
-if(BUILD_STATIC_LIBS)
-    add_library(StaticVectorChromosome OBJECT ${SRCS})
-    set_target_properties(StaticVectorChromosome PROPERTIES
-            OUTPUT_NAME ${SOURCE_NAME}${NAME_DELIMITER}${CHROMOSOMES_NAME}${NAME_DELIMITER}Vector)
-endif()
+set(BOOTSTRAP
+        vector_chromosome_bootstrap.cpp)
 
-if(BUILD_SHARED_LIBS)
-    add_library(SharedVectorChromosome SHARED ${SRCS})
-    set_target_properties(SharedVectorChromosome PROPERTIES
-            OUTPUT_NAME ${SOURCE_NAME}${NAME_DELIMITER}${CHROMOSOMES_NAME}${NAME_DELIMITER}Vector)
-endif()
+add_library(StaticVectorChromosome OBJECT ${SRCS})
+set_target_properties(StaticVectorChromosome PROPERTIES
+        OUTPUT_NAME ${SOURCE_NAME}${NAME_DELIMITER}${CHROMOSOMES_NAME}${NAME_DELIMITER}Vector)
+
+add_library(SharedVectorChromosome SHARED ${BOOTSTRAP})
+target_link_libraries(SharedVectorChromosome StaticVectorChromosome)
+set_target_properties(SharedVectorChromosome PROPERTIES
+        OUTPUT_NAME ${SOURCE_NAME}${NAME_DELIMITER}${CHROMOSOMES_NAME}${NAME_DELIMITER}Vector)
