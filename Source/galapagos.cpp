@@ -1,6 +1,5 @@
 #include "API/galapagos.h"
 
-#include "galapagos_assemblies.h"
 #include "genetic_factory.h"
 #include "population_internal.h"
 #include "stochastic_internal.h"
@@ -43,11 +42,11 @@ GALAPAGOS_API stochastic* gc_get_stochastic() {
 /**************************
 *****Galapagos Session*****
 **************************/
-GALAPAGOS_API population* create_population(population_metadata* population_metadata) {
+GALAPAGOS_API population* gc_create_population(population_metadata* population_metadata) {
 	stochastic* stochastic_instance = gc_get_stochastic();
 	return (population*)new population_internal(population_metadata, (stochastic*)stochastic_instance);
 }
 
-GALAPAGOS_API void delete_population(population* population) {
+GALAPAGOS_API void gc_delete_population(population* population) {
 	delete population;
 }

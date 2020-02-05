@@ -3,6 +3,7 @@
 
 #include "../../API/chromosome.h"
 #include "../../API/galapagos_metadata.h"
+#include "../../API/stochastic.h"
 
 #include "../chromosome_internal.h"
 
@@ -15,6 +16,8 @@ struct vector_chromosome_metadata : chromosome_metadata {
 
 class vector_chromosome : public chromosome_internal<vector_chromosome> {
 private:
+    stochastic* _stochastic_instance;
+
     uint32_t _norm_rank; // k-value to be used with the k-norm defined in get_distance
     size_t _size;
     double _gene_infimum; // lowest possible value any gene will ever take
@@ -28,7 +31,7 @@ protected:
 public:
     //region Constructor & Destructor
 
-    explicit vector_chromosome(vector_chromosome_metadata* metadata);
+    explicit vector_chromosome(stochastic* stochastic_instance, vector_chromosome_metadata* metadata);
     explicit vector_chromosome(vector_chromosome* other);
     ~vector_chromosome() override;
 

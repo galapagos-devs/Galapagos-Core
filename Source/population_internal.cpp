@@ -7,6 +7,8 @@
 #include "creature_internal.h"
 #include "stochastic_internal.h"
 
+#include <iostream> // TODO: delete this
+
 //region Public Members
 
 population_internal::population_internal(population_metadata* population_metadata, stochastic* stochastic_instance) {
@@ -17,7 +19,7 @@ population_internal::population_internal(population_metadata* population_metadat
 	for (size_t i = 0; i < get_size(); i++)
 	    _creatures[i] = new creature_internal(population_metadata->creature_metadata, stochastic_instance);
 
-	_optimal_creature = nullptr;
+	_optimal_creature = _creatures[0];
 }
 
 population_internal::~population_internal() {
@@ -55,9 +57,12 @@ void population_internal::evolve() {
 	std::vector<creature_internal*> new_generation;
 	new_generation.resize(get_size());
 
+	int gen = 0;
 	// Run the genetic algorithm till termination conditions are met.
 	while (!_has_terminated(termination_conditions)) {  // TODO -- Figure out how to handle multiple selection_algorithms.
+        std::cout << "generation: " << gen++ << std::endl;
         _optimal_creature = _find_optimal_creature();
+        std::cout << "fitness: " << _optimal_creature->get_fitness() << std::endl;
 		size_t surviving_creature_count = _elitism(new_generation);
 		_breed_new_generation(new_generation, surviving_creature_count, selection_algorithms[0]);
 	}

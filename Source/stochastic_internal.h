@@ -4,10 +4,13 @@
 #include "API/stochastic.h"
 
 class stochastic_internal : public stochastic {
-public:
-	~stochastic_internal() override;
+private:
+    std::mt19937 _rng;
 
-    uint32_t get_seed() override;
+public:
+    stochastic_internal();
+
+	~stochastic_internal() override;
 
     bool flip_coin() override;
 

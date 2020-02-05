@@ -10,6 +10,8 @@
 
 #include "../catch.hpp"
 
+#include <iostream> // TODO: delete this
+
 TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     // population metadata
     auto* population_metadata1 = new population_metadata();
@@ -28,7 +30,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
 
     // termination condition metadata
     auto* fitness_threshold_metadata1 = new fitness_threshold_metadata();
-    fitness_threshold_metadata1->fitness_threshold = 10; //?
+    fitness_threshold_metadata1->fitness_threshold = 1500; //?
 
     population_metadata1->num_termination_conditions = 1;
     population_metadata1->termination_condition_metadata = new termination_condition_metadata*[population_metadata1->num_termination_conditions];
@@ -80,16 +82,20 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     gc_core lib("Galapagos.dll");
     lib.initialize();
 
-    /*population* population1 = lib.create_population(population_metadata1);
+    population* population1 = lib.create_population(population_metadata1);
     population1->evolve();
+    std::cout << "population evolved!" << std::endl;
 
     creature* optimal = population1->get_optimal_creature();
     auto* X = optimal->get_chromosome<vector_chromosome>("X");
-    REQUIRE(X->get_gene(0) == vector_chromosome_metadata1->gene_supremum);
-    REQUIRE(X->get_gene(1) == vector_chromosome_metadata1->gene_infimum);
-    REQUIRE(X->get_gene(2) == vector_chromosome_metadata1->gene_supremum);
+    std::cout << "x0: " << X->get_gene(0) << std::endl;
+    std::cout << "x1: " << X->get_gene(1) << std::endl;
+    std::cout << "x2: " << X->get_gene(2) << std::endl;
+    //REQUIRE(X->get_gene(0) == vector_chromosome_metadata1->gene_supremum);
+    //REQUIRE(X->get_gene(1) == vector_chromosome_metadata1->gene_infimum);
+    //REQUIRE(X->get_gene(2) == vector_chromosome_metadata1->gene_supremum);
 
-    lib.delete_population(population1);*/
+    lib.delete_population(population1);
 }
 
 // TODO: we should figure out what problem we want to use for throughput testing.

@@ -10,16 +10,22 @@
 
 //region Constructor & Destructor
 
-vector_chromosome::vector_chromosome(vector_chromosome_metadata *metadata) {
+vector_chromosome::vector_chromosome(stochastic* stochastic_instance, vector_chromosome_metadata *metadata) {
+    _stochastic_instance = stochastic_instance;
+
     _norm_rank = metadata->norm_rank;
     _size = metadata->size;
     _gene_infimum = metadata->gene_infimum;
     _gene_supremum = metadata->gene_supremum;
 
     _genes = new double[_size];
+    for(size_t i = 0; i < _size; ++i)
+        _genes[i] = _stochastic_instance->rand_double(_gene_infimum, _gene_supremum);
 }
 
 vector_chromosome::vector_chromosome(vector_chromosome* other) {
+    _stochastic_instance = other->_stochastic_instance;
+
     _norm_rank = other->_norm_rank;
     _size = other->_size;
     _gene_infimum = other->_gene_infimum;

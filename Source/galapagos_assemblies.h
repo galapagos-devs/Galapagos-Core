@@ -9,7 +9,6 @@
 
 #include <string>
 #include <Windows.h>
-#include <iostream> // TODO: delete this
 #include <experimental/filesystem>
 #include <utility>
 
@@ -19,12 +18,9 @@ namespace fs = std::experimental::filesystem; // namespace alias
 
 template <typename TSignature>
 inline std::function<TSignature> load_assembly_func(HMODULE assembly, const std::string& func_name) {
-    std::cout << func_name << std::endl;
     FARPROC address = GetProcAddress(assembly, func_name.c_str());
-    if (!address) {
-        std::cout << "?" << std::endl;
+    if (!address)
         return nullptr;
-    }
 
     std::function<TSignature> func(reinterpret_cast<TSignature*>(address));
     return func;
@@ -122,6 +118,7 @@ public:
 class gc_satellite {
 private:
     HMODULE _assembly;
+
     std::function<void(gc_core*)> _bootstrap;
 
 public:

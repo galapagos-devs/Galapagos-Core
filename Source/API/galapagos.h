@@ -22,11 +22,11 @@
 /****************************
 *****Galapagos Bootstrap*****
 ****************************/
-typedef std::function<bool(selection_algorithm_metadata* metadata, selection_algorithm* selection_algorithm)> try_create_selection_algorithm_t;
-typedef std::function<bool(termination_condition_metadata* metadata, termination_condition* termination_condition)> try_create_termination_condition_t;
-typedef std::function<bool(chromosome_metadata* metadata, chromosome* chromosome)> try_create_chromosome_t;
-typedef std::function<bool(crossover_metadata* metadata, crossover* crossover)> try_create_crossover_t;
-typedef std::function<bool(mutation_metadata* metadata, mutation* mutation)> try_create_mutation_t;
+typedef std::function<bool(selection_algorithm_metadata* metadata, selection_algorithm*& selection_algorithm)> try_create_selection_algorithm_t;
+typedef std::function<bool(termination_condition_metadata* metadata, termination_condition*& termination_condition)> try_create_termination_condition_t;
+typedef std::function<bool(chromosome_metadata* metadata, chromosome*& chromosome)> try_create_chromosome_t;
+typedef std::function<bool(crossover_metadata* metadata, crossover*& crossover)> try_create_crossover_t;
+typedef std::function<bool(mutation_metadata* metadata, mutation*& mutation)> try_create_mutation_t;
 
 GALAPAGOS_API void gc_register_selection_algorithm(try_create_selection_algorithm_t try_create);
 GALAPAGOS_API void gc_register_termination_condition(try_create_termination_condition_t try_create);
