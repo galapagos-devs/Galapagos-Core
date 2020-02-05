@@ -7,7 +7,6 @@
 
 #include "vector_chromosome.h"
 
-
 //region Constructor & Destructor
 
 vector_chromosome::vector_chromosome(stochastic* stochastic_instance, vector_chromosome_metadata *metadata) {

@@ -124,14 +124,14 @@ std::vector<termination_condition*> population_internal::_create_termination_con
 size_t population_internal::_elitism(std::vector<creature_internal*>& new_generation) {
 	size_t population_size = get_size();
 
-	// Sorts the creatures by decending fitness
+	// Sorts the creatures by descending fitness
 	std::sort(_creatures.begin(), _creatures.end(), [](creature_internal* x, creature_internal* y) {
 		return x->get_fitness() > y->get_fitness();
-		});  //TODO - check the complexity of this sort
+		});
 
 	auto surviving_creature_count = (size_t)(_population_metadata->survival_rate * population_size);
 	for (size_t i = 0; i < surviving_creature_count; i++)
-		new_generation[i] = _creatures[i];
+        new_generation[i] = _creatures[i];
 
 	return surviving_creature_count;
 }

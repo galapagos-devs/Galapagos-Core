@@ -13,7 +13,6 @@ bool fitness_threshold::operator()(population* population) {
 }
 
 bool fitness_threshold::invoke(population* population) {
-    return true;
     creature* optimal_creature = population->get_optimal_creature();
     return optimal_creature->get_fitness() >= _fitness_threshold;
 }
