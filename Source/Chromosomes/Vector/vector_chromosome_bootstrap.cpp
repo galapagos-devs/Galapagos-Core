@@ -6,11 +6,10 @@
 #include "gaussian_mutation.h"
 #include "randomization_mutation.h"
 
-GALAPAGOS_API void gc_bootstrap() {
-    gc_core lib("Galapagos.dll");
-    stochastic *stochastic_instance = lib.get_stochastic();
+GALAPAGOS_API void gc_bootstrap(gc_core* core) {
+    stochastic *stochastic_instance = core->get_stochastic();
 
-    lib.register_chromosome([](chromosome_metadata *metadata, chromosome *chromosome) {
+    core->register_chromosome([](chromosome_metadata *metadata, chromosome *chromosome) {
         auto *dynamic = dynamic_cast<vector_chromosome_metadata*>(metadata);
         if (dynamic != nullptr) {
             chromosome = new vector_chromosome(dynamic);
@@ -19,7 +18,7 @@ GALAPAGOS_API void gc_bootstrap() {
         return false;
     });
 
-    lib.register_crossover([&stochastic_instance](crossover_metadata *metadata, crossover* crossover) {
+    core->register_crossover([&stochastic_instance](crossover_metadata *metadata, crossover* crossover) {
         auto *dynamic = dynamic_cast<kpoint_crossover_metadata*>(metadata);
         if(dynamic != nullptr) {
             crossover = new kpoint_crossover(stochastic_instance, dynamic);
@@ -28,7 +27,7 @@ GALAPAGOS_API void gc_bootstrap() {
         return false;
     });
 
-    lib.register_mutation([&stochastic_instance](mutation_metadata* metadata, mutation* mutation) {
+    core->register_mutation([&stochastic_instance](mutation_metadata* metadata, mutation* mutation) {
        auto *dynamic = dynamic_cast<gaussian_mutation_metadata*>(metadata);
        if(dynamic != nullptr) {
            mutation = new gaussian_mutation(dynamic, stochastic_instance);
@@ -37,7 +36,7 @@ GALAPAGOS_API void gc_bootstrap() {
         return false;
     });
 
-    lib.register_mutation([&stochastic_instance](mutation_metadata* metadata, mutation* mutation) {
+    core->register_mutation([&stochastic_instance](mutation_metadata* metadata, mutation* mutation) {
         auto *dynamic = dynamic_cast<randomization_mutation_metadata*>(metadata);
         if(dynamic != nullptr) {
             mutation = new randomization_mutation(dynamic, stochastic_instance);

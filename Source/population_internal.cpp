@@ -15,7 +15,7 @@ population_internal::population_internal(population_metadata* population_metadat
 
 	_creatures.resize(get_size());
 	for (size_t i = 0; i < get_size(); i++)
-	    _creatures[i] = new creature_internal(population_metadata->creature_metadata, stochastic_instance); // TODO: how are we getting an instance of stochastic?
+	    _creatures[i] = new creature_internal(population_metadata->creature_metadata, stochastic_instance);
 
 	_optimal_creature = nullptr;
 }
@@ -124,7 +124,7 @@ size_t population_internal::_elitism(std::vector<creature_internal*>& new_genera
 		return x->get_fitness() > y->get_fitness();
 		});  //TODO - check the complexity of this sort
 
-	size_t surviving_creature_count = (size_t)(_population_metadata->survival_rate * population_size);
+	auto surviving_creature_count = (size_t)(_population_metadata->survival_rate * population_size);
 	for (size_t i = 0; i < surviving_creature_count; i++)
 		new_generation[i] = _creatures[i];
 
@@ -136,8 +136,8 @@ void population_internal::_breed_new_generation(std::vector<creature_internal*>&
 	size_t population_size = get_size();
 
 	for (size_t i = surviving_creature_count; i < population_size; i++) {
-		creature_internal* parent1 = (creature_internal*)selection_algorithm->invoke(this);
-		creature_internal* parent2 = (creature_internal*)selection_algorithm->invoke(this);
+		auto* parent1 = (creature_internal*)selection_algorithm->invoke(this);
+		auto* parent2 = (creature_internal*)selection_algorithm->invoke(this);
 		creature_internal* child = parent1->breed_with(parent2);
 		new_generation[i] = child;
 	}

@@ -28,12 +28,12 @@ typedef std::function<bool(chromosome_metadata* metadata, chromosome* chromosome
 typedef std::function<bool(crossover_metadata* metadata, crossover* crossover)> try_create_crossover_t;
 typedef std::function<bool(mutation_metadata* metadata, mutation* mutation)> try_create_mutation_t;
 
-GALAPAGOS_API void gc_initialize();
 GALAPAGOS_API void gc_register_selection_algorithm(try_create_selection_algorithm_t try_create);
 GALAPAGOS_API void gc_register_termination_condition(try_create_termination_condition_t try_create);
 GALAPAGOS_API void gc_register_chromosome(try_create_chromosome_t try_create);
 GALAPAGOS_API void gc_register_crossover(try_create_crossover_t try_create);
 GALAPAGOS_API void gc_register_mutation(try_create_mutation_t try_create);
+
 GALAPAGOS_API stochastic* gc_get_stochastic();
 
 /**************************

@@ -9,20 +9,17 @@
 #include "../../Source/TerminationConditions/fitness_threshold.h"
 
 #include "../catch.hpp"
-#include "../fakeit.hpp"
-
-using namespace fakeit;
 
 TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     // population metadata
-    population_metadata* population_metadata1 = new population_metadata();
+    auto* population_metadata1 = new population_metadata();
     population_metadata1->size = 500;
     population_metadata1->survival_rate = 0.25;
     population_metadata1->distance_threshold = 0; //?
     population_metadata1->cooperative_coevolution = false;
 
     // selection algorithm metadata
-    tournament_selection_metadata* tournament_selection_metadata1 = new tournament_selection_metadata();
+    auto* tournament_selection_metadata1 = new tournament_selection_metadata();
     tournament_selection_metadata1->tournament_size = 2;
 
     population_metadata1->num_selection_algorithms = 1;
@@ -30,7 +27,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     population_metadata1->selection_algorithm_metadata[0] = tournament_selection_metadata1;
 
     // termination condition metadata
-    fitness_threshold_metadata* fitness_threshold_metadata1 = new fitness_threshold_metadata();
+    auto* fitness_threshold_metadata1 = new fitness_threshold_metadata();
     fitness_threshold_metadata1->fitness_threshold = 10; //?
 
     population_metadata1->num_termination_conditions = 1;
@@ -38,13 +35,16 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     population_metadata1->termination_condition_metadata[0] = (termination_condition_metadata*)fitness_threshold_metadata1;
 
     // creature metadata
-    creature_metadata* creature_metadata1 = new creature_metadata();
-    creature_metadata1->fitness_function = nullptr;
+    auto* creature_metadata1 = new creature_metadata();
+    creature_metadata1->fitness_function = [](creature* creature) {
+        auto* X = creature->get_chromosome<vector_chromosome>("X");
+        return X->get_gene(0) - X->get_gene(1) + X->get_gene(2);
+    };
 
     population_metadata1->creature_metadata = creature_metadata1;
 
     // chromosome metadata
-    vector_chromosome_metadata* vector_chromosome_metadata1 = new vector_chromosome_metadata();
+    auto* vector_chromosome_metadata1 = new vector_chromosome_metadata();
     vector_chromosome_metadata1->name = "X";
     vector_chromosome_metadata1->norm_rank = 2;
     vector_chromosome_metadata1->size = 3;
@@ -58,7 +58,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     creature_metadata1->chromosome_metadata[0] = (chromosome_metadata*)vector_chromosome_metadata1;
 
     // crossover metadata
-    kpoint_crossover_metadata* kpoint_crossover_metadata1 = new kpoint_crossover_metadata();
+    auto* kpoint_crossover_metadata1 = new kpoint_crossover_metadata();
     kpoint_crossover_metadata1->cut_points = 1;
 
     vector_chromosome_metadata1->num_crossovers = 1;
@@ -66,8 +66,8 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     vector_chromosome_metadata1->crossover_metadata[0] = (crossover_metadata*)kpoint_crossover_metadata1;
 
     // mutation metadata
-    randomization_mutation_metadata* randomization_mutation_metadata1 = new randomization_mutation_metadata();
-    gaussian_mutation_metadata* gaussian_mutation_metadata1 = new gaussian_mutation_metadata();
+    auto* randomization_mutation_metadata1 = new randomization_mutation_metadata();
+    auto* gaussian_mutation_metadata1 = new gaussian_mutation_metadata();
     gaussian_mutation_metadata1->mean = 0;
     gaussian_mutation_metadata1->standard_deviation = 1;
 
@@ -78,9 +78,18 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
 
     // invoke algorithm against metadata
     gc_core lib("Galapagos.dll");
-    population* population1 = lib.create_population(population_metadata1);
+    lib.initialize();
+
+    /*population* population1 = lib.create_population(population_metadata1);
     population1->evolve();
-    lib.delete_population(population1);
+
+    creature* optimal = population1->get_optimal_creature();
+    auto* X = optimal->get_chromosome<vector_chromosome>("X");
+    REQUIRE(X->get_gene(0) == vector_chromosome_metadata1->gene_supremum);
+    REQUIRE(X->get_gene(1) == vector_chromosome_metadata1->gene_infimum);
+    REQUIRE(X->get_gene(2) == vector_chromosome_metadata1->gene_supremum);
+
+    lib.delete_population(population1);*/
 }
 
 // TODO: we should figure out what problem we want to use for throughput testing.
