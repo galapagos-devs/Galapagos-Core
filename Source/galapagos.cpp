@@ -43,7 +43,7 @@ GALAPAGOS_API void gc_reset() {
             delete satellite;
         gc_satellites.clear();
 
-        gc_initialized = true;
+        gc_initialized = false;
     }
 }
 
