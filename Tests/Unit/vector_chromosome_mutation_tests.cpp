@@ -69,7 +69,6 @@ TEST_CASE("randomization (vector) mutation invoked", "[unit][vector-chromosome][
     auto* mutation_metadata = new randomization_mutation_metadata();
     mutation* mutation = new randomization_mutation(mutation_metadata, mocked_stochastic);
 
-    std::cout << "invoking mutation" << std::endl;
     auto* mutated_chromosome = (vector_chromosome*)mutation->invoke(chromosome);
     for(size_t i = 0; i < num_genes; i++)
         REQUIRE(mutated_chromosome->get_gene(i) == desired_genes[i]);

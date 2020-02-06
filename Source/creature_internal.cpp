@@ -27,45 +27,31 @@ double creature_internal::get_fitness() {
     return _creature_metadata->fitness_function(this);
 }
 
-#include <iostream>
 creature_internal* creature_internal::breed_with(creature_internal* mate) {
-    std::cout << "entered creature_internal::breed_with" << std::endl;
-    creature_internal* child = new creature_internal(_creature_metadata, _stochastic_instance);
-    std::cout << "created child with fitness " << child->get_fitness() << std::endl;
+    auto* child = new creature_internal(_creature_metadata, _stochastic_instance);
+    //std::cout << "fitness " << child->get_fitness() << std::endl;
 
     for(size_t i = 0; i < _creature_metadata->num_chromosomes; i++) {
         chromosome_metadata* chromosome_metadata = _creature_metadata->chromosome_metadata[i];
         std::string chromosome_name = chromosome_metadata->name;
-        std::cout << "breeding chromosome " << chromosome_name << std::endl;
 
         // Select crossover & mutation proportional to their weight
-        std::cout << "select crossover & mutation proportional to their weight" << std::endl;
         crossover* crossover = _get_crossover(chromosome_metadata->crossover_metadata, chromosome_metadata->num_crossovers);
         mutation* mutation = _get_mutation(chromosome_metadata->mutation_metadata, chromosome_metadata->num_mutations);
 
-        if(crossover == nullptr)
-            std::cout << "failed to select cross-over" << std::endl;
-        if(mutation == nullptr)
-            std::cout << "failed to select mutation" << std::endl;
-
         // Conditionally apply cross-over
-        std::cout << "conditionally apply cross-over" << std::endl;
         chromosome* child_chromosome = get_chromosome<chromosome>(chromosome_name);
-        if(_stochastic_instance->evaluate_probability(chromosome_metadata->crossover_rate)) {
-            std::cout << "!!!!!" << std::endl;
+        if(_stochastic_instance->evaluate_probability(chromosome_metadata->crossover_rate))
             child_chromosome = crossover->invoke(
                     get_chromosome<chromosome>(chromosome_name), mate->get_chromosome<chromosome>(chromosome_name));
-        }
 
         // Conditionally apply mutation
-        std::cout << "conditionally apply mutation" << std::endl;
-        if(_stochastic_instance->evaluate_probability(chromosome_metadata->mutation_rate)) {
-            std::cout << "!!!!!" << std::endl;
+        if(_stochastic_instance->evaluate_probability(chromosome_metadata->mutation_rate))
             child_chromosome = mutation->invoke(child_chromosome);
-        }
 
         child->_set_chromosome(chromosome_name, child_chromosome);
     }
+
     return child;
 }
 

@@ -60,11 +60,10 @@ void population_internal::evolve() {
 	int gen = 0;
 	// Run the genetic algorithm till termination conditions are met.
 	while (!_has_terminated(termination_conditions)) {  // TODO -- Figure out how to handle multiple selection_algorithms.
-        std::cout << "generation: " << gen++ << std::endl;
-        _optimal_creature = _find_optimal_creature();
-        std::cout << "fitness: " << _optimal_creature->get_fitness() << std::endl;
 		size_t surviving_creature_count = _elitism(new_generation);
 		_breed_new_generation(new_generation, surviving_creature_count, selection_algorithms[0]);
+        _optimal_creature = _find_optimal_creature();
+        std::cout << "generation: " << gen++ << " " << "fitness: " << _optimal_creature->get_fitness() << std::endl;
 	}
 
 	// clean-up memory
@@ -145,9 +144,7 @@ void population_internal::_breed_new_generation(std::vector<creature_internal*>&
 		auto* parent2 = (creature_internal*)selection_algorithm->invoke(this);
 		creature_internal* child = parent1->breed_with(parent2);
 		new_generation[i] = child;
-	}
 
-	for (size_t i = 0; i < population_size; i++) {
 		delete _creatures[i];
 		_creatures[i] = new_generation[i];
 	}

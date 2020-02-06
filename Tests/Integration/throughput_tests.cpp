@@ -10,12 +10,10 @@
 
 #include "../catch.hpp"
 
-#include <iostream> // TODO: delete this
-
 TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     // population metadata
     auto* population_metadata1 = new population_metadata();
-    population_metadata1->size = 500;
+    population_metadata1->size = 50;
     population_metadata1->survival_rate = 0.25;
     population_metadata1->distance_threshold = 0; //?
     population_metadata1->cooperative_coevolution = false;
@@ -84,16 +82,12 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
 
     population* population1 = lib.create_population(population_metadata1);
     population1->evolve();
-    std::cout << "population evolved!" << std::endl;
 
     creature* optimal = population1->get_optimal_creature();
     auto* X = optimal->get_chromosome<vector_chromosome>("X");
-    std::cout << "x0: " << X->get_gene(0) << std::endl;
-    std::cout << "x1: " << X->get_gene(1) << std::endl;
-    std::cout << "x2: " << X->get_gene(2) << std::endl;
-    //REQUIRE(X->get_gene(0) == vector_chromosome_metadata1->gene_supremum);
-    //REQUIRE(X->get_gene(1) == vector_chromosome_metadata1->gene_infimum);
-    //REQUIRE(X->get_gene(2) == vector_chromosome_metadata1->gene_supremum);
+    REQUIRE(X->get_gene(0) == vector_chromosome_metadata1->gene_supremum);
+    REQUIRE(X->get_gene(1) == vector_chromosome_metadata1->gene_infimum);
+    REQUIRE(X->get_gene(2) == vector_chromosome_metadata1->gene_supremum);
 
     lib.delete_population(population1);
 }
