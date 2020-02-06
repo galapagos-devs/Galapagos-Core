@@ -29,7 +29,6 @@ double creature_internal::get_fitness() {
 
 creature_internal* creature_internal::breed_with(creature_internal* mate) {
     auto* child = new creature_internal(_creature_metadata, _stochastic_instance);
-    //std::cout << "fitness " << child->get_fitness() << std::endl;
 
     for(size_t i = 0; i < _creature_metadata->num_chromosomes; i++) {
         chromosome_metadata* chromosome_metadata = _creature_metadata->chromosome_metadata[i];
