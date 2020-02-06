@@ -23,12 +23,12 @@ TEST_CASE("gaussian mutation invoked", "[unit][vector-chromosome][mutation][gaus
     When(Method(chromosome_mock, gene_inf)).AlwaysReturn(0);
     vector_chromosome* mocked_chromosome = &chromosome_mock.get();
 
-    gaussian_mutation_metadata* mutation_metadata = new gaussian_mutation_metadata();
+    auto* mutation_metadata = new gaussian_mutation_metadata();
     mutation_metadata->mean = gaussian_mean;
     mutation_metadata->standard_deviation = gaussian_standard_deviation;
     mutation* mutation = new gaussian_mutation(mutation_metadata, mocked_stochastic);
 
-    vector_chromosome* mutated_chromosome = (vector_chromosome*)mutation->invoke(mocked_chromosome);
+    auto* mutated_chromosome = (vector_chromosome*)mutation->invoke(mocked_chromosome);
     double desired_gene = mutated_chromosome->get_gene(desired_gene_index);
     REQUIRE(desired_gene == desired_gene_value);
     delete mutated_chromosome;

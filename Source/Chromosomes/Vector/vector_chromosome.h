@@ -25,6 +25,7 @@ private:
 
     double* _genes;
 
+// base class method
 protected:
     double get_distance(vector_chromosome* other) override;
 
@@ -39,33 +40,34 @@ public:
 
     //region Attributes
 
-    size_t num_genes();
+    virtual size_t num_genes();
 
-    double gene_inf();  // _gene_infimum getter
-    double gene_sup(); // _gene_supremum getter
+    virtual double gene_inf();  // _gene_infimum getter
+    virtual double gene_sup(); // _gene_supremum getter
 
     //endregion
 
     //region Getters & Setters
 
-    void set_gene(size_t index, double value);
+    virtual void set_gene(size_t index, double gene);
+    virtual void set_gene_slice(size_t start_index, size_t end_index, double* genes);
 
-    double get_gene(size_t index);
-    double* get_gene_slice(size_t start_index, size_t end_index);
-    double* get_gene_slice(size_t start_index, size_t end_index, size_t step_size);
+    virtual double get_gene(size_t index);
+    virtual double* get_gene_slice(size_t start_index, size_t end_index);
+    virtual double* get_gene_slice(size_t start_index, size_t end_index, size_t step_size);
 
     //endregion
 
     //region Math Operations
 
-    double norm();
+    virtual double norm();
 
-    vector_chromosome* add(vector_chromosome* other);
-    vector_chromosome* subtract(vector_chromosome* other);
-    vector_chromosome* multiply(double scalar);
+    virtual vector_chromosome* add(vector_chromosome* other);
+    virtual vector_chromosome* subtract(vector_chromosome* other);
+    virtual vector_chromosome* multiply(double scalar);
 
-    double dot(vector_chromosome* other);
-    vector_chromosome* cross(vector_chromosome** others, size_t num_chromosomes);
+    virtual double dot(vector_chromosome* other);
+    virtual vector_chromosome* cross(vector_chromosome** others, size_t num_chromosomes);
 
     //endregion
 

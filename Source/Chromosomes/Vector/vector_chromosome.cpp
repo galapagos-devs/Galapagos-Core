@@ -44,7 +44,7 @@ vector_chromosome::~vector_chromosome() {
 
 //region Inherited Methods
 
-double vector_chromosome::get_distance(vector_chromosome* other) {
+double vector_chromosome::get_distance(vector_chromosome *other) {
     double norm = 0;
     for(size_t i = 0; i < _size; ++i)
         norm += pow(get_gene(i) - other->get_gene(i), _norm_rank);
@@ -73,9 +73,15 @@ double vector_chromosome::gene_sup() {
 
 //region Getters & Setters
 
-void vector_chromosome::set_gene(size_t index, double value) {
-    double clamped_value = std::clamp(value, _gene_infimum, _gene_infimum);
-    _genes[index] = clamped_value;
+void vector_chromosome::set_gene(size_t index, double gene) {
+    double clamped_gene = std::clamp(gene, _gene_infimum, _gene_supremum);
+    _genes[index] = clamped_gene;
+}
+
+void vector_chromosome::set_gene_slice(size_t start_index, size_t end_index, double* genes) {
+    size_t i = 0;
+    for(size_t slice_index = start_index; slice_index < end_index; slice_index++)
+        set_gene(slice_index, genes[i++]);
 }
 
 double vector_chromosome::get_gene(size_t index) {
@@ -147,6 +153,7 @@ double vector_chromosome::dot(vector_chromosome *other) {
 vector_chromosome* vector_chromosome::cross(vector_chromosome** others, size_t num_chromosomes) {
     throw std::runtime_error("vector_chromosome.cross not implemented");
 }
+
 //endregion
 
 

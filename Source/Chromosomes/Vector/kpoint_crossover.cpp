@@ -5,7 +5,6 @@
 
 #include "kpoint_crossover.h"
 
-
 //region Constructor & Destructor
 
 kpoint_crossover::kpoint_crossover(stochastic* stochastic_instance, kpoint_crossover_metadata* metadata) {
@@ -33,7 +32,7 @@ std::vector<int> kpoint_crossover::_get_cut_points(size_t chromosome_len) {
         int proposed_cut = _stochastic_instance->rand_int(1, chromosome_len-2);
 
         // Check if proposed_cut is contained in cuts
-        if (std::find(cuts.begin(), cuts.end(), proposed_cut) != cuts.end()) {
+        if (std::find(cuts.begin(), cuts.end(), proposed_cut) == cuts.end()) {
             cuts[i] = proposed_cut;
             i++;
         }
