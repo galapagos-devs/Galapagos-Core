@@ -15,10 +15,10 @@
 TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     // population metadata
     auto* population_metadata1 = new population_metadata();
-    population_metadata1->size = 500;
+    population_metadata1->size = 25;
     population_metadata1->survival_rate = 0.25;
-    population_metadata1->log_function = [](size_t generation, double fitness) {
-        std::cout << "generation: " << generation << " fitness: " << fitness << std::endl;
+    population_metadata1->log_function = [](log_entry entry) {
+        std::cout << "generation: " << entry.generation << " optimal fitness: " << entry.optimal_fitness << std::endl;
     };
 
     // selection algorithm metadata
@@ -74,7 +74,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     auto* gaussian_mutation_metadata1 = new gaussian_mutation_metadata();
     gaussian_mutation_metadata1->weight = 4;
     gaussian_mutation_metadata1->mean = 0;
-    gaussian_mutation_metadata1->standard_deviation = 1;
+    gaussian_mutation_metadata1->standard_deviation = 50;
 
     vector_chromosome_metadata1->num_mutations = 2;
     vector_chromosome_metadata1->mutation_metadata = new mutation_metadata*[vector_chromosome_metadata1->num_mutations];

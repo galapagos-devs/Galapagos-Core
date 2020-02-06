@@ -61,9 +61,10 @@ void population_internal::evolve() {
 		size_t surviving_creature_count = _elitism(new_generation);
 		_breed_new_generation(new_generation, surviving_creature_count, selection_algorithms[0]);
         _optimal_creature = _find_optimal_creature();
+        _current_log_entry.generation = ++generation;
 
         if(_population_metadata->log_function != nullptr)
-            _population_metadata->log_function(++generation, _optimal_creature->get_fitness());
+            _population_metadata->log_function(_current_log_entry);
 	}
 
 	// clean-up memory
@@ -89,6 +90,7 @@ creature_internal* population_internal::_find_optimal_creature() {
 		if (current_fitness > optimal_fitness) {
 			optimal_fitness = current_fitness;
 			optimal_creature = current_creature;
+            _current_log_entry.optimal_fitness = optimal_fitness;
 		}
 	}
 

@@ -7,7 +7,12 @@
 
 #include "creature.h"
 
-typedef std::function<void(size_t, double)> log_func_t;
+struct log_entry {
+    size_t generation;
+    double optimal_fitness;
+};
+
+typedef std::function<void(log_entry)> log_func_t;
 typedef std::function<double(creature*)> fitness_func_t;
 
 struct genetic_operator_metadata {
