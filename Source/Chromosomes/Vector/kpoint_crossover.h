@@ -21,7 +21,6 @@ public:
     //region Constructor & Destructor
 
     explicit kpoint_crossover(stochastic* stochastic_instance, kpoint_crossover_metadata* metadata);
-    explicit kpoint_crossover(kpoint_crossover* other);
     ~kpoint_crossover();
 
     //endregion

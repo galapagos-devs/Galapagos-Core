@@ -1,8 +1,8 @@
 #include "vector_chromosome.h"
 #include "randomization_mutation.h"
 
-randomization_mutation::randomization_mutation(randomization_mutation_metadata *metadata,
-                                               stochastic *stochastic_instance) {
+randomization_mutation::randomization_mutation(randomization_mutation_metadata *metadata, stochastic *stochastic_instance) :
+    mutation_internal(metadata){
     _stochastic_instance = stochastic_instance;
 }
 

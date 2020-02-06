@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "../../Source/API/galapagos.h"
 #include "../../Source/API/galapagos_metadata.h"
 #include "../../Source/galapagos_assemblies.h"
@@ -13,10 +15,11 @@
 TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     // population metadata
     auto* population_metadata1 = new population_metadata();
-    population_metadata1->size = 50;
+    population_metadata1->size = 500;
     population_metadata1->survival_rate = 0.25;
-    population_metadata1->distance_threshold = 0; //?
-    population_metadata1->cooperative_coevolution = false;
+    population_metadata1->log_function = [](size_t generation, double fitness) {
+        std::cout << "generation: " << generation << " fitness: " << fitness << std::endl;
+    };
 
     // selection algorithm metadata
     auto* tournament_selection_metadata1 = new tournament_selection_metadata();
@@ -28,7 +31,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
 
     // termination condition metadata
     auto* fitness_threshold_metadata1 = new fitness_threshold_metadata();
-    fitness_threshold_metadata1->fitness_threshold = 1500; //?
+    fitness_threshold_metadata1->fitness_threshold = 1500;
 
     population_metadata1->num_termination_conditions = 1;
     population_metadata1->termination_condition_metadata = new termination_condition_metadata*[population_metadata1->num_termination_conditions];
@@ -46,12 +49,11 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     // chromosome metadata
     auto* vector_chromosome_metadata1 = new vector_chromosome_metadata();
     vector_chromosome_metadata1->name = "X";
-    vector_chromosome_metadata1->norm_rank = 2;
     vector_chromosome_metadata1->size = 3;
     vector_chromosome_metadata1->gene_infimum = -500;
     vector_chromosome_metadata1->gene_supremum = 500;
     vector_chromosome_metadata1->crossover_rate = 1;
-    vector_chromosome_metadata1->mutation_rate = 0.1;
+    vector_chromosome_metadata1->mutation_rate = 0.5;
 
     creature_metadata1->num_chromosomes = 1;
     creature_metadata1->chromosome_metadata = new chromosome_metadata*[creature_metadata1->num_chromosomes];
@@ -67,7 +69,10 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
 
     // mutation metadata
     auto* randomization_mutation_metadata1 = new randomization_mutation_metadata();
+    randomization_mutation_metadata1->weight = 1;
+
     auto* gaussian_mutation_metadata1 = new gaussian_mutation_metadata();
+    gaussian_mutation_metadata1->weight = 4;
     gaussian_mutation_metadata1->mean = 0;
     gaussian_mutation_metadata1->standard_deviation = 1;
 

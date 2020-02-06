@@ -7,11 +7,16 @@
 
 #include "creature.h"
 
-typedef std::function<double(creature* creature)> fitness_func_t;
+typedef std::function<void(size_t, double)> log_func_t;
+typedef std::function<double(creature*)> fitness_func_t;
 
-// It seems base struct need at least 1 virtual member to be considered polymorphic
-struct crossover_metadata { virtual ~crossover_metadata() = default; };
-struct mutation_metadata { virtual ~mutation_metadata() = default; };
+struct genetic_operator_metadata {
+    virtual  ~genetic_operator_metadata() = default;
+    double weight;
+};
+
+struct crossover_metadata : genetic_operator_metadata { virtual ~crossover_metadata() = default; };
+struct mutation_metadata : genetic_operator_metadata { virtual ~mutation_metadata() = default; };
 struct selection_algorithm_metadata { virtual ~selection_algorithm_metadata() = default; };
 struct termination_condition_metadata { virtual ~termination_condition_metadata() = default; };
 
@@ -33,6 +38,7 @@ struct creature_metadata {
 };
 
 struct population_metadata {
+    log_func_t log_function;
 	size_t size;
 	double survival_rate;
 	double distance_threshold;

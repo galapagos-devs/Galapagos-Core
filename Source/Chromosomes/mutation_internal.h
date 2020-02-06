@@ -7,9 +7,16 @@
 
 template <class TChromosome>
 class mutation_internal : public mutation {
+private:
+    double _weight = 1;
+
 public:
+    inline mutation_internal(mutation_metadata* mutation_metadata) {
+        _weight = mutation_metadata->weight;
+    }
+
     inline double get_weight() override {
-        return  1; // TODO: how should this be reflected in the metadata?
+        return  _weight;
     };
 
     inline chromosome* invoke(chromosome* chromosome) override {
