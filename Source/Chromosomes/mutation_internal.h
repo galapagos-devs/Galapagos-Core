@@ -16,7 +16,7 @@ public:
         TChromosome* dynamic = dynamic_cast<TChromosome*>(chromosome);
         if(dynamic == nullptr)
             throw std::runtime_error("mutation::invoke mismatched types");
-        return invoke(chromosome);
+        return invoke(dynamic);
     }
 
 protected:

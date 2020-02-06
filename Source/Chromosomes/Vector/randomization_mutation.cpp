@@ -1,6 +1,8 @@
 #include "vector_chromosome.h"
 #include "randomization_mutation.h"
 
+#include <iostream>
+
 randomization_mutation::randomization_mutation(randomization_mutation_metadata *metadata,
                                                stochastic *stochastic_instance) {
     _stochastic_instance = stochastic_instance;
@@ -9,7 +11,7 @@ randomization_mutation::randomization_mutation(randomization_mutation_metadata *
 randomization_mutation::~randomization_mutation() = default;
 
 chromosome *randomization_mutation::invoke(vector_chromosome *chromosome) {
-    vector_chromosome* child = new vector_chromosome(chromosome);
+    auto* child = new vector_chromosome(chromosome);
     double min = child->gene_inf();
     double max = child->gene_sup();
 

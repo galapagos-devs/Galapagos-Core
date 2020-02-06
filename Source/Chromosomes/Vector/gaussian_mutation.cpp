@@ -1,5 +1,4 @@
 #include <cmath>
-#include <functional>
 
 #include "gaussian_mutation.h"
 

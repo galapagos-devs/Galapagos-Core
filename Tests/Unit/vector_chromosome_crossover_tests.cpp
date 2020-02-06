@@ -7,6 +7,12 @@
 using namespace fakeit;
 
 TEST_CASE("k-point (vector) crossover invoked", "[unit][vector-chromosome][crossover][k-point-crossover]") {
+    size_t cut_points = 2;
+
+    size_t num_genes = 3;
+    double gene_infimum = 0;
+    double gene_supremum = 10;
+
     double chromosomeX_genes[3] = { 1, 2, 3 };
     double chromosomeY_genes[3] = { 4, 5, 6 };
     double desired_genes[3] = {
@@ -15,9 +21,6 @@ TEST_CASE("k-point (vector) crossover invoked", "[unit][vector-chromosome][cross
             chromosomeX_genes[2]
     };
 
-    size_t num_genes = 3;
-    size_t cut_points = 2;
-
     Mock<stochastic> stochastic_mock;
     When(OverloadedMethod(stochastic_mock, rand_double, double(int,int))).AlwaysReturn(0);
     When(OverloadedMethod(stochastic_mock, rand_int, int(int,int))).Return(1, 1, 2);
@@ -25,15 +28,15 @@ TEST_CASE("k-point (vector) crossover invoked", "[unit][vector-chromosome][cross
 
     auto* chromosomeX_metadata = new vector_chromosome_metadata();
     chromosomeX_metadata->size = num_genes;
-    chromosomeX_metadata->gene_infimum = 0;
-    chromosomeX_metadata->gene_supremum = 10;
+    chromosomeX_metadata->gene_infimum = gene_infimum;
+    chromosomeX_metadata->gene_supremum = gene_supremum;
     auto* chromosomeX = new vector_chromosome(mocked_stochastic, chromosomeX_metadata);
     chromosomeX->set_gene_slice(0, num_genes, chromosomeX_genes);
 
     auto* chromosomeY_metadata = new vector_chromosome_metadata();
     chromosomeY_metadata->size = num_genes;
-    chromosomeY_metadata->gene_infimum = 0;
-    chromosomeY_metadata->gene_supremum = 10;
+    chromosomeY_metadata->gene_infimum = gene_infimum;
+    chromosomeY_metadata->gene_supremum = gene_supremum;
     auto* chromosomeY = new vector_chromosome(mocked_stochastic, chromosomeY_metadata);
     chromosomeY->set_gene_slice(0, num_genes, chromosomeY_genes);
 
@@ -44,6 +47,13 @@ TEST_CASE("k-point (vector) crossover invoked", "[unit][vector-chromosome][cross
     auto* child = (vector_chromosome*)crossover->invoke(chromosomeX, chromosomeY);
     for(size_t i = 0; i < num_genes; i++)
         REQUIRE(child->get_gene(i) == desired_genes[i]);
+    delete child;
+
+    delete chromosomeX_metadata;
+    delete chromosomeX;
+
+    delete chromosomeY_metadata;
+    delete chromosomeY;
 
     delete crossover;
     delete crossover_metadata;
