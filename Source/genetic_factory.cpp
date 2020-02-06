@@ -7,6 +7,14 @@ genetic_factory& genetic_factory::get_instance() {
 
 //region plugin registration
 
+void genetic_factory::reset() {
+    _registered_selection_algorithms.clear();
+    _registered_termination_conditions.clear();
+    _registered_chromosomes.clear();
+    _registered_crossovers.clear();
+    _registered_mutations.clear();
+}
+
 void genetic_factory::register_selection_algorithm(const try_create_selection_algorithm_t& try_create) {
     _registered_selection_algorithms.push_back(try_create);
 }

@@ -95,6 +95,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     REQUIRE(X->get_gene(2) == vector_chromosome_metadata1->gene_supremum);
 
     lib.delete_population(population1);
+    lib.reset();
 }
 
 // TODO: we should figure out what problem we want to use for throughput testing.

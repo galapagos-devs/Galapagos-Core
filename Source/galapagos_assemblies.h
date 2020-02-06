@@ -26,26 +26,52 @@ inline std::function<TSignature> load_assembly_func(HMODULE assembly, const std:
     return func;
 }
 
-class gc_satellite; // forward declaration
 class gc_core {
 private:
     HMODULE _assembly;
-    std::vector<gc_satellite*> _satellites;
-    bool _initialized = false;
+
+    std::function<void(void)> _initialize;
+    std::function<void(void)> _reset;
 
     std::function<void(try_create_selection_algorithm_t)> _register_selection_algorithm;
     std::function<void(try_create_termination_condition_t)> _register_termination_condition;
     std::function<void(try_create_chromosome_t)> _register_chromosome;
     std::function<void(try_create_crossover_t)> _register_crossover;
     std::function<void(try_create_mutation_t)> _register_mutation;
+
     std::function<stochastic*(void)> _get_stochastic;
 
     std::function<population*(population_metadata*)> _create_population;
     std::function<void(population*)> _delete_population;
 
 public:
+    inline explicit gc_core() {
+        _assembly = nullptr;
+
+        _initialize = gc_initialize;
+        _reset = gc_reset;
+
+        _register_selection_algorithm = gc_register_selection_algorithm;
+        _register_termination_condition = gc_register_termination_condition;
+        _register_chromosome = gc_register_chromosome;
+        _register_crossover = gc_register_crossover;
+        _register_mutation = gc_register_mutation;
+
+        _get_stochastic = gc_get_stochastic;
+
+        _create_population = gc_create_population;
+        _delete_population = gc_delete_population;
+    }
+
     inline explicit gc_core(const std::string& assembly_location) {
         _assembly = LoadLibrary(assembly_location.c_str());
+
+        _initialize =
+                load_assembly_func<void(void)>(
+                        _assembly, "gc_initialize");
+        _reset =
+                load_assembly_func<void(void)>(
+                        _assembly, "gc_reset");
 
         _register_selection_algorithm =
                 load_assembly_func<void(try_create_selection_algorithm_t)>(
@@ -62,6 +88,7 @@ public:
         _register_mutation =
                 load_assembly_func<void(try_create_mutation_t)>(
                         _assembly, "gc_register_mutation");
+
         _get_stochastic =
                 load_assembly_func<stochastic*(void)>(
                         _assembly, "gc_get_stochastic");
@@ -74,9 +101,18 @@ public:
                         _assembly, "gc_delete_population");
     }
 
-    inline ~gc_core();
+    inline ~gc_core() {
+        if(_assembly != nullptr)
+            FreeLibrary(_assembly);
+    }
 
-    inline void initialize();
+    inline void initialize() {
+        _initialize();
+    }
+
+    inline void reset() {
+        _reset();
+    }
 
     inline void register_selection_algorithm(try_create_selection_algorithm_t try_create) {
         _register_selection_algorithm(std::move(try_create));
@@ -103,10 +139,6 @@ public:
     }
 
     inline population* create_population(population_metadata* metadata) {
-        // lazily initialize the bootstrapping procedure
-        if(!_initialized)
-            initialize();
-
         return _create_population(metadata);
     }
 
@@ -138,29 +170,5 @@ public:
         _bootstrap(core);
     }
 };
-
-gc_core::~gc_core() {
-    FreeLibrary(_assembly);
-    for (auto & satellite : _satellites)
-        delete satellite;
-}
-
-void gc_core::initialize() {
-    if(!_initialized) {
-        // find all dlls in current directory that export the symbol 'gc_bootstrap'
-        for (const auto &dir_entry : fs::recursive_directory_iterator(".")) {
-            const fs::path& entry_path = dir_entry.path();
-            if (entry_path.extension() == ".dll" &&
-                entry_path.filename() != "Galapagos.dll") {
-                const std::string filename = entry_path.filename().string();
-                auto* satellite = new gc_satellite(filename);
-                satellite->bootstrap(this);
-                _satellites.push_back(satellite);
-            }
-        }
-
-        _initialized = true;
-    }
-}
 
 #endif /* _GALAPAGOS_ASSEMBLIES_H_ */

@@ -8,6 +8,8 @@ private:
     std::mt19937 _rng;
 
 public:
+    static stochastic_internal& get_instance(); // singleton access
+
     stochastic_internal();
 
 	~stochastic_internal() override;

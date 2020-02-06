@@ -24,6 +24,8 @@ public:
 
     //region plugin registration
 
+    void reset();
+
     void register_selection_algorithm(const try_create_selection_algorithm_t& try_create);
     void register_termination_condition(const try_create_termination_condition_t& try_create);
 

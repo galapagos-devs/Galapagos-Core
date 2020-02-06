@@ -2,6 +2,11 @@
 
 #include "stochastic_internal.h"
 
+stochastic_internal& stochastic_internal::get_instance() {
+    static stochastic_internal instance;
+    return instance;
+}
+
 stochastic_internal::stochastic_internal() {
     _rng.seed(std::time(0));
 }
