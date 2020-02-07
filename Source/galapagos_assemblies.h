@@ -5,16 +5,11 @@
  * bootstrapping procedure. 'gc_core' is the bootstrapping interface for the core galapagos library assembly while
  * 'gc_satellite' is the interface to any assembly that wishes to inject custom API objects into galapagos on startup.*/
 
-// TODO: currently only windows implementation exist. posix implementations will be needed as well.
-
 #include <string>
-#include <Windows.h>
-#include <experimental/filesystem>
+#include <Windows.h> // TODO: currently only windows implementation exist. posix implementations will be needed as well.
 #include <utility>
 
 #include "API/galapagos.h"
-
-namespace fs = std::experimental::filesystem; // namespace alias
 
 template <typename TSignature>
 inline std::function<TSignature> load_assembly_func(HMODULE assembly, const std::string& func_name) {
