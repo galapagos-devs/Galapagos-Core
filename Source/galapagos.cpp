@@ -76,14 +76,9 @@ GALAPAGOS_API void gc_register_mutation(try_create_mutation_t try_create) {
     factory.register_mutation(std::move(try_create));
 }
 
-// TODO: stochastic should be a singleton the same way 'genetic_factory' is
-stochastic* gc_stochastic_instance = nullptr;
 GALAPAGOS_API stochastic* gc_get_stochastic() {
-    if(gc_stochastic_instance == nullptr)
-        gc_stochastic_instance = new stochastic_internal();
-    return gc_stochastic_instance;
-    //stochastic_internal& stochastic = stochastic_internal::get_instance();
-    //return &stochastic;
+    stochastic_internal& stochastic = stochastic_internal::get_instance();
+    return &stochastic;
 }
 
 /**************************

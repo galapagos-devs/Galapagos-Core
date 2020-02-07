@@ -25,7 +25,6 @@ population_internal::~population_internal() {
 	// tree from the bottom up.
 	for (size_t i = 0; i < get_size(); i++)
 		delete _creatures[i];
-    delete _stochastic_instance; // we should only need to delete this here.
 }
 
 // Returns the number of creaters in the population.
