@@ -28,7 +28,7 @@ double creature_internal::get_fitness() {
 }
 
 creature_internal* creature_internal::breed_with(creature_internal* mate) {
-    creature_internal* child = new creature_internal(_creature_metadata, _stochastic_instance);
+    auto* child = new creature_internal(_creature_metadata, _stochastic_instance);
 
     for(size_t i = 0; i < _creature_metadata->num_chromosomes; i++) {
         chromosome_metadata* chromosome_metadata = _creature_metadata->chromosome_metadata[i];
@@ -42,7 +42,7 @@ creature_internal* creature_internal::breed_with(creature_internal* mate) {
         chromosome* child_chromosome = get_chromosome<chromosome>(chromosome_name);
         if(_stochastic_instance->evaluate_probability(chromosome_metadata->crossover_rate))
             child_chromosome = crossover->invoke(
-                get_chromosome<chromosome>(chromosome_name), mate->get_chromosome<chromosome>(chromosome_name));
+                    get_chromosome<chromosome>(chromosome_name), mate->get_chromosome<chromosome>(chromosome_name));
 
         // Conditionally apply mutation
         if(_stochastic_instance->evaluate_probability(chromosome_metadata->mutation_rate))
@@ -50,6 +50,7 @@ creature_internal* creature_internal::breed_with(creature_internal* mate) {
 
         child->_set_chromosome(chromosome_name, child_chromosome);
     }
+
     return child;
 }
 

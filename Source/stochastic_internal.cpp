@@ -2,11 +2,16 @@
 
 #include "stochastic_internal.h"
 
-stochastic_internal::~stochastic_internal() = default;
-
-uint32_t stochastic_internal::get_seed() {
-    return std::time(0);
+stochastic_internal& stochastic_internal::get_instance() {
+    static stochastic_internal instance;
+    return instance;
 }
+
+stochastic_internal::stochastic_internal() {
+    _rng.seed(std::time(0));
+}
+
+stochastic_internal::~stochastic_internal() = default;
 
 bool stochastic_internal::flip_coin() {
 	return (rand_int(2) > 0);
@@ -40,9 +45,8 @@ int stochastic_internal::rand_int(int max) {
 }
 
 int stochastic_internal::rand_int(int min, int max) {
-    std::mt19937 rng(get_seed());
     std::uniform_real_distribution<double> dist(min, max);
-	return dist(rng);
+	return dist(_rng);
 }
 
 double stochastic_internal::rand_double() {
@@ -54,13 +58,11 @@ double stochastic_internal::rand_double(int max) {
 }
 
 double stochastic_internal::rand_double(int min, int max) {
-	std::mt19937 rng(get_seed());
 	std::uniform_real_distribution<double> dist(min, max);
-	return dist(rng);
+	return dist(_rng);
 }
 
 double stochastic_internal::rand_gaussian(double mean, double standard_deviation) {
-    std::mt19937 rng(get_seed());
     std::normal_distribution<double> dist(mean, standard_deviation);
-    return dist(rng);
+    return dist(_rng);
 }

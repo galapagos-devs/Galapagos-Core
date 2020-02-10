@@ -19,7 +19,6 @@ class creature_internal : creature {
 
 private:
     creature_metadata* _creature_metadata;
-
     stochastic* _stochastic_instance;
 
 public:

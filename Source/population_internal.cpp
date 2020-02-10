@@ -15,9 +15,9 @@ population_internal::population_internal(population_metadata* population_metadat
 
 	_creatures.resize(get_size());
 	for (size_t i = 0; i < get_size(); i++)
-	    _creatures[i] = new creature_internal(population_metadata->creature_metadata, stochastic_instance); // TODO: how are we getting an instance of stochastic?
+	    _creatures[i] = new creature_internal(population_metadata->creature_metadata, stochastic_instance);
 
-	_optimal_creature = nullptr;
+	_optimal_creature = _creatures[0];
 }
 
 population_internal::~population_internal() {
@@ -25,7 +25,6 @@ population_internal::~population_internal() {
 	// tree from the bottom up.
 	for (size_t i = 0; i < get_size(); i++)
 		delete _creatures[i];
-    delete _stochastic_instance; // we should only need to delete this here.
 }
 
 // Returns the number of creaters in the population.
@@ -56,10 +55,15 @@ void population_internal::evolve() {
 	new_generation.resize(get_size());
 
 	// Run the genetic algorithm till termination conditions are met.
+    int generation = 0;
 	while (!_has_terminated(termination_conditions)) {  // TODO -- Figure out how to handle multiple selection_algorithms.
-        _optimal_creature = _find_optimal_creature();
 		size_t surviving_creature_count = _elitism(new_generation);
 		_breed_new_generation(new_generation, surviving_creature_count, selection_algorithms[0]);
+        _optimal_creature = _find_optimal_creature();
+        _current_log_entry.generation = ++generation;
+
+        if(_population_metadata->log_function != nullptr)
+            _population_metadata->log_function(_current_log_entry);
 	}
 
 	// clean-up memory
@@ -85,6 +89,7 @@ creature_internal* population_internal::_find_optimal_creature() {
 		if (current_fitness > optimal_fitness) {
 			optimal_fitness = current_fitness;
 			optimal_creature = current_creature;
+            _current_log_entry.optimal_fitness = optimal_fitness;
 		}
 	}
 
@@ -119,14 +124,14 @@ std::vector<termination_condition*> population_internal::_create_termination_con
 size_t population_internal::_elitism(std::vector<creature_internal*>& new_generation) {
 	size_t population_size = get_size();
 
-	// Sorts the creatures by decending fitness
+	// Sorts the creatures by descending fitness
 	std::sort(_creatures.begin(), _creatures.end(), [](creature_internal* x, creature_internal* y) {
 		return x->get_fitness() > y->get_fitness();
-		});  //TODO - check the complexity of this sort
+		});
 
-	size_t surviving_creature_count = (size_t)(_population_metadata->survival_rate * population_size);
+	auto surviving_creature_count = (size_t)(_population_metadata->survival_rate * population_size);
 	for (size_t i = 0; i < surviving_creature_count; i++)
-		new_generation[i] = _creatures[i];
+        new_generation[i] = _creatures[i];
 
 	return surviving_creature_count;
 }
@@ -136,16 +141,16 @@ void population_internal::_breed_new_generation(std::vector<creature_internal*>&
 	size_t population_size = get_size();
 
 	for (size_t i = surviving_creature_count; i < population_size; i++) {
-		creature_internal* parent1 = (creature_internal*)selection_algorithm->invoke(this);
-		creature_internal* parent2 = (creature_internal*)selection_algorithm->invoke(this);
+		auto* parent1 = (creature_internal*)selection_algorithm->invoke(this);
+		auto* parent2 = (creature_internal*)selection_algorithm->invoke(this);
 		creature_internal* child = parent1->breed_with(parent2);
 		new_generation[i] = child;
 	}
 
-	for (size_t i = 0; i < population_size; i++) {
-		delete _creatures[i];
-		_creatures[i] = new_generation[i];
-	}
+    for (size_t i = surviving_creature_count; i < population_size; i++) {
+        delete _creatures[i];
+        _creatures[i] = new_generation[i];
+    }
 }
 
 // Checks if any of the termination conditions have been met.

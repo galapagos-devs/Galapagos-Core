@@ -1,9 +1,9 @@
 #include <cmath>
-#include <functional>
 
 #include "gaussian_mutation.h"
 
-gaussian_mutation::gaussian_mutation(gaussian_mutation_metadata *metadata, stochastic* stochastic_instance) {
+gaussian_mutation::gaussian_mutation(gaussian_mutation_metadata *metadata, stochastic* stochastic_instance) :
+    mutation_internal(metadata) {
     _mean = metadata->mean;
     _standard_deviation = metadata->standard_deviation;
 

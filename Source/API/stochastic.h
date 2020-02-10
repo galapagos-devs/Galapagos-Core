@@ -14,8 +14,6 @@ class stochastic {
 public:
 	virtual ~stochastic() = default;
 
-	virtual uint32_t get_seed() = 0;
-
 	virtual bool flip_coin() = 0; //!< Is either *true* or **false**.
 
 	virtual bool evaluate_probability(double probability) = 0;
