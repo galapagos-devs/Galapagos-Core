@@ -6,9 +6,7 @@ fitness_threshold::fitness_threshold(fitness_threshold_metadata* metadata) {
     _fitness_threshold = metadata->fitness_threshold;
 }
 
-fitness_threshold::~fitness_threshold() {
-
-}
+fitness_threshold::~fitness_threshold() = default;
 
 bool fitness_threshold::operator()(population* population) {
     return invoke(population);

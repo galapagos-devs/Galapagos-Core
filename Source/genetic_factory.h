@@ -24,13 +24,15 @@ public:
 
     //region plugin registration
 
-    void register_selection_algorithm(try_create_selection_algorithm_t try_create);
-    void register_termination_condition(try_create_termination_condition_t try_create);
+    void reset();
 
-    void register_chromosome(try_create_chromosome_t try_create);
+    void register_selection_algorithm(const try_create_selection_algorithm_t& try_create);
+    void register_termination_condition(const try_create_termination_condition_t& try_create);
 
-    void register_crossover(try_create_crossover_t try_create);
-    void register_mutation(try_create_mutation_t try_create);
+    void register_chromosome(const try_create_chromosome_t& try_create);
+
+    void register_crossover(const try_create_crossover_t& try_create);
+    void register_mutation(const try_create_mutation_t& try_create);
 
     //endregion
 

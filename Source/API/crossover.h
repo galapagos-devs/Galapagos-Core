@@ -9,6 +9,4 @@ public:
 	virtual chromosome* invoke(chromosome* x, chromosome* y) = 0;
 };
 
-//inline crossover::~crossover { }
-
 #endif /* _CROSSOVER_H_ */

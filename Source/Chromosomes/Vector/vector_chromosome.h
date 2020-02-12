@@ -3,6 +3,7 @@
 
 #include "../../API/chromosome.h"
 #include "../../API/galapagos_metadata.h"
+#include "../../API/stochastic.h"
 
 #include "../chromosome_internal.h"
 
@@ -15,6 +16,8 @@ struct vector_chromosome_metadata : chromosome_metadata {
 
 class vector_chromosome : public chromosome_internal<vector_chromosome> {
 private:
+    stochastic* _stochastic_instance;
+
     uint32_t _norm_rank; // k-value to be used with the k-norm defined in get_distance
     size_t _size;
     double _gene_infimum; // lowest possible value any gene will ever take
@@ -22,13 +25,14 @@ private:
 
     double* _genes;
 
+// base class method
 protected:
     double get_distance(vector_chromosome* other) override;
 
 public:
     //region Constructor & Destructor
 
-    explicit vector_chromosome(vector_chromosome_metadata* metadata);
+    explicit vector_chromosome(stochastic* stochastic_instance, vector_chromosome_metadata* metadata);
     explicit vector_chromosome(vector_chromosome* other);
     ~vector_chromosome() override;
 
@@ -36,33 +40,34 @@ public:
 
     //region Attributes
 
-    size_t num_genes();
+    virtual size_t num_genes();
 
-    double gene_inf();  // _gene_infimum getter
-    double gene_sup(); // _gene_supremum getter
+    virtual double gene_inf();  // _gene_infimum getter
+    virtual double gene_sup(); // _gene_supremum getter
 
     //endregion
 
     //region Getters & Setters
 
-    void set_gene(size_t index, double value);
+    virtual void set_gene(size_t index, double gene);
+    virtual void set_gene_slice(size_t start_index, size_t end_index, double* genes);
 
-    double get_gene(size_t index);
-    double* get_gene_slice(size_t start_index, size_t end_index);
-    double* get_gene_slice(size_t start_index, size_t end_index, size_t step_size);
+    virtual double get_gene(size_t index);
+    virtual double* get_gene_slice(size_t start_index, size_t end_index);
+    virtual double* get_gene_slice(size_t start_index, size_t end_index, size_t step_size);
 
     //endregion
 
     //region Math Operations
 
-    double norm();
+    virtual double norm();
 
-    vector_chromosome* add(vector_chromosome* other);
-    vector_chromosome* subtract(vector_chromosome* other);
-    vector_chromosome* multiply(double scalar);
+    virtual vector_chromosome* add(vector_chromosome* other);
+    virtual vector_chromosome* subtract(vector_chromosome* other);
+    virtual vector_chromosome* multiply(double scalar);
 
-    double dot(vector_chromosome* other);
-    vector_chromosome* cross(vector_chromosome** others, size_t num_chromosomes);
+    virtual double dot(vector_chromosome* other);
+    virtual vector_chromosome* cross(vector_chromosome** others, size_t num_chromosomes);
 
     //endregion
 

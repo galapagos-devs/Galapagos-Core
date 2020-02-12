@@ -16,11 +16,11 @@ class population_internal : population {
 	*/
 private:
 	population_metadata* _population_metadata;
+    stochastic* _stochastic_instance;
+    log_entry _current_log_entry;
 
 	std::vector<creature_internal*> _creatures;
 	creature_internal* _optimal_creature;
-
-	stochastic* _stochastic_instance;
 
 public:
 	population_internal(population_metadata* population_metadata, stochastic* stochastic_instance);
