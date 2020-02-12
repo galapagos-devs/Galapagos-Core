@@ -32,7 +32,7 @@ struct creature_metadata {
 	chromosome_metadata** chromosome_metadata;
 };
 
-struct population_metadata {
+extern "C" struct population_metadata {
 	size_t size;
 	double survival_rate;
 	double distance_threshold;

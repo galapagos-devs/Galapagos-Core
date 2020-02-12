@@ -2,6 +2,8 @@ add_subdirectory(Chromosomes)
 add_subdirectory(SelectionAlgorithms)
 add_subdirectory(TerminationConditions)
 
+add_subdirectory(API)
+
 set(SRCS
         creature_internal.h
         creature_internal.cpp
