@@ -1,3 +1,4 @@
+include(CMakeSwig.cmake)
 set(SRCS
         tournament_selection.h
         tournament_selection.cpp)

@@ -1,3 +1,4 @@
+include(CMakeSwig.cmake)
 set(SRCS
         fitness_threshold.h
         fitness_threshold.cpp)
