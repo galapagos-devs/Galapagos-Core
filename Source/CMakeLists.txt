@@ -1,9 +1,3 @@
-add_subdirectory(Chromosomes)
-add_subdirectory(SelectionAlgorithms)
-add_subdirectory(TerminationConditions)
-
-add_subdirectory(API)
-
 set(SRCS
         creature_internal.h
         creature_internal.cpp
@@ -18,3 +12,9 @@ set(SRCS
 add_library(SharedGalapagos SHARED ${SRCS})
 set_target_properties(SharedGalapagos PROPERTIES
         OUTPUT_NAME ${SOURCE_NAME})
+
+include(CMakeSwig.cmake)
+
+add_subdirectory(Chromosomes)
+add_subdirectory(SelectionAlgorithms)
+add_subdirectory(TerminationConditions)

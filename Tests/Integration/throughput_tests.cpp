@@ -13,31 +13,34 @@
 #include "../catch.hpp"
 
 TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
-    // population metadata
+    // region population metadata
     auto* population_metadata1 = new population_metadata();
     population_metadata1->size = 25;
     population_metadata1->survival_rate = 0.25;
     population_metadata1->log_function = [](log_entry entry) {
         std::cout << "generation: " << entry.generation << " optimal fitness: " << entry.optimal_fitness << std::endl;
     };
+    // endregion
 
-    // selection algorithm metadata
+    //region  selection algorithm metadata
     auto* tournament_selection_metadata1 = new tournament_selection_metadata();
     tournament_selection_metadata1->tournament_size = 2;
 
     population_metadata1->num_selection_algorithms = 1;
     population_metadata1->selection_algorithm_metadata = new selection_algorithm_metadata*[population_metadata1->num_selection_algorithms];
     population_metadata1->selection_algorithm_metadata[0] = tournament_selection_metadata1;
+    // endregion
 
-    // termination condition metadata
+    //region  termination condition metadata
     auto* fitness_threshold_metadata1 = new fitness_threshold_metadata();
     fitness_threshold_metadata1->fitness_threshold = 1500;
 
     population_metadata1->num_termination_conditions = 1;
     population_metadata1->termination_condition_metadata = new termination_condition_metadata*[population_metadata1->num_termination_conditions];
     population_metadata1->termination_condition_metadata[0] = (termination_condition_metadata*)fitness_threshold_metadata1;
+    // endregion
 
-    // creature metadata
+    //region  creature metadata
     auto* creature_metadata1 = new creature_metadata();
     creature_metadata1->fitness_function = [](creature* creature) {
         auto* X = creature->get_chromosome<vector_chromosome>("X");
@@ -45,8 +48,9 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     };
 
     population_metadata1->creature_metadata = creature_metadata1;
+    // endregion
 
-    // chromosome metadata
+    //region  chromosome metadata
     auto* vector_chromosome_metadata1 = new vector_chromosome_metadata();
     vector_chromosome_metadata1->name = "X";
     vector_chromosome_metadata1->size = 3;
@@ -58,16 +62,18 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     creature_metadata1->num_chromosomes = 1;
     creature_metadata1->chromosome_metadata = new chromosome_metadata*[creature_metadata1->num_chromosomes];
     creature_metadata1->chromosome_metadata[0] = (chromosome_metadata*)vector_chromosome_metadata1;
+    // endregion
 
-    // crossover metadata
+    //region  crossover metadata
     auto* kpoint_crossover_metadata1 = new kpoint_crossover_metadata();
     kpoint_crossover_metadata1->cut_points = 1;
 
     vector_chromosome_metadata1->num_crossovers = 1;
     vector_chromosome_metadata1->crossover_metadata = new crossover_metadata*[vector_chromosome_metadata1->num_crossovers];
     vector_chromosome_metadata1->crossover_metadata[0] = (crossover_metadata*)kpoint_crossover_metadata1;
+    // endregion
 
-    // mutation metadata
+    //region mutation metadata
     auto* randomization_mutation_metadata1 = new randomization_mutation_metadata();
     randomization_mutation_metadata1->weight = 1;
 
@@ -80,6 +86,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     vector_chromosome_metadata1->mutation_metadata = new mutation_metadata*[vector_chromosome_metadata1->num_mutations];
     vector_chromosome_metadata1->mutation_metadata[0] = (mutation_metadata*)randomization_mutation_metadata1;
     vector_chromosome_metadata1->mutation_metadata[1] = (mutation_metadata*)gaussian_mutation_metadata1;
+    // endregion
 
     // invoke algorithm against metadata
     gc_core lib("Galapagos.dll");

@@ -5,6 +5,7 @@ project(Galapagos)
 ####
 # CMake Configuration
 ####
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Output Directory
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/archive)
@@ -34,6 +35,7 @@ set(NAME_DELIMITER -
 
 # C++ Standard
 set(CMAKE_CXX_STANDARD 17)
+include(CMakeSwig.cmake)
 
 # Source
 add_subdirectory(Source)

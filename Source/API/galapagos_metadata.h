@@ -7,7 +7,7 @@
 
 #include "creature.h"
 
-struct log_entry {
+extern "C" struct log_entry {
     size_t generation;
     double optimal_fitness;
 };
@@ -15,17 +15,17 @@ struct log_entry {
 typedef std::function<void(log_entry)> log_func_t;
 typedef std::function<double(creature*)> fitness_func_t;
 
-struct genetic_operator_metadata {
+extern "C" struct genetic_operator_metadata {
     virtual  ~genetic_operator_metadata() = default;
     double weight;
 };
 
-struct crossover_metadata : genetic_operator_metadata { virtual ~crossover_metadata() = default; };
-struct mutation_metadata : genetic_operator_metadata { virtual ~mutation_metadata() = default; };
-struct selection_algorithm_metadata { virtual ~selection_algorithm_metadata() = default; };
-struct termination_condition_metadata { virtual ~termination_condition_metadata() = default; };
+extern "C" struct crossover_metadata : genetic_operator_metadata { virtual ~crossover_metadata() = default; };
+extern "C" struct mutation_metadata : genetic_operator_metadata { virtual ~mutation_metadata() = default; };
+extern "C" struct selection_algorithm_metadata { virtual ~selection_algorithm_metadata() = default; };
+extern "C" struct termination_condition_metadata { virtual ~termination_condition_metadata() = default; };
 
-struct chromosome_metadata {
+extern "C" struct chromosome_metadata {
     virtual  ~chromosome_metadata() = default;
 	std::string name;
 	double crossover_rate;
@@ -36,7 +36,7 @@ struct chromosome_metadata {
 	mutation_metadata** mutation_metadata;
 };
 
-struct creature_metadata {
+extern "C" struct creature_metadata {
     fitness_func_t fitness_function;
 	size_t num_chromosomes;
 	chromosome_metadata** chromosome_metadata;
