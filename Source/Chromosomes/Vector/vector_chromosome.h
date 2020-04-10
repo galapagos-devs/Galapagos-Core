@@ -1,11 +1,10 @@
 #ifndef _GALAPAGOS_VECTOR_CHROMOSOME_H_
 #define _GALAPAGOS_VECTOR_CHROMOSOME_H_
 
-#include "../../API/chromosome.h"
+#include "../../API/galapagos.h"
 #include "../../API/galapagos_metadata.h"
+#include "../../API/chromosome.h"
 #include "../../API/stochastic.h"
-
-#include "../chromosome_internal.h"
 
 struct vector_chromosome_metadata : chromosome_metadata {
     uint32_t norm_rank;
@@ -14,7 +13,7 @@ struct vector_chromosome_metadata : chromosome_metadata {
     double gene_supremum;
 };
 
-class vector_chromosome : public chromosome_internal<vector_chromosome> {
+class vector_chromosome : public chromosome {
 private:
     stochastic* _stochastic_instance;
 
@@ -27,7 +26,7 @@ private:
 
 // base class method
 protected:
-    double get_distance(vector_chromosome* other) override;
+
 
 public:
     //region Constructor & Destructor
@@ -37,6 +36,12 @@ public:
     ~vector_chromosome() override;
 
     //endregion
+
+    // region Inherited Methods
+
+    double get_distance(chromosome* other) override;
+
+    // endregion
 
     //region Attributes
 
@@ -72,5 +77,7 @@ public:
     //endregion
 
 };
+
+vector_chromosome* gc_get_vector_chromosome(creature* creature, const std::string& name);
 
 #endif /* _GALAPAGOS_VECTOR_CHROMOSOME_H_ */

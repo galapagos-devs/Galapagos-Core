@@ -44,13 +44,22 @@ vector_chromosome::~vector_chromosome() {
 
 //region Inherited Methods
 
-double vector_chromosome::get_distance(vector_chromosome *other) {
+double vector_chromosome::get_distance(chromosome* other) {
+
+    auto* downcast = dynamic_cast<vector_chromosome*>(other);
+   if(downcast == nullptr)
+       throw std::runtime_error("get_distance mismatched types");
+
     double norm = 0;
     for(size_t i = 0; i < _size; ++i)
-        norm += pow(get_gene(i) - other->get_gene(i), _norm_rank);
+        norm += pow(get_gene(i) - downcast->get_gene(i), _norm_rank);
 
     norm = pow(norm, 1.0/_norm_rank);
     return norm;
+}
+
+vector_chromosome* get_chromosome(creature* creature, const std::string& name) {
+    return creature->get_chromosome<vector_chromosome>(name);
 }
 
 //endregion
@@ -155,6 +164,10 @@ vector_chromosome* vector_chromosome::cross(vector_chromosome** others, size_t n
 }
 
 //endregion
+
+vector_chromosome* gc_get_vector_chromosome(creature* creature, const std::string& name) {
+    return  creature->get_chromosome<vector_chromosome>(name);
+}
 
 
 #endif /* _VECTOR_CHROMOSOME_ */
