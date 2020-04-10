@@ -4,9 +4,9 @@ swig_add_library(termination_conditions_swig
         LANGUAGE
         python
         OUTPUT_DIR
-        ${CMAKE_SOURCE_DIR}/bin/swig
+        ${CMAKE_SOURCE_DIR}/bin  # was `bin/swig`
         OUTFILE_DIR
-        ${CMAKE_SOURCE_DIR}/bin/swig/sources
+        ${CMAKE_SOURCE_DIR}/bin  # was `bin/swig/sources`
         SOURCES
         termination_conditions.swg
         fitness_threshold.cpp)

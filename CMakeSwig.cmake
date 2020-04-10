@@ -13,5 +13,9 @@ find_package(Python
         REQUIRED
         COMPONENTS Interpreter Development)
 
+file(WRITE python_info.txt
+        VERSION\ =\ ${Python_VERSION}\n
+        PATH\ =\ ${Python_EXECUTABLE})
+
 include_directories(${Python_INCLUDE_DIRS})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})

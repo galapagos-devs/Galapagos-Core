@@ -4,9 +4,9 @@ swig_add_library(selection_algorithms_swig
         LANGUAGE
         python
         OUTPUT_DIR
-        ${CMAKE_SOURCE_DIR}/bin/swig
+        ${CMAKE_SOURCE_DIR}/bin  # was `bin/swig`
         OUTFILE_DIR
-        ${CMAKE_SOURCE_DIR}/bin/swig/sources
+        ${CMAKE_SOURCE_DIR}/bin  # was `bin/swig/sources`
         SOURCES
         selection_algorithms.swg
         tournament_selection.cpp)
