@@ -12,8 +12,8 @@ extern "C" struct log_entry {
     double optimal_fitness;
 };
 
-typedef std::function<void(log_entry)> log_func_t;
-typedef std::function<double(creature*)> fitness_func_t;
+typedef void (*log_func_t)(log_entry);
+typedef double (*fitness_func_t)(creature*);
 
 extern "C" struct genetic_operator_metadata {
     virtual  ~genetic_operator_metadata() = default;
