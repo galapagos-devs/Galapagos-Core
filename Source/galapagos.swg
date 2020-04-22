@@ -61,7 +61,9 @@ public:
 // there is no need to mark this import as `immutable`
 %ignore genetic_operator_metadata;  // Might not need `genetic_operator_metadata` so we could possible ignore it
 
+%immutable;
 %include "API/galapagos_metadata.h"
+%mutable;
 
 %feature("director") crossover_metadata;
 
