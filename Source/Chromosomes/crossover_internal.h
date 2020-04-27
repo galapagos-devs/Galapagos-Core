@@ -11,7 +11,7 @@ private:
     double _weight = 1;
 
 public:
-    inline crossover_internal(crossover_metadata* crossover_metadata) {
+    inline crossover_internal(const crossover_metadata* crossover_metadata) {
         _weight = crossover_metadata->weight;
     }
 

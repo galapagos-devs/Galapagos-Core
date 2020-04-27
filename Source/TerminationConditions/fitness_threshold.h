@@ -15,7 +15,7 @@ private:
     size_t _fitness_threshold;
 
 public:
-    explicit fitness_threshold(fitness_threshold_metadata* metadata);
+    explicit fitness_threshold(const fitness_threshold_metadata* metadata);
 
     ~fitness_threshold() override;
 

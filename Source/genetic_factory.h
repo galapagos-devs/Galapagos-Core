@@ -38,13 +38,13 @@ public:
 
     //region plugin construction
 
-	selection_algorithm* create_selection_algorithm(selection_algorithm_metadata* selection_algorithm_metadata);
-	termination_condition* create_termination_condition(termination_condition_metadata* termination_condition_metadata);
+	selection_algorithm* create_selection_algorithm(const selection_algorithm_metadata* selection_algorithm_metadata);
+	termination_condition* create_termination_condition(const termination_condition_metadata* termination_condition_metadata);
 
-    chromosome* create_chromosome(chromosome_metadata* chromosome_metadata);
+    chromosome* create_chromosome(const chromosome_metadata* chromosome_metadata);
 
-	crossover* create_crossover(crossover_metadata* crossover_metadata);
-	mutation* create_mutation(mutation_metadata* mutation_metadata);
+	crossover* create_crossover(const crossover_metadata* crossover_metadata);
+	mutation* create_mutation(const mutation_metadata* mutation_metadata);
 
 	//endregion
 

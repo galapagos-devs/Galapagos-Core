@@ -22,7 +22,7 @@ protected:
     chromosome* invoke(vector_chromosome* chromosome) override;
 
 public:
-    explicit  gaussian_mutation(gaussian_mutation_metadata* metadata, stochastic* stochastic_instance);
+    explicit gaussian_mutation(const gaussian_mutation_metadata* metadata, stochastic* stochastic_instance);
 
     ~gaussian_mutation() /*override*/;
 };

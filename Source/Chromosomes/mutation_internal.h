@@ -11,7 +11,7 @@ private:
     double _weight = 1;
 
 public:
-    inline mutation_internal(mutation_metadata* mutation_metadata) {
+    inline mutation_internal(const mutation_metadata* mutation_metadata) {
         _weight = mutation_metadata->weight;
     }
 

@@ -20,7 +20,7 @@ private:
 public:
     //region Constructor & Destructor
 
-    explicit kpoint_crossover(stochastic* stochastic_instance, kpoint_crossover_metadata* metadata);
+    explicit kpoint_crossover(const kpoint_crossover_metadata* metadata, stochastic* stochastic_instance);
     ~kpoint_crossover();
 
     //endregion

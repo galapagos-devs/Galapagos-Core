@@ -9,7 +9,7 @@
 
 //region Constructor & Destructor
 
-vector_chromosome::vector_chromosome(stochastic* stochastic_instance, vector_chromosome_metadata *metadata) {
+vector_chromosome::vector_chromosome(const vector_chromosome_metadata *metadata, stochastic* stochastic_instance) {
     _stochastic_instance = stochastic_instance;
 
     _norm_rank = metadata->norm_rank;

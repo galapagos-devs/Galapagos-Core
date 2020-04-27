@@ -9,7 +9,7 @@
 
 //region Public Members
 
-population_internal::population_internal(population_metadata* population_metadata, stochastic* stochastic_instance) {
+population_internal::population_internal(const population_metadata* population_metadata, stochastic* stochastic_instance) {
 	_population_metadata = population_metadata;
 	_stochastic_instance = stochastic_instance;
 

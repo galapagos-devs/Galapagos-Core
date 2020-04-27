@@ -4,13 +4,12 @@
 #include "genetic_factory.h"
 
 // Constructor/Destructor
-creature_internal::creature_internal(creature_metadata* creature_metadata, stochastic* stochastic_instance) {
-    _creature_metadata = creature_metadata;
-    _stochastic_instance = stochastic_instance;
+creature_internal::creature_internal(const creature_metadata* creature_metadata, stochastic* stochastic_instance) :
+    _creature_metadata{creature_metadata}, _stochastic_instance{stochastic_instance} {
 
     genetic_factory& factory = genetic_factory::get_instance();
     for(size_t i = 0; i < _creature_metadata->num_chromosomes; i++) {
-        chromosome_metadata* chromosome_metadata = _creature_metadata->chromosome_metadata[i];
+        const chromosome_metadata* chromosome_metadata = _creature_metadata->chromosome_metadata[i];
         _chromosomes[chromosome_metadata->name] = factory.create_chromosome(chromosome_metadata);
     }
 }
@@ -31,7 +30,7 @@ creature_internal* creature_internal::breed_with(creature_internal* mate) {
     auto* child = new creature_internal(_creature_metadata, _stochastic_instance);
 
     for(size_t i = 0; i < _creature_metadata->num_chromosomes; i++) {
-        chromosome_metadata* chromosome_metadata = _creature_metadata->chromosome_metadata[i];
+        const chromosome_metadata* chromosome_metadata = _creature_metadata->chromosome_metadata[i];
         std::string chromosome_name = chromosome_metadata->name;
 
         // Select crossover & mutation proportional to their weight
@@ -56,7 +55,7 @@ creature_internal* creature_internal::breed_with(creature_internal* mate) {
 
 // Private methods
 template <class TOperator, class TMetadata>
-TOperator* creature_internal::_get_genetic_operator(TMetadata** operator_metadata, size_t num_operators,
+TOperator* creature_internal::_get_genetic_operator(const TMetadata** operator_metadata, size_t num_operators,
                                                     create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator) {
     std::vector<TOperator*> genetic_operators;
     double* weights = new double[num_operators];
@@ -80,17 +79,17 @@ TOperator* creature_internal::_get_genetic_operator(TMetadata** operator_metadat
     return genetic_operators[chosen_index];
 }
 
-crossover* creature_internal::_get_crossover(crossover_metadata** metadata, size_t num_crossovers) {
+crossover* creature_internal::_get_crossover(const crossover_metadata** metadata, size_t num_crossovers) {
     genetic_factory& factory = genetic_factory::get_instance();
-    create_genetic_operator_a<crossover, crossover_metadata>  create_crossover = [&factory](crossover_metadata* metadatai) {
+    create_genetic_operator_a<crossover, crossover_metadata>  create_crossover = [&factory](const crossover_metadata* metadatai) {
         return factory.create_crossover(metadatai);
     };
     return _get_genetic_operator<crossover, crossover_metadata>(metadata, num_crossovers, create_crossover);
 }
 
-mutation* creature_internal::_get_mutation(mutation_metadata** metadata, size_t num_mutations) {
+mutation* creature_internal::_get_mutation(const mutation_metadata** metadata, size_t num_mutations) {
     genetic_factory& factory = genetic_factory::get_instance();
-    create_genetic_operator_a<mutation, mutation_metadata>  create_mutation = [&factory](mutation_metadata* metadatai) {
+    create_genetic_operator_a<mutation, mutation_metadata>  create_mutation = [&factory](const mutation_metadata* metadatai) {
         return factory.create_mutation(metadatai);
     };
     return _get_genetic_operator<mutation, mutation_metadata>(metadata, num_mutations, create_mutation);

@@ -39,7 +39,7 @@ void genetic_factory::register_mutation(const try_create_mutation_t& try_create)
 
 //region plugin construction
 
-selection_algorithm* genetic_factory::create_selection_algorithm(selection_algorithm_metadata* selection_algorithm_metadata) {
+selection_algorithm* genetic_factory::create_selection_algorithm(const selection_algorithm_metadata* selection_algorithm_metadata) {
 	for(const try_create_selection_algorithm_t& try_create : _registered_selection_algorithms) {
 	    selection_algorithm* selection_algorithm = nullptr;
 	    if(try_create(selection_algorithm_metadata, selection_algorithm))
@@ -48,7 +48,7 @@ selection_algorithm* genetic_factory::create_selection_algorithm(selection_algor
 	throw std::runtime_error("genetic_factory::create_selection_algorithm invalid metadata");
 }
 
-termination_condition* genetic_factory::create_termination_condition(termination_condition_metadata* termination_condition_metadata) {
+termination_condition* genetic_factory::create_termination_condition(const termination_condition_metadata* termination_condition_metadata) {
     for(const try_create_termination_condition_t& try_create : _registered_termination_conditions) {
         termination_condition* termination_condition = nullptr;
         if(try_create(termination_condition_metadata, termination_condition))
@@ -57,7 +57,7 @@ termination_condition* genetic_factory::create_termination_condition(termination
     throw std::runtime_error("genetic_factory::create_termination_condition invalid metadata");
 }
 
-chromosome* genetic_factory::create_chromosome(chromosome_metadata* chromosome_metadata) {
+chromosome* genetic_factory::create_chromosome(const chromosome_metadata* chromosome_metadata) {
     for(const try_create_chromosome_t& try_create : _registered_chromosomes) {
         chromosome* chromosome = nullptr;
         if(try_create(chromosome_metadata, chromosome))
@@ -66,7 +66,7 @@ chromosome* genetic_factory::create_chromosome(chromosome_metadata* chromosome_m
     throw std::runtime_error("genetic_factory::create_chromosome invalid metadata");
 }
 
-crossover* genetic_factory::create_crossover(crossover_metadata* crossover_metadata) {
+crossover* genetic_factory::create_crossover(const crossover_metadata* crossover_metadata) {
     for(const try_create_crossover_t& try_create : _registered_crossovers) {
         crossover* crossover = nullptr;
         if(try_create(crossover_metadata, crossover))
@@ -75,7 +75,7 @@ crossover* genetic_factory::create_crossover(crossover_metadata* crossover_metad
     throw std::runtime_error("genetic_factory::create_crossover invalid metadata");
 }
 
-mutation* genetic_factory::create_mutation(mutation_metadata* mutation_metadata) {
+mutation* genetic_factory::create_mutation(const mutation_metadata* mutation_metadata) {
     for(const try_create_mutation_t& try_create : _registered_mutations) {
         mutation* mutation = nullptr;
         if(try_create(mutation_metadata, mutation))

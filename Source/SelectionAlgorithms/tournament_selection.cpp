@@ -2,15 +2,6 @@
 
 #include "tournament_selection.h"
 
-tournament_selection::tournament_selection(stochastic* stochastic_instance, tournament_selection_metadata* metadata) {
-  _stochastic_instance = stochastic_instance;
-  _tournament_size = metadata->tournament_size;
-}
-
-tournament_selection::~tournament_selection() {
-
-}
-
 // Consideres tournament_size creates from the population and returns the most fit creature.
 creature* tournament_selection::invoke(population* population) {
 	size_t population_size = population->get_size();
@@ -21,7 +12,7 @@ creature* tournament_selection::invoke(population* population) {
 	// Run the tournament.
 	size_t i = 0;
 	creature* champion = nullptr;
-	while (i < _tournament_size){
+	while (i < _metadata->tournament_size){
 		size_t proposed_member_index = _stochastic_instance->rand_int(population_size);
 
 		if (!in_tournament[proposed_member_index]) {

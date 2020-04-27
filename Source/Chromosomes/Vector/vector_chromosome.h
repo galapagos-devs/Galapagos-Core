@@ -7,10 +7,20 @@
 #include "../../API/stochastic.h"
 
 struct vector_chromosome_metadata : chromosome_metadata {
-    uint32_t norm_rank;
-    size_t size;
-    double gene_infimum;
-    double gene_supremum;
+    const uint32_t norm_rank;
+    const size_t size;
+    const double gene_infimum;
+    const double gene_supremum;
+
+    vector_chromosome_metadata(
+            std::string name, const double crossover_rate, const double mutation_rate,
+            const size_t num_crossovers, const crossover_metadata_t** crossover_metadata,
+            const size_t num_mutations, const mutation_metadata_t** mutation_metadata,
+            const uint32_t norm_rank, const size_t size, const double gene_infimum, const double gene_supremum) :
+                chromosome_metadata{name, crossover_rate, mutation_rate,
+                                    num_crossovers, crossover_metadata,
+                                    num_mutations, mutation_metadata},
+                norm_rank{norm_rank}, size{size}, gene_infimum{gene_infimum}, gene_supremum{gene_supremum} {}
 };
 
 class vector_chromosome : public chromosome {
@@ -31,7 +41,7 @@ protected:
 public:
     //region Constructor & Destructor
 
-    explicit vector_chromosome(stochastic* stochastic_instance, vector_chromosome_metadata* metadata);
+    explicit vector_chromosome(const vector_chromosome_metadata* metadata, stochastic* stochastic_instance);
     explicit vector_chromosome(vector_chromosome* other);
     ~vector_chromosome() override;
 

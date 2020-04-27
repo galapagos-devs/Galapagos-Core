@@ -13,7 +13,7 @@ typedef struct log_entry {
     double optimal_fitness;
 } log_entry_t;
 
-typedef std::function<void(log_entry_t*)> log_func_t;
+typedef std::function<void(log_entry_t)> log_func_t;
 typedef std::function<double(creature*)> fitness_func_t;
 
 typedef struct genetic_operator_metadata {

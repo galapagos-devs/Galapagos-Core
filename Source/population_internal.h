@@ -15,7 +15,7 @@ class population_internal : population {
 	The internal implementation of the population object from the public API.
 	*/
 private:
-	population_metadata* _population_metadata;
+	const population_metadata* _population_metadata;
     stochastic* _stochastic_instance;
     log_entry _current_log_entry;
 
@@ -23,7 +23,7 @@ private:
 	creature_internal* _optimal_creature;
 
 public:
-	population_internal(population_metadata* population_metadata, stochastic* stochastic_instance);
+	population_internal(const population_metadata* population_metadata, stochastic* stochastic_instance);
 
 	~population_internal() override;
 

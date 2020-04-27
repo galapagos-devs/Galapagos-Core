@@ -24,7 +24,7 @@ protected:
     chromosome* invoke(vector_chromosome* chromosome) override;
 
 public:
-    explicit  randomization_mutation(randomization_mutation_metadata* metadata, stochastic* stochastic_instance);
+    explicit randomization_mutation(const randomization_mutation_metadata* metadata, stochastic* stochastic_instance);
 
     ~randomization_mutation() /*override*/;
 

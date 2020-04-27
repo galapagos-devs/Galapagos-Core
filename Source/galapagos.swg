@@ -33,13 +33,13 @@ public:
     ~PyLogFunc() {
         Py_XDECREF(py_log_func);
     }
-    void operator()(log_entry* entry) {
+    void operator()(log_entry_t entry) {
         if (!py_log_func || Py_None == py_log_func || !PyCallable_Check(py_log_func))
             return;
 
         PyObject* args;
         Py_XINCREF(args);
-        args = SWIG_Python_NewPointerObj(NULL, entry, SWIGTYPE_p_log_entry, 0);  // This is abusing SWIG internal API
+        args = SWIG_Python_NewPointerObj(NULL, &entry, SWIGTYPE_p_log_entry, 0);  // This is abusing SWIG internal API
 
         PyObject* result = PyObject_Call(py_log_func, args, 0);
         Py_DECREF(args);
