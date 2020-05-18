@@ -1,4 +1,4 @@
-#include <experimental/filesystem>
+#include <filesystem>
 
 #include "API/galapagos.h"
 
@@ -7,7 +7,7 @@
 #include "population_internal.h"
 #include "stochastic_internal.h"
 
-namespace fs = std::experimental::filesystem; // namespace alias
+namespace fs = std::filesystem; // namespace alias
 
 /****************************
 *****Galapagos Bootstrap*****
