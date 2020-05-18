@@ -36,14 +36,14 @@ typedef struct chromosome_metadata {
 	const std::string name;
 	const double crossover_rate;
     const double mutation_rate;
-    const std::vector<crossover_metadata_t*> crossover_metadata;
-	const std::vector<mutation_metadata_t*> mutation_metadata;
+    const std::vector<const crossover_metadata_t*> crossover_metadata;
+	const std::vector<const mutation_metadata_t*> mutation_metadata;
 } chromosome_metadata_t;
 
 typedef struct creature_metadata {
     const fitness_func_t fitness_function;
 	const size_t num_chromosomes;
-	const std::vector<chromosome_metadata_t*> chromosome_metadata;
+	const std::vector<const chromosome_metadata_t*> chromosome_metadata;
 } creature_metadata_t;
 
 typedef struct population_metadata {
@@ -52,8 +52,8 @@ typedef struct population_metadata {
 	const double survival_rate;
 	const double distance_threshold;
 	const bool cooperative_coevolution;
-    const std::vector<selection_algorithm_metadata_t*> selection_algorithm_metadata;
-    const std::vector<termination_condition_metadata_t*> termination_condition_metadata;
+    const std::vector<const selection_algorithm_metadata_t*> selection_algorithm_metadata;
+    const std::vector<const termination_condition_metadata_t*> termination_condition_metadata;
     const creature_metadata_t creature_metadata;
 } population_metadata_t;
 

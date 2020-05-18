@@ -18,11 +18,11 @@ using create_genetic_operator_a = std::function<TOperator*(const TMetadata* meta
 class creature_internal : creature {
 
 private:
-    const creature_metadata* _creature_metadata;
+    const creature_metadata _creature_metadata;
     stochastic* _stochastic_instance;
 
 public:
-    creature_internal(const creature_metadata* creature_metadata, stochastic* stochastic_instance);
+    creature_internal(const creature_metadata creature_metadata, stochastic* stochastic_instance);
 
     ~creature_internal() override;
 
@@ -31,13 +31,13 @@ public:
     creature_internal* breed_with(creature_internal* mate);
 
 private:
-    // Templated function for _get_crossover and _get_mutation.
+    // Templated function for _select_crossover and _select_mutation.
     template <class TOperator, class TMetadata>
-    TOperator* _get_genetic_operator(const TMetadata** operator_metadata, size_t num_operators,
-        create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator);
+    TOperator* _select_genetic_operator(const std::vector<const TMetadata*> operator_metadata,
+                                        create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator);
 
-    crossover* _get_crossover(const crossover_metadata** metadata, size_t num_crossovers);
-    mutation* _get_mutation(const mutation_metadata** metadata, size_t num_mutations);
+    crossover* _select_crossover(const std::vector<const crossover_metadata*>& crossover_metadata);
+    mutation* _select_mutation(const std::vector<const mutation_metadata*>& mutation_metadata);
 
     void _set_chromosome(std::string name, chromosome* new_chromosome);
 };

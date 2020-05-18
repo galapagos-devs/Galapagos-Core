@@ -97,9 +97,10 @@ creature_internal* population_internal::_find_optimal_creature() {
 }
 
 std::vector<selection_algorithm*> population_internal::_create_selection_algorithms() {
+    auto num_selection_algorithms = _population_metadata->selection_algorithm_metadata.size();
     std::vector<selection_algorithm*> selection_algorithms;
 
-    for(size_t i = 0; i < _population_metadata->num_selection_algorithms; i++) {
+    for(size_t i = 0; i < num_selection_algorithms; i++) {
         genetic_factory& factory = genetic_factory::get_instance();
         selection_algorithm* selection_algorithm = factory.create_selection_algorithm(
                 _population_metadata->selection_algorithm_metadata[i]);
@@ -109,9 +110,10 @@ std::vector<selection_algorithm*> population_internal::_create_selection_algorit
 }
 
 std::vector<termination_condition*> population_internal::_create_termination_conditions() {
+    auto num_termination_conditions = _population_metadata->termination_condition_metadata.size();
     std::vector<termination_condition*> termination_conditions;
 
-    for(size_t i = 0; i < _population_metadata->num_termination_conditions; i++) {
+    for(size_t i = 0; i < num_termination_conditions; i++) {
         genetic_factory& factory = genetic_factory::get_instance();
         termination_condition* termination_condition = factory.create_termination_condition(
                 _population_metadata->termination_condition_metadata[i]);
