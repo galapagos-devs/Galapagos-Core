@@ -13,6 +13,8 @@
 #include "API/termination_condition.h"
 %}
 
+%import "constructor_macro.swg"
+
 extern "C" population* gc_create_population(population_metadata* population_metadata);
 extern "C" void gc_delete_population(population* population);
 
@@ -57,15 +59,35 @@ public:
 
 // endregion
 
-// If I make the members of the struct `const` then
-// there is no need to mark this import as `immutable`
 %ignore genetic_operator_metadata;  // Might not need `genetic_operator_metadata` so we could possible ignore it
-
-%immutable;
 %include "API/galapagos_metadata.h"
-%mutable;
 
-%feature("director") crossover_metadata;
+SWIG_Constructor(crossover_metadata, weight)
+
+SWIG_Constructor(mutation_metadata, weight)
+
+SWIG_Constructor(chromosome_metadata,
+    name,
+    crossover_rate,
+    mutation_rate,
+    crossover_metadata,
+    mutation_metadata)
+
+SWIG_Constructor(creature_metadata,
+    fitness_function,
+    num_chromosomes,
+    chromosome_metadata)
+
+SWIG_Constructor(population_metadata,log_function,
+    size,
+    survival_rate,
+    distance_threshold,
+    cooperative_coevolution,
+    selection_algorithm_metadata,
+    termination_condition_metadata,
+    creature_metadata)
+
+//%feature("director") crossover_metadata;
 
 %include "API/population.h"
 %include "API/creature.h"
