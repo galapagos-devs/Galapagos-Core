@@ -5,6 +5,5 @@
 
 %import "../galapagos.swg"
 
-struct fitness_threshold_metadata : termination_condition_metadata {
-    size_t fitness_threshold;
-};
+%ignore fitness_threshold;
+%include "fitness_threshold.h"

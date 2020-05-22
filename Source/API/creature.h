@@ -16,7 +16,7 @@ public:
 
 	virtual double get_fitness() = 0;
 
-	template <class TChromosome>
+	template <class TChromosome> //TODO: Why does this have to be templated
 	inline TChromosome* get_chromosome(const std::string& name) {
         chromosome* chromosome =  _chromosomes[name];
         return dynamic_cast<TChromosome*>(chromosome);

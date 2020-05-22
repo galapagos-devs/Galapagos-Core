@@ -7,11 +7,10 @@
 creature_internal::creature_internal(const creature_metadata creature_metadata, stochastic* stochastic_instance) :
     _creature_metadata{creature_metadata}, _stochastic_instance{stochastic_instance} {
 
+
     genetic_factory& factory = genetic_factory::get_instance();
-    for(size_t i = 0; i < _creature_metadata.num_chromosomes; i++) {
-        const chromosome_metadata* chromosome_metadata = _creature_metadata.chromosome_metadata[i];
-        _chromosomes[chromosome_metadata->name] = factory.create_chromosome(chromosome_metadata);
-    }
+    for(auto chromosome_metadatum: _creature_metadata.chromosome_metadata)
+        _chromosomes[chromosome_metadatum->name] = factory.create_chromosome(chromosome_metadatum);
 }
 
 creature_internal::~creature_internal() {
@@ -29,22 +28,26 @@ double creature_internal::get_fitness() {
 creature_internal* creature_internal::breed_with(creature_internal* mate) {
     auto* child = new creature_internal(_creature_metadata, _stochastic_instance);
 
-    for(size_t i = 0; i < _creature_metadata.num_chromosomes; i++) {
-        const chromosome_metadata* chromosome_metadata = _creature_metadata.chromosome_metadata[i];
-        std::string chromosome_name = chromosome_metadata->name;
+//    for(size_t i = 0; i < _creature_metadata.num_chromosomes; i++)
+    for(auto chromosome_metadatum: _creature_metadata.chromosome_metadata) {
+        std::string chromosome_name = chromosome_metadatum->name;
+        chromosome* child_chromosome;
 
         // Select crossover & mutation proportional to their weight
-        crossover* crossover = _select_crossover(chromosome_metadata->crossover_metadata);
-        mutation* mutation = _select_mutation(chromosome_metadata->mutation_metadata);
+        crossover* crossover = _select_crossover(chromosome_metadatum->crossover_metadata);
+        mutation* mutation = _select_mutation(chromosome_metadatum->mutation_metadata);
 
         // Conditionally apply cross-over
-        chromosome* child_chromosome = get_chromosome<chromosome>(chromosome_name);
-        if(_stochastic_instance->evaluate_probability(chromosome_metadata->crossover_rate))
-            child_chromosome = crossover->invoke(
-                    get_chromosome<chromosome>(chromosome_name), mate->get_chromosome<chromosome>(chromosome_name));
+        auto* my_chromosome = get_chromosome<chromosome>(chromosome_name);  // chromosome of this creature
+        auto* mate_chromosome = mate->get_chromosome<chromosome>(chromosome_name);
+
+        if(_stochastic_instance->evaluate_probability(chromosome_metadatum->crossover_rate))
+            child_chromosome = crossover->invoke(my_chromosome, mate_chromosome);
+        else
+            child_chromosome = my_chromosome;
 
         // Conditionally apply mutation
-        if(_stochastic_instance->evaluate_probability(chromosome_metadata->mutation_rate))
+        if(_stochastic_instance->evaluate_probability(chromosome_metadatum->mutation_rate))
             child_chromosome = mutation->invoke(child_chromosome);
 
         child->_set_chromosome(chromosome_name, child_chromosome);

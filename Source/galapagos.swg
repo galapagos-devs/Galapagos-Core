@@ -62,31 +62,6 @@ public:
 %ignore genetic_operator_metadata;  // Might not need `genetic_operator_metadata` so we could possible ignore it
 %include "API/galapagos_metadata.h"
 
-SWIG_Constructor(crossover_metadata, weight)
-
-SWIG_Constructor(mutation_metadata, weight)
-
-SWIG_Constructor(chromosome_metadata,
-    name,
-    crossover_rate,
-    mutation_rate,
-    crossover_metadata,
-    mutation_metadata)
-
-SWIG_Constructor(creature_metadata,
-    fitness_function,
-    num_chromosomes,
-    chromosome_metadata)
-
-SWIG_Constructor(population_metadata,log_function,
-    size,
-    survival_rate,
-    distance_threshold,
-    cooperative_coevolution,
-    selection_algorithm_metadata,
-    termination_condition_metadata,
-    creature_metadata)
-
 //%feature("director") crossover_metadata;
 
 %include "API/population.h"
