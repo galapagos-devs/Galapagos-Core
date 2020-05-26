@@ -57,7 +57,7 @@ void population_internal::evolve() {
 	// Run the genetic algorithm till termination conditions are met.
     int generation = 0;
 	while (!_has_terminated(termination_conditions)) {  // TODO -- Figure out how to handle multiple selection_algorithms.
-		size_t surviving_creature_count = _elitism(new_generation);
+	    size_t surviving_creature_count = _elitism(new_generation);
 		_breed_new_generation(new_generation, surviving_creature_count, selection_algorithms[0]);
         _optimal_creature = _find_optimal_creature();
         _current_log_entry.generation = ++generation;

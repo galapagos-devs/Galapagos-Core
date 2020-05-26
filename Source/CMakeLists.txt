@@ -13,7 +13,7 @@ add_library(SharedGalapagos SHARED ${SRCS})
 set_target_properties(SharedGalapagos PROPERTIES
         OUTPUT_NAME ${SOURCE_NAME})
 
-include(CMakeSwig.cmake)
+#include(CMakeSwig.cmake)
 
 add_subdirectory(Chromosomes)
 add_subdirectory(SelectionAlgorithms)

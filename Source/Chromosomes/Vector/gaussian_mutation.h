@@ -7,8 +7,13 @@
 #include "vector_chromosome.h"
 
 struct gaussian_mutation_metadata : mutation_metadata {
-    double mean;
-    double standard_deviation;
+    const double mean;
+    const double standard_deviation;
+
+    gaussian_mutation_metadata(
+            const double weight, const double mean, const double standard_deviation) :
+                mutation_metadata{weight},
+                mean{mean}, standard_deviation{standard_deviation} {}
 };
 
 class gaussian_mutation : public mutation_internal<vector_chromosome> {

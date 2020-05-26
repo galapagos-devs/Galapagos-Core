@@ -7,6 +7,19 @@
 
 using namespace fakeit;
 
+vector_chromosome_metadata* mutation_test_create_chromosome_metadata(size_t num_genes, double gene_infimum, double gene_supremum) {
+    std::string name = "";
+    double crossover_rate = 0;
+    std::vector<const crossover_metadata_t*> crossover_metadata;
+    double mutation_rate = 0;
+    std::vector<const mutation_metadata_t*> mutation_metadata;
+    uint32_t norm_rank = 1;
+    return new vector_chromosome_metadata {
+            name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata,
+            norm_rank, num_genes, gene_infimum, gene_supremum
+    };
+}
+
 TEST_CASE("gaussian mutation invoked", "[unit][vector-chromosome][mutation][gaussian-mutation]") {
     double gaussian_perturbation = 1;
 
@@ -24,14 +37,14 @@ TEST_CASE("gaussian mutation invoked", "[unit][vector-chromosome][mutation][gaus
     When(Method(stochastic_mock, rand_gaussian)).AlwaysReturn(gaussian_perturbation);
     stochastic* mocked_stochastic = &stochastic_mock.get();
 
-    auto* chromosome_metadata = new vector_chromosome_metadata();
-    chromosome_metadata->size = num_genes;
-    chromosome_metadata->gene_infimum = gene_infimum;
-    chromosome_metadata->gene_supremum = gene_supremum;
-    auto* chromosome = new vector_chromosome(mocked_stochastic, chromosome_metadata);
+    auto* chromosome_metadata = mutation_test_create_chromosome_metadata(num_genes, gene_infimum, gene_supremum);
+    auto* chromosome = new vector_chromosome(chromosome_metadata, mocked_stochastic);
     chromosome->set_gene_slice(0, num_genes, chromosome_genes);
 
-    auto* mutation_metadata = new gaussian_mutation_metadata();
+    double weight = 1;
+    double mean = 0;
+    double standard_deviation = 0;
+    auto* mutation_metadata = new gaussian_mutation_metadata{weight, mean, standard_deviation};
     mutation* mutation = new gaussian_mutation(mutation_metadata, mocked_stochastic);
 
     auto* mutated_chromosome = (vector_chromosome*)mutation->invoke(chromosome);
@@ -60,13 +73,11 @@ TEST_CASE("randomization (vector) mutation invoked", "[unit][vector-chromosome][
     When(OverloadedMethod(stochastic_mock, rand_double, double(int,int))).Return(1,1,1,gene0,gene1,gene2);
     stochastic* mocked_stochastic = &stochastic_mock.get();
 
-    auto* chromosome_metadata = new vector_chromosome_metadata();
-    chromosome_metadata->size = num_genes;
-    chromosome_metadata->gene_infimum = gene_infimum;
-    chromosome_metadata->gene_supremum = gene_supremum;
-    auto* chromosome = new vector_chromosome(mocked_stochastic, chromosome_metadata);
+    auto* chromosome_metadata = mutation_test_create_chromosome_metadata(num_genes, gene_infimum, gene_supremum);
+    auto* chromosome = new vector_chromosome(chromosome_metadata, mocked_stochastic);
 
-    auto* mutation_metadata = new randomization_mutation_metadata();
+    double weight = 1;
+    auto* mutation_metadata = new randomization_mutation_metadata{weight};
     mutation* mutation = new randomization_mutation(mutation_metadata, mocked_stochastic);
 
     auto* mutated_chromosome = (vector_chromosome*)mutation->invoke(chromosome);

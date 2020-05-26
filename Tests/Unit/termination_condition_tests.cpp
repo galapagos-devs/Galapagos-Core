@@ -18,9 +18,7 @@ TEST_CASE("fitness-threshold invoked", "[unit][termination-condition][fitness-th
   When(Method(population_mock, get_optimal_creature)).AlwaysReturn(mocked_creature);
   population* mocked_population = &population_mock.get();
 
-  fitness_threshold_metadata* termination_condition_metadata = new fitness_threshold_metadata();
-  termination_condition_metadata->fitness_threshold = test_fitness_threshold;
-
+  auto* termination_condition_metadata = new fitness_threshold_metadata{test_fitness_threshold};
   fitness_threshold termination_condition(termination_condition_metadata);
 
   REQUIRE(!termination_condition.invoke(mocked_population));  // Checks fitness < threshold

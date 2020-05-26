@@ -10,7 +10,12 @@
 #include "vector_chromosome.h"
 
 struct kpoint_crossover_metadata : crossover_metadata {
-    size_t cut_points;
+    const size_t cut_points;
+
+    kpoint_crossover_metadata(
+            const double weight, const size_t cut_points) :
+                crossover_metadata{weight},
+                cut_points{cut_points} {}
 };
 
 class kpoint_crossover : public crossover_internal<vector_chromosome> {
