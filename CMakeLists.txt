@@ -35,7 +35,7 @@ set(NAME_DELIMITER -
 
 # C++ Standard
 set(CMAKE_CXX_STANDARD 17)
-#include(CMakeSwig.cmake)
+include(CMakeSwig.cmake)
 
 # Source
 add_subdirectory(Source)

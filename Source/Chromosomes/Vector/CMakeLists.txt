@@ -1,4 +1,4 @@
-#include(CMakeSwig.cmake)
+include(CMakeSwig.cmake)
 set(SRCS
         gaussian_mutation.h
         gaussian_mutation.cpp

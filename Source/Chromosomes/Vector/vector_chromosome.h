@@ -14,8 +14,8 @@ struct vector_chromosome_metadata : chromosome_metadata {
 
     vector_chromosome_metadata(
             std::string name,
-            const double crossover_rate, const std::vector<const crossover_metadata_t*> crossover_metadata,
-            const double mutation_rate, const std::vector<const mutation_metadata_t*> mutation_metadata,
+            const double crossover_rate, const std::vector<const crossover_metadata_t*>& crossover_metadata,
+            const double mutation_rate, const std::vector<const mutation_metadata_t*>& mutation_metadata,
             const uint32_t norm_rank, const size_t size, const double gene_infimum, const double gene_supremum) :
                 chromosome_metadata{name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata},
                 norm_rank{norm_rank}, size{size}, gene_infimum{gene_infimum}, gene_supremum{gene_supremum} {}

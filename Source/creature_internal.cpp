@@ -37,10 +37,10 @@ creature_internal* creature_internal::breed_with(creature_internal* mate) {
         crossover* crossover = _select_crossover(chromosome_metadatum->crossover_metadata);
         mutation* mutation = _select_mutation(chromosome_metadatum->mutation_metadata);
 
-        // Conditionally apply cross-over
         auto* my_chromosome = get_chromosome<chromosome>(chromosome_name);  // chromosome of this creature
         auto* mate_chromosome = mate->get_chromosome<chromosome>(chromosome_name);
 
+        // Conditionally apply cross-over
         if(_stochastic_instance->evaluate_probability(chromosome_metadatum->crossover_rate))
             child_chromosome = crossover->invoke(my_chromosome, mate_chromosome);
         else
