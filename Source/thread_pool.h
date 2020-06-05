@@ -30,7 +30,7 @@ public:
 
     template<class Func, class... Args>
     auto bind_work(Func&& func, Args&&... args)
-        -> std::future<typename std::result_of<Func(Args...)>::type>;
+        -> std::future<typename std::invoke_result<Func, Args...>::type>;
 };
 
 inline thread_pool::thread_pool() : thread_pool(std::thread::hardware_concurrency()) {}
@@ -71,8 +71,8 @@ inline thread_pool::~thread_pool() {
 
 template<class Func, class... Args>
 inline auto thread_pool::bind_work(Func&& func, Args&&... args)
-    -> std::future<typename std::result_of<Func(Args...)>::type> {
-    using return_type = typename std::result_of<Func(Args...)>::type;
+    -> std::future<typename std::invoke_result<Func, Args...>::type> {
+    using return_type = typename std::invoke_result<Func, Args...>::type;
     auto task = std::make_shared<std::packaged_task<return_type()>>(
             std::bind(std::forward<Func>(func), std::forward<Args>(args)...)
     );
