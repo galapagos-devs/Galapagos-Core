@@ -13,7 +13,15 @@
 #include "API/termination_condition.h"
 %}
 
-%import "constructor_macro.swg"
+%include <stdint.i>
+%include <std_string.i>
+%include <std_vector.i>
+%include <std_map.i>
+
+%template(CrossoverMetadata) std::vector<const crossover_metadata_t*>;
+%template(MutationMetadata) std::vector<const mutation_metadata_t*>;
+%template(SelectionAlgorithmMetadata) std::vector<const selection_algorithm_metadata_t*>;
+%template(TerminationConditionMetadata) std::vector<const termination_condition_metadata_t*>;
 
 extern "C" population* gc_create_population(population_metadata* population_metadata);
 extern "C" void gc_delete_population(population* population);
