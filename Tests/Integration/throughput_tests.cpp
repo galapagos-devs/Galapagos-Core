@@ -13,84 +13,64 @@
 #include "../catch.hpp"
 
 TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
-    //region  creature metadata
-    fitness_func_t fitness_function = [](creature* creature) {
-        auto* X = creature->get_chromosome<vector_chromosome>("X");
+
+    // region Construct Metadata
+    // region Creature Metadata
+
+    // region Mutation/Crossover Metadata
+    std::vector<const crossover_metadata_t*> crossover_metadata = {
+            new kpoint_crossover_metadata(1, 1)
+    };
+
+    std::vector<const mutation_metadata_t*> mutation_metadata = {
+            new randomization_mutation_metadata(1),
+            new gaussian_mutation_metadata(4, 0, 50)
+    };
+    // endregion
+
+    // region Chromosome Metadata
+
+    const std::string chromosome_name = "X";
+    double gene_supremum = 500;
+    double gene_infimum = -500;
+    std::vector<const chromosome_metadata_t*> chromosome_metadata = {
+            new vector_chromosome_metadata(
+                    chromosome_name,
+                    1, crossover_metadata,
+                    0.5, mutation_metadata,
+                    1, 3, gene_infimum, gene_supremum)
+    };
+    // endregion
+
+    fitness_func_t fitness_function = [chromosome_name](creature* creature) {
+        auto* X = creature->get_chromosome<vector_chromosome>(chromosome_name);
         return X->get_gene(0) - X->get_gene(1) + X->get_gene(2);
     };
-    std::vector<const chromosome_metadata_t*> chromosome_metadata;
-    creature_metadata creature_metadata{fitness_function, chromosome_metadata};
+    creature_metadata creature_metadata(fitness_function, chromosome_metadata);
     // endregion
 
-    //region  chromosome metadata
-    std::string name = "X";
-    double crossover_rate = 1;
-    std::vector<const crossover_metadata_t*> crossover_metadata;
-    double mutation_rate = 0.5;
-    std::vector<const mutation_metadata_t*> mutation_metadata;
-    uint32_t norm_rank = 1;
-    size_t chromosome_size = 3;
-    double gene_infimum = -500;
-    double gene_supremum = 500;
-    chromosome_metadata.push_back(new vector_chromosome_metadata {
-            name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata,
-            norm_rank, chromosome_size, gene_infimum, gene_supremum
-    });
-    // endregion
+    // region Population Metadata
 
-    //region  crossover metadata
-    double kpoint_crossover_weight = 1;
-    size_t cut_points = 1;
-    crossover_metadata.push_back(new kpoint_crossover_metadata {
-        kpoint_crossover_weight, cut_points
-    });
-    // endregion
+    std::vector<const selection_algorithm_metadata_t*> selection_algorithm_metadata = {
+            new tournament_selection_metadata(2)
+    };
 
-    //region mutation metadata
-    double randomization_mutation_weight = 1;
-    mutation_metadata.push_back(new randomization_mutation_metadata {
-      randomization_mutation_weight
-    });
+    std::vector<const termination_condition_metadata_t*> termination_condition_metadata = {
+            new fitness_threshold_metadata(1500)
+    };
 
-    double gaussian_mutation_weight = 4;
-    double mean = 0;
-    double standard_deviation = 50;
-    mutation_metadata.push_back(new gaussian_mutation_metadata {
-       gaussian_mutation_weight, mean, standard_deviation
-    });
-    // endregion
-
-    // region population metadata
     log_func_t log_function = [](log_entry entry) {
         std::cout << "generation: " << entry.generation << " optimal fitness: " << entry.optimal_fitness << std::endl;
     };
-    size_t population_size = 25;
-    double survival_rate = 0.25;
-    double distance_threshold = 0;
-    bool cooperative_coevolution = false;
-    std::vector<const selection_algorithm_metadata_t*> selection_algorithm_metadata;
-    std::vector<const termination_condition_metadata_t*> termination_condition_metadata;
-    auto* population_metadata1 = new population_metadata{
-            log_function, population_size, survival_rate, distance_threshold, cooperative_coevolution,
-            selection_algorithm_metadata, termination_condition_metadata, creature_metadata
-    };
+    auto* population_metadata1 = new population_metadata(log_function,
+            25, 0.25, 0, false,
+            selection_algorithm_metadata, termination_condition_metadata, creature_metadata);
+
+    // endregion
     // endregion
 
-    //region  selection algorithm metadata
-    size_t tournament_size = 2;
-    selection_algorithm_metadata.push_back(new tournament_selection_metadata {
-       tournament_size
-    });
-    // endregion
+    // region Invoke Algorithm Against Metadata
 
-    //region  termination condition metadata
-    size_t fitness_threshold = 1500;
-    termination_condition_metadata.push_back(new fitness_threshold_metadata {
-       fitness_threshold
-    });
-    // endregion
-
-    // invoke algorithm against metadata
     gc_core lib("Galapagos.dll");
     lib.initialize();
 
@@ -98,16 +78,17 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     population1->evolve();
 
     creature* optimal = population1->get_optimal_creature();
-    auto* X = optimal->get_chromosome<vector_chromosome>("X");
+    auto* X = optimal->get_chromosome<vector_chromosome>(chromosome_name);
     REQUIRE(X->get_gene(0) == gene_supremum);
     REQUIRE(X->get_gene(1) == gene_infimum);
     REQUIRE(X->get_gene(2) == gene_supremum);
 
     lib.delete_population(population1);
     lib.reset();
+    // endregion
 }
 
 // TODO: we should figure out what problem we want to use for throughput testing.
 // we will probably want a different problem for each chromosome type as well as
-// a few problems that excersise throughput with kchromosome creatures.
+// a few problems that exercise throughput with kchromosome creatures.
 // example test problems: sudoko, tsp, nqueens, cart pole, ect.
