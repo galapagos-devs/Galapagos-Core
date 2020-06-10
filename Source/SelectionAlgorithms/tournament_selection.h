@@ -8,7 +8,7 @@
 struct tournament_selection_metadata : selection_algorithm_metadata {
 	const size_t tournament_size;
 
-    tournament_selection_metadata(const size_t tournament_size) : tournament_size{tournament_size} {}
+    explicit tournament_selection_metadata(const size_t tournament_size) : tournament_size{tournament_size} {}
 };
 
 class tournament_selection : public selection_algorithm {

@@ -15,8 +15,6 @@
 TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
 
     const std::string chromosome_name = "X";
-    double gene_supremum = 500;
-    double gene_infimum = -500;
 
     fitness_func_t fitness_function = [chromosome_name](creature* creature) {
         auto* X = creature->get_chromosome<vector_chromosome>(chromosome_name);
@@ -37,8 +35,9 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
                             1, {new kpoint_crossover_metadata(1, 1)},
                             0.5, {
                                     new randomization_mutation_metadata(1),
-                                    new gaussian_mutation_metadata(4, 0, 50)},
-                            1, 3, gene_infimum, gene_supremum)}
+                                    new gaussian_mutation_metadata(4, 0, 50)
+                            },
+                            1, 3, -500, 500)}
             )
     );
 
@@ -52,9 +51,9 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
 
     creature* optimal = population1->get_optimal_creature();
     auto* X = optimal->get_chromosome<vector_chromosome>(chromosome_name);
-    REQUIRE(X->get_gene(0) == gene_supremum);
-    REQUIRE(X->get_gene(1) == gene_infimum);
-    REQUIRE(X->get_gene(2) == gene_supremum);
+    REQUIRE(X->get_gene(0) == X->gene_sup());
+    REQUIRE(X->get_gene(1) == X->gene_inf());
+    REQUIRE(X->get_gene(2) == X->gene_sup());
 
     lib.delete_population(population1);
     lib.reset();

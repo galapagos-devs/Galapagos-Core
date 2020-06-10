@@ -9,7 +9,7 @@
 struct fitness_threshold_metadata : termination_condition_metadata {
     const size_t fitness_threshold;
 
-    fitness_threshold_metadata(const size_t fitness_threshold) : fitness_threshold{fitness_threshold} {}
+    explicit fitness_threshold_metadata(const size_t fitness_threshold) : fitness_threshold{fitness_threshold} {}
 };
 
 class fitness_threshold : public termination_condition {
