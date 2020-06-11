@@ -7,7 +7,9 @@ from pathlib import Path
 from galapagos import (population_metadata_t,
                        creature_metadata_t,
                        gc_create_population,
-                       gc_delete_population)
+                       gc_delete_population,
+                       gc_initialize,
+                       gc_reset)
 from selection_algorithms import tournament_selection_metadata
 from termination_conditions import fitness_threshold_metadata
 from vector_chromosome import (gc_get_vector_chromosome,
@@ -52,15 +54,17 @@ population_metadata1 = population_metadata_t(
 
 
 if __name__ == '__main__':
-    # FIXME: The program exits/crashes while trying to execute `gc_create_population`
+    gc_initialize()
     population1 = gc_create_population(population_metadata1)
-    population1.evolve()
+    population1.evolve()  # FIXME: The program exits/crashes while trying to execute `evolve` (functors don't work)
 
     optimal_creature = population1.get_optimal_creature()
     optimal_chromosome = gc_get_vector_chromosome(optimal_creature, chromosome_name)
+    print(optimal_creature.get_fitness())
 
     assert optimal_chromosome.get_gene(0) == optimal_chromosome.gene_sup()
     assert optimal_chromosome.get_gene(1) == optimal_chromosome.gene_inf()
     assert optimal_chromosome.get_gene(2) == optimal_chromosome.gene_sup()
 
     gc_delete_population(population1)
+    gc_reset()

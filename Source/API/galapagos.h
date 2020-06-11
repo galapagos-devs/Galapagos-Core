@@ -14,7 +14,7 @@
 #include "mutation.h"
 
 #ifdef WIN32
-#define GALAPAGOS_API extern "C" __declspec(dllexport)
+#define GALAPAGOS_API extern "C" __declspec(dllexport)  // TODO: Rename to `GALAPAGOS_BOOTSTRAP`
 #else
 #define GALAPAGOS_API extern "C" __attribute__((visibility("default")))
 #endif

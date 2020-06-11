@@ -26,6 +26,8 @@
 
 extern "C" population* gc_create_population(population_metadata* population_metadata);
 extern "C" void gc_delete_population(population* population);
+extern "C" void gc_initialize();
+extern "C" void gc_reset();
 
 // region functor Python wrappings
 
