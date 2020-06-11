@@ -7,7 +7,7 @@
 
 class population {
 public:
-	virtual ~population() = 0;
+	virtual ~population() = default;
 
 	virtual size_t get_size() = 0;
 
@@ -19,7 +19,5 @@ public:
 
 	virtual void evolve() = 0;
 };
-
-inline population::~population() { }
 
 #endif /* _POPULATION_H_ */

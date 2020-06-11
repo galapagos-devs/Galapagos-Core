@@ -2,15 +2,11 @@
 #define _MUTATION_H_
 
 #include "chromosome.h"
-#include "operator.h"
+#include "genetic_operator.h"
 
-class mutation : genetic_operator {
+class mutation : public genetic_operator {
 public:
-	virtual ~mutation() = 0;
-
-	virtual chromosome* operator()(chromosome* chromosome) = 0;
+	virtual chromosome* invoke(chromosome* chromosome) = 0;
 };
-
-inline mutation::~mutation { }
 
 #endif /* _MUTATION_H_ */

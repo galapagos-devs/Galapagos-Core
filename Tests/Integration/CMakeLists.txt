@@ -1,1 +1,2 @@
-add_library(Integration OBJECT)
+add_library(Integration OBJECT
+        throughput_tests.cpp)

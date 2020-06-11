@@ -3,9 +3,8 @@
 
 class chromosome {
 public:
-	virtual ~chromosome() = 0;
+	virtual ~chromosome() = default;
 
-	// TODO: can we use templates to avoid manual casts?
 	virtual double get_distance(chromosome* other) = 0;
 };
 

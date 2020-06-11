@@ -11,35 +11,32 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
-# Build Options
-option(BUILD_SHARED_LIBS "Build the shared libraries." ON)
-option(BUILD_STATIC_LIBS "Build the static libraries." OFF)
-option(BUILD_TESTS "Build the test executable." OFF)
-
 # File names
-set(SOURCE_NAME Galapagos CACHE INTERNAL
-    "Name of the lib built in the `Source` directory")
+set(SOURCE_NAME Galapagos
+        CACHE INTERNAL
+        "Name of the lib built from the `Source` directory")
 
-set(SELECTION_ALGORITHMS_NAME SelectionAlgorithms CACHE INTERNAL
-    "Name of the lib built in the `Source/SelectionAlogrithms` directory")
+set(CHROMOSOMES_NAME Chromosomes
+        CACHE INTERNAL
+        "Name of the lib built from the `Source/Chromosomes` director")
 
-set(TERMINATION_CONDITIONS_NAME TerminationConditions CACHE INTERNAL
-    "Name of the lib built in the `Source/TerminationConditions` directory")
+set(SELECTION_ALGORITHMS_NAME SelectionAlgorithms
+        CACHE INTERNAL
+        "Name of the lib built from the `Source/SelectionAlogrithms` directory")
 
-set(NAME_DELIMITER - CACHE INTERNAL
-    "The symbol used as a delimiter for Galapagos Satellite libs.")
+set(TERMINATION_CONDITIONS_NAME TerminationConditions
+        CACHE INTERNAL
+        "Name of the lib built from the `Source/TerminationConditions` directory")
 
-# Tests depend on static lib
-if(BUILD_TESTS)
-  set(BUILD_STATIC_LIBS ON)
-endif()
+set(NAME_DELIMITER -
+        CACHE INTERNAL
+        "The symbol used as a delimiter between Galapagos Satellite libs.")
+
+# C++ Standard
+set(CMAKE_CXX_STANDARD 17)
 
 # Source
-if(BUILD_SHARED_LIBS OR BUILD_STATIC_LIBS)
-  add_subdirectory(Source)
-endif()
+add_subdirectory(Source)
 
 # Tests
-if(BUILD_TESTS)
-  add_subdirectory(Tests)
-endif()
+add_subdirectory(Tests)
