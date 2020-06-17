@@ -7,6 +7,10 @@ project(Galapagos)
 ####
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+# build control
+set(BUILD_SWIG TRUE)
+set(BUILD_TESTS TRUE)
+
 # Output Directory
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)  # was `bin/archive`
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)  # was `bin/library`
@@ -35,10 +39,16 @@ set(NAME_DELIMITER -
 
 # C++ Standard
 set(CMAKE_CXX_STANDARD 17)
-include(CMakeSwig.cmake)
+
+# SWIG
+if(BUILD_SWIG)
+    include(CMakeSwig.cmake)
+endif()
 
 # Source
 add_subdirectory(Source)
 
 # Tests
-add_subdirectory(Tests)
+if(BUILD_TESTS)
+    add_subdirectory(Tests)
+endif()

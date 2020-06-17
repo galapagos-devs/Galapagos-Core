@@ -1,4 +1,6 @@
-include(CMakeSwig.cmake)
+if(BUILD_SWIG)
+    include(CMakeSwig.cmake)
+endif()
 set(SRCS
         tournament_selection.h
         tournament_selection.cpp)
