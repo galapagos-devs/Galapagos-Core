@@ -24,6 +24,7 @@ public:
 
 	virtual int rand_int(int min, int max) = 0;
 
+	// FIXME: `rand_double` methods should take `double`s as `min` and `max`
 	virtual double rand_double() = 0;
 
 	virtual double rand_double(int max) = 0;

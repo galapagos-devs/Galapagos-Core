@@ -23,7 +23,7 @@ set(CHROMOSOMES_NAME Chromosomes
 
 set(SELECTION_ALGORITHMS_NAME SelectionAlgorithms
         CACHE INTERNAL
-        "Name of the lib built from the `Source/SelectionAlogrithms` directory")
+        "Name of the lib built from the `Source/SelectionAlgorithms` directory")
 
 set(TERMINATION_CONDITIONS_NAME TerminationConditions
         CACHE INTERNAL

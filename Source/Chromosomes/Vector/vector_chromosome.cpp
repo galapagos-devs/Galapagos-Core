@@ -166,7 +166,7 @@ vector_chromosome* vector_chromosome::cross(vector_chromosome** others, size_t n
 //endregion
 
 vector_chromosome* gc_get_vector_chromosome(creature* creature, const std::string& name) {
-    return  creature->get_chromosome<vector_chromosome>(name);
+    return creature->get_chromosome<vector_chromosome>(name);
 }
 
 

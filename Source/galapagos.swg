@@ -1,4 +1,4 @@
-%module(directors="1") galapagos
+%module(directors="1", naturalvar=1) galapagos
 %{
 #include "API/chromosome.h"
 #include "API/creature.h"
@@ -37,6 +37,8 @@ extern "C" void gc_reset();
 /* FIXME: The `typemap`\ s for these functors are abysmal.
           They lack any sort of error checking or validation and are extremal limited. */
 
+// FIXME: The reference counting in the functors is likely non-optimal. We could have a mem-leak because of it.
+
 // TODO: Investigate performance cost of type-mapping & invoking fitness/log funcs as python objects.
 
 %ignore PyLogFunc;
@@ -48,8 +50,8 @@ public:
         Py_XINCREF(py_log_func);
     }
     PyLogFunc(PyObject* func) : py_log_func(func) {
-            Py_XINCREF(this->py_log_func);
-            assert(PyCallable_Check(this->py_log_func));
+        Py_XINCREF(this->py_log_func);
+        assert(PyCallable_Check(this->py_log_func));
     }
     ~PyLogFunc() {
         Py_XDECREF(py_log_func);
@@ -57,13 +59,13 @@ public:
     void operator()(log_entry_t entry) {
         if (!py_log_func || Py_None == py_log_func || !PyCallable_Check(py_log_func))
             return;
-
         PyObject* args;
-        Py_XINCREF(args);
-        args = SWIG_Python_NewPointerObj(NULL, &entry, SWIGTYPE_p_log_entry, 0);  // This is abusing SWIG internal API
 
-        PyObject* result = PyObject_Call(py_log_func, args, 0);
-        Py_DECREF(args);
+        args = SWIG_NewPointerObj(SWIG_as_voidptr(&entry), SWIGTYPE_p_log_entry, 0 |  0 );
+
+
+        PyObject* result = PyObject_CallFunctionObjArgs(py_log_func, args, NULL);
+
         Py_XDECREF(result);
     }
 };
@@ -94,17 +96,20 @@ public:
     double operator()(creature* creature) {
         if (!py_fitness_func || Py_None == py_fitness_func || !PyCallable_Check(py_fitness_func))
             return -1.0;
-
-        PyObject* args;
+        PyObject* args = NULL;
         Py_XINCREF(args);
-        args = SWIG_Python_NewPointerObj(NULL, &creature, SWIGTYPE_p_creature, 0);  // This is abusing SWIG internal API
 
-        PyObject* result = PyObject_Call(py_fitness_func, args, 0);
+        args = SWIG_NewPointerObj(SWIG_as_voidptr(creature), SWIGTYPE_p_creature, 0 |  0 );
+
+        PyObject* result = PyObject_CallFunctionObjArgs(py_fitness_func, args, NULL);
+
         Py_DECREF(args);
+        // This is a limited form of python->C type conversion. `PyFloat_AsDouble` offers some error checking.
+
+        double my_double = PyFloat_AS_DOUBLE(result);
         Py_XDECREF(result);
 
-        // This is a limited form of python->C type conversion. `PyFloat_AsDouble` offers some error checking.
-        return PyFloat_AS_DOUBLE(result);
+        return my_double;
     }
 };
 %}
@@ -117,6 +122,8 @@ public:
 %}
 
 // endregion
+
+//%apply const std::string& {std::string* name};
 
 %ignore genetic_operator_metadata;  // Might not need `genetic_operator_metadata` so we could possible ignore it
 %include "API/galapagos_metadata.h"

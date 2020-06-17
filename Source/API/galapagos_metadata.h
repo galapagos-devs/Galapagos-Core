@@ -8,7 +8,7 @@
 
 #include "creature.h"
 
-typedef struct log_entry {
+typedef struct log_entry {  // TODO: This needs more entries in it. This is too limited
     size_t generation;
     double optimal_fitness;
 } log_entry_t;

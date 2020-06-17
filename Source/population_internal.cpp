@@ -62,7 +62,7 @@ void population_internal::evolve() {
         _optimal_creature = _find_optimal_creature();
         _current_log_entry.generation = ++generation;
 
-        if(_population_metadata->log_function != nullptr)
+        if(_population_metadata->log_function != nullptr)  // TODO: log_functions should be processed on its own thread
             _population_metadata->log_function(_current_log_entry);
 	}
 
