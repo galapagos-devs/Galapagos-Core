@@ -1,3 +1,6 @@
+if(BUILD_SWIG)
+    include(CMakeSwig.cmake)
+endif()
 set(SRCS
         gaussian_mutation.h
         gaussian_mutation.cpp

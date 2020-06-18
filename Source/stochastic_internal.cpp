@@ -14,15 +14,15 @@ stochastic_internal::stochastic_internal() {
 stochastic_internal::~stochastic_internal() = default;
 
 bool stochastic_internal::flip_coin() {
-	return (rand_int(2) > 0);
+    return (rand_int(2) > 0);
 }
 
 bool stochastic_internal::evaluate_probability(double probability) {
-	if (probability < 0 || probability > 1)
-		throw std::runtime_error("evaluate_probability"); // TODO: how do we want to format exceptions. this should probably be a clean galapagos exception.
+    if (probability < 0 || probability > 1)
+        throw std::runtime_error("evaluate_probability"); // TODO: how do we want to format exceptions. this should probably be a clean galapagos exception.
 
-	double R = rand_double();
-	return R < probability;
+    double R = rand_double();
+    return R < probability;
 }
 
 size_t stochastic_internal::weight_proportionate_selection(double* weights, size_t num_weights) {
@@ -41,12 +41,12 @@ size_t stochastic_internal::weight_proportionate_selection(double* weights, size
 }
 
 int stochastic_internal::rand_int(int max) {
-	return rand_int(0, max);
+    return rand_int(0, max);
 }
 
 int stochastic_internal::rand_int(int min, int max) {
     std::uniform_real_distribution<double> dist(min, max);
-	return dist(_rng);
+    return dist(_rng);
 }
 
 double stochastic_internal::rand_double() {
@@ -58,8 +58,8 @@ double stochastic_internal::rand_double(int max) {
 }
 
 double stochastic_internal::rand_double(int min, int max) {
-	std::uniform_real_distribution<double> dist(min, max);
-	return dist(_rng);
+    std::uniform_real_distribution<double> dist(min, max);
+    return dist(_rng);
 }
 
 double stochastic_internal::rand_gaussian(double mean, double standard_deviation) {

@@ -13,7 +13,9 @@
 #include "vector_chromosome.h"
 
 struct randomization_mutation_metadata : mutation_metadata {
-
+    explicit randomization_mutation_metadata(
+            const double weight) :
+                mutation_metadata{weight} {}
 };
 
 class randomization_mutation : public mutation_internal<vector_chromosome> {
@@ -24,7 +26,7 @@ protected:
     chromosome* invoke(vector_chromosome* chromosome) override;
 
 public:
-    explicit  randomization_mutation(randomization_mutation_metadata* metadata, stochastic* stochastic_instance);
+    explicit randomization_mutation(const randomization_mutation_metadata* metadata, stochastic* stochastic_instance);
 
     ~randomization_mutation() /*override*/;
 

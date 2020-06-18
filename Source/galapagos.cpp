@@ -1,4 +1,4 @@
-#include <experimental/filesystem>
+#include <filesystem>
 
 #include "API/galapagos.h"
 
@@ -7,7 +7,7 @@
 #include "population_internal.h"
 #include "stochastic_internal.h"
 
-namespace fs = std::experimental::filesystem; // namespace alias
+namespace fs = std::filesystem; // namespace alias
 
 /****************************
 *****Galapagos Bootstrap*****
@@ -21,7 +21,7 @@ GALAPAGOS_API void gc_initialize() {
         // find all dlls in current directory that export the symbol 'gc_bootstrap'
         for (const auto &dir_entry : fs::recursive_directory_iterator(".")) {
             const fs::path& entry_path = dir_entry.path();
-            if (entry_path.extension() == ".dll" &&
+            if (entry_path.extension() == ".dll" &&  // FIXME: This will not work on linux
                 entry_path.filename() != "Galapagos.dll") {
                 const std::string filename = entry_path.filename().string();
                 auto* satellite = new gc_satellite(filename);
@@ -33,7 +33,7 @@ GALAPAGOS_API void gc_initialize() {
         // its safe to delete gc_core here because we are using it in a way that does not
         // dynamically load the core assembly. we are in the core assembly already! there
         // it will not try to free the core assembly in its destructor
-        delete core;
+        delete core;  // FIXME: This is sketchy
         gc_initialized = true;
     }
 }
@@ -84,11 +84,11 @@ GALAPAGOS_API stochastic* gc_get_stochastic() {
 /**************************
 *****Galapagos Session*****
 **************************/
-GALAPAGOS_API population* gc_create_population(population_metadata* population_metadata) {
-	stochastic* stochastic_instance = gc_get_stochastic();
-	return (population*)new population_internal(population_metadata, (stochastic*)stochastic_instance);
+GALAPAGOS_API population* gc_create_population(const population_metadata* population_metadata) {
+    stochastic* stochastic_instance = gc_get_stochastic();
+    return (population*)new population_internal(population_metadata, (stochastic*)stochastic_instance);
 }
 
 GALAPAGOS_API void gc_delete_population(population* population) {
-	delete population;
+    delete population;
 }

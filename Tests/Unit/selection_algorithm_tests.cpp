@@ -30,10 +30,8 @@ TEST_CASE( "tournament-selection invoked", "[unit][selection-algorithm][tourname
   });
   population* mocked_population = &population_mock.get();
 
-  tournament_selection_metadata* selection_algorithm_metadata = new tournament_selection_metadata();
-  selection_algorithm_metadata->tournament_size = test_tournament_size;
-
-  tournament_selection selection_algorithm(mocked_stochastic, selection_algorithm_metadata);
+  tournament_selection_metadata* selection_algorithm_metadata = new tournament_selection_metadata{test_tournament_size};
+  tournament_selection selection_algorithm(selection_algorithm_metadata, mocked_stochastic);
   creature* selected_creature = selection_algorithm.invoke(mocked_population);
   creature* desired_creature = mocked_population->get_creature(desired_creature_index);
 

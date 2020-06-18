@@ -14,7 +14,7 @@
 #include "mutation.h"
 
 #ifdef WIN32
-#define GALAPAGOS_API extern "C" __declspec(dllexport)
+#define GALAPAGOS_API extern "C" __declspec(dllexport)  // TODO: Rename to `GALAPAGOS_BOOTSTRAP`
 #else
 #define GALAPAGOS_API extern "C" __attribute__((visibility("default")))
 #endif
@@ -22,11 +22,11 @@
 /****************************
 *****Galapagos Bootstrap*****
 ****************************/
-typedef std::function<bool(selection_algorithm_metadata* metadata, selection_algorithm*& selection_algorithm)> try_create_selection_algorithm_t;
-typedef std::function<bool(termination_condition_metadata* metadata, termination_condition*& termination_condition)> try_create_termination_condition_t;
-typedef std::function<bool(chromosome_metadata* metadata, chromosome*& chromosome)> try_create_chromosome_t;
-typedef std::function<bool(crossover_metadata* metadata, crossover*& crossover)> try_create_crossover_t;
-typedef std::function<bool(mutation_metadata* metadata, mutation*& mutation)> try_create_mutation_t;
+typedef std::function<bool(const selection_algorithm_metadata* metadata, selection_algorithm*& selection_algorithm)> try_create_selection_algorithm_t;
+typedef std::function<bool(const termination_condition_metadata* metadata, termination_condition*& termination_condition)> try_create_termination_condition_t;
+typedef std::function<bool(const chromosome_metadata* metadata, chromosome*& chromosome)> try_create_chromosome_t;
+typedef std::function<bool(const crossover_metadata* metadata, crossover*& crossover)> try_create_crossover_t;
+typedef std::function<bool(const mutation_metadata* metadata, mutation*& mutation)> try_create_mutation_t;
 
 GALAPAGOS_API void gc_initialize();
 GALAPAGOS_API void gc_reset();
@@ -42,7 +42,7 @@ GALAPAGOS_API stochastic* gc_get_stochastic();
 /**************************
 *****Galapagos Session*****
 ***************************/
-GALAPAGOS_API population* gc_create_population(population_metadata* population_metadata);
+GALAPAGOS_API population* gc_create_population(const population_metadata* population_metadata);
 GALAPAGOS_API void gc_delete_population(population* population);
 
 #endif /* _GALAPAGOS_H_ */

@@ -6,10 +6,10 @@
 
 class termination_condition {
 public:
-	virtual ~termination_condition() = default;
+    virtual ~termination_condition() = default;
 
-	virtual bool operator()(population* population) = 0;
-	virtual bool invoke(population* population) = 0;
+    virtual bool operator()(population* population) = 0;
+    virtual bool invoke(population* population) = 0;
 };
 
 #endif /* _TERMINATION_CONDITION_H_ */

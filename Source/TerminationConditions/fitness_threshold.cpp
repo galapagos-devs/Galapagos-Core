@@ -2,7 +2,7 @@
 #include "../API/population.h"
 #include "../API/creature.h"
 
-fitness_threshold::fitness_threshold(fitness_threshold_metadata* metadata) {
+fitness_threshold::fitness_threshold(const fitness_threshold_metadata* metadata) {
     _fitness_threshold = metadata->fitness_threshold;
 }
 

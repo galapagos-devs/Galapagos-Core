@@ -3,7 +3,7 @@
 
 class genetic_operator {
 public:
-	virtual double get_weight() = 0;
+    virtual double get_weight() = 0;
 };
 
 #endif /* _GENETIC_OPERATOR_H_ */

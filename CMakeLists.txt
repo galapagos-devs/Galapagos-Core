@@ -5,11 +5,16 @@ project(Galapagos)
 ####
 # CMake Configuration
 ####
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+# build control
+set(BUILD_SWIG TRUE)
+set(BUILD_TESTS TRUE)
 
 # Output Directory
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)  # was `bin/archive`
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)  # was `bin/library`
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)  # was `bin/runtime`
 
 # File names
 set(SOURCE_NAME Galapagos
@@ -22,7 +27,7 @@ set(CHROMOSOMES_NAME Chromosomes
 
 set(SELECTION_ALGORITHMS_NAME SelectionAlgorithms
         CACHE INTERNAL
-        "Name of the lib built from the `Source/SelectionAlogrithms` directory")
+        "Name of the lib built from the `Source/SelectionAlgorithms` directory")
 
 set(TERMINATION_CONDITIONS_NAME TerminationConditions
         CACHE INTERNAL
@@ -35,8 +40,15 @@ set(NAME_DELIMITER -
 # C++ Standard
 set(CMAKE_CXX_STANDARD 17)
 
+# SWIG
+if(BUILD_SWIG)
+    include(CMakeSwig.cmake)
+endif()
+
 # Source
 add_subdirectory(Source)
 
 # Tests
-add_subdirectory(Tests)
+if(BUILD_TESTS)
+    add_subdirectory(Tests)
+endif()

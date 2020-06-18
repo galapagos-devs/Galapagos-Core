@@ -6,7 +6,7 @@
 
 class crossover : public genetic_operator {
 public:
-	virtual chromosome* invoke(chromosome* x, chromosome* y) = 0;
+    virtual chromosome* invoke(chromosome* x, chromosome* y) = 0;
 };
 
 #endif /* _CROSSOVER_H_ */

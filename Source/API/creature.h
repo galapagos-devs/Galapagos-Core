@@ -9,18 +9,19 @@
 
 class creature {
 protected:
-    std::map<std::string, chromosome*> _chromosomes;
+    std::map<std::string, chromosome*> _chromosomes;  // TODO: Rename to `genome` and maybe make public.
 
 public:
-	virtual ~creature() = default;
+    virtual ~creature() = default;
 
-	virtual double get_fitness() = 0;
+    virtual double get_fitness() = 0;
 
-	template <class TChromosome>
-	inline TChromosome* get_chromosome(const std::string& name) {
+    // TODO: Improve the ease of getting chromosomes
+    template <class TChromosome> //TODO: Why does this have to be templated
+    inline TChromosome* get_chromosome(const std::string& name) {
         chromosome* chromosome =  _chromosomes[name];
         return dynamic_cast<TChromosome*>(chromosome);
-	}
+    }
 };
 
 #endif /* _CREATURE_H_ */

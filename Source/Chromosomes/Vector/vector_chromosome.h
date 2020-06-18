@@ -1,20 +1,27 @@
 #ifndef _GALAPAGOS_VECTOR_CHROMOSOME_H_
 #define _GALAPAGOS_VECTOR_CHROMOSOME_H_
 
-#include "../../API/chromosome.h"
+#include "../../API/galapagos.h"
 #include "../../API/galapagos_metadata.h"
+#include "../../API/chromosome.h"
 #include "../../API/stochastic.h"
 
-#include "../chromosome_internal.h"
-
 struct vector_chromosome_metadata : chromosome_metadata {
-    uint32_t norm_rank;
-    size_t size;
-    double gene_infimum;
-    double gene_supremum;
+    const uint32_t norm_rank;
+    const size_t size;
+    const double gene_infimum;
+    const double gene_supremum;
+
+    vector_chromosome_metadata(
+            std::string name,
+            const double crossover_rate, const std::vector<const crossover_metadata_t*> crossover_metadata,
+            const double mutation_rate, const std::vector<const mutation_metadata_t*> mutation_metadata,
+            const uint32_t norm_rank, const size_t size, const double gene_infimum, const double gene_supremum) :
+                chromosome_metadata{name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata},
+                norm_rank{norm_rank}, size{size}, gene_infimum{gene_infimum}, gene_supremum{gene_supremum} {}
 };
 
-class vector_chromosome : public chromosome_internal<vector_chromosome> {
+class vector_chromosome : public chromosome {
 private:
     stochastic* _stochastic_instance;
 
@@ -23,20 +30,26 @@ private:
     double _gene_infimum; // lowest possible value any gene will ever take
     double _gene_supremum; // greatest possible value any gene will ever take
 
-    double* _genes;
+    double* _genes;  // TODO: Should be a smart_pointer
 
 // base class method
 protected:
-    double get_distance(vector_chromosome* other) override;
+
 
 public:
     //region Constructor & Destructor
 
-    explicit vector_chromosome(stochastic* stochastic_instance, vector_chromosome_metadata* metadata);
+    explicit vector_chromosome(const vector_chromosome_metadata* metadata, stochastic* stochastic_instance);
     explicit vector_chromosome(vector_chromosome* other);
     ~vector_chromosome() override;
 
     //endregion
+
+    // region Inherited Methods
+
+    double get_distance(chromosome* other) override;
+
+    // endregion
 
     //region Attributes
 
@@ -72,5 +85,7 @@ public:
     //endregion
 
 };
+
+vector_chromosome* gc_get_vector_chromosome(creature* creature, const std::string& name);
 
 #endif /* _GALAPAGOS_VECTOR_CHROMOSOME_H_ */
