@@ -85,10 +85,10 @@ GALAPAGOS_API stochastic* gc_get_stochastic() {
 *****Galapagos Session*****
 **************************/
 GALAPAGOS_API population* gc_create_population(const population_metadata* population_metadata) {
-	stochastic* stochastic_instance = gc_get_stochastic();
-	return (population*)new population_internal(population_metadata, (stochastic*)stochastic_instance);
+    stochastic* stochastic_instance = gc_get_stochastic();
+    return (population*)new population_internal(population_metadata, (stochastic*)stochastic_instance);
 }
 
 GALAPAGOS_API void gc_delete_population(population* population) {
-	delete population;
+    delete population;
 }

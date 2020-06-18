@@ -40,12 +40,12 @@ void genetic_factory::register_mutation(const try_create_mutation_t& try_create)
 //region plugin construction
 
 selection_algorithm* genetic_factory::create_selection_algorithm(const selection_algorithm_metadata* selection_algorithm_metadata) {
-	for(const try_create_selection_algorithm_t& try_create : _registered_selection_algorithms) {
-	    selection_algorithm* selection_algorithm = nullptr;
-	    if(try_create(selection_algorithm_metadata, selection_algorithm))
+    for(const try_create_selection_algorithm_t& try_create : _registered_selection_algorithms) {
+        selection_algorithm* selection_algorithm = nullptr;
+        if(try_create(selection_algorithm_metadata, selection_algorithm))
             return  selection_algorithm;
-	}
-	throw std::runtime_error("genetic_factory::create_selection_algorithm invalid metadata");
+    }
+    throw std::runtime_error("genetic_factory::create_selection_algorithm invalid metadata");
 }
 
 termination_condition* genetic_factory::create_termination_condition(const termination_condition_metadata* termination_condition_metadata) {

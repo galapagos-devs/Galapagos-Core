@@ -6,7 +6,7 @@
 
 class mutation : public genetic_operator {
 public:
-	virtual chromosome* invoke(chromosome* chromosome) = 0;
+    virtual chromosome* invoke(chromosome* chromosome) = 0;
 };
 
 #endif /* _MUTATION_H_ */

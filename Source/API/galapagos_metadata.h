@@ -45,8 +45,8 @@ typedef struct termination_condition_metadata {
 //typedef std::vector<const CrossoverMetadatum*> CrossoverMetadata;
 
 typedef struct chromosome_metadata {
-	const std::string name;
-	const double crossover_rate;
+    const std::string name;
+    const double crossover_rate;
     const std::vector<const crossover_metadata_t*> crossover_metadata;
     const double mutation_rate;
     const std::vector<const mutation_metadata_t*> mutation_metadata;
@@ -63,7 +63,7 @@ typedef struct chromosome_metadata {
 
 typedef struct creature_metadata {
     const fitness_func_t fitness_function;
-	const std::vector<const chromosome_metadata_t*> chromosome_metadata;
+    const std::vector<const chromosome_metadata_t*> chromosome_metadata;
 
     creature_metadata(
             fitness_func_t fitness_function, const std::vector<const chromosome_metadata_t*> chromosome_metadata) :
@@ -72,10 +72,10 @@ typedef struct creature_metadata {
 
 typedef struct population_metadata {
     const log_func_t log_function;
-	const size_t size;
-	const double survival_rate;
-	const double distance_threshold;
-	const bool cooperative_coevolution;
+    const size_t size;
+    const double survival_rate;
+    const double distance_threshold;
+    const bool cooperative_coevolution;
     const std::vector<const selection_algorithm_metadata_t*> selection_algorithm_metadata;
     const std::vector<const termination_condition_metadata_t*> termination_condition_metadata;
     const creature_metadata_t creature_metadata;
