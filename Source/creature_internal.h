@@ -22,22 +22,22 @@ private:
     stochastic* _stochastic_instance;
 
 public:
-    creature_internal(const creature_metadata creature_metadata, stochastic* stochastic_instance);
+    creature_internal(creature_metadata creature_metadata, stochastic* stochastic_instance);
 
     ~creature_internal() override;
 
     double get_fitness() override;
 
-    creature_internal* breed_with(creature_internal* mate);
+    creature_internal* breed_with(const creature_internal* mate) const;
 
 private:
     // Templated function for _select_crossover and _select_mutation.
     template <class TOperator, class TMetadata>
     TOperator* _select_genetic_operator(const std::vector<const TMetadata*> operator_metadata,
-                                        create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator);
+                                        create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator) const;
 
-    crossover* _select_crossover(const std::vector<const crossover_metadata*>& crossover_metadata);
-    mutation* _select_mutation(const std::vector<const mutation_metadata*>& mutation_metadata);
+    [[nodiscard]] crossover* _select_crossover(const std::vector<const crossover_metadata*>& crossover_metadata) const;
+    [[nodiscard]] mutation* _select_mutation(const std::vector<const mutation_metadata*>& mutation_metadata) const;
 
     void _set_chromosome(std::string name, chromosome* new_chromosome);
 };

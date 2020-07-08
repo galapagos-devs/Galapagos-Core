@@ -2,17 +2,11 @@
 #include "../API/population.h"
 #include "../API/creature.h"
 
-fitness_threshold::fitness_threshold(const fitness_threshold_metadata* metadata) {
-    _fitness_threshold = metadata->fitness_threshold;
-}
-
-fitness_threshold::~fitness_threshold() = default;
-
-bool fitness_threshold::operator()(population* population) {
+bool fitness_threshold::operator()(const population* population) const {
     return invoke(population);
 }
 
-bool fitness_threshold::invoke(population* population) {
+bool fitness_threshold::invoke(const population* population) const {
     creature* optimal_creature = population->get_optimal_creature();
-    return optimal_creature->get_fitness() >= _fitness_threshold;
+    return optimal_creature->get_fitness() >= _metadata->fitness_threshold;
 }

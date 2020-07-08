@@ -28,20 +28,20 @@ population_internal::~population_internal() {
 }
 
 // Returns the number of creaters in the population.
-size_t population_internal::get_size() {
+size_t population_internal::get_size() const {
     return _population_metadata->size;
 }
 
-creature* population_internal::operator[] (int i) {
+creature* population_internal::operator[] (int i) const {
     return get_creature(i);
 }
 
-creature* population_internal::get_creature(int i) {
+creature* population_internal::get_creature(int i) const {
     return (creature*)_creatures[i];
 }
 
 // Returns the most optimal creature in turms of fitness.
-creature* population_internal::get_optimal_creature() {
+creature* population_internal::get_optimal_creature() const {
     return (creature*)_optimal_creature;
 }
 

@@ -14,15 +14,15 @@ struct fitness_threshold_metadata : termination_condition_metadata {
 
 class fitness_threshold : public termination_condition {
 private:
-    size_t _fitness_threshold;
+    const fitness_threshold_metadata* _metadata;
 
 public:
-    explicit fitness_threshold(const fitness_threshold_metadata* metadata);
+    explicit fitness_threshold(const fitness_threshold_metadata* metadata) :
+            _metadata{metadata} {}
+    ~fitness_threshold() override = default;
 
-    ~fitness_threshold() override;
-
-    bool operator()(population* population) override;
-    bool invoke(population* population) override;
+    bool operator()(const population* population) const override;
+    bool invoke(const population* population) const override;
 };
 
 #endif /* _FITNESS_THRESHOLD_H_ */

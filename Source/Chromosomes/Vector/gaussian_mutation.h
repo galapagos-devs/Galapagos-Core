@@ -18,16 +18,15 @@ struct gaussian_mutation_metadata : mutation_metadata {
 
 class gaussian_mutation : public mutation_internal<vector_chromosome> {
 private:
-    double _mean;
-    double _standard_deviation;
+    const gaussian_mutation_metadata* const _metadata;
 
     stochastic* _stochastic_instance;
 
 protected:
-    chromosome* invoke(vector_chromosome* chromosome) override;
+    chromosome* invoke(const vector_chromosome* const chromosome) const override;
 
 public:
-    explicit gaussian_mutation(const gaussian_mutation_metadata* metadata, stochastic* stochastic_instance);
+    explicit gaussian_mutation(const gaussian_mutation_metadata* const metadata, stochastic* stochastic_instance);
 
     ~gaussian_mutation() /*override*/;
 };

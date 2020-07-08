@@ -25,7 +25,7 @@ double creature_internal::get_fitness() {
     return _creature_metadata.fitness_function(this);
 }
 
-creature_internal* creature_internal::breed_with(creature_internal* mate) {
+creature_internal* creature_internal::breed_with(const creature_internal* mate) const {
     auto* child = new creature_internal(_creature_metadata, _stochastic_instance);
 
     //for(size_t i = 0; i < _creature_metadata.num_chromosomes; i++)
@@ -59,7 +59,7 @@ creature_internal* creature_internal::breed_with(creature_internal* mate) {
 // Private methods
 template <class TOperator, class TMetadata>
 TOperator* creature_internal::_select_genetic_operator(const std::vector<const TMetadata*> operator_metadata,
-                                                       create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator) {
+                                                       create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator) const {
     auto num_operators = operator_metadata.size();
     std::vector<TOperator*> genetic_operators;
     auto* weights = new double[num_operators];
@@ -83,7 +83,7 @@ TOperator* creature_internal::_select_genetic_operator(const std::vector<const T
     return genetic_operators[chosen_index];
 }
 
-crossover* creature_internal::_select_crossover(const std::vector<const crossover_metadata_t*>& crossover_metadata) {
+crossover* creature_internal::_select_crossover(const std::vector<const crossover_metadata_t*>& crossover_metadata) const {
     genetic_factory& factory = genetic_factory::get_instance();
     create_genetic_operator_a<crossover, crossover_metadata_t>  create_crossover = [&factory](const crossover_metadata_t* metadatai) {
         return factory.create_crossover(metadatai);
@@ -91,7 +91,7 @@ crossover* creature_internal::_select_crossover(const std::vector<const crossove
     return _select_genetic_operator<crossover, crossover_metadata_t>(crossover_metadata, create_crossover);
 }
 
-mutation* creature_internal::_select_mutation(const std::vector<const mutation_metadata_t*>& mutation_metadata) {
+mutation* creature_internal::_select_mutation(const std::vector<const mutation_metadata_t*>& mutation_metadata) const {
     genetic_factory& factory = genetic_factory::get_instance();
     create_genetic_operator_a<mutation, mutation_metadata_t>  create_mutation = [&factory](const mutation_metadata_t* metadatai) {
         return factory.create_mutation(metadatai);
