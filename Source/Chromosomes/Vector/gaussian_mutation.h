@@ -22,13 +22,13 @@ private:
 
     stochastic* _stochastic_instance;
 
-protected:
-    chromosome* invoke(const vector_chromosome* const chromosome) const override;
-
 public:
     explicit gaussian_mutation(const gaussian_mutation_metadata* const metadata, stochastic* stochastic_instance);
 
     ~gaussian_mutation() /*override*/;
+
+protected:
+    chromosome* invoke(const vector_chromosome* const chromosome) const override;
 };
 
 #endif /* _GAUSSIAN_MUTATION_H_ */

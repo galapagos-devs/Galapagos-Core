@@ -9,13 +9,13 @@ creature_internal::creature_internal(const creature_metadata creature_metadata, 
 
 
     genetic_factory& factory = genetic_factory::get_instance();
-    for(auto chromosome_metadatum: _creature_metadata.chromosome_metadata)
+    for(auto chromosome_metadatum : _creature_metadata.chromosome_metadata)
         _chromosomes[chromosome_metadatum->name] = factory.create_chromosome(chromosome_metadatum);
 }
 
 creature_internal::~creature_internal() {
     // Delete all chromosomes
-    for(std::map<std::string, chromosome*>::iterator it = _chromosomes.begin(); it != _chromosomes.end(); ++it) {
+    for(auto it = _chromosomes.begin(); it != _chromosomes.end(); ++it) {
         delete it->second;
     }
 }

@@ -16,13 +16,12 @@ template <class TOperator, class TMetadata>
 using create_genetic_operator_a = std::function<TOperator*(const TMetadata* metadata)>;
 
 class creature_internal : creature {
-
 private:
     const creature_metadata _creature_metadata;
     stochastic* _stochastic_instance;
 
 public:
-    creature_internal(creature_metadata creature_metadata, stochastic* stochastic_instance);
+    creature_internal(const creature_metadata creature_metadata, stochastic* stochastic_instance);
 
     ~creature_internal() override;
 
