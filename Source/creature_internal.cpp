@@ -51,6 +51,11 @@ creature_internal* creature_internal::breed_with(const creature_internal* mate) 
             child_chromosome = mutation->invoke(child_chromosome);
 
         child->_set_chromosome(chromosome_name, child_chromosome);
+
+        // memory clean up
+        // TODO: virtual destructor?
+        delete crossover;
+        delete mutation;
     }
 
     return child;

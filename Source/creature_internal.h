@@ -35,8 +35,8 @@ private:
     TOperator* _select_genetic_operator(const std::vector<const TMetadata*> operator_metadata,
                                         create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator) const;
 
-    [[nodiscard]] crossover* _select_crossover(const std::vector<const crossover_metadata*>& crossover_metadata) const;
-    [[nodiscard]] mutation* _select_mutation(const std::vector<const mutation_metadata*>& mutation_metadata) const;
+    crossover* _select_crossover(const std::vector<const crossover_metadata*>& crossover_metadata) const;
+    mutation* _select_mutation(const std::vector<const mutation_metadata*>& mutation_metadata) const;
 
     void _set_chromosome(std::string name, chromosome* new_chromosome);
 };
