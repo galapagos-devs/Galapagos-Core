@@ -25,7 +25,7 @@ double creature_internal::get_fitness() {
     return _creature_metadata.fitness_function(this);
 }
 
-creature_internal* creature_internal::breed_with(const creature_internal* mate) const {
+creature_internal* creature_internal::breed_with(const creature_internal* const mate) const {
     auto* child = new creature_internal(_creature_metadata, _stochastic_instance);
 
     //for(size_t i = 0; i < _creature_metadata.num_chromosomes; i++)

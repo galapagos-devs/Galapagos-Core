@@ -3,7 +3,7 @@
 #include "gaussian_mutation.h"
 
 gaussian_mutation::gaussian_mutation(const gaussian_mutation_metadata* const metadata, stochastic* stochastic_instance) :
-    _metadata{metadata}, mutation_internal(metadata) {
+    _metadata{metadata}, mutation_internal{metadata} {
     _stochastic_instance = stochastic_instance;
 }
 

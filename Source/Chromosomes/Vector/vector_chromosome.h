@@ -35,7 +35,7 @@ public:
     //region Constructor & Destructor
 
     explicit vector_chromosome(const vector_chromosome_metadata* const metadata, stochastic* stochastic_instance);
-    explicit vector_chromosome(const vector_chromosome* other);
+    explicit vector_chromosome(const vector_chromosome* const other);
     ~vector_chromosome() override;
 
     //endregion
@@ -70,7 +70,7 @@ public:
 
     virtual double norm() const;
 
-    virtual vector_chromosome* add(const vector_chromosome* other) const;
+    virtual vector_chromosome* add(const vector_chromosome* const other) const;
     virtual vector_chromosome* subtract(const vector_chromosome* other) const;
     virtual vector_chromosome* multiply(double scalar) const;
 

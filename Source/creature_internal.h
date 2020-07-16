@@ -27,7 +27,7 @@ public:
 
     double get_fitness() override;
 
-    creature_internal* breed_with(const creature_internal* mate) const;
+    creature_internal* breed_with(const creature_internal* const mate) const;
 
 private:
     // Templated function for _select_crossover and _select_mutation.

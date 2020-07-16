@@ -18,7 +18,7 @@ vector_chromosome::vector_chromosome(const vector_chromosome_metadata* const met
         _genes[i] = _stochastic_instance->rand_double(_metadata->gene_infimum, _metadata->gene_supremum);
 }
 
-vector_chromosome::vector_chromosome(const vector_chromosome* other) :
+vector_chromosome::vector_chromosome(const vector_chromosome* const other) :
     _metadata{other->_metadata} {
     _stochastic_instance = other->_stochastic_instance;
 
@@ -119,7 +119,7 @@ double vector_chromosome::norm() const {
     return std::pow(radical, 1 / _metadata->norm_rank);
 }
 
-vector_chromosome* vector_chromosome::add(const vector_chromosome* other) const {
+vector_chromosome* vector_chromosome::add(const vector_chromosome* const other) const {
     auto* new_chromosome = new vector_chromosome(this);
     for(size_t i = 0; i < _metadata->size; ++i)
         new_chromosome->_genes[i] = get_gene(i) + other->get_gene(i);

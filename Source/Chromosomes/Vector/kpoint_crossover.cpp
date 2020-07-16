@@ -8,7 +8,7 @@
 //region Constructor & Destructor
 
 kpoint_crossover::kpoint_crossover(const kpoint_crossover_metadata* const metadata, stochastic* stochastic_instance) :
-    _metadata{metadata}, crossover_internal(metadata) {
+    _metadata{metadata}, crossover_internal{metadata} {
     _stochastic_instance = stochastic_instance;
 }
 
