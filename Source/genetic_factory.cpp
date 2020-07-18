@@ -23,8 +23,8 @@ void genetic_factory::register_termination_condition(std::type_index index, cons
     _registered_termination_conditions[index] = create_termination_condition;
 }
 
-void genetic_factory::register_chromosome(const try_create_chromosome_t& try_create) {
-    _registered_chromosomes.push_back(try_create);
+void genetic_factory::register_chromosome(std::type_index index, const create_chromosome_t& create_chromosome) {
+    _registered_chromosomes[index] = create_chromosome;
 }
 
 void genetic_factory::register_crossover(std::type_index index, const create_crossover_t& create_crossover) {
@@ -47,13 +47,8 @@ std::shared_ptr<termination_condition> genetic_factory::create_termination_condi
     return _registered_termination_conditions[std::type_index(typeid(*termination_condition_metadata))](termination_condition_metadata);
 }
 
-chromosome* genetic_factory::create_chromosome(const chromosome_metadata* chromosome_metadata) {
-    for(const try_create_chromosome_t& try_create : _registered_chromosomes) {
-        chromosome* chromosome = nullptr;
-        if(try_create(chromosome_metadata, chromosome))
-            return chromosome;
-    }
-    throw std::runtime_error("genetic_factory::create_chromosome invalid metadata");
+std::shared_ptr<chromosome> genetic_factory::create_chromosome(const chromosome_metadata* chromosome_metadata) {
+    return _registered_chromosomes[std::type_index(typeid(*chromosome_metadata))](chromosome_metadata);
 }
 
 std::shared_ptr<crossover> genetic_factory::create_crossover(const crossover_metadata* crossover_metadata) {

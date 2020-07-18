@@ -61,9 +61,9 @@ GALAPAGOS_API void gc_register_termination_condition(std::type_index index, cons
     factory.register_termination_condition(index, create_termination_condition);
 }
 
-GALAPAGOS_API void gc_register_chromosome(try_create_chromosome_t try_create) {
+GALAPAGOS_API void gc_register_chromosome(std::type_index index, const create_chromosome_t& create_chromosome) {
     genetic_factory& factory = genetic_factory::get_instance();
-    factory.register_chromosome(std::move(try_create));
+    factory.register_chromosome(index, create_chromosome);
 }
 
 GALAPAGOS_API void gc_register_crossover(std::type_index index, const create_crossover_t& create_crossover) {

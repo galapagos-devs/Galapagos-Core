@@ -31,7 +31,7 @@ private:
 
     std::function<void(std::type_index, create_selection_algorithm_t)> _register_selection_algorithm;
     std::function<void(std::type_index, create_termination_condition_t)> _register_termination_condition;
-    std::function<void(try_create_chromosome_t)> _register_chromosome;
+    std::function<void(std::type_index, create_chromosome_t)> _register_chromosome;
     std::function<void(std::type_index, create_crossover_t)> _register_crossover;
     std::function<void(std::type_index, create_mutation_t)> _register_mutation;
 
@@ -76,7 +76,7 @@ public:
                 load_assembly_func<void(std::type_index, create_termination_condition_t)>(
                         _assembly, "gc_register_termination_condition");
         _register_chromosome =
-                load_assembly_func<void(try_create_chromosome_t)>(
+                load_assembly_func<void(std::type_index, create_chromosome_t)>(
                         _assembly, "gc_register_chromosome");
         _register_crossover =
                 load_assembly_func<void(std::type_index, const create_crossover_t&)>(
@@ -118,8 +118,8 @@ public:
         _register_termination_condition(index, create_termination_condition);
     }
 
-    inline void register_chromosome(try_create_chromosome_t try_create) {
-        _register_chromosome(std::move(try_create));
+    inline void register_chromosome(std::type_index index, const create_chromosome_t& create_chromosome) {
+        _register_chromosome(index, create_chromosome);
     }
 
     inline void register_crossover(std::type_index index, const create_crossover_t& create_crossover) {

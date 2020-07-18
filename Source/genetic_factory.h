@@ -1,7 +1,6 @@
 #ifndef _GENETIC_FACTORY_H_
 #define _GENETIC_FACTORY_H_
 
-#include <vector> // TODO: probably don't need
 #include <map>
 #include <typeindex>
 
@@ -17,7 +16,7 @@ class genetic_factory {
 private:
     std::map<std::type_index, create_selection_algorithm_t> _registered_selection_algorithms;
     std::map<std::type_index, create_termination_condition_t> _registered_termination_conditions;
-    std::vector<try_create_chromosome_t> _registered_chromosomes;
+    std::map<std::type_index, create_chromosome_t> _registered_chromosomes;
     std::map<std::type_index, create_crossover_t> _registered_crossovers;
     std::map<std::type_index, create_mutation_t> _registered_mutations;
 
@@ -31,7 +30,7 @@ public:
     void register_selection_algorithm(std::type_index index, const create_selection_algorithm_t& create_selection_algorithm);
     void register_termination_condition(std::type_index index, const create_termination_condition_t& create_termination_condition);
 
-    void register_chromosome(const try_create_chromosome_t& try_create);
+    void register_chromosome(std::type_index index, const create_chromosome_t& create_chromosome);
     void register_crossover(std::type_index index, const create_crossover_t& create_crossover);
     void register_mutation(std::type_index index, const create_mutation_t& create_mutation);
 
@@ -42,7 +41,7 @@ public:
     std::shared_ptr<selection_algorithm> create_selection_algorithm(const selection_algorithm_metadata* selection_algorithm_metadata);
     std::shared_ptr<termination_condition> create_termination_condition(const termination_condition_metadata* termination_condition_metadata);
 
-    chromosome* create_chromosome(const chromosome_metadata* chromosome_metadata);
+    std::shared_ptr<chromosome> create_chromosome(const chromosome_metadata* chromosome_metadata);
     std::shared_ptr<crossover> create_crossover(const crossover_metadata* crossover_metadata);
     std::shared_ptr<mutation> create_mutation(const mutation_metadata* mutation_metadata);
 

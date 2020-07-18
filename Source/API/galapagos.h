@@ -24,11 +24,9 @@
 /****************************
 *****Galapagos Bootstrap*****
 ****************************/
-// TODO: this could be made more const correct but since its going to be refactored into type maps its not worth the effort
-// TODO: refactor into type maps
 typedef std::function<std::shared_ptr<selection_algorithm>(const selection_algorithm_metadata*)> create_selection_algorithm_t;
 typedef std::function<std::shared_ptr<termination_condition>(const termination_condition_metadata*)> create_termination_condition_t;
-typedef std::function<bool(const chromosome_metadata* metadata, chromosome*& chromosome)> try_create_chromosome_t;
+typedef std::function<std::shared_ptr<chromosome>(const chromosome_metadata*)> create_chromosome_t;
 typedef std::function<std::shared_ptr<crossover>(const crossover_metadata*)> create_crossover_t;
 typedef std::function<std::shared_ptr<mutation>(const mutation_metadata*)> create_mutation_t;
 
@@ -37,7 +35,7 @@ GALAPAGOS_API void gc_reset();
 
 GALAPAGOS_API void gc_register_selection_algorithm(std::type_index index, const create_selection_algorithm_t& create_selection_algorithm);
 GALAPAGOS_API void gc_register_termination_condition(std::type_index index, const create_termination_condition_t& create_termination_condition);
-GALAPAGOS_API void gc_register_chromosome(try_create_chromosome_t try_create);
+GALAPAGOS_API void gc_register_chromosome(std::type_index index, const create_chromosome_t& create_chromosome);
 GALAPAGOS_API void gc_register_crossover(std::type_index index, const create_crossover_t& create_crossover);
 GALAPAGOS_API void gc_register_mutation(std::type_index index, const create_mutation_t& create_mutation);
 

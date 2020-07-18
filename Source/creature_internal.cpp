@@ -14,13 +14,6 @@ creature_internal::creature_internal(const creature_metadata creature_metadata, 
         _chromosomes[chromosome_metadatum->name] = factory.create_chromosome(chromosome_metadatum);
 }
 
-creature_internal::~creature_internal() {
-    // Delete all chromosomes
-    for(auto & _chromosome : _chromosomes) {
-        delete _chromosome.second;
-    }
-}
-
 // Public methods
 double creature_internal::get_fitness() {
     return _creature_metadata.fitness_function(this);

@@ -22,7 +22,6 @@ private:
 
 public:
     creature_internal(const creature_metadata creature_metadata, stochastic* stochastic_instance);
-    ~creature_internal() override;
 
     double get_fitness() override;
 

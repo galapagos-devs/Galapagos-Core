@@ -12,17 +12,15 @@
 GALAPAGOS_API void gc_bootstrap(gc_core* core) {
     stochastic* stochastic_instance = core->get_stochastic();
 
-    core->register_chromosome([stochastic_instance](const chromosome_metadata *metadata, chromosome*& chromosome) {
-        auto *dynamic = dynamic_cast<const vector_chromosome_metadata*>(metadata);
-        if (dynamic != nullptr) {
-            chromosome = new vector_chromosome(dynamic, stochastic_instance);
-            return true;
-        }
-        return false;
+    core->register_chromosome(std::type_index(typeid(vector_chromosome_metadata)),
+            [stochastic_instance](const chromosome_metadata* metadata) {
+                auto *dynamic = dynamic_cast<const vector_chromosome_metadata*>(metadata);
+                std::shared_ptr<vector_chromosome> chromosome(new vector_chromosome(dynamic, stochastic_instance));
+                return chromosome;
     });
 
     core->register_crossover(std::type_index(typeid(kpoint_crossover_metadata)),
-            [stochastic_instance](const crossover_metadata *metadata) {
+            [stochastic_instance](const crossover_metadata* metadata) {
                 auto* dynamic = dynamic_cast<const kpoint_crossover_metadata*>(metadata);
                 std::shared_ptr<kpoint_crossover> crossover(new kpoint_crossover(dynamic, stochastic_instance));
                 return crossover;

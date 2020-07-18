@@ -27,14 +27,12 @@ private:
 
 public:
     population_internal(const population_metadata* population_metadata, stochastic* stochastic_instance);
-
     ~population_internal() override;
 
     // Returns the number of creates in the population.
     [[nodiscard]] size_t get_size() const override;
 
     creature* operator[] (int i) const override;
-
     [[nodiscard]] creature* get_creature(int i) const override;
 
     // Returns the most optimal creature in terms of fitness.
