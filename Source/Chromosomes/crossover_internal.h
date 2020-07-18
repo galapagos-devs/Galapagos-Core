@@ -7,17 +7,9 @@
 
 template<class TChromosome>
 class crossover_internal : public crossover {
-private:
-    double _weight = 1;
-
 public:
-    inline crossover_internal(const crossover_metadata* crossover_metadata) {
-        _weight = crossover_metadata->weight;
-    }
-
-    inline double get_weight() const override {
-        return  _weight;
-    };
+    inline crossover_internal(const crossover_metadata* const crossover_metadata) :
+            crossover{crossover_metadata} {}
 
     inline chromosome* invoke(const chromosome* const x, const chromosome* const y) const override {
         const auto* const dynamic_x = dynamic_cast<const TChromosome* const>(x);

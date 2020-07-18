@@ -7,7 +7,6 @@
 creature_internal::creature_internal(const creature_metadata creature_metadata, stochastic* stochastic_instance) :
     _creature_metadata{creature_metadata}, _stochastic_instance{stochastic_instance} {
 
-
     genetic_factory& factory = genetic_factory::get_instance();
     for(auto chromosome_metadatum : _creature_metadata.chromosome_metadata)
         _chromosomes[chromosome_metadatum->name] = factory.create_chromosome(chromosome_metadatum);
@@ -15,8 +14,8 @@ creature_internal::creature_internal(const creature_metadata creature_metadata, 
 
 creature_internal::~creature_internal() {
     // Delete all chromosomes
-    for(auto it = _chromosomes.begin(); it != _chromosomes.end(); ++it) {
-        delete it->second;
+    for(auto & _chromosome : _chromosomes) {
+        delete _chromosome.second;
     }
 }
 
@@ -37,14 +36,14 @@ creature_internal* creature_internal::breed_with(const creature_internal* const 
         crossover* crossover = _select_crossover(chromosome_metadatum->crossover_metadata);
         mutation* mutation = _select_mutation(chromosome_metadatum->mutation_metadata);
 
-        auto* my_chromosome = get_chromosome<chromosome>(chromosome_name);  // chromosome of this creature
-        auto* mate_chromosome = mate->get_chromosome<chromosome>(chromosome_name);
+        auto* x = get_chromosome<chromosome>(chromosome_name);  // chromosome of this creature
+        auto* y = mate->get_chromosome<chromosome>(chromosome_name);
 
         // Conditionally apply cross-over
         if(_stochastic_instance->evaluate_probability(chromosome_metadatum->crossover_rate))
-            child_chromosome = crossover->invoke(my_chromosome, mate_chromosome);
+            child_chromosome = crossover->invoke(x, y);
         else
-            child_chromosome = my_chromosome;
+            child_chromosome = x;
 
         // Conditionally apply mutation
         if(_stochastic_instance->evaluate_probability(chromosome_metadatum->mutation_rate))

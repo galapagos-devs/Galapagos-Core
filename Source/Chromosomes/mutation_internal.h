@@ -7,17 +7,9 @@
 
 template <class TChromosome>
 class mutation_internal : public mutation {
-private:
-    double _weight = 1;
-
 public:
-    inline mutation_internal(const mutation_metadata* mutation_metadata) {
-        _weight = mutation_metadata->weight;
-    }
-
-    inline double get_weight() const override {
-        return  _weight;
-    };
+    inline mutation_internal(const mutation_metadata* const mutation_metadata) :
+        mutation{mutation_metadata} {}
 
     inline chromosome* invoke(const chromosome* const chromosome) const override {
         const auto* const dynamic = dynamic_cast<const TChromosome* const>(chromosome);

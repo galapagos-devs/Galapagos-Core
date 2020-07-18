@@ -17,11 +17,9 @@ private:
     const fitness_threshold_metadata* const _metadata;
 
 public:
-    explicit fitness_threshold(const fitness_threshold_metadata* const metadata) :
-            _metadata{metadata} {}
+    explicit fitness_threshold(const fitness_threshold_metadata* const metadata) : _metadata{metadata} {}
     ~fitness_threshold() override = default;
 
-    bool operator()(const population* const population) const override;
     bool invoke(const population* const population) const override;
 };
 
