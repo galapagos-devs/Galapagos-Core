@@ -8,7 +8,7 @@ project(Galapagos)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # build control
-set(BUILD_SWIG TRUE)
+set(BUILD_SWIG FALSE)
 set(BUILD_TESTS TRUE)
 
 # Output Directory

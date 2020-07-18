@@ -8,8 +8,8 @@ class termination_condition {
 public:
     virtual ~termination_condition() = default;
 
-    virtual bool operator()(population* population) = 0;
-    virtual bool invoke(population* population) = 0;
+    virtual bool operator()(const population* const population) const = 0;
+    virtual bool invoke(const population* const population) const = 0;
 };
 
 #endif /* _TERMINATION_CONDITION_H_ */

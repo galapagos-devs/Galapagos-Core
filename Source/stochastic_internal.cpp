@@ -25,7 +25,7 @@ bool stochastic_internal::evaluate_probability(double probability) {
     return R < probability;
 }
 
-size_t stochastic_internal::weight_proportionate_selection(double* weights, size_t num_weights) {
+size_t stochastic_internal::weight_proportionate_selection(const double* const weights, size_t num_weights) {
     double sum = 0;
     sum = std::accumulate(weights, weights + num_weights, sum);
 

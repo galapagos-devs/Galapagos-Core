@@ -23,10 +23,10 @@ private:
     stochastic* _stochastic_instance;
 
 protected:
-    chromosome* invoke(vector_chromosome* chromosome) override;
+    chromosome* invoke(const vector_chromosome* const chromosome) const override;
 
 public:
-    explicit randomization_mutation(const randomization_mutation_metadata* metadata, stochastic* stochastic_instance);
+    explicit randomization_mutation(const randomization_mutation_metadata* const metadata, stochastic* stochastic_instance);
 
     ~randomization_mutation() /*override*/;
 

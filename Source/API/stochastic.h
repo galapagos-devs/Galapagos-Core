@@ -18,7 +18,7 @@ public:
 
     virtual bool evaluate_probability(double probability) = 0;
 
-    virtual size_t weight_proportionate_selection(double* weights, size_t num_weights) = 0;
+    virtual size_t weight_proportionate_selection(const double* const weights, size_t num_weights) = 0;
 
     virtual int rand_int(int max) = 0;
 

@@ -8,7 +8,7 @@ class selection_algorithm {
 public:
     virtual ~selection_algorithm() = default;
 
-    virtual creature* invoke(population* population) = 0;
+    virtual creature* invoke(const population* const population) const = 0;
 };
 
 #endif /* _SELECTION_ALGORITHM_H_ */

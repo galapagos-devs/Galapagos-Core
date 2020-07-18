@@ -22,6 +22,8 @@
 /****************************
 *****Galapagos Bootstrap*****
 ****************************/
+// TODO: this could be made more const correct but since its going to be refactored into type maps its not worth the effort
+// TODO: refactor into type maps
 typedef std::function<bool(const selection_algorithm_metadata* metadata, selection_algorithm*& selection_algorithm)> try_create_selection_algorithm_t;
 typedef std::function<bool(const termination_condition_metadata* metadata, termination_condition*& termination_condition)> try_create_termination_condition_t;
 typedef std::function<bool(const chromosome_metadata* metadata, chromosome*& chromosome)> try_create_chromosome_t;

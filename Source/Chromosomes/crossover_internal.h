@@ -15,20 +15,20 @@ public:
         _weight = crossover_metadata->weight;
     }
 
-    inline double get_weight() override {
+    inline double get_weight() const override {
         return  _weight;
     };
 
-    inline chromosome* invoke(chromosome* x, chromosome* y) override {
-        auto* dynamic_x = dynamic_cast<TChromosome*>(x);
-        auto* dynamic_y = dynamic_cast<TChromosome*>(y);
+    inline chromosome* invoke(const chromosome* const x, const chromosome* const y) const override {
+        const auto* const dynamic_x = dynamic_cast<const TChromosome* const>(x);
+        const auto* const dynamic_y = dynamic_cast<const TChromosome* const>(y);
         if(dynamic_x == nullptr || dynamic_y == nullptr)
             throw std::runtime_error("invoke mismatched types");
         return invoke(dynamic_x, dynamic_y);
     }
 
 protected:
-    virtual chromosome* invoke(TChromosome* dynamic_x, TChromosome* dynamic_y) = 0;
+    virtual chromosome* invoke(const TChromosome* const dynamic_x, const TChromosome* const dynamic_y) const = 0;
 };
 
 #endif /* _GALAPAGOS_CROSSOVER_INTERNAL_H_ */

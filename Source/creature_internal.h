@@ -16,7 +16,6 @@ template <class TOperator, class TMetadata>
 using create_genetic_operator_a = std::function<TOperator*(const TMetadata* metadata)>;
 
 class creature_internal : creature {
-
 private:
     const creature_metadata _creature_metadata;
     stochastic* _stochastic_instance;
@@ -28,16 +27,16 @@ public:
 
     double get_fitness() override;
 
-    creature_internal* breed_with(creature_internal* mate);
+    creature_internal* breed_with(const creature_internal* const mate) const;
 
 private:
     // Templated function for _select_crossover and _select_mutation.
     template <class TOperator, class TMetadata>
     TOperator* _select_genetic_operator(const std::vector<const TMetadata*> operator_metadata,
-                                        create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator);
+                                        create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator) const;
 
-    crossover* _select_crossover(const std::vector<const crossover_metadata*>& crossover_metadata);
-    mutation* _select_mutation(const std::vector<const mutation_metadata*>& mutation_metadata);
+    crossover* _select_crossover(const std::vector<const crossover_metadata*>& crossover_metadata) const;
+    mutation* _select_mutation(const std::vector<const mutation_metadata*>& mutation_metadata) const;
 
     void _set_chromosome(std::string name, chromosome* new_chromosome);
 };

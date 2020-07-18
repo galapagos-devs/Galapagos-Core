@@ -5,7 +5,7 @@ class chromosome {
 public:
     virtual ~chromosome() = default;
 
-    virtual double get_distance(chromosome* other) = 0;
+    virtual double get_distance(const chromosome* const other) const = 0;
 };
 
 #endif /* _CHROMOSOME_H_ */

@@ -3,7 +3,7 @@
 #include "tournament_selection.h"
 
 // Consideres tournament_size creates from the population and returns the most fit creature.
-creature* tournament_selection::invoke(population* population) {
+creature* tournament_selection::invoke(const population* const population) const {
     size_t population_size = population->get_size();
 
     bool* in_tournament = new bool[population_size];

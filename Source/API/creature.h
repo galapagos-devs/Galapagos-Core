@@ -18,8 +18,8 @@ public:
 
     // TODO: Improve the ease of getting chromosomes
     template <class TChromosome> //TODO: Why does this have to be templated
-    inline TChromosome* get_chromosome(const std::string& name) {
-        chromosome* chromosome =  _chromosomes[name];
+    inline TChromosome* get_chromosome(const std::string& name) const {
+        chromosome* chromosome = _chromosomes.find(name)->second;
         return dynamic_cast<TChromosome*>(chromosome);
     }
 };

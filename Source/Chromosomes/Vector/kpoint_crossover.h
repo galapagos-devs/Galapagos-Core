@@ -20,8 +20,10 @@ struct kpoint_crossover_metadata : crossover_metadata {
 
 class kpoint_crossover : public crossover_internal<vector_chromosome> {
 private:
+    const kpoint_crossover_metadata* const _metadata;
+
     stochastic* _stochastic_instance;
-    size_t _cut_points;
+
 public:
     //region Constructor & Destructor
 
@@ -31,10 +33,10 @@ public:
     //endregion
 
 private:
-    std::vector<int> _get_cut_points(size_t chromosome_len);
+    std::vector<int> _get_cut_points(size_t chromosome_len) const;
 
 protected:
-    chromosome* invoke(vector_chromosome* x, vector_chromosome* y) override;
+    chromosome* invoke(const vector_chromosome* const x, const vector_chromosome* const y) const override;
 };
 
 

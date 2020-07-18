@@ -15,19 +15,19 @@ public:
         _weight = mutation_metadata->weight;
     }
 
-    inline double get_weight() override {
+    inline double get_weight() const override {
         return  _weight;
     };
 
-    inline chromosome* invoke(chromosome* chromosome) override {
-        TChromosome* dynamic = dynamic_cast<TChromosome*>(chromosome);
+    inline chromosome* invoke(const chromosome* const chromosome) const override {
+        const auto* const dynamic = dynamic_cast<const TChromosome* const>(chromosome);
         if(dynamic == nullptr)
             throw std::runtime_error("mutation::invoke mismatched types");
         return invoke(dynamic);
     }
 
 protected:
-    virtual chromosome* invoke(TChromosome* chromosome) = 0;
+    virtual chromosome* invoke(const TChromosome* const chromosome) const = 0;
 };
 
 #endif /* _GALAPAGOS_MUTATION_INTERNAL_H_ */
