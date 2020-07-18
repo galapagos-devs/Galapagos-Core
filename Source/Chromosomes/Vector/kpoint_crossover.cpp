@@ -12,8 +12,6 @@ kpoint_crossover::kpoint_crossover(const kpoint_crossover_metadata* const metada
     _stochastic_instance = stochastic_instance;
 }
 
-kpoint_crossover::~kpoint_crossover() = default;
-
 //endregion
 
 std::vector<int> kpoint_crossover::_get_cut_points(size_t chromosome_len) const {

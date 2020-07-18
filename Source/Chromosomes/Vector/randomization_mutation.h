@@ -28,8 +28,6 @@ protected:
 public:
     explicit randomization_mutation(const randomization_mutation_metadata* const metadata, stochastic* stochastic_instance);
 
-    ~randomization_mutation() /*override*/;
-
 };
 
 #endif /* _RANDOMIZATION_MUTATION_H_ */

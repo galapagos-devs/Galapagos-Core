@@ -10,6 +10,7 @@ private:
 public:
     inline genetic_operator(const genetic_operator_metadata* const metadata) :
         _weight{metadata->weight} {}
+    virtual ~genetic_operator() = default;
 
     inline double get_weight() const {
         return  _weight;

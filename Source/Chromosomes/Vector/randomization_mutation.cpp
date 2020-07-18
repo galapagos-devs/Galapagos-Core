@@ -6,8 +6,6 @@ randomization_mutation::randomization_mutation(const randomization_mutation_meta
     _stochastic_instance = stochastic_instance;
 }
 
-randomization_mutation::~randomization_mutation() = default;
-
 chromosome *randomization_mutation::invoke(const vector_chromosome* const chromosome) const {
     auto* const child = new vector_chromosome(chromosome);
     double min = child->gene_inf();

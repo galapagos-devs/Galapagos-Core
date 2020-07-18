@@ -34,6 +34,8 @@ creature* creature_internal::breed_with(const creature* const mate) const {
         auto* x = get_chromosome<chromosome>(chromosome_name);  // chromosome of this creature
         auto* y = mate->get_chromosome<chromosome>(chromosome_name);
 
+        // TODO: mem leak as crossovers and mutations create a new chromosome
+
         // Conditionally apply cross-over
         if(_stochastic_instance->evaluate_probability(chromosome_metadatum->crossover_rate))
             child_chromosome = (*crossover)(x, y);

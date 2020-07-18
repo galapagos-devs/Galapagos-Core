@@ -13,23 +13,17 @@ vector_chromosome::vector_chromosome(const vector_chromosome_metadata* const met
     _metadata{metadata} {
     _stochastic_instance = stochastic_instance;
 
-    _genes = new double[_metadata->size];
     for(size_t i = 0; i < _metadata->size; ++i)
-        _genes[i] = _stochastic_instance->rand_double(_metadata->gene_infimum, _metadata->gene_supremum);
+        _genes.push_back(_stochastic_instance->rand_double(_metadata->gene_infimum, _metadata->gene_supremum));
 }
 
 vector_chromosome::vector_chromosome(const vector_chromosome* const other) :
     _metadata{other->_metadata} {
     _stochastic_instance = other->_stochastic_instance;
 
-    _genes = new double[_metadata->size];
     for(size_t i = 0; i < _metadata->size; ++i)
-        _genes[i] = other->get_gene(i);
+        _genes.push_back(other->get_gene(i));
 
-}
-
-vector_chromosome::~vector_chromosome() {
-    delete[] _genes;
 }
 
 //endregion
@@ -156,10 +150,10 @@ vector_chromosome* vector_chromosome::cross(const vector_chromosome** others, si
 
 //endregion
 
+// TODO: better way to expose this with swig
 vector_chromosome* gc_get_vector_chromosome(creature* creature, const std::string& name) {
     return creature->get_chromosome<vector_chromosome>(name);
 }
-
 
 #endif /* _VECTOR_CHROMOSOME_ */
 

@@ -19,7 +19,6 @@ private:
 public:
   tournament_selection(const tournament_selection_metadata* const metadata, stochastic* stochastic_instance) :
       _stochastic_instance{stochastic_instance}, _metadata{metadata} {}
-  ~tournament_selection() override = default;
 
   creature* invoke(const population* const population) const override;
 };

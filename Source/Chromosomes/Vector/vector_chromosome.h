@@ -1,6 +1,8 @@
 #ifndef _GALAPAGOS_VECTOR_CHROMOSOME_H_
 #define _GALAPAGOS_VECTOR_CHROMOSOME_H_
 
+#include <vector>
+
 #include "../../API/galapagos.h"
 #include "../../API/galapagos_metadata.h"
 #include "../../API/chromosome.h"
@@ -25,7 +27,7 @@ class vector_chromosome : public chromosome {
 private:
     stochastic* _stochastic_instance;
     const vector_chromosome_metadata* const _metadata;
-    double* _genes;  // TODO: Should be a smart_pointer
+    std::vector<double> _genes;
 
 // base class method
 protected:
@@ -36,7 +38,6 @@ public:
 
     explicit vector_chromosome(const vector_chromosome_metadata* const metadata, stochastic* stochastic_instance);
     explicit vector_chromosome(const vector_chromosome* const other);
-    ~vector_chromosome() override;
 
     //endregion
 

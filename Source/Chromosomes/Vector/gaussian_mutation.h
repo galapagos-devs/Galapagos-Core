@@ -24,7 +24,6 @@ private:
 
 public:
     explicit gaussian_mutation(const gaussian_mutation_metadata* const metadata, stochastic* stochastic_instance);
-
     ~gaussian_mutation() /*override*/;
 
 protected:

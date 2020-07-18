@@ -22,12 +22,11 @@ private:
     stochastic* _stochastic_instance;
     log_entry _current_log_entry;
 
-    std::vector<creature*> _creatures;
-    creature* _optimal_creature;
+    std::vector<std::shared_ptr<creature>> _creatures;
+    std::shared_ptr<creature> _optimal_creature;
 
 public:
     population_internal(const population_metadata* population_metadata, stochastic* stochastic_instance);
-    ~population_internal() override;
 
     // Returns the number of creates in the population.
     [[nodiscard]] size_t get_size() const override;
@@ -42,22 +41,22 @@ public:
     void evolve() override;
 
 private:
-    creature* _find_optimal_creature();
+    // Copies the n best creatures into the next generation based on the survival rate as defined in the metadata.
+    size_t _elitism(std::vector<std::shared_ptr<creature>>& new_generation);
+
+    // Breeds population_size - surviving_creature_count, new creates from the current population.
+    void _breed_new_generation(std::vector<std::shared_ptr<creature>>& new_generation, size_t surviving_creature_count, std::shared_ptr<selection_algorithm> selection_algorithm);
+
+    // Checks if any of the termination conditions have been met.
+    bool _has_terminated(std::vector<std::shared_ptr<termination_condition>>& termination_conditions);
+
+    std::shared_ptr<creature> _find_optimal_creature();
 
     // Creates all the selection algorithms from the population metadata.
     std::vector<std::shared_ptr<selection_algorithm>> _create_selection_algorithms();
 
     // Creates all the termination conditions from the population metadata.
     std::vector<std::shared_ptr<termination_condition>> _create_termination_conditions();
-
-    // Copies the n best creatures into the next generation based on the survival rate as defined in the metadata.
-    size_t _elitism(std::vector<creature*>& new_generation);
-
-    // Breeds population_size - surviving_creature_count, new creates from the current population.
-    void _breed_new_generation(std::vector<creature*>& new_generation, size_t surviving_creature_count, std::shared_ptr<selection_algorithm> selection_algorithm);
-
-    // Checks if any of the termination conditions have been met.
-    bool _has_terminated(std::vector<std::shared_ptr<termination_condition>>& termination_conditions);
 };
 
 #endif /* _POPULATION_INTERNAL_H_ */
