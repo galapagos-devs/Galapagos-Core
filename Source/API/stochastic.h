@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <random>
 #include <numeric>
+#include <vector>
 
 /*! Brief Description of the stochastic_internal class.
  *  This is the detailed description it is SuPoSeD tO Be LoNgEr.

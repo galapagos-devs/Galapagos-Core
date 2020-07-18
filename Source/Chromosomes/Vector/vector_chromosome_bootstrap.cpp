@@ -1,3 +1,6 @@
+#include <typeindex>
+#include <memory>
+
 #include "../../API/galapagos.h"
 #include "../../galapagos_assemblies.h"
 
@@ -18,30 +21,24 @@ GALAPAGOS_API void gc_bootstrap(gc_core* core) {
         return false;
     });
 
-    core->register_crossover([stochastic_instance](const crossover_metadata *metadata, crossover*& crossover) {
-        auto *dynamic = dynamic_cast<const kpoint_crossover_metadata*>(metadata);
-        if(dynamic != nullptr) {
-            crossover = new kpoint_crossover(dynamic, stochastic_instance);
-            return true;
-        }
-        return false;
+    core->register_crossover(std::type_index(typeid(kpoint_crossover_metadata)),
+            [stochastic_instance](const crossover_metadata *metadata) {
+                auto* dynamic = dynamic_cast<const kpoint_crossover_metadata*>(metadata);
+                std::shared_ptr<kpoint_crossover> crossover(new kpoint_crossover(dynamic, stochastic_instance));
+                return crossover;
     });
 
-    core->register_mutation([stochastic_instance](const mutation_metadata* metadata, mutation*& mutation) {
-       auto *dynamic = dynamic_cast<const gaussian_mutation_metadata*>(metadata);
-       if(dynamic != nullptr) {
-           mutation = new gaussian_mutation(dynamic, stochastic_instance);
-           return true;
-       }
-        return false;
+    core->register_mutation(std::type_index(typeid(gaussian_mutation_metadata)),
+            [stochastic_instance](const mutation_metadata* metadata) {
+                auto* dynamic = dynamic_cast<const gaussian_mutation_metadata*>(metadata);
+                std::shared_ptr<gaussian_mutation> mutation(new gaussian_mutation(dynamic, stochastic_instance));
+                return mutation;
     });
 
-    core->register_mutation([stochastic_instance](const mutation_metadata* metadata, mutation*& mutation) {
-        auto *dynamic = dynamic_cast<const randomization_mutation_metadata*>(metadata);
-        if(dynamic != nullptr) {
-            mutation = new randomization_mutation(dynamic, stochastic_instance);
-            return true;
-        }
-        return false;
+    core->register_mutation(std::type_index(typeid(randomization_mutation_metadata)),
+            [stochastic_instance](const mutation_metadata* metadata) {
+                auto* dynamic = dynamic_cast<const randomization_mutation_metadata*>(metadata);
+                std::shared_ptr<randomization_mutation> mutation(new randomization_mutation(dynamic, stochastic_instance));
+                return mutation;
     });
 }

@@ -51,14 +51,14 @@ GALAPAGOS_API void gc_reset() {
     }
 }
 
-GALAPAGOS_API void gc_register_selection_algorithm(try_create_selection_algorithm_t try_create) {
+GALAPAGOS_API void gc_register_selection_algorithm(std::type_index index, const create_selection_algorithm_t& create_selection_algorithm) {
     genetic_factory& factory = genetic_factory::get_instance();
-    factory.register_selection_algorithm(std::move(try_create));
+    factory.register_selection_algorithm(index, create_selection_algorithm);
 }
 
-GALAPAGOS_API void gc_register_termination_condition(try_create_termination_condition_t try_create) {
+GALAPAGOS_API void gc_register_termination_condition(std::type_index index, const create_termination_condition_t& create_termination_condition) {
     genetic_factory& factory = genetic_factory::get_instance();
-    factory.register_termination_condition(std::move(try_create));
+    factory.register_termination_condition(index, create_termination_condition);
 }
 
 GALAPAGOS_API void gc_register_chromosome(try_create_chromosome_t try_create) {
@@ -66,14 +66,14 @@ GALAPAGOS_API void gc_register_chromosome(try_create_chromosome_t try_create) {
     factory.register_chromosome(std::move(try_create));
 }
 
-GALAPAGOS_API void gc_register_crossover(try_create_crossover_t try_create) {
+GALAPAGOS_API void gc_register_crossover(std::type_index index, const create_crossover_t& create_crossover) {
     genetic_factory& factory = genetic_factory::get_instance();
-    factory.register_crossover(std::move(try_create));
+    factory.register_crossover(index, create_crossover);
 }
 
-GALAPAGOS_API void gc_register_mutation(try_create_mutation_t try_create) {
+GALAPAGOS_API void gc_register_mutation(std::type_index index, const create_mutation_t& create_mutation) {
     genetic_factory& factory = genetic_factory::get_instance();
-    factory.register_mutation(std::move(try_create));
+    factory.register_mutation(index, create_mutation);
 }
 
 GALAPAGOS_API stochastic* gc_get_stochastic() {

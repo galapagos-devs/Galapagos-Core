@@ -15,46 +15,36 @@ void genetic_factory::reset() {
     _registered_mutations.clear();
 }
 
-void genetic_factory::register_selection_algorithm(const try_create_selection_algorithm_t& try_create) {
-    _registered_selection_algorithms.push_back(try_create);
+void genetic_factory::register_selection_algorithm(std::type_index index, const create_selection_algorithm_t& create_selection_algorithm) {
+    _registered_selection_algorithms[index] = create_selection_algorithm;
 }
 
-void genetic_factory::register_termination_condition(const try_create_termination_condition_t& try_create) {
-    _registered_termination_conditions.push_back(try_create);
+void genetic_factory::register_termination_condition(std::type_index index, const create_termination_condition_t& create_termination_condition) {
+    _registered_termination_conditions[index] = create_termination_condition;
 }
 
 void genetic_factory::register_chromosome(const try_create_chromosome_t& try_create) {
     _registered_chromosomes.push_back(try_create);
 }
 
-void genetic_factory::register_crossover(const try_create_crossover_t& try_create) {
-    _registered_crossovers.push_back(try_create);
+void genetic_factory::register_crossover(std::type_index index, const create_crossover_t& create_crossover) {
+    _registered_crossovers[index] = create_crossover;
 }
 
-void genetic_factory::register_mutation(const try_create_mutation_t& try_create) {
-    _registered_mutations.push_back(try_create);
+void genetic_factory::register_mutation(std::type_index index, const create_mutation_t& create_mutation) {
+    _registered_mutations[index] = create_mutation;
 }
 
 //endregion
 
 //region plugin construction
 
-selection_algorithm* genetic_factory::create_selection_algorithm(const selection_algorithm_metadata* selection_algorithm_metadata) {
-    for(const try_create_selection_algorithm_t& try_create : _registered_selection_algorithms) {
-        selection_algorithm* selection_algorithm = nullptr;
-        if(try_create(selection_algorithm_metadata, selection_algorithm))
-            return  selection_algorithm;
-    }
-    throw std::runtime_error("genetic_factory::create_selection_algorithm invalid metadata");
+std::shared_ptr<selection_algorithm> genetic_factory::create_selection_algorithm(const selection_algorithm_metadata* selection_algorithm_metadata) {
+    return _registered_selection_algorithms[std::type_index(typeid(*selection_algorithm_metadata))](selection_algorithm_metadata);
 }
 
-termination_condition* genetic_factory::create_termination_condition(const termination_condition_metadata* termination_condition_metadata) {
-    for(const try_create_termination_condition_t& try_create : _registered_termination_conditions) {
-        termination_condition* termination_condition = nullptr;
-        if(try_create(termination_condition_metadata, termination_condition))
-            return termination_condition;
-    }
-    throw std::runtime_error("genetic_factory::create_termination_condition invalid metadata");
+std::shared_ptr<termination_condition> genetic_factory::create_termination_condition(const termination_condition_metadata* termination_condition_metadata) {
+    return _registered_termination_conditions[std::type_index(typeid(*termination_condition_metadata))](termination_condition_metadata);
 }
 
 chromosome* genetic_factory::create_chromosome(const chromosome_metadata* chromosome_metadata) {
@@ -66,22 +56,12 @@ chromosome* genetic_factory::create_chromosome(const chromosome_metadata* chromo
     throw std::runtime_error("genetic_factory::create_chromosome invalid metadata");
 }
 
-crossover* genetic_factory::create_crossover(const crossover_metadata* crossover_metadata) {
-    for(const try_create_crossover_t& try_create : _registered_crossovers) {
-        crossover* crossover = nullptr;
-        if(try_create(crossover_metadata, crossover))
-            return crossover;
-    }
-    throw std::runtime_error("genetic_factory::create_crossover invalid metadata");
+std::shared_ptr<crossover> genetic_factory::create_crossover(const crossover_metadata* crossover_metadata) {
+    return _registered_crossovers[std::type_index(typeid(*crossover_metadata))](crossover_metadata);
 }
 
-mutation* genetic_factory::create_mutation(const mutation_metadata* mutation_metadata) {
-    for(const try_create_mutation_t& try_create : _registered_mutations) {
-        mutation* mutation = nullptr;
-        if(try_create(mutation_metadata, mutation))
-            return mutation;
-    }
-    throw std::runtime_error("genetic_factory::create_mutation invalid metadata");
+std::shared_ptr<mutation> genetic_factory::create_mutation(const mutation_metadata* mutation_metadata) {
+    return _registered_mutations[std::type_index(typeid(*mutation_metadata))](mutation_metadata);
 }
 
 //endregion

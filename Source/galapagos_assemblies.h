@@ -11,6 +11,7 @@
 
 #include "API/galapagos.h"
 
+// TODO: this is a windows method for loading assembly functions. need a posix implementation.
 template <typename TSignature>
 inline std::function<TSignature> load_assembly_func(HMODULE assembly, const std::string& func_name) {
     FARPROC address = GetProcAddress(assembly, func_name.c_str());
@@ -28,11 +29,11 @@ private:
     std::function<void(void)> _initialize;
     std::function<void(void)> _reset;
 
-    std::function<void(try_create_selection_algorithm_t)> _register_selection_algorithm;
-    std::function<void(try_create_termination_condition_t)> _register_termination_condition;
+    std::function<void(std::type_index, create_selection_algorithm_t)> _register_selection_algorithm;
+    std::function<void(std::type_index, create_termination_condition_t)> _register_termination_condition;
     std::function<void(try_create_chromosome_t)> _register_chromosome;
-    std::function<void(try_create_crossover_t)> _register_crossover;
-    std::function<void(try_create_mutation_t)> _register_mutation;
+    std::function<void(std::type_index, create_crossover_t)> _register_crossover;
+    std::function<void(std::type_index, create_mutation_t)> _register_mutation;
 
     std::function<stochastic*(void)> _get_stochastic;
 
@@ -69,19 +70,19 @@ public:
                         _assembly, "gc_reset");
 
         _register_selection_algorithm =
-                load_assembly_func<void(try_create_selection_algorithm_t)>(
+                load_assembly_func<void(std::type_index, create_selection_algorithm_t)>(
                         _assembly, "gc_register_selection_algorithm");
         _register_termination_condition =
-                load_assembly_func<void(try_create_termination_condition_t)>(
+                load_assembly_func<void(std::type_index, create_termination_condition_t)>(
                         _assembly, "gc_register_termination_condition");
         _register_chromosome =
                 load_assembly_func<void(try_create_chromosome_t)>(
                         _assembly, "gc_register_chromosome");
         _register_crossover =
-                load_assembly_func<void(try_create_crossover_t)>(
+                load_assembly_func<void(std::type_index, const create_crossover_t&)>(
                         _assembly, "gc_register_crossover");
         _register_mutation =
-                load_assembly_func<void(try_create_mutation_t)>(
+                load_assembly_func<void(std::type_index, const create_mutation_t&)>(
                         _assembly, "gc_register_mutation");
 
         _get_stochastic =
@@ -109,24 +110,24 @@ public:
         _reset();
     }
 
-    inline void register_selection_algorithm(try_create_selection_algorithm_t try_create) {
-        _register_selection_algorithm(std::move(try_create));
+    inline void register_selection_algorithm(std::type_index index, const create_selection_algorithm_t& create_selection_algorithm) {
+        _register_selection_algorithm(index, create_selection_algorithm);
     }
 
-    inline void register_termination_condition(try_create_termination_condition_t try_create) {
-        _register_termination_condition(std::move(try_create));
+    inline void register_termination_condition(std::type_index index, const create_termination_condition_t& create_termination_condition) {
+        _register_termination_condition(index, create_termination_condition);
     }
 
     inline void register_chromosome(try_create_chromosome_t try_create) {
         _register_chromosome(std::move(try_create));
     }
 
-    inline void register_crossover(try_create_crossover_t try_create) {
-        _register_crossover(std::move(try_create));
+    inline void register_crossover(std::type_index index, const create_crossover_t& create_crossover) {
+        _register_crossover(index, create_crossover);
     }
 
-    inline void register_mutation(try_create_mutation_t try_create) {
-        _register_mutation(std::move(try_create));
+    inline void register_mutation(std::type_index index, const create_mutation_t& create_mutation) {
+        _register_mutation(index, create_mutation);
     }
 
     inline stochastic* get_stochastic() {

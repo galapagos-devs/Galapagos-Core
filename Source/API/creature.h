@@ -22,6 +22,13 @@ public:
         chromosome* chromosome = _chromosomes.find(name)->second;
         return dynamic_cast<TChromosome*>(chromosome);
     }
+
+    inline void set_chromosome(std::string name, chromosome* new_chromosome) {
+        delete _chromosomes[name];
+        _chromosomes[name] = new_chromosome;
+    }
+
+    virtual creature* breed_with(const creature* const mate) const = 0;
 };
 
 #endif /* _CREATURE_H_ */
