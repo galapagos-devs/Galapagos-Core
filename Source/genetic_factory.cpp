@@ -39,24 +39,26 @@ void genetic_factory::register_mutation(std::type_index index, const create_muta
 
 //region plugin construction
 
-std::shared_ptr<selection_algorithm> genetic_factory::create_selection_algorithm(const selection_algorithm_metadata* selection_algorithm_metadata) {
-    return _registered_selection_algorithms[std::type_index(typeid(*selection_algorithm_metadata))](selection_algorithm_metadata);
+// TODO: error handling for map miss
+
+std::shared_ptr<selection_algorithm> genetic_factory::create_selection_algorithm(const selection_algorithm_metadata& selection_algorithm_metadata) {
+    return _registered_selection_algorithms[std::type_index(typeid(selection_algorithm_metadata))](selection_algorithm_metadata);
 }
 
-std::shared_ptr<termination_condition> genetic_factory::create_termination_condition(const termination_condition_metadata* termination_condition_metadata) {
-    return _registered_termination_conditions[std::type_index(typeid(*termination_condition_metadata))](termination_condition_metadata);
+std::shared_ptr<termination_condition> genetic_factory::create_termination_condition(const termination_condition_metadata& termination_condition_metadata) {
+    return _registered_termination_conditions[std::type_index(typeid(termination_condition_metadata))](termination_condition_metadata);
 }
 
-std::shared_ptr<chromosome> genetic_factory::create_chromosome(const chromosome_metadata* chromosome_metadata) {
-    return _registered_chromosomes[std::type_index(typeid(*chromosome_metadata))](chromosome_metadata);
+std::shared_ptr<chromosome> genetic_factory::create_chromosome(const chromosome_metadata& chromosome_metadata) {
+    return _registered_chromosomes[std::type_index(typeid(chromosome_metadata))](chromosome_metadata);
 }
 
-std::shared_ptr<crossover> genetic_factory::create_crossover(const crossover_metadata* crossover_metadata) {
-    return _registered_crossovers[std::type_index(typeid(*crossover_metadata))](crossover_metadata);
+std::shared_ptr<crossover> genetic_factory::create_crossover(const crossover_metadata& crossover_metadata) {
+    return _registered_crossovers[std::type_index(typeid(crossover_metadata))](crossover_metadata);
 }
 
-std::shared_ptr<mutation> genetic_factory::create_mutation(const mutation_metadata* mutation_metadata) {
-    return _registered_mutations[std::type_index(typeid(*mutation_metadata))](mutation_metadata);
+std::shared_ptr<mutation> genetic_factory::create_mutation(const mutation_metadata& mutation_metadata) {
+    return _registered_mutations[std::type_index(typeid(mutation_metadata))](mutation_metadata);
 }
 
 //endregion

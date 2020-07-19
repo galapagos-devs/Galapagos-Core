@@ -7,7 +7,7 @@
 
 //region Constructor & Destructor
 
-kpoint_crossover::kpoint_crossover(const kpoint_crossover_metadata* const metadata, stochastic* stochastic_instance) :
+kpoint_crossover::kpoint_crossover(const kpoint_crossover_metadata& metadata, stochastic* stochastic_instance) :
     _metadata{metadata}, crossover_internal{metadata} {
     _stochastic_instance = stochastic_instance;
 }
@@ -15,11 +15,11 @@ kpoint_crossover::kpoint_crossover(const kpoint_crossover_metadata* const metada
 //endregion
 
 std::vector<int> kpoint_crossover::_get_cut_points(size_t chromosome_len) const {
-    std::vector<int> cuts(_metadata->cut_points);
+    std::vector<int> cuts(_metadata.cut_points);
 
     // Construct list of unique cuts
     size_t i = 0;
-    while (i < _metadata->cut_points) {
+    while (i < _metadata.cut_points) {
         // we can't have a cut at the first or last index
         int proposed_cut = _stochastic_instance->rand_int(1, chromosome_len);
 
@@ -34,7 +34,7 @@ std::vector<int> kpoint_crossover::_get_cut_points(size_t chromosome_len) const 
 
 chromosome* kpoint_crossover::invoke(const vector_chromosome* const x, const vector_chromosome* const y) const {
     size_t len = x->num_genes();
-    std::vector<int> cuts(_metadata->cut_points);
+    std::vector<int> cuts(_metadata.cut_points);
     cuts = _get_cut_points(len);
 
     // Extract child DNA
@@ -45,7 +45,7 @@ chromosome* kpoint_crossover::invoke(const vector_chromosome* const x, const vec
 
     auto* child = new vector_chromosome(active_parent);
     for (size_t i = 0; i < len; i++) {
-        if (cut_index < _metadata->cut_points && i == cuts[cut_index]) {
+        if (cut_index < _metadata.cut_points && i == cuts[cut_index]) {
             cut_index++;
             buffer = active_parent;
             active_parent = dormant_parent;

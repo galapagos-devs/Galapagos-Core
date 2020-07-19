@@ -8,8 +8,8 @@
 template <class TChromosome>
 class mutation_internal : public mutation {
 public:
-    inline mutation_internal(const mutation_metadata* const mutation_metadata) :
-        mutation{mutation_metadata} {}
+    inline mutation_internal(const mutation_metadata& metadata) :
+        mutation{metadata} {}
 
     inline chromosome* invoke(const chromosome* const chromosome) const override {
         const auto* const dynamic = dynamic_cast<const TChromosome* const>(chromosome);

@@ -13,7 +13,6 @@
 #include "../catch.hpp"
 
 TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
-
     const std::string chromosome_name = "X";
 
     fitness_func_t fitness_function = [chromosome_name](creature* creature) {
@@ -25,28 +24,29 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
         std::cout << "generation: " << entry.generation << " optimal fitness: " << entry.optimal_fitness << std::endl;
     };
 
-    auto* population_metadata1 = new population_metadata(
+    population_metadata metadata {
             log_function, 25, 0.25, 0, false,
-            {new tournament_selection_metadata(2)},
-            {new fitness_threshold_metadata(1500)},
-            creature_metadata(fitness_function,{
-                    new vector_chromosome_metadata(
+            {tournament_selection_metadata{2}},
+            {fitness_threshold_metadata{1500}},
+            creature_metadata{fitness_function, {
+                    vector_chromosome_metadata{
                             chromosome_name,
-                            1, {new kpoint_crossover_metadata(1, 1)},
+                            1, {kpoint_crossover_metadata{1, 1}},
                             0.5, {
-                                    new randomization_mutation_metadata(1),
-                                    new gaussian_mutation_metadata(4, 0, 50)
+                                    randomization_mutation_metadata{1},
+                                    gaussian_mutation_metadata{4, 0, 50}
                             },
-                            1, 3, -500, 500)}
-            )
-    );
+                            1, 3, -500, 500
+                    }
+            }}
+    };
 
     // region Invoke Algorithm Against Metadata
 
     gc_core lib("Galapagos.dll");
     lib.initialize();
 
-    population* population1 = lib.create_population(population_metadata1);
+    population* population1 = lib.create_population(metadata);
     population1->evolve();
 
     creature* optimal = population1->get_optimal_creature();
@@ -57,6 +57,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
 
     lib.delete_population(population1);
     lib.reset();
+
     // endregion
 }
 

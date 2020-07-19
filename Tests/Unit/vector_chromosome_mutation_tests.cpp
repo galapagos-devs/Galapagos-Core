@@ -7,7 +7,7 @@
 
 using namespace fakeit;
 
-vector_chromosome_metadata* mutation_test_create_chromosome_metadata(size_t num_genes, double gene_infimum, double gene_supremum) {
+/*vector_chromosome_metadata* mutation_test_create_chromosome_metadata(size_t num_genes, double gene_infimum, double gene_supremum) {
     std::string name = "";
     double crossover_rate = 0;
     std::vector<const crossover_metadata_t*> crossover_metadata;
@@ -18,10 +18,10 @@ vector_chromosome_metadata* mutation_test_create_chromosome_metadata(size_t num_
             name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata,
             norm_rank, num_genes, gene_infimum, gene_supremum
     };
-}
+}*/
 
 TEST_CASE("gaussian mutation invoked", "[unit][vector-chromosome][mutation][gaussian-mutation]") {
-    double gaussian_perturbation = 1;
+    /*double gaussian_perturbation = 1;
 
     size_t num_genes = 3;
     double gene_infimum = 0;
@@ -56,11 +56,11 @@ TEST_CASE("gaussian mutation invoked", "[unit][vector-chromosome][mutation][gaus
     delete chromosome;
 
     delete mutation;
-    delete mutation_metadata;
+    delete mutation_metadata;*/
 }
 
 TEST_CASE("randomization (vector) mutation invoked", "[unit][vector-chromosome][mutation][randomization-mutation]") {
-    size_t num_genes = 3;
+    /*size_t num_genes = 3;
     double gene_infimum = 0;
     double gene_supremum = 10;
 
@@ -89,5 +89,5 @@ TEST_CASE("randomization (vector) mutation invoked", "[unit][vector-chromosome][
     delete chromosome;
 
     delete mutation;
-    delete mutation_metadata;
+    delete mutation_metadata;*/
 }

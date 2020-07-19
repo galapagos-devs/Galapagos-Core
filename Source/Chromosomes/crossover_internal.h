@@ -8,8 +8,8 @@
 template<class TChromosome>
 class crossover_internal : public crossover {
 public:
-    inline crossover_internal(const crossover_metadata* const crossover_metadata) :
-            crossover{crossover_metadata} {}
+    inline crossover_internal(const crossover_metadata& metadata) :
+        crossover{metadata} {}
 
     inline chromosome* invoke(const chromosome* const x, const chromosome* const y) const override {
         const auto* const dynamic_x = dynamic_cast<const TChromosome* const>(x);

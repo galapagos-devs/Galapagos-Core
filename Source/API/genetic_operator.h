@@ -5,15 +5,15 @@
 
 class genetic_operator {
 private:
-    double _weight = 1;
+    const genetic_operator_metadata& _metadata;
 
 public:
-    inline genetic_operator(const genetic_operator_metadata* const metadata) :
-        _weight{metadata->weight} {}
+    inline genetic_operator(const genetic_operator_metadata& metadata) :
+        _metadata{metadata} {}
     virtual ~genetic_operator() = default;
 
     inline double get_weight() const {
-        return  _weight;
+        return  _metadata.weight;
     }
 };
 

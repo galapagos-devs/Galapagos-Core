@@ -29,15 +29,15 @@ private:
     std::function<void(void)> _initialize;
     std::function<void(void)> _reset;
 
-    std::function<void(std::type_index, create_selection_algorithm_t)> _register_selection_algorithm;
-    std::function<void(std::type_index, create_termination_condition_t)> _register_termination_condition;
-    std::function<void(std::type_index, create_chromosome_t)> _register_chromosome;
-    std::function<void(std::type_index, create_crossover_t)> _register_crossover;
-    std::function<void(std::type_index, create_mutation_t)> _register_mutation;
+    std::function<void(std::type_index, const create_selection_algorithm_t&)> _register_selection_algorithm;
+    std::function<void(std::type_index, const create_termination_condition_t&)> _register_termination_condition;
+    std::function<void(std::type_index, const create_chromosome_t&)> _register_chromosome;
+    std::function<void(std::type_index, const create_crossover_t&)> _register_crossover;
+    std::function<void(std::type_index, const create_mutation_t&)> _register_mutation;
 
     std::function<stochastic*(void)> _get_stochastic;
 
-    std::function<population*(population_metadata*)> _create_population;
+    std::function<population*(const population_metadata&)> _create_population;
     std::function<void(population*)> _delete_population;
 
 public:
@@ -70,13 +70,13 @@ public:
                         _assembly, "gc_reset");
 
         _register_selection_algorithm =
-                load_assembly_func<void(std::type_index, create_selection_algorithm_t)>(
+                load_assembly_func<void(std::type_index, const create_selection_algorithm_t&)>(
                         _assembly, "gc_register_selection_algorithm");
         _register_termination_condition =
-                load_assembly_func<void(std::type_index, create_termination_condition_t)>(
+                load_assembly_func<void(std::type_index, const create_termination_condition_t&)>(
                         _assembly, "gc_register_termination_condition");
         _register_chromosome =
-                load_assembly_func<void(std::type_index, create_chromosome_t)>(
+                load_assembly_func<void(std::type_index, const create_chromosome_t&)>(
                         _assembly, "gc_register_chromosome");
         _register_crossover =
                 load_assembly_func<void(std::type_index, const create_crossover_t&)>(
@@ -90,7 +90,7 @@ public:
                         _assembly, "gc_get_stochastic");
 
         _create_population =
-                load_assembly_func<population*(population_metadata*)>(
+                load_assembly_func<population*(const population_metadata&)>(
                         _assembly, "gc_create_population");
         _delete_population =
                 load_assembly_func<void(population*)>(
@@ -134,7 +134,7 @@ public:
         return  _get_stochastic();
     }
 
-    inline population* create_population(population_metadata* metadata) {
+    inline population* create_population(const population_metadata& metadata) {
         return _create_population(metadata);
     }
 

@@ -1,6 +1,8 @@
 #ifndef _KPOINT_CROSSOVER_H_
 #define _KPOINT_CROSSOVER_H_
 
+#include <memory>
+
 #include "../../API/crossover.h"
 #include "../../API/galapagos_metadata.h"
 #include "../../API/stochastic.h"
@@ -16,18 +18,24 @@ struct kpoint_crossover_metadata : crossover_metadata {
             const double weight, const size_t cut_points) :
                 crossover_metadata{weight},
                 cut_points{cut_points} {}
+
+    inline std::shared_ptr<const crossover_metadata> copy() const override {
+        std::shared_ptr<const crossover_metadata> ptr(new kpoint_crossover_metadata(
+                this->weight, this->cut_points
+        ));
+        return ptr;
+    }
 };
 
 class kpoint_crossover : public crossover_internal<vector_chromosome> {
 private:
-    const kpoint_crossover_metadata* const _metadata;
-
+    const kpoint_crossover_metadata& _metadata;
     stochastic* _stochastic_instance;
 
 public:
     //region Constructor & Destructor
 
-    explicit kpoint_crossover(const kpoint_crossover_metadata* metadata, stochastic* stochastic_instance);
+    explicit kpoint_crossover(const kpoint_crossover_metadata& metadata, stochastic* stochastic_instance);
 
     //endregion
 

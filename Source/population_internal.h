@@ -18,15 +18,15 @@ class population_internal : population {
     The internal implementation of the population object from the public API.
     */
 private:
-    const population_metadata* _population_metadata;
+    const population_metadata& _metadata;
     stochastic* _stochastic_instance;
-    log_entry _current_log_entry;
+    log_entry _current_log_entry{};
 
     std::vector<std::shared_ptr<creature>> _creatures;
     std::shared_ptr<creature> _optimal_creature;
 
 public:
-    population_internal(const population_metadata* population_metadata, stochastic* stochastic_instance);
+    population_internal(const population_metadata& metadata, stochastic* stochastic_instance);
 
     // Returns the number of creates in the population.
     [[nodiscard]] size_t get_size() const override;

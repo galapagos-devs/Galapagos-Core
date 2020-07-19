@@ -9,19 +9,19 @@
 
 //region Constructor & Destructor
 
-vector_chromosome::vector_chromosome(const vector_chromosome_metadata* const metadata, stochastic* stochastic_instance) :
+vector_chromosome::vector_chromosome(const vector_chromosome_metadata& metadata, stochastic* stochastic_instance) :
     _metadata{metadata} {
     _stochastic_instance = stochastic_instance;
 
-    for(size_t i = 0; i < _metadata->size; ++i)
-        _genes.push_back(_stochastic_instance->rand_double(_metadata->gene_infimum, _metadata->gene_supremum));
+    for(size_t i = 0; i < _metadata.size; ++i)
+        _genes.push_back(_stochastic_instance->rand_double(_metadata.gene_infimum, _metadata.gene_supremum));
 }
 
 vector_chromosome::vector_chromosome(const vector_chromosome* const other) :
     _metadata{other->_metadata} {
     _stochastic_instance = other->_stochastic_instance;
 
-    for(size_t i = 0; i < _metadata->size; ++i)
+    for(size_t i = 0; i < _metadata.size; ++i)
         _genes.push_back(other->get_gene(i));
 
 }
@@ -36,10 +36,10 @@ double vector_chromosome::get_distance(const chromosome* const other) const {
         throw std::runtime_error("get_distance mismatched types");
 
     double norm = 0;
-    for(size_t i = 0; i < _metadata->size; ++i)
-        norm += pow(get_gene(i) - downcast->get_gene(i), _metadata->norm_rank);
+    for(size_t i = 0; i < _metadata.size; ++i)
+        norm += pow(get_gene(i) - downcast->get_gene(i), _metadata.norm_rank);
 
-    norm = pow(norm, 1.0/_metadata->norm_rank);
+    norm = pow(norm, 1.0 / _metadata.norm_rank);
     return norm;
 }
 
@@ -52,15 +52,15 @@ vector_chromosome* get_chromosome(creature* creature, const std::string& name) {
 //region Attributes
 
 size_t vector_chromosome::num_genes() const {
-    return _metadata->size;
+    return _metadata.size;
 }
 
 double vector_chromosome::gene_inf() const {
-    return _metadata->gene_infimum;
+    return _metadata.gene_infimum;
 }
 
 double vector_chromosome::gene_sup() const {
-    return _metadata->gene_supremum;
+    return _metadata.gene_supremum;
 }
 
 //endregion
@@ -68,7 +68,7 @@ double vector_chromosome::gene_sup() const {
 //region Getters & Setters
 
 void vector_chromosome::set_gene(size_t index, double gene) {
-    double clamped_gene = std::clamp(gene, _metadata->gene_infimum, _metadata->gene_supremum);
+    double clamped_gene = std::clamp(gene, _metadata.gene_infimum, _metadata.gene_supremum);
     _genes[index] = clamped_gene;
 }
 
@@ -107,15 +107,15 @@ double* vector_chromosome::get_gene_slice(size_t start_index, size_t end_index, 
 
 double vector_chromosome::norm() const {
     double radical = 0;
-    for (size_t i = 0; i < _metadata->size; i++)
-        radical += std::abs(std::pow(_genes[i], _metadata->norm_rank));  // |x^y| absolute value of x raised to the y
+    for (size_t i = 0; i < _metadata.size; i++)
+        radical += std::abs(std::pow(_genes[i], _metadata.norm_rank));  // |x^y| absolute value of x raised to the y
 
-    return std::pow(radical, 1 / _metadata->norm_rank);
+    return std::pow(radical, 1 / _metadata.norm_rank);
 }
 
 vector_chromosome* vector_chromosome::add(const vector_chromosome* const other) const {
     auto* new_chromosome = new vector_chromosome(this);
-    for(size_t i = 0; i < _metadata->size; ++i)
+    for(size_t i = 0; i < _metadata.size; ++i)
         new_chromosome->_genes[i] = get_gene(i) + other->get_gene(i);
 
     return new_chromosome;
@@ -123,7 +123,7 @@ vector_chromosome* vector_chromosome::add(const vector_chromosome* const other) 
 
 vector_chromosome* vector_chromosome::subtract(const vector_chromosome *other) const {
     auto* new_chromosome = new vector_chromosome(this);
-    for(size_t i = 0; i < _metadata->size; ++i)
+    for(size_t i = 0; i < _metadata.size; ++i)
         new_chromosome->_genes[i] = get_gene(i) - other->get_gene(i);
 
     return new_chromosome;
@@ -131,7 +131,7 @@ vector_chromosome* vector_chromosome::subtract(const vector_chromosome *other) c
 
 vector_chromosome* vector_chromosome::multiply(double scalar) const {
     auto* new_chromosome = new vector_chromosome(this);
-    for(size_t i = 0; i < _metadata->size; ++i)
+    for(size_t i = 0; i < _metadata.size; ++i)
         new_chromosome->_genes[i] = scalar * get_gene(i);
 
     return new_chromosome;
@@ -139,7 +139,7 @@ vector_chromosome* vector_chromosome::multiply(double scalar) const {
 
 double vector_chromosome::dot(const vector_chromosome *other) const {
     double dot_product = 0;
-    for(size_t i = 0; i < _metadata->size; ++i)
+    for(size_t i = 0; i < _metadata.size; ++i)
         dot_product += get_gene(i) * other->get_gene(i);
     return dot_product;
 }

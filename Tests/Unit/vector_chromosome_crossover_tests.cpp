@@ -6,7 +6,7 @@
 
 using namespace fakeit;
 
-vector_chromosome_metadata* crossover_test_create_chromosome_metadata(size_t num_genes, double gene_infimum, double gene_supremum) {
+/*vector_chromosome_metadata* crossover_test_create_chromosome_metadata(size_t num_genes, double gene_infimum, double gene_supremum) {
     std::string name = "";
     double crossover_rate = 0;
     std::vector<const crossover_metadata_t*> crossover_metadata;
@@ -17,10 +17,10 @@ vector_chromosome_metadata* crossover_test_create_chromosome_metadata(size_t num
             name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata,
             norm_rank, num_genes, gene_infimum, gene_supremum
     };
-}
+}*/
 
 TEST_CASE("k-point (vector) crossover invoked", "[unit][vector-chromosome][crossover][k-point-crossover]") {
-    size_t cut_points = 2;
+    /*size_t cut_points = 2;
 
     size_t num_genes = 3;
     double gene_infimum = 0;
@@ -63,5 +63,5 @@ TEST_CASE("k-point (vector) crossover invoked", "[unit][vector-chromosome][cross
     delete chromosomeY;
 
     delete crossover;
-    delete crossover_metadata;
+    delete crossover_metadata;*/
 }

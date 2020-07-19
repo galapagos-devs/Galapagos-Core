@@ -38,12 +38,12 @@ public:
 
     //region plugin construction
 
-    std::shared_ptr<selection_algorithm> create_selection_algorithm(const selection_algorithm_metadata* selection_algorithm_metadata);
-    std::shared_ptr<termination_condition> create_termination_condition(const termination_condition_metadata* termination_condition_metadata);
+    std::shared_ptr<selection_algorithm> create_selection_algorithm(const selection_algorithm_metadata& selection_algorithm_metadata);
+    std::shared_ptr<termination_condition> create_termination_condition(const termination_condition_metadata& termination_condition_metadata);
 
-    std::shared_ptr<chromosome> create_chromosome(const chromosome_metadata* chromosome_metadata);
-    std::shared_ptr<crossover> create_crossover(const crossover_metadata* crossover_metadata);
-    std::shared_ptr<mutation> create_mutation(const mutation_metadata* mutation_metadata);
+    std::shared_ptr<chromosome> create_chromosome(const chromosome_metadata& chromosome_metadata);
+    std::shared_ptr<crossover> create_crossover(const crossover_metadata& crossover_metadata);
+    std::shared_ptr<mutation> create_mutation(const mutation_metadata& mutation_metadata);
 
     //endregion
 

@@ -6,7 +6,8 @@
 
 class mutation : public genetic_operator {
 public:
-    inline mutation(const mutation_metadata* const mutation_metadata) : genetic_operator{mutation_metadata} {}
+    inline mutation(const mutation_metadata& metadata) :
+        genetic_operator{metadata} {}
 
     virtual chromosome* invoke(const chromosome* const chromosome) const = 0;
     inline chromosome* operator()(const chromosome* const chromosome) const {

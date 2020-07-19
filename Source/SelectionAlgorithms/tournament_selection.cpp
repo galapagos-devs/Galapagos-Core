@@ -11,7 +11,7 @@ creature* tournament_selection::invoke(const population* const population) const
     // Run the tournament.
     size_t i = 0;
     creature *champion = nullptr;
-    while (i < _metadata->tournament_size) {
+    while (i < _metadata.tournament_size) {
         size_t proposed_member_index = _stochastic_instance->rand_int(population_size);
 
         if (!in_tournament[proposed_member_index]) {

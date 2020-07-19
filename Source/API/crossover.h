@@ -6,7 +6,8 @@
 
 class crossover : public genetic_operator {
 public:
-    inline crossover(const crossover_metadata* const crossover_metadata) : genetic_operator{crossover_metadata} {}
+    inline crossover(const crossover_metadata& metadata) :
+        genetic_operator{metadata} {}
 
     virtual chromosome* invoke(const chromosome* const x, const chromosome* const y) const = 0;
     inline chromosome* operator()(const chromosome* const x, const chromosome* const y) const {

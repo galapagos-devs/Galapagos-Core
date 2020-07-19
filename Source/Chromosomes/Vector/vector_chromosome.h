@@ -2,6 +2,8 @@
 #define _GALAPAGOS_VECTOR_CHROMOSOME_H_
 
 #include <vector>
+#include <functional>
+#include <memory>
 
 #include "../../API/galapagos.h"
 #include "../../API/galapagos_metadata.h"
@@ -15,28 +17,40 @@ struct vector_chromosome_metadata : chromosome_metadata {
     const double gene_supremum; // greatest possible value any gene will ever take
 
     vector_chromosome_metadata(
-            std::string name,
-            const double crossover_rate, const std::vector<const crossover_metadata_t*> crossover_metadata,
-            const double mutation_rate, const std::vector<const mutation_metadata_t*> mutation_metadata,
+            const std::string name,
+            const double crossover_rate, const std::vector<std::reference_wrapper<const crossover_metadata_t>> crossover_metadata,
+            const double mutation_rate, const std::vector<std::reference_wrapper<const mutation_metadata_t>> mutation_metadata,
             const uint32_t norm_rank, const size_t size, const double gene_infimum, const double gene_supremum) :
                 chromosome_metadata{name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata},
                 norm_rank{norm_rank}, size{size}, gene_infimum{gene_infimum}, gene_supremum{gene_supremum} {}
+
+    vector_chromosome_metadata(
+            const std::string name,
+            const double crossover_rate, const std::vector<std::shared_ptr<const crossover_metadata_t>> crossover_metadata,
+            const double mutation_rate, const std::vector<std::shared_ptr<const mutation_metadata_t>> mutation_metadata,
+            const uint32_t norm_rank, const size_t size, const double gene_infimum, const double gene_supremum) :
+                chromosome_metadata{name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata},
+                norm_rank{norm_rank}, size{size}, gene_infimum{gene_infimum}, gene_supremum{gene_supremum} {}
+
+    inline std::shared_ptr<const chromosome_metadata> copy() const override {
+        std::shared_ptr<const chromosome_metadata> ptr(new vector_chromosome_metadata(
+            this->name, this->crossover_rate, this->crossover_metadata, this->mutation_rate, this->mutation_metadata,
+            this->norm_rank, this->size, this->gene_infimum, this->gene_supremum
+        ));
+        return ptr;
+    }
 };
 
 class vector_chromosome : public chromosome {
 private:
+    const vector_chromosome_metadata& _metadata;
     stochastic* _stochastic_instance;
-    const vector_chromosome_metadata* const _metadata;
     std::vector<double> _genes;
-
-// base class method
-protected:
-
 
 public:
     //region Constructor & Destructor
 
-    explicit vector_chromosome(const vector_chromosome_metadata* const metadata, stochastic* stochastic_instance);
+    explicit vector_chromosome(const vector_chromosome_metadata& metadata, stochastic* stochastic_instance);
     explicit vector_chromosome(const vector_chromosome* const other);
 
     //endregion
@@ -79,7 +93,6 @@ public:
     virtual vector_chromosome* cross(const vector_chromosome** others, size_t num_chromosomes) const;
 
     //endregion
-
 };
 
 vector_chromosome* gc_get_vector_chromosome(creature* creature, const std::string& name);

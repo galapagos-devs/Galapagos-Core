@@ -1,12 +1,29 @@
 #ifndef _GALAPAGOS_METADATA_H_
 #define _GALAPAGOS_METADATA_H_
 
+#include <vector>
 #include <string>
 #include <cstdint>
 #include <functional>
 #include <utility>
+#include <memory>
 
 #include "creature.h"
+
+/*
+ * We want to users to be able to construct metadata using temporaries and we also want
+ * to ensure that the metadata the are creating is polymorphic and not sliced. We can achieve
+ * this by having the metadata constructors take vectors of std::reference_wrappers but since
+ * temporaries end there life cycle after the expresion they are created in ends we must transform
+ * the data from vectors of std::reference_wrappers to vectors of std::shared_ptrs or else we
+ * will lose access to the data.
+ */
+#define AS_POINTER_VECTOR(METADATA_TYPE, METADATA_REFERENCE_COLLECTION) \
+    [&](const std::vector<std::reference_wrapper<const METADATA_TYPE>> refs) { \
+        std::vector<std::shared_ptr<const METADATA_TYPE>> vec; \
+        for(auto ref : refs) vec.push_back(ref.get().copy()); \
+        return vec; \
+    } (METADATA_REFERENCE_COLLECTION)
 
 typedef struct log_entry {  // TODO: This needs more entries in it. This is too limited
     size_t generation;
@@ -28,18 +45,26 @@ typedef struct genetic_operator_metadata {
 
 typedef struct crossover_metadata : genetic_operator_metadata {
     explicit crossover_metadata(const double weight) : genetic_operator_metadata{weight} {};
+    inline operator std::reference_wrapper<const crossover_metadata>() const { return std::cref(*this); }
+    virtual std::shared_ptr<const crossover_metadata> copy() const = 0;
 } crossover_metadata_t;
 
 typedef struct mutation_metadata : genetic_operator_metadata {
     explicit mutation_metadata(const double weight) : genetic_operator_metadata{weight} {};
+    inline operator std::reference_wrapper<const mutation_metadata>() const { return std::cref(*this); }
+    virtual std::shared_ptr<const mutation_metadata> copy() const = 0;
 } mutation_metadata_t;
 
 typedef struct selection_algorithm_metadata {
     virtual ~selection_algorithm_metadata() = default;
+    inline operator std::reference_wrapper<const selection_algorithm_metadata>() const { return std::cref(*this); }
+    virtual std::shared_ptr<const selection_algorithm_metadata> copy() const = 0;
 } selection_algorithm_metadata_t;
 
 typedef struct termination_condition_metadata {
     virtual ~termination_condition_metadata() = default;
+    inline operator std::reference_wrapper<const termination_condition_metadata>() const { return std::cref(*this); }
+    virtual std::shared_ptr<const termination_condition_metadata> copy() const = 0;
 } termination_condition_metadata_t;
 
 //typedef std::vector<const CrossoverMetadatum*> CrossoverMetadata;
@@ -47,27 +72,38 @@ typedef struct termination_condition_metadata {
 typedef struct chromosome_metadata {
     const std::string name;
     const double crossover_rate;
-    const std::vector<const crossover_metadata_t*> crossover_metadata;
+    const std::vector<std::shared_ptr<const crossover_metadata_t>> crossover_metadata;
     const double mutation_rate;
-    const std::vector<const mutation_metadata_t*> mutation_metadata;
+    const std::vector<std::shared_ptr<const mutation_metadata_t>> mutation_metadata;
 
     chromosome_metadata(
-            std::string name,
-            const double crossover_rate, const std::vector<const crossover_metadata_t*> crossover_metadata,
-            const double mutation_rate, const std::vector<const mutation_metadata_t*> mutation_metadata) :
-                name{std::move(name)},
+            const std::string name,
+            const double crossover_rate, const std::vector<std::reference_wrapper<const crossover_metadata_t>> crossover_metadata,
+            const double mutation_rate, const std::vector<std::reference_wrapper<const mutation_metadata_t>> mutation_metadata) :
+                name{name},
+                crossover_rate{crossover_rate}, crossover_metadata{AS_POINTER_VECTOR(crossover_metadata_t, crossover_metadata)},
+                mutation_rate{mutation_rate}, mutation_metadata{AS_POINTER_VECTOR(mutation_metadata_t, mutation_metadata)} {}
+
+    chromosome_metadata(
+            const std::string name,
+            const double crossover_rate, const std::vector<std::shared_ptr<const crossover_metadata_t>> crossover_metadata,
+            const double mutation_rate, const std::vector<std::shared_ptr<const mutation_metadata_t>> mutation_metadata) :
+                name{name},
                 crossover_rate{crossover_rate}, crossover_metadata{crossover_metadata},
                 mutation_rate{mutation_rate}, mutation_metadata{mutation_metadata} {}
+
     virtual  ~chromosome_metadata() = default;
+    inline operator std::reference_wrapper<const chromosome_metadata>() const { return std::cref(*this); }
+    virtual std::shared_ptr<const chromosome_metadata> copy() const = 0;
 } chromosome_metadata_t;
 
 typedef struct creature_metadata {
     const fitness_func_t fitness_function;
-    const std::vector<const chromosome_metadata_t*> chromosome_metadata;
+    const std::vector<std::shared_ptr<const chromosome_metadata_t>> chromosome_metadata;
 
     creature_metadata(
-            fitness_func_t fitness_function, const std::vector<const chromosome_metadata_t*> chromosome_metadata) :
-                fitness_function{std::move(fitness_function)}, chromosome_metadata{chromosome_metadata} {}
+            const fitness_func_t fitness_function, const std::vector<std::reference_wrapper<const chromosome_metadata_t>> chromosome_metadata) :
+                fitness_function{fitness_function}, chromosome_metadata{AS_POINTER_VECTOR(chromosome_metadata_t, chromosome_metadata)} {}
 } creature_metadata_t;
 
 typedef struct population_metadata {
@@ -76,20 +112,20 @@ typedef struct population_metadata {
     const double survival_rate;
     const double distance_threshold;
     const bool cooperative_coevolution;
-    const std::vector<const selection_algorithm_metadata_t*> selection_algorithm_metadata;
-    const std::vector<const termination_condition_metadata_t*> termination_condition_metadata;
+    const std::vector<std::shared_ptr<const selection_algorithm_metadata_t>> selection_algorithm_metadata;
+    const std::vector<std::shared_ptr<const termination_condition_metadata_t>> termination_condition_metadata;
     const creature_metadata_t creature_metadata;
 
     population_metadata(
-            log_func_t log_function, const size_t size, const double survival_rate,
+            const log_func_t log_function, const size_t size, const double survival_rate,
             const double distance_threshold, const bool cooperative_coevolution,
-            const std::vector<const selection_algorithm_metadata_t*> selection_algorithm_metadata,
-            const std::vector<const termination_condition_metadata_t*> termination_condition_metadata,
+            const std::vector<std::reference_wrapper<const selection_algorithm_metadata_t>> selection_algorithm_metadata,
+            const std::vector<std::reference_wrapper<const termination_condition_metadata_t>> termination_condition_metadata,
             const creature_metadata_t creature_metadata) :
-                log_function{std::move(log_function)}, size{size}, survival_rate{survival_rate},
+                log_function{log_function}, size{size}, survival_rate{survival_rate},
                 distance_threshold{distance_threshold}, cooperative_coevolution{cooperative_coevolution},
-                selection_algorithm_metadata{selection_algorithm_metadata},
-                termination_condition_metadata{termination_condition_metadata},
+                selection_algorithm_metadata{AS_POINTER_VECTOR(selection_algorithm_metadata_t, selection_algorithm_metadata)},
+                termination_condition_metadata{AS_POINTER_VECTOR(termination_condition_metadata_t, termination_condition_metadata)},
                 creature_metadata{creature_metadata} {}
 } population_metadata_t;
 
