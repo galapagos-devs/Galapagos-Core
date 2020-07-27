@@ -25,7 +25,7 @@ public:
 
     double get_fitness() override;
 
-    creature* breed_with(const creature* const mate) const override ;
+    const std::shared_ptr<creature> breed_with(const std::shared_ptr<const creature> mate) const override ;
 
 private:
     // Templated function for _select_crossover and _select_mutation.

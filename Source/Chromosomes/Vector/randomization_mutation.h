@@ -35,7 +35,7 @@ public:
     explicit randomization_mutation(const randomization_mutation_metadata& metadata, stochastic* stochastic_instance);
 
 protected:
-    chromosome* invoke(const vector_chromosome* const chromosome) const override;
+    std::shared_ptr<chromosome> invoke(const std::shared_ptr<const vector_chromosome> chromosome) const override;
 
 };
 

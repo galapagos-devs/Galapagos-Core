@@ -43,7 +43,7 @@ private:
     std::vector<int> _get_cut_points(size_t chromosome_len) const;
 
 protected:
-    chromosome* invoke(const vector_chromosome* const x, const vector_chromosome* const y) const override;
+    std::shared_ptr<chromosome> invoke(const std::shared_ptr<const vector_chromosome> x, const std::shared_ptr<const vector_chromosome> y) const override;
 };
 
 

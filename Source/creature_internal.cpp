@@ -19,20 +19,20 @@ double creature_internal::get_fitness() {
     return _metadata.fitness_function(this);
 }
 
-creature* creature_internal::breed_with(const creature* const mate) const {
-    auto* child = new creature_internal(_metadata, _stochastic_instance);
+const std::shared_ptr<creature> creature_internal::breed_with(const std::shared_ptr<const creature> mate) const {
+    auto child = std::make_shared<creature_internal>(_metadata, _stochastic_instance);
 
     //for(size_t i = 0; i < _metadata.num_chromosomes; i++)
     for(const auto& chromosome_metadatum : _metadata.chromosome_metadata) {
         std::string chromosome_name = chromosome_metadatum->name;
-        chromosome* child_chromosome;
+        std::shared_ptr<chromosome> child_chromosome;
 
         // Select crossover & mutation proportional to their weight
         auto crossover = _select_crossover(chromosome_metadatum->crossover_metadata);
         auto mutation = _select_mutation(chromosome_metadatum->mutation_metadata);
 
-        auto* x = get_chromosome<chromosome>(chromosome_name);  // chromosome of this creature
-        auto* y = mate->get_chromosome<chromosome>(chromosome_name);
+        auto x = get_chromosome<chromosome>(chromosome_name);  // chromosome of this creature
+        auto y = mate->get_chromosome<chromosome>(chromosome_name);
 
         // TODO: mem leak as crossovers and mutations create a new chromosome
 

@@ -1,6 +1,8 @@
 #ifndef _MUTATION_H_
 #define _MUTATION_H_
 
+#include <memory>
+
 #include "chromosome.h"
 #include "genetic_operator.h"
 
@@ -9,8 +11,8 @@ public:
     inline mutation(const mutation_metadata& metadata) :
         genetic_operator{metadata} {}
 
-    virtual chromosome* invoke(const chromosome* const chromosome) const = 0;
-    inline chromosome* operator()(const chromosome* const chromosome) const {
+    virtual const std::shared_ptr<chromosome> invoke(const std::shared_ptr<const chromosome> chromosome) const = 0;
+    inline const std::shared_ptr<chromosome> operator()(const std::shared_ptr<const chromosome> chromosome) const {
         return invoke(chromosome);
     }
 };

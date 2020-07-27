@@ -25,17 +25,17 @@ size_t population_internal::get_size() const {
     return _metadata.size;
 }
 
-creature* population_internal::operator[] (int i) const {
+const std::shared_ptr<creature> population_internal::operator[] (int i) const {
     return get_creature(i);
 }
 
-creature* population_internal::get_creature(int i) const {
-    return _creatures[i].get();
+const std::shared_ptr<creature> population_internal::get_creature(int i) const {
+    return _creatures[i];
 }
 
 // Returns the most optimal creature in turms of fitness.
-creature* population_internal::get_optimal_creature() const {
-    return _optimal_creature.get();
+const std::shared_ptr<creature> population_internal::get_optimal_creature() const {
+    return _optimal_creature;
 }
 
 // Progresses the genetic algorithm until the termination conditions are met.
@@ -85,10 +85,10 @@ void population_internal::_breed_new_generation(std::vector<std::shared_ptr<crea
     size_t population_size = get_size();
 
     for (size_t i = surviving_creature_count; i < population_size; i++) {
-        auto* parent1 = (*selection_algorithm)(this);
-        auto* parent2 = (*selection_algorithm)(this);
-        creature* child = parent1->breed_with(parent2);
-        new_generation[i].reset(child);
+        auto parent1 = (*selection_algorithm)(shared_from_this());
+        auto parent2 = (*selection_algorithm)(shared_from_this());
+        auto child = parent1->breed_with(parent2);
+        new_generation[i] = child;
     }
 
     for (size_t i = surviving_creature_count; i < population_size; i++)
@@ -101,7 +101,7 @@ bool population_internal::_has_terminated(std::vector<std::shared_ptr<terminatio
 
     for (size_t i = 0; i < num_termination_conditions; i++) {
         auto current_termination_condition = termination_conditions[i];
-        if ((*current_termination_condition)(this))
+        if ((*current_termination_condition)(shared_from_this()))
             return true;
     }
     return false;

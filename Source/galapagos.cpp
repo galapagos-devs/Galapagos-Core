@@ -84,11 +84,15 @@ GALAPAGOS_API stochastic* gc_get_stochastic() {
 /**************************
 *****Galapagos Session*****
 **************************/
+static std::shared_ptr<population> g_population;
 GALAPAGOS_API population* gc_create_population(const population_metadata& metadata) {
     stochastic* stochastic_instance = gc_get_stochastic();
-    return (population*)new population_internal(metadata, stochastic_instance);
+    g_population = std::make_shared<population_internal>(metadata, stochastic_instance);
+    return  g_population.get();
+    //return (population*)new population_internal(metadata, stochastic_instance);
 }
 
 GALAPAGOS_API void gc_delete_population(population* population) {
-    delete population;
+    g_population.reset();
+    //delete population;
 }

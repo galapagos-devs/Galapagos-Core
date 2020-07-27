@@ -35,7 +35,7 @@ public:
     ~gaussian_mutation() /*override*/;
 
 protected:
-    chromosome* invoke(const vector_chromosome* const chromosome) const override;
+    std::shared_ptr<chromosome> invoke(std::shared_ptr<const vector_chromosome> chromosome) const override;
 };
 
 #endif /* _GAUSSIAN_MUTATION_H_ */

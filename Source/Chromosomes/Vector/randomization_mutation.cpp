@@ -6,8 +6,8 @@ randomization_mutation::randomization_mutation(const randomization_mutation_meta
     _stochastic_instance = stochastic_instance;
 }
 
-chromosome *randomization_mutation::invoke(const vector_chromosome* const chromosome) const {
-    auto* const child = new vector_chromosome(chromosome);
+std::shared_ptr<chromosome> randomization_mutation::invoke(const std::shared_ptr<const vector_chromosome> chromosome) const {
+    auto child = std::make_shared<vector_chromosome>(chromosome);
     double min = child->gene_inf();
     double max = child->gene_sup();
 

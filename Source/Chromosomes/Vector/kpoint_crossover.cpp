@@ -32,18 +32,18 @@ std::vector<int> kpoint_crossover::_get_cut_points(size_t chromosome_len) const 
     return cuts;
 }
 
-chromosome* kpoint_crossover::invoke(const vector_chromosome* const x, const vector_chromosome* const y) const {
+std::shared_ptr<chromosome> kpoint_crossover::invoke(const std::shared_ptr<const vector_chromosome> x, const std::shared_ptr<const vector_chromosome> y) const {
     size_t len = x->num_genes();
     std::vector<int> cuts(_metadata.cut_points);
     cuts = _get_cut_points(len);
 
     // Extract child DNA
     int cut_index = 0;
-    const vector_chromosome* active_parent = x;
-    const vector_chromosome* dormant_parent = y;
-    const vector_chromosome* buffer;
+    std::shared_ptr<const vector_chromosome> active_parent = x;
+    std::shared_ptr<const vector_chromosome> dormant_parent = y;
+    std::shared_ptr<const vector_chromosome> buffer;
 
-    auto* child = new vector_chromosome(active_parent);
+    auto child = std::make_shared<vector_chromosome>(active_parent);
     for (size_t i = 0; i < len; i++) {
         if (cut_index < _metadata.cut_points && i == cuts[cut_index]) {
             cut_index++;

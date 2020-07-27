@@ -16,7 +16,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     const std::string chromosome_name = "X";
 
     fitness_func_t fitness_function = [chromosome_name](creature* creature) {
-        auto* X = creature->get_chromosome<vector_chromosome>(chromosome_name);
+        auto X = creature->get_chromosome<vector_chromosome>(chromosome_name);
         return X->get_gene(0) - X->get_gene(1) + X->get_gene(2);
     };
 
@@ -49,8 +49,8 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     population* population1 = lib.create_population(metadata);
     population1->evolve();
 
-    creature* optimal = population1->get_optimal_creature();
-    auto* X = optimal->get_chromosome<vector_chromosome>(chromosome_name);
+    auto optimal = population1->get_optimal_creature();
+    auto X = optimal->get_chromosome<vector_chromosome>(chromosome_name);
     REQUIRE(X->get_gene(0) == X->gene_sup());
     REQUIRE(X->get_gene(1) == X->gene_inf());
     REQUIRE(X->get_gene(2) == X->gene_sup());

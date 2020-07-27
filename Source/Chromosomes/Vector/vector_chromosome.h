@@ -33,7 +33,7 @@ struct vector_chromosome_metadata : chromosome_metadata {
     }
 };
 
-class vector_chromosome : public chromosome {
+class vector_chromosome : public chromosome, std::enable_shared_from_this<vector_chromosome> {
 private:
     const vector_chromosome_metadata& _metadata;
     stochastic* _stochastic_instance;
@@ -43,13 +43,13 @@ public:
     //region Constructor & Destructor
 
     explicit vector_chromosome(const vector_chromosome_metadata& metadata, stochastic* stochastic_instance);
-    explicit vector_chromosome(const vector_chromosome* const other);
+    explicit vector_chromosome(const std::shared_ptr<const vector_chromosome> other);
 
     //endregion
 
     // region Inherited Methods
 
-    double get_distance(const chromosome* const other) const override;
+    double get_distance(const std::shared_ptr<const chromosome> other) const override;
 
     // endregion
 
@@ -65,11 +65,11 @@ public:
     //region Getters & Setters
 
     virtual void set_gene(size_t index, double gene);
-    virtual void set_gene_slice(size_t start_index, size_t end_index, double* genes);
+    virtual void set_gene_slice(size_t start_index, size_t end_index, std::vector<double> genes);
 
     virtual double get_gene(size_t index) const;
-    virtual double* get_gene_slice(size_t start_index, size_t end_index) const;
-    virtual double* get_gene_slice(size_t start_index, size_t end_index, size_t step_size) const;
+    virtual std::vector<double> get_gene_slice(size_t start_index, size_t end_index) const;
+    virtual std::vector<double> get_gene_slice(size_t start_index, size_t end_index, size_t step_size) const;
 
     //endregion
 
@@ -77,16 +77,16 @@ public:
 
     virtual double norm() const;
 
-    virtual vector_chromosome* add(const vector_chromosome* const other) const;
-    virtual vector_chromosome* subtract(const vector_chromosome* other) const;
-    virtual vector_chromosome* multiply(double scalar) const;
+    virtual std::shared_ptr<vector_chromosome> add(const std::shared_ptr<const vector_chromosome> other) const;
+    virtual std::shared_ptr<vector_chromosome> subtract(const std::shared_ptr<const vector_chromosome> other) const;
+    virtual std::shared_ptr<vector_chromosome> multiply(double scalar) const;
 
-    virtual double dot(const vector_chromosome* other) const;
-    virtual vector_chromosome* cross(const vector_chromosome** others, size_t num_chromosomes) const;
+    virtual double dot(const std::shared_ptr<const vector_chromosome> other) const;
+    virtual std::shared_ptr<vector_chromosome> cross(const std::vector<std::shared_ptr<vector_chromosome>> others, size_t num_chromosomes) const;
 
     //endregion
 };
 
-vector_chromosome* gc_get_vector_chromosome(creature* creature, const std::string& name);
+std::shared_ptr<vector_chromosome> gc_get_vector_chromosome(std::shared_ptr<creature> creature, const std::string& name);
 
 #endif /* _GALAPAGOS_VECTOR_CHROMOSOME_H_ */
