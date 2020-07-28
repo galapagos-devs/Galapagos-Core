@@ -26,7 +26,7 @@ private:
     std::shared_ptr<creature> _optimal_creature;
 
 public:
-    population_internal(const population_metadata& metadata, stochastic* stochastic_instance, std::function<void(creature*)> delete_creature);
+    population_internal(const population_metadata& metadata, stochastic* stochastic_instance);
 
     // Returns the number of creates in the population.
     [[nodiscard]] size_t get_size() const override;

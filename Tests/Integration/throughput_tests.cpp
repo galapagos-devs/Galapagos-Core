@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "../../Source/API/galapagos.h"
 #include "../../Source/API/galapagos_metadata.h"
 #include "../../Source/galapagos_assemblies.h"
 #include "../../Source/Chromosomes/Vector/vector_chromosome.h"
@@ -16,9 +15,8 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     const std::string chromosome_name = "X";
 
     fitness_func_t fitness_function = [chromosome_name](creature* creature) {
-        return 1500;
-        //auto X = creature->get_chromosome<vector_chromosome>(chromosome_name);
-        //return X->get_gene(0) - X->get_gene(1) + X->get_gene(2);
+        auto X = creature->get_chromosome<vector_chromosome>(chromosome_name);
+        return X->get_gene(0) - X->get_gene(1) + X->get_gene(2);
     };
 
     log_func_t log_function = [](log_entry entry) {
@@ -47,19 +45,14 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     gc_core lib("Galapagos.dll");
     lib.initialize();
 
-    auto population1 = lib.create_population(metadata);
-    population1->evolve();
+    auto population = lib.create_population(metadata);
+    population->evolve();
 
-    auto t = population1->get_creature(0);
-
-    //auto optimal = population1->get_optimal_creature();
-    //auto X = optimal->get_chromosome<vector_chromosome>(chromosome_name);
-    //REQUIRE(X->get_gene(0) == X->gene_sup());
-    //REQUIRE(X->get_gene(1) == X->gene_inf());
-    //REQUIRE(X->get_gene(2) == X->gene_sup());
-
-    //lib.delete_population(population1);
-    //lib.reset();
+    auto optimal = population->get_optimal_creature();
+    auto X = optimal->get_chromosome<vector_chromosome>(chromosome_name);
+    REQUIRE(X->get_gene(0) == X->gene_sup());
+    REQUIRE(X->get_gene(1) == X->gene_inf());
+    REQUIRE(X->get_gene(2) == X->gene_sup());
 
     // endregion
 }

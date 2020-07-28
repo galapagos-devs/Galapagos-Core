@@ -9,15 +9,14 @@
 
 //region Public Members
 
-population_internal::population_internal(const population_metadata& metadata, stochastic* stochastic_instance, std::function<void(creature*)> delete_creature) :
+population_internal::population_internal(const population_metadata& metadata, stochastic* stochastic_instance) :
         _metadata{metadata} {
     _stochastic_instance = stochastic_instance;
 
     _creatures.resize(get_size());
     for (size_t i = 0; i < get_size(); i++)
-        _creatures[i] = std::shared_ptr<creature>(new creature_internal(metadata.creature_metadata, stochastic_instance), delete_creature);
-        //_creatures[i] = std::make_shared<creature_internal>(
-        //        metadata.creature_metadata, stochastic_instance);
+        _creatures[i] = std::make_shared<creature_internal>(
+                metadata.creature_metadata, stochastic_instance);
     _optimal_creature = _creatures[0];
 }
 

@@ -37,9 +37,8 @@ private:
 
     std::function<stochastic*(void)> _get_stochastic;
 
-    std::function<population*(const population_metadata&, std::function<void(creature*)>)> _create_population;
+    std::function<population*(const population_metadata&)> _create_population;
     std::function<void(population*)> _delete_population;
-    std::function<void(creature*)> _delete_creature;
 
 public:
     inline explicit gc_core() {
@@ -58,7 +57,6 @@ public:
 
         _create_population = gc_create_population;
         _delete_population = gc_delete_population;
-        _delete_creature = gc_delete_creature;
     }
 
     inline explicit gc_core(const std::string& assembly_location) {
@@ -92,17 +90,16 @@ public:
                         _assembly, "gc_get_stochastic");
 
         _create_population =
-                load_assembly_func<population*(const population_metadata&, std::function<void(creature*)>)>(
+                load_assembly_func<population*(const population_metadata&)>(
                         _assembly, "gc_create_population");
         _delete_population =
                 load_assembly_func<void(population*)>(
                         _assembly, "gc_delete_population");
-        _delete_creature =
-                load_assembly_func<void(creature*)>(
-                        _assembly, "gc_delete_creature");
     }
 
     inline ~gc_core() {
+        reset();
+
         if(_assembly != nullptr)
             FreeLibrary(_assembly);
     }
@@ -140,7 +137,7 @@ public:
     }
 
     inline std::shared_ptr<population> create_population(const population_metadata& metadata) {
-        return std::shared_ptr<population>(_create_population(metadata, _delete_creature), _delete_population);
+        return std::shared_ptr<population>(_create_population(metadata), _delete_population);
     }
 };
 

@@ -44,10 +44,7 @@ GALAPAGOS_API stochastic* gc_get_stochastic();
 /**************************
 *****Galapagos Session*****
 ***************************/
-// TODO: do we need this function?
-GALAPAGOS_API population* gc_create_population(const population_metadata& population_metadata, std::function<void(creature*)> delete_creature);
+GALAPAGOS_API population* gc_create_population(const population_metadata& population_metadata);
 GALAPAGOS_API void gc_delete_population(population* population);
-
-GALAPAGOS_API void gc_delete_creature(creature* creature);
 
 #endif /* _GALAPAGOS_H_ */
