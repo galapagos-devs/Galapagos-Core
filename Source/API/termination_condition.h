@@ -10,8 +10,8 @@ class termination_condition {
 public:
     virtual ~termination_condition() = default;
 
-    virtual bool invoke(const std::shared_ptr<const population> population) const = 0;
-    inline bool operator()(const std::shared_ptr<const population> population) const {
+    virtual bool invoke(const population* const population) const = 0;
+    inline bool operator()(const population* const population) const {
         return invoke(population);
     }
 };

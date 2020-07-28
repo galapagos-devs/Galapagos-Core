@@ -13,7 +13,7 @@
 
 #include "creature_internal.h"
 
-class population_internal : public population, public std::enable_shared_from_this<population_internal> {
+class population_internal : public population {
   /*
     The internal implementation of the population object from the public API.
     */
@@ -26,16 +26,16 @@ private:
     std::shared_ptr<creature> _optimal_creature;
 
 public:
-    population_internal(const population_metadata& metadata, stochastic* stochastic_instance);
+    population_internal(const population_metadata& metadata, stochastic* stochastic_instance, std::function<void(creature*)> delete_creature);
 
     // Returns the number of creates in the population.
     [[nodiscard]] size_t get_size() const override;
 
-    const std::shared_ptr<creature> operator[] (int i) const override;
-    const std::shared_ptr<creature> get_creature(int i) const override;
+    std::shared_ptr<creature> operator[] (int i) const override;
+    std::shared_ptr<creature> get_creature(int i) const override;
 
     // Returns the most optimal creature in terms of fitness.
-    const std::shared_ptr<creature> get_optimal_creature() const override;
+    std::shared_ptr<creature> get_optimal_creature() const override;
 
     // Progresses the genetic algorithm until the termination conditions are met.
     void evolve() override;

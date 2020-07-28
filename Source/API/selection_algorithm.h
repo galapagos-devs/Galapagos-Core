@@ -10,8 +10,8 @@ class selection_algorithm {
 public:
     virtual ~selection_algorithm() = default;
 
-    virtual const std::shared_ptr<creature> invoke(const std::shared_ptr<const population> population) const = 0;
-    inline const std::shared_ptr<creature> operator()(const std::shared_ptr<const population> population) const {
+    virtual const std::shared_ptr<creature> invoke(const population* const population) const = 0;
+    inline const std::shared_ptr<creature> operator()(const population* const population) const {
         return invoke(population);
     }
 };

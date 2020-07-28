@@ -9,14 +9,15 @@
 
 //region Public Members
 
-population_internal::population_internal(const population_metadata& metadata, stochastic* stochastic_instance) :
+population_internal::population_internal(const population_metadata& metadata, stochastic* stochastic_instance, std::function<void(creature*)> delete_creature) :
         _metadata{metadata} {
     _stochastic_instance = stochastic_instance;
 
     _creatures.resize(get_size());
     for (size_t i = 0; i < get_size(); i++)
-        _creatures[i] = std::make_shared<creature_internal>(
-                metadata.creature_metadata, stochastic_instance);
+        _creatures[i] = std::shared_ptr<creature>(new creature_internal(metadata.creature_metadata, stochastic_instance), delete_creature);
+        //_creatures[i] = std::make_shared<creature_internal>(
+        //        metadata.creature_metadata, stochastic_instance);
     _optimal_creature = _creatures[0];
 }
 
@@ -25,16 +26,16 @@ size_t population_internal::get_size() const {
     return _metadata.size;
 }
 
-const std::shared_ptr<creature> population_internal::operator[] (int i) const {
+std::shared_ptr<creature> population_internal::operator[] (int i) const {
     return get_creature(i);
 }
 
-const std::shared_ptr<creature> population_internal::get_creature(int i) const {
+std::shared_ptr<creature> population_internal::get_creature(int i) const {
     return _creatures[i];
 }
 
 // Returns the most optimal creature in turms of fitness.
-const std::shared_ptr<creature> population_internal::get_optimal_creature() const {
+std::shared_ptr<creature> population_internal::get_optimal_creature() const {
     return _optimal_creature;
 }
 
@@ -85,8 +86,8 @@ void population_internal::_breed_new_generation(std::vector<std::shared_ptr<crea
     size_t population_size = get_size();
 
     for (size_t i = surviving_creature_count; i < population_size; i++) {
-        auto parent1 = (*selection_algorithm)(shared_from_this());
-        auto parent2 = (*selection_algorithm)(shared_from_this());
+        auto parent1 = (*selection_algorithm)(this);
+        auto parent2 = (*selection_algorithm)(this);
         auto child = parent1->breed_with(parent2);
         new_generation[i] = child;
     }
@@ -101,7 +102,7 @@ bool population_internal::_has_terminated(std::vector<std::shared_ptr<terminatio
 
     for (size_t i = 0; i < num_termination_conditions; i++) {
         auto current_termination_condition = termination_conditions[i];
-        if ((*current_termination_condition)(shared_from_this()))
+        if ((*current_termination_condition)(this))
             return true;
     }
     return false;

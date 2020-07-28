@@ -12,11 +12,11 @@ public:
 
     virtual size_t get_size() const = 0;
 
-    virtual const std::shared_ptr<creature> operator[] (int) const = 0;
+    virtual std::shared_ptr<creature> operator[] (int) const = 0;
 
-    virtual const std::shared_ptr<creature> get_creature(int i) const = 0;  // get the ith creature.
+    virtual std::shared_ptr<creature> get_creature(int i) const = 0;  // get the ith creature.
 
-    virtual const std::shared_ptr<creature> get_optimal_creature() const = 0;
+    virtual std::shared_ptr<creature> get_optimal_creature() const = 0;
 
     virtual void evolve() = 0;
 };
