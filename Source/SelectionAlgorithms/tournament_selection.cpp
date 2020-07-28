@@ -4,7 +4,7 @@
 #include "tournament_selection.h"
 
 // Consideres tournament_size creates from the population and returns the most fit creature.
-const std::shared_ptr<creature> tournament_selection::invoke(const population* const population) const {
+const std::shared_ptr<creature> tournament_selection::invoke(const std::shared_ptr<const population> population) const {
     size_t population_size = population->get_size();
     std::vector<bool> in_tournament(population_size, false);
 

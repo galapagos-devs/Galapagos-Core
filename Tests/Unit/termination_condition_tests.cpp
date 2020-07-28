@@ -21,7 +21,7 @@ TEST_CASE("fitness-threshold invoked", "[unit][termination-condition][fitness-th
   fitness_threshold_metadata termination_condition_metadata{test_fitness_threshold};
   fitness_threshold termination_condition(termination_condition_metadata);
 
-  REQUIRE(!termination_condition.invoke(mocked_population));  // Checks fitness < threshold
-  REQUIRE(termination_condition.invoke(mocked_population));  // Checks fitness == threshold
-  REQUIRE(termination_condition.invoke(mocked_population));  // Checks fitness > threshold*/
+  REQUIRE(!termination_condition.invoke(mocked_population.get()));  // Checks fitness < threshold
+  REQUIRE(termination_condition.invoke(mocked_population.get()));  // Checks fitness == threshold
+  REQUIRE(termination_condition.invoke(mocked_population.get()));  // Checks fitness > threshold*/
 }

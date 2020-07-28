@@ -29,7 +29,7 @@ public:
   tournament_selection(const tournament_selection_metadata& metadata, stochastic* stochastic_instance) :
           _metadata{metadata}, _stochastic_instance{stochastic_instance} {}
 
-  const std::shared_ptr<creature> invoke(const population* const population) const override;
+  const std::shared_ptr<creature> invoke(const std::shared_ptr<const population> population) const override;
 };
 
 #endif /* _TOURNAMENT_SELECTION_H_ */

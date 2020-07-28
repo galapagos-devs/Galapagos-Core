@@ -19,22 +19,22 @@ TEST_CASE( "tournament-selection invoked", "[unit][selection-algorithm][tourname
 
   Mock<creature> creature_mock0;
   When(Method(creature_mock0, get_fitness)).AlwaysReturn(1);
-  std::shared_ptr<creature> mocked_creature0(&creature_mock0.get());
+  std::shared_ptr<creature> mocked_creature0(&creature_mock0.get(), [](creature*){});
 
   Mock<creature> creature_mock1;
   When(Method(creature_mock1, get_fitness)).AlwaysReturn(2);
-  std::shared_ptr<creature> mocked_creature1(&creature_mock1.get());
+  std::shared_ptr<creature> mocked_creature1(&creature_mock1.get(), [](creature*){});
 
   Mock<population> population_mock;
   When(Method(population_mock, get_size)).AlwaysReturn(2);
   When(Method(population_mock, get_creature)).AlwaysDo([mocked_creature0, mocked_creature1](int i) {
     return i == 0 ? mocked_creature0 : mocked_creature1;
   });
-  std::shared_ptr<population> mocked_population(&population_mock.get());
+  std::shared_ptr<population> mocked_population(&population_mock.get(), [](population*){});
 
   tournament_selection_metadata selection_algorithm_metadata{test_tournament_size};
   tournament_selection selection_algorithm(selection_algorithm_metadata, mocked_stochastic);
-  auto selected_creature = selection_algorithm.invoke(mocked_population);
+  auto selected_creature = selection_algorithm.invoke(mocked_population.get());
   auto desired_creature = mocked_population->get_creature(desired_creature_index);
 
   REQUIRE(selected_creature == desired_creature);*/
