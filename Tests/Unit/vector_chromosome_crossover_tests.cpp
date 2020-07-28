@@ -10,7 +10,7 @@
 using namespace fakeit;
 
 TEST_CASE("k-point (vector) crossover invoked", "[unit][vector-chromosome][crossover][k-point-crossover]") {
-    /*size_t cut_points = 2;
+    size_t cut_points = 2;
 
     size_t num_genes = 3;
     double gene_infimum = 0;
@@ -45,5 +45,5 @@ TEST_CASE("k-point (vector) crossover invoked", "[unit][vector-chromosome][cross
     std::shared_ptr<chromosome> y = chromosomeY;
     auto child = std::dynamic_pointer_cast<vector_chromosome>(crossover->invoke(chromosomeX, chromosomeY));
     for(size_t i = 0; i < num_genes; i++)
-        REQUIRE(child->get_gene(i) == desired_genes[i]);*/
+        REQUIRE(child->get_gene(i) == desired_genes[i]);
 }

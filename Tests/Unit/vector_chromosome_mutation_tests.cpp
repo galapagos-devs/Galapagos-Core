@@ -11,7 +11,7 @@
 using namespace fakeit;
 
 TEST_CASE("gaussian mutation invoked", "[unit][vector-chromosome][mutation][gaussian-mutation]") {
-    /*double gaussian_perturbation = 1;
+    double gaussian_perturbation = 1;
 
     size_t num_genes = 3;
     double gene_infimum = 0;
@@ -39,11 +39,11 @@ TEST_CASE("gaussian mutation invoked", "[unit][vector-chromosome][mutation][gaus
 
     auto mutated_chromosome = std::dynamic_pointer_cast<vector_chromosome>(mutation->invoke(chromosome));
     double desired_gene = mutated_chromosome->get_gene(desired_gene_index);
-    REQUIRE(desired_gene == desired_gene_value);*/
+    REQUIRE(desired_gene == desired_gene_value);
 }
 
 TEST_CASE("randomization (vector) mutation invoked", "[unit][vector-chromosome][mutation][randomization-mutation]") {
-    /*size_t num_genes = 3;
+    size_t num_genes = 3;
     double gene_infimum = 0;
     double gene_supremum = 10;
 
@@ -65,5 +65,5 @@ TEST_CASE("randomization (vector) mutation invoked", "[unit][vector-chromosome][
 
     auto mutated_chromosome = std::dynamic_pointer_cast<vector_chromosome>(mutation->invoke(chromosome));
     for(size_t i = 0; i < num_genes; i++)
-        REQUIRE(mutated_chromosome->get_gene(i) == desired_genes[i]);*/
+        REQUIRE(mutated_chromosome->get_gene(i) == desired_genes[i]);
 }

@@ -10,7 +10,7 @@
 using namespace fakeit;
 
 TEST_CASE( "tournament-selection invoked", "[unit][selection-algorithm][tournament-selection]" ) {
-  /*size_t test_tournament_size = 2;
+  size_t test_tournament_size = 2;
   int desired_creature_index = 1;
 
   Mock<stochastic> stochastic_mock;
@@ -34,8 +34,8 @@ TEST_CASE( "tournament-selection invoked", "[unit][selection-algorithm][tourname
 
   tournament_selection_metadata selection_algorithm_metadata{test_tournament_size};
   tournament_selection selection_algorithm(selection_algorithm_metadata, mocked_stochastic);
-  auto selected_creature = selection_algorithm.invoke(mocked_population.get());
+  auto selected_creature = selection_algorithm.invoke(mocked_population);
   auto desired_creature = mocked_population->get_creature(desired_creature_index);
 
-  REQUIRE(selected_creature == desired_creature);*/
+  REQUIRE(selected_creature == desired_creature);
 }
