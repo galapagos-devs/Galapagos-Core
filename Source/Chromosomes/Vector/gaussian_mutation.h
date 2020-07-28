@@ -17,7 +17,7 @@ struct gaussian_mutation_metadata : mutation_metadata {
                 mutation_metadata{weight},
                 mean{mean}, standard_deviation{standard_deviation} {}
 
-    inline std::shared_ptr<const mutation_metadata> copy() const override {
+    [[nodiscard]] inline std::shared_ptr<const mutation_metadata> copy() const override {
         std::shared_ptr<const mutation_metadata> ptr(new gaussian_mutation_metadata(
             this->weight, this->mean, this->standard_deviation
         ));
@@ -33,10 +33,9 @@ private:
 public:
     inline explicit gaussian_mutation(const gaussian_mutation_metadata& metadata, stochastic& stochastic_instance) :
             _metadata{metadata}, _stochastic_instance{stochastic_instance}, mutation_internal{metadata} {}
-    inline ~gaussian_mutation() = default;
 
 protected:
-    std::shared_ptr<chromosome> invoke(std::shared_ptr<const vector_chromosome> chromosome) const override;
+    [[nodiscard]] std::shared_ptr<chromosome> invoke(const std::shared_ptr<const vector_chromosome>& chromosome) const override;
 };
 
 #endif /* _GAUSSIAN_MUTATION_H_ */

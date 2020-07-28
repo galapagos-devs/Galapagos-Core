@@ -19,7 +19,7 @@ struct randomization_mutation_metadata : mutation_metadata {
             const double weight) :
                 mutation_metadata{weight} {}
 
-    inline std::shared_ptr<const mutation_metadata> copy() const override {
+    [[nodiscard]] inline std::shared_ptr<const mutation_metadata> copy() const override {
         std::shared_ptr<const mutation_metadata> ptr(new randomization_mutation_metadata(
             this->weight
         ));
@@ -36,7 +36,7 @@ public:
             mutation_internal{metadata}, _stochastic_instance{stochastic_instance} {}
 
 protected:
-    std::shared_ptr<chromosome> invoke(const std::shared_ptr<const vector_chromosome> chromosome) const override;
+    [[nodiscard]] std::shared_ptr<chromosome> invoke(const std::shared_ptr<const vector_chromosome>& chromosome) const override;
 
 };
 

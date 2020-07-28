@@ -18,7 +18,7 @@ public:
 
     bool evaluate_probability(double probability) override;
 
-    size_t weight_proportionate_selection(const double* const weights, size_t num_weights) override;
+    size_t weight_proportionate_selection(std::vector<double> weights) override;
 
     int rand_int(int max) override;
 

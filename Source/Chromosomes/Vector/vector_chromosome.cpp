@@ -15,7 +15,7 @@ vector_chromosome::vector_chromosome(const vector_chromosome_metadata& metadata,
         _genes.push_back(_stochastic_instance.rand_double(_metadata.gene_infimum, _metadata.gene_supremum));
 }
 
-vector_chromosome::vector_chromosome(const std::shared_ptr<const vector_chromosome> other) :
+vector_chromosome::vector_chromosome(const std::shared_ptr<const vector_chromosome>& other) :
     _metadata{other->_metadata}, _stochastic_instance{other->_stochastic_instance} {
     for(size_t i = 0; i < _metadata.size; ++i)
         _genes.push_back(other->get_gene(i));
@@ -26,8 +26,8 @@ vector_chromosome::vector_chromosome(const std::shared_ptr<const vector_chromoso
 
 //region Inherited Methods
 
-double vector_chromosome::get_distance(const std::shared_ptr<const chromosome> other) const {
-    const auto* const downcast = dynamic_cast<const vector_chromosome* const>(other.get());
+double vector_chromosome::get_distance(const std::shared_ptr<const chromosome>& other) const {
+    const auto downcast = std::dynamic_pointer_cast<const vector_chromosome>(other);
     if(downcast == nullptr)
         throw std::runtime_error("get_distance mismatched types");
 
@@ -109,14 +109,14 @@ double vector_chromosome::norm() const {
     return std::pow(radical, 1 / _metadata.norm_rank);
 }
 
-std::shared_ptr<vector_chromosome> vector_chromosome::add(const std::shared_ptr<const vector_chromosome> other) const {
+std::shared_ptr<vector_chromosome> vector_chromosome::add(const std::shared_ptr<const vector_chromosome>& other) const {
     auto new_chromosome = std::make_shared<vector_chromosome>(shared_from_this());
     for(size_t i = 0; i < _metadata.size; ++i)
         new_chromosome->_genes[i] = get_gene(i) + other->get_gene(i);
     return new_chromosome;
 }
 
-std::shared_ptr<vector_chromosome> vector_chromosome::subtract(const std::shared_ptr<const vector_chromosome> other) const {
+std::shared_ptr<vector_chromosome> vector_chromosome::subtract(const std::shared_ptr<const vector_chromosome>& other) const {
     auto new_chromosome = std::make_shared<vector_chromosome>(shared_from_this());
     for(size_t i = 0; i < _metadata.size; ++i)
         new_chromosome->_genes[i] = get_gene(i) - other->get_gene(i);
@@ -130,14 +130,14 @@ std::shared_ptr<vector_chromosome> vector_chromosome::multiply(double scalar) co
     return new_chromosome;
 }
 
-double vector_chromosome::dot(const std::shared_ptr<const vector_chromosome> other) const {
+double vector_chromosome::dot(const std::shared_ptr<const vector_chromosome>& other) const {
     double dot_product = 0;
     for(size_t i = 0; i < _metadata.size; ++i)
         dot_product += get_gene(i) * other->get_gene(i);
     return dot_product;
 }
 
-std::shared_ptr<vector_chromosome> vector_chromosome::cross(const std::vector<std::shared_ptr<vector_chromosome>> others, size_t num_chromosomes) const {
+std::shared_ptr<vector_chromosome> vector_chromosome::cross(const std::vector<std::shared_ptr<vector_chromosome>>& others, size_t num_chromosomes) const {
     throw std::runtime_error("vector_chromosome.cross not implemented");
 }
 

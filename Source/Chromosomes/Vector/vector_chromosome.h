@@ -17,14 +17,14 @@ struct vector_chromosome_metadata : chromosome_metadata {
     const double gene_supremum; // greatest possible value any gene will ever take
 
     vector_chromosome_metadata(
-            const std::string name,
-            const double crossover_rate, const std::vector<std::shared_ptr<const crossover_metadata_t>> crossover_metadata,
-            const double mutation_rate, const std::vector<std::shared_ptr<const mutation_metadata_t>> mutation_metadata,
+            const std::string& name,
+            const double crossover_rate, const std::vector<std::shared_ptr<const crossover_metadata_t>>& crossover_metadata,
+            const double mutation_rate, const std::vector<std::shared_ptr<const mutation_metadata_t>>& mutation_metadata,
             const uint32_t norm_rank, const size_t size, const double gene_infimum, const double gene_supremum) :
                 chromosome_metadata{name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata},
                 norm_rank{norm_rank}, size{size}, gene_infimum{gene_infimum}, gene_supremum{gene_supremum} {}
 
-    inline std::shared_ptr<const chromosome_metadata> copy() const override {
+    [[nodiscard]] inline std::shared_ptr<const chromosome_metadata> copy() const override {
         std::shared_ptr<const chromosome_metadata> ptr(new vector_chromosome_metadata(
             this->name, this->crossover_rate, this->crossover_metadata, this->mutation_rate, this->mutation_metadata,
             this->norm_rank, this->size, this->gene_infimum, this->gene_supremum
@@ -43,13 +43,13 @@ public:
     //region Constructor & Destructor
 
     explicit vector_chromosome(const vector_chromosome_metadata& metadata, stochastic& stochastic_instance);
-    explicit vector_chromosome(const std::shared_ptr<const vector_chromosome> other);
+    explicit vector_chromosome(const std::shared_ptr<const vector_chromosome>& other);
 
     //endregion
 
     // region Inherited Methods
 
-    double get_distance(const std::shared_ptr<const chromosome> other) const override;
+    double get_distance(const std::shared_ptr<const chromosome>& other) const override;
 
     // endregion
 
@@ -77,12 +77,12 @@ public:
 
     virtual double norm() const;
 
-    virtual std::shared_ptr<vector_chromosome> add(const std::shared_ptr<const vector_chromosome> other) const;
-    virtual std::shared_ptr<vector_chromosome> subtract(const std::shared_ptr<const vector_chromosome> other) const;
+    virtual std::shared_ptr<vector_chromosome> add(const std::shared_ptr<const vector_chromosome>& other) const;
+    virtual std::shared_ptr<vector_chromosome> subtract(const std::shared_ptr<const vector_chromosome>& other) const;
     virtual std::shared_ptr<vector_chromosome> multiply(double scalar) const;
 
-    virtual double dot(const std::shared_ptr<const vector_chromosome> other) const;
-    virtual std::shared_ptr<vector_chromosome> cross(const std::vector<std::shared_ptr<vector_chromosome>> others, size_t num_chromosomes) const;
+    virtual double dot(const std::shared_ptr<const vector_chromosome>& other) const;
+    virtual std::shared_ptr<vector_chromosome> cross(const std::vector<std::shared_ptr<vector_chromosome>>& others, size_t num_chromosomes) const;
 
     //endregion
 };

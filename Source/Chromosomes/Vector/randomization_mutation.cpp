@@ -1,7 +1,7 @@
 #include "vector_chromosome.h"
 #include "randomization_mutation.h"
 
-std::shared_ptr<chromosome> randomization_mutation::invoke(const std::shared_ptr<const vector_chromosome> chromosome) const {
+std::shared_ptr<chromosome> randomization_mutation::invoke(const std::shared_ptr<const vector_chromosome>& chromosome) const {
     auto child = std::make_shared<vector_chromosome>(chromosome);
     double min = child->gene_inf();
     double max = child->gene_sup();

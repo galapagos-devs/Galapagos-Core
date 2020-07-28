@@ -11,8 +11,8 @@ public:
     inline crossover(const crossover_metadata& metadata) :
         genetic_operator{metadata} {}
 
-    virtual const std::shared_ptr<chromosome> invoke(const std::shared_ptr<const chromosome> x, const std::shared_ptr<const chromosome> y) const = 0;
-    inline const std::shared_ptr<chromosome> operator()(const std::shared_ptr<const chromosome> x, const std::shared_ptr<const chromosome> y) const {
+    virtual std::shared_ptr<chromosome> invoke(const std::shared_ptr<const chromosome>& x, const std::shared_ptr<const chromosome>& y) const = 0;
+    inline std::shared_ptr<chromosome> operator()(const std::shared_ptr<const chromosome>& x, const std::shared_ptr<const chromosome>& y) const {
         return invoke(x, y);
     }
 };

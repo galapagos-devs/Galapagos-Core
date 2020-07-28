@@ -19,16 +19,16 @@ public:
 
     // TODO: Improve the ease of getting chromosomes
     template <class TChromosome> //TODO: Why does this have to be templated
-    inline const std::shared_ptr<TChromosome> get_chromosome(const std::string& name) const {
+    inline std::shared_ptr<TChromosome> get_chromosome(const std::string& name) const {
         auto chromosome = _chromosomes.find(name)->second;
         return std::dynamic_pointer_cast<TChromosome>(chromosome);
     }
 
-    inline void set_chromosome(std::string name, std::shared_ptr<chromosome> new_chromosome) {
+    inline void set_chromosome(const std::string& name, const std::shared_ptr<chromosome> new_chromosome) {
         _chromosomes[name] = new_chromosome;
     }
 
-    virtual const std::shared_ptr<creature> breed_with(const std::shared_ptr<const creature> mate) const = 0;
+    virtual std::shared_ptr<creature> breed_with(const std::shared_ptr<const creature>& mate) const = 0;
 };
 
 #endif /* _CREATURE_H_ */

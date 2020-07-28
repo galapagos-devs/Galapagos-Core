@@ -18,7 +18,7 @@ double creature_internal::get_fitness() {
     return _metadata.fitness_function(this);
 }
 
-const std::shared_ptr<creature> creature_internal::breed_with(const std::shared_ptr<const creature> mate) const {
+std::shared_ptr<creature> creature_internal::breed_with(const std::shared_ptr<const creature>& mate) const {
     auto child = std::make_shared<creature_internal>(_metadata, _stochastic_instance);
 
     //for(size_t i = 0; i < _metadata.num_chromosomes; i++)
@@ -57,17 +57,17 @@ std::shared_ptr<TOperator> creature_internal::_select_genetic_operator(const std
                                                        create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator) const {
     auto num_operators = operator_metadata.size();
     std::vector<std::shared_ptr<TOperator>> genetic_operators;
-    std::shared_ptr<double[]> weights(new double[num_operators]);
+    std::vector<double> weights;
 
     for(size_t i = 0; i < num_operators; i++) {
         // populate genetic_operators vector
         genetic_operators.push_back(create_genetic_operator(*operator_metadata[i]));
 
         // populate weights list
-        weights[i] = genetic_operators[i]->get_weight();
+        weights.push_back(genetic_operators[i]->get_weight());
     }
 
-    size_t chosen_index = _stochastic_instance.weight_proportionate_selection(weights.get(), num_operators);
+    size_t chosen_index = _stochastic_instance.weight_proportionate_selection(weights);
     return genetic_operators[chosen_index];
 }
 

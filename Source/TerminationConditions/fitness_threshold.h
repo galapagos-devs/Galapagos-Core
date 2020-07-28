@@ -12,7 +12,7 @@ struct fitness_threshold_metadata : termination_condition_metadata {
 
     explicit fitness_threshold_metadata(const size_t fitness_threshold) : fitness_threshold{fitness_threshold} {}
 
-    inline std::shared_ptr<const termination_condition_metadata> copy() const override {
+    [[nodiscard]] inline std::shared_ptr<const termination_condition_metadata> copy() const override {
         std::shared_ptr<const termination_condition_metadata> ptr(new fitness_threshold_metadata(
                 this->fitness_threshold
         ));
@@ -28,7 +28,7 @@ public:
     explicit fitness_threshold(const fitness_threshold_metadata& metadata) :
         _metadata{metadata} {}
 
-    bool invoke(const std::shared_ptr<const population> population) const override;
+    [[nodiscard]] bool invoke(const std::shared_ptr<const population>& population) const override;
 };
 
 #endif /* _FITNESS_THRESHOLD_H_ */

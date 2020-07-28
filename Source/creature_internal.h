@@ -25,15 +25,15 @@ public:
 
     double get_fitness() override;
 
-    const std::shared_ptr<creature> breed_with(const std::shared_ptr<const creature> mate) const override ;
+    [[nodiscard]] std::shared_ptr<creature> breed_with(const std::shared_ptr<const creature>& mate) const override ;
 
 private:
     // Templated function for _select_crossover and _select_mutation.
     template <class TOperator, class TMetadata>
-    std::shared_ptr<TOperator> _select_genetic_operator(const std::vector<std::shared_ptr<const TMetadata>> operator_metadata,
+    std::shared_ptr<TOperator> _select_genetic_operator(std::vector<std::shared_ptr<const TMetadata>> operator_metadata,
                                         create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator) const;
-    std::shared_ptr<crossover> _select_crossover(const std::vector<std::shared_ptr<const crossover_metadata>>& crossover_metadata) const;
-    std::shared_ptr<mutation> _select_mutation(const std::vector<std::shared_ptr<const mutation_metadata>>& mutation_metadata) const;
+    [[nodiscard]] std::shared_ptr<crossover> _select_crossover(const std::vector<std::shared_ptr<const crossover_metadata>>& crossover_metadata) const;
+    [[nodiscard]] std::shared_ptr<mutation> _select_mutation(const std::vector<std::shared_ptr<const mutation_metadata>>& mutation_metadata) const;
 };
 
 #endif /* _CREATURE_INTERNAL_H_ */

@@ -12,7 +12,7 @@ struct tournament_selection_metadata : selection_algorithm_metadata {
 
     explicit tournament_selection_metadata(const size_t tournament_size) : tournament_size{tournament_size} {}
 
-    inline std::shared_ptr<const selection_algorithm_metadata> copy() const override {
+    [[nodiscard]] inline std::shared_ptr<const selection_algorithm_metadata> copy() const override {
         std::shared_ptr<const selection_algorithm_metadata> ptr(new tournament_selection_metadata(
                 this->tournament_size
         ));
@@ -29,7 +29,7 @@ public:
   inline tournament_selection(const tournament_selection_metadata& metadata, stochastic& stochastic_instance) :
           _metadata{metadata}, _stochastic_instance{stochastic_instance} {}
 
-  const std::shared_ptr<creature> invoke(const std::shared_ptr<const population> population) const override;
+  [[nodiscard]] std::shared_ptr<creature> invoke(const std::shared_ptr<const population>& population) const override;
 };
 
 #endif /* _TOURNAMENT_SELECTION_H_ */

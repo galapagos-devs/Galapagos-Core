@@ -7,7 +7,7 @@ class chromosome {
 public:
     virtual ~chromosome() = default;
 
-    virtual double get_distance(const std::shared_ptr<const chromosome> other) const = 0;
+    virtual double get_distance(const std::shared_ptr<const chromosome>& other) const = 0;
 };
 
 #endif /* _CHROMOSOME_H_ */

@@ -25,12 +25,13 @@ bool stochastic_internal::evaluate_probability(double probability) {
     return R < probability;
 }
 
-size_t stochastic_internal::weight_proportionate_selection(const double* const weights, size_t num_weights) {
+size_t stochastic_internal::weight_proportionate_selection(std::vector<double> weights) {
     double sum = 0;
-    sum = std::accumulate(weights, weights + num_weights, sum);
+    sum = std::accumulate(weights.begin(), weights.end(), sum);
 
     double probability_capital = rand_double() * sum;
 
+    auto num_weights = weights.size();
     for(size_t i = 0; i < num_weights; i++) {
         probability_capital -= weights[i];
 

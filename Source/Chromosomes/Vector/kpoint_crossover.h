@@ -19,7 +19,7 @@ struct kpoint_crossover_metadata : crossover_metadata {
                 crossover_metadata{weight},
                 cut_points{cut_points} {}
 
-    inline std::shared_ptr<const crossover_metadata> copy() const override {
+    [[nodiscard]] inline std::shared_ptr<const crossover_metadata> copy() const override {
         std::shared_ptr<const crossover_metadata> ptr(new kpoint_crossover_metadata(
                 this->weight, this->cut_points
         ));
@@ -41,10 +41,10 @@ public:
     //endregion
 
 private:
-    std::vector<int> _get_cut_points(size_t chromosome_len) const;
+    [[nodiscard]] std::vector<int> _get_cut_points(size_t chromosome_len) const;
 
 protected:
-    std::shared_ptr<chromosome> invoke(const std::shared_ptr<const vector_chromosome> x, const std::shared_ptr<const vector_chromosome> y) const override;
+    [[nodiscard]] std::shared_ptr<chromosome> invoke(const std::shared_ptr<const vector_chromosome>& x, const std::shared_ptr<const vector_chromosome>& y) const override;
 };
 
 
