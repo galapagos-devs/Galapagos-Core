@@ -1,5 +1,5 @@
-#ifndef _GALAPAGOS_MUTATION_INTERNAL_H_
-#define _GALAPAGOS_MUTATION_INTERNAL_H_
+#ifndef _MUTATION_INTERNAL_H_
+#define _MUTATION_INTERNAL_H_
 
 #include <stdexcept>
 #include <memory>
@@ -23,4 +23,4 @@ protected:
     virtual std::shared_ptr<chromosome> invoke(const std::shared_ptr<const TChromosome>& chromosome) const = 0;
 };
 
-#endif /* _GALAPAGOS_MUTATION_INTERNAL_H_ */
+#endif /* _MUTATION_INTERNAL_H_ */

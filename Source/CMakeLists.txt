@@ -6,8 +6,7 @@ set(SRCS
         genetic_factory.cpp
         population_internal.h
         population_internal.cpp
-        stochastic_internal.h
-        stochastic_internal.cpp)
+        stochastic_internal.h)
 
 add_library(SharedGalapagos SHARED ${SRCS})
 set_target_properties(SharedGalapagos PROPERTIES

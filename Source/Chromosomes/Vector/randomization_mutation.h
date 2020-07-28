@@ -1,7 +1,3 @@
-//
-// Created by kosie on 12/3/2019.
-//
-
 #ifndef _RANDOMIZATION_MUTATION_H_
 #define _RANDOMIZATION_MUTATION_H_
 

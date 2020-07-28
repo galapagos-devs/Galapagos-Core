@@ -1,5 +1,5 @@
-#ifndef _GALAPAGOS_VECTOR_CHROMOSOME_H_
-#define _GALAPAGOS_VECTOR_CHROMOSOME_H_
+#ifndef _VECTOR_CHROMOSOME_H_
+#define _VECTOR_CHROMOSOME_H_
 
 #include <vector>
 #include <functional>
@@ -89,4 +89,4 @@ public:
 
 std::shared_ptr<vector_chromosome> gc_get_vector_chromosome(std::shared_ptr<creature> creature, const std::string& name);
 
-#endif /* _GALAPAGOS_VECTOR_CHROMOSOME_H_ */
+#endif /* _VECTOR_CHROMOSOME_H_ */

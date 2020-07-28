@@ -36,8 +36,6 @@ private:
     std::function<void(std::type_index, const create_crossover_t&)> _register_crossover;
     std::function<void(std::type_index, const create_mutation_t&)> _register_mutation;
 
-    std::function<stochastic*(void)> _get_stochastic;
-
     std::function<population*(const population_metadata&)> _create_population;
     std::function<void(population*)> _delete_population;
 
@@ -60,10 +58,6 @@ public:
         _register_mutation =
                 load_assembly_func<void(std::type_index, const create_mutation_t&)>(
                         _assembly, "gc_register_mutation");
-
-        _get_stochastic =
-                load_assembly_func<stochastic*(void)>(
-                        _assembly, "gc_get_stochastic");
 
         _create_population =
                 load_assembly_func<population*(const population_metadata&)>(
@@ -97,10 +91,6 @@ public:
 
     inline void register_mutation(std::type_index index, const create_mutation_t& create_mutation) {
         _register_mutation(index, create_mutation);
-    }
-
-    inline stochastic* get_stochastic() {
-        return  _get_stochastic();
     }
 
     inline std::shared_ptr<population> create_population(const population_metadata& metadata) {

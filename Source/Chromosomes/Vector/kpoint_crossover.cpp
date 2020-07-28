@@ -2,6 +2,7 @@
 #define _VECTOR_CHROMOSOME_
 
 #include <vector>
+#include <algorithm>
 
 #include "kpoint_crossover.h"
 

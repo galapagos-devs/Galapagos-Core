@@ -33,8 +33,6 @@ GALAPAGOS_BOOTSTRAP void gc_register_chromosome(std::type_index index, const cre
 GALAPAGOS_BOOTSTRAP void gc_register_crossover(std::type_index index, const create_crossover_t& create_crossover);
 GALAPAGOS_BOOTSTRAP void gc_register_mutation(std::type_index index, const create_mutation_t& create_mutation);
 
-GALAPAGOS_BOOTSTRAP stochastic* gc_get_stochastic();
-
 GALAPAGOS_BOOTSTRAP population* gc_create_population(const population_metadata& population_metadata);
 GALAPAGOS_BOOTSTRAP void gc_delete_population(population* population);
 

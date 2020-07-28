@@ -1,5 +1,5 @@
-#ifndef _GALAPAGOS_CROSSOVER_INTERNAL_H_
-#define _GALAPAGOS_CROSSOVER_INTERNAL_H_
+#ifndef _CROSSOVER_INTERNAL_H_
+#define _CROSSOVER_INTERNAL_H_
 
 #include <stdexcept>
 #include <memory>
@@ -24,4 +24,4 @@ protected:
     virtual std::shared_ptr<chromosome> invoke(const std::shared_ptr<const TChromosome>& dynamic_x, const std::shared_ptr<const TChromosome>& dynamic_y) const = 0;
 };
 
-#endif /* _GALAPAGOS_CROSSOVER_INTERNAL_H_ */
+#endif /* _CROSSOVER_INTERNAL_H_ */
