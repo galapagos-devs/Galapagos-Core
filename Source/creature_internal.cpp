@@ -6,9 +6,8 @@
 #include "genetic_factory.h"
 
 // Constructor/Destructor
-creature_internal::creature_internal(const creature_metadata& metadata, stochastic* stochastic_instance) :
+creature_internal::creature_internal(const creature_metadata& metadata, stochastic& stochastic_instance) :
         _metadata{metadata}, _stochastic_instance{stochastic_instance} {
-
     genetic_factory& factory = genetic_factory::get_instance();
     for(const auto& chromosome_metadatum : _metadata.chromosome_metadata)
         _chromosomes[chromosome_metadatum->name] = factory.create_chromosome(*chromosome_metadatum);
@@ -37,13 +36,13 @@ const std::shared_ptr<creature> creature_internal::breed_with(const std::shared_
         // TODO: mem leak as crossovers and mutations create a new chromosome
 
         // Conditionally apply cross-over
-        if(_stochastic_instance->evaluate_probability(chromosome_metadatum->crossover_rate))
+        if(_stochastic_instance.evaluate_probability(chromosome_metadatum->crossover_rate))
             child_chromosome = (*crossover)(x, y);
         else
             child_chromosome = x;
 
         // Conditionally apply mutation
-        if(_stochastic_instance->evaluate_probability(chromosome_metadatum->mutation_rate))
+        if(_stochastic_instance.evaluate_probability(chromosome_metadatum->mutation_rate))
             child_chromosome = (*mutation)(child_chromosome);
 
         child->set_chromosome(chromosome_name, child_chromosome);
@@ -68,7 +67,7 @@ std::shared_ptr<TOperator> creature_internal::_select_genetic_operator(const std
         weights[i] = genetic_operators[i]->get_weight();
     }
 
-    size_t chosen_index = _stochastic_instance->weight_proportionate_selection(weights.get(), num_operators);
+    size_t chosen_index = _stochastic_instance.weight_proportionate_selection(weights.get(), num_operators);
     return genetic_operators[chosen_index];
 }
 

@@ -15,7 +15,7 @@ TEST_CASE( "tournament-selection invoked", "[unit][selection-algorithm][tourname
 
   Mock<stochastic> stochastic_mock;
   When(OverloadedMethod(stochastic_mock, rand_int, int(int))).Return(0,0,1);
-  stochastic* mocked_stochastic = &stochastic_mock.get();
+  stochastic& mocked_stochastic = stochastic_mock.get();
 
   Mock<creature> creature_mock0;
   When(Method(creature_mock0, get_fitness)).AlwaysReturn(1);

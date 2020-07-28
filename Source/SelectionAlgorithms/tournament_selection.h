@@ -23,10 +23,10 @@ struct tournament_selection_metadata : selection_algorithm_metadata {
 class tournament_selection : public selection_algorithm {
 private:
     const tournament_selection_metadata& _metadata;
-    stochastic* _stochastic_instance;
+    stochastic& _stochastic_instance;
 
 public:
-  tournament_selection(const tournament_selection_metadata& metadata, stochastic* stochastic_instance) :
+  inline tournament_selection(const tournament_selection_metadata& metadata, stochastic& stochastic_instance) :
           _metadata{metadata}, _stochastic_instance{stochastic_instance} {}
 
   const std::shared_ptr<creature> invoke(const std::shared_ptr<const population> population) const override;

@@ -29,10 +29,11 @@ struct randomization_mutation_metadata : mutation_metadata {
 
 class randomization_mutation : public mutation_internal<vector_chromosome> {
 private:
-    stochastic* _stochastic_instance;
+    stochastic& _stochastic_instance;
 
 public:
-    explicit randomization_mutation(const randomization_mutation_metadata& metadata, stochastic* stochastic_instance);
+    inline explicit randomization_mutation(const randomization_mutation_metadata& metadata, stochastic& stochastic_instance) :
+            mutation_internal{metadata}, _stochastic_instance{stochastic_instance} {}
 
 protected:
     std::shared_ptr<chromosome> invoke(const std::shared_ptr<const vector_chromosome> chromosome) const override;

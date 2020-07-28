@@ -36,13 +36,13 @@ struct vector_chromosome_metadata : chromosome_metadata {
 class vector_chromosome : public chromosome, public std::enable_shared_from_this<vector_chromosome> {
 private:
     const vector_chromosome_metadata& _metadata;
-    stochastic* _stochastic_instance;
+    stochastic& _stochastic_instance;
     std::vector<double> _genes;
 
 public:
     //region Constructor & Destructor
 
-    explicit vector_chromosome(const vector_chromosome_metadata& metadata, stochastic* stochastic_instance);
+    explicit vector_chromosome(const vector_chromosome_metadata& metadata, stochastic& stochastic_instance);
     explicit vector_chromosome(const std::shared_ptr<const vector_chromosome> other);
 
     //endregion

@@ -30,12 +30,12 @@ GALAPAGOS_BOOTSTRAP void gc_register_mutation(std::type_index index, const creat
 }
 
 GALAPAGOS_BOOTSTRAP stochastic* gc_get_stochastic() {
-    stochastic_internal& stochastic = stochastic_internal::get_instance();
-    return &stochastic;
+    stochastic_internal& stochastic_instance = stochastic_internal::get_instance();
+    return &stochastic_instance;
 }
 
 GALAPAGOS_BOOTSTRAP population* gc_create_population(const population_metadata& metadata) {
-    stochastic* stochastic_instance = gc_get_stochastic();
+    stochastic_internal& stochastic_instance = stochastic_internal::get_instance();
     return (population*)new population_internal(metadata, stochastic_instance);
 }
 

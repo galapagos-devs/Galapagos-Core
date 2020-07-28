@@ -19,23 +19,23 @@ class population_internal : public population {
     */
 private:
     const population_metadata& _metadata;
-    stochastic* _stochastic_instance;
+    stochastic& _stochastic_instance;
     log_entry _current_log_entry{};
 
     std::vector<std::shared_ptr<creature>> _creatures;
     std::shared_ptr<creature> _optimal_creature;
 
 public:
-    population_internal(const population_metadata& metadata, stochastic* stochastic_instance);
+    population_internal(const population_metadata& metadata, stochastic& stochastic_instance);
 
     // Returns the number of creates in the population.
     [[nodiscard]] size_t get_size() const override;
 
     std::shared_ptr<creature> operator[] (int i) const override;
-    std::shared_ptr<creature> get_creature(int i) const override;
+    [[nodiscard]] std::shared_ptr<creature> get_creature(int i) const override;
 
     // Returns the most optimal creature in terms of fitness.
-    std::shared_ptr<creature> get_optimal_creature() const override;
+    [[nodiscard]] std::shared_ptr<creature> get_optimal_creature() const override;
 
     // Progresses the genetic algorithm until the termination conditions are met.
     void evolve() override;

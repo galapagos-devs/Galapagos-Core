@@ -25,7 +25,7 @@ TEST_CASE("gaussian mutation invoked", "[unit][vector-chromosome][mutation][gaus
     When(OverloadedMethod(stochastic_mock, rand_double, double(int,int))).AlwaysReturn(0);
     When(OverloadedMethod(stochastic_mock, rand_int, int(int))).AlwaysReturn(desired_gene_index);
     When(Method(stochastic_mock, rand_gaussian)).AlwaysReturn(gaussian_perturbation);
-    stochastic* mocked_stochastic = &stochastic_mock.get();
+    stochastic& mocked_stochastic = stochastic_mock.get();
 
     vector_chromosome_metadata chromosome_metadata{"X", 0, {}, 0, {}, 1, num_genes, gene_infimum, gene_supremum};
     auto chromosome = std::make_shared<vector_chromosome>(chromosome_metadata, mocked_stochastic);
@@ -54,7 +54,7 @@ TEST_CASE("randomization (vector) mutation invoked", "[unit][vector-chromosome][
 
     Mock<stochastic> stochastic_mock;
     When(OverloadedMethod(stochastic_mock, rand_double, double(int,int))).Return(1, 1, 1, gene0, gene1, gene2);
-    stochastic* mocked_stochastic = &stochastic_mock.get();
+    stochastic& mocked_stochastic = stochastic_mock.get();
 
     vector_chromosome_metadata chromosome_metadata{"X", 0, {}, 0, {}, 1, num_genes, gene_infimum, gene_supremum};
     auto chromosome = std::make_shared<vector_chromosome>(chromosome_metadata, mocked_stochastic);

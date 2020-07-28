@@ -18,10 +18,10 @@ using create_genetic_operator_a = std::function<std::shared_ptr<TOperator>(const
 class creature_internal : public creature {
 private:
     const creature_metadata& _metadata;
-    stochastic* _stochastic_instance;
+    stochastic& _stochastic_instance;
 
 public:
-    creature_internal(const creature_metadata& metadata, stochastic* stochastic_instance);
+    creature_internal(const creature_metadata& metadata, stochastic& stochastic_instance);
 
     double get_fitness() override;
 

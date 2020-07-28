@@ -5,15 +5,6 @@
 
 #include "kpoint_crossover.h"
 
-//region Constructor & Destructor
-
-kpoint_crossover::kpoint_crossover(const kpoint_crossover_metadata& metadata, stochastic* stochastic_instance) :
-    _metadata{metadata}, crossover_internal{metadata} {
-    _stochastic_instance = stochastic_instance;
-}
-
-//endregion
-
 std::vector<int> kpoint_crossover::_get_cut_points(size_t chromosome_len) const {
     std::vector<int> cuts(_metadata.cut_points);
 
@@ -21,7 +12,7 @@ std::vector<int> kpoint_crossover::_get_cut_points(size_t chromosome_len) const 
     size_t i = 0;
     while (i < _metadata.cut_points) {
         // we can't have a cut at the first or last index
-        int proposed_cut = _stochastic_instance->rand_int(1, chromosome_len);
+        int proposed_cut = _stochastic_instance.rand_int(1, chromosome_len);
 
         // Check if proposed_cut is contained in cuts
         if (std::find(cuts.begin(), cuts.end(), proposed_cut) == cuts.end())

@@ -30,12 +30,13 @@ struct kpoint_crossover_metadata : crossover_metadata {
 class kpoint_crossover : public crossover_internal<vector_chromosome> {
 private:
     const kpoint_crossover_metadata& _metadata;
-    stochastic* _stochastic_instance;
+    stochastic& _stochastic_instance;
 
 public:
     //region Constructor & Destructor
 
-    explicit kpoint_crossover(const kpoint_crossover_metadata& metadata, stochastic* stochastic_instance);
+    inline explicit kpoint_crossover(const kpoint_crossover_metadata& metadata, stochastic& stochastic_instance) :
+        _metadata{metadata}, _stochastic_instance{stochastic_instance}, crossover_internal{metadata} {}
 
     //endregion
 

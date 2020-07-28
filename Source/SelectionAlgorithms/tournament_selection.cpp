@@ -12,7 +12,7 @@ const std::shared_ptr<creature> tournament_selection::invoke(const std::shared_p
     size_t i = 0;
     std::shared_ptr<creature> champion = nullptr;
     while (i < _metadata.tournament_size) {
-        size_t proposed_member_index = _stochastic_instance->rand_int(population_size);
+        size_t proposed_member_index = _stochastic_instance.rand_int(population_size);
 
         if (!in_tournament[proposed_member_index]) {
             in_tournament[proposed_member_index] = true;

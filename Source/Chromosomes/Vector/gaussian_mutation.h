@@ -28,11 +28,12 @@ struct gaussian_mutation_metadata : mutation_metadata {
 class gaussian_mutation : public mutation_internal<vector_chromosome> {
 private:
     const gaussian_mutation_metadata& _metadata;
-    stochastic* _stochastic_instance;
+    stochastic& _stochastic_instance;
 
 public:
-    explicit gaussian_mutation(const gaussian_mutation_metadata& metadata, stochastic* stochastic_instance);
-    ~gaussian_mutation() /*override*/;
+    inline explicit gaussian_mutation(const gaussian_mutation_metadata& metadata, stochastic& stochastic_instance) :
+            _metadata{metadata}, _stochastic_instance{stochastic_instance}, mutation_internal{metadata} {}
+    inline ~gaussian_mutation() = default;
 
 protected:
     std::shared_ptr<chromosome> invoke(std::shared_ptr<const vector_chromosome> chromosome) const override;

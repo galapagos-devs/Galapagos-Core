@@ -9,18 +9,14 @@
 
 //region Constructor & Destructor
 
-vector_chromosome::vector_chromosome(const vector_chromosome_metadata& metadata, stochastic* stochastic_instance) :
-    _metadata{metadata} {
-    _stochastic_instance = stochastic_instance;
-
+vector_chromosome::vector_chromosome(const vector_chromosome_metadata& metadata, stochastic& stochastic_instance) :
+    _metadata{metadata}, _stochastic_instance{stochastic_instance} {
     for(size_t i = 0; i < _metadata.size; ++i)
-        _genes.push_back(_stochastic_instance->rand_double(_metadata.gene_infimum, _metadata.gene_supremum));
+        _genes.push_back(_stochastic_instance.rand_double(_metadata.gene_infimum, _metadata.gene_supremum));
 }
 
 vector_chromosome::vector_chromosome(const std::shared_ptr<const vector_chromosome> other) :
-    _metadata{other->_metadata} {
-    _stochastic_instance = other->_stochastic_instance;
-
+    _metadata{other->_metadata}, _stochastic_instance{other->_stochastic_instance} {
     for(size_t i = 0; i < _metadata.size; ++i)
         _genes.push_back(other->get_gene(i));
 

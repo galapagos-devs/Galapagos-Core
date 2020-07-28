@@ -27,7 +27,7 @@ TEST_CASE("k-point (vector) crossover invoked", "[unit][vector-chromosome][cross
     Mock<stochastic> stochastic_mock;
     When(OverloadedMethod(stochastic_mock, rand_double, double(int,int))).AlwaysReturn(0);
     When(OverloadedMethod(stochastic_mock, rand_int, int(int,int))).Return(1, 1, 2);
-    stochastic* mocked_stochastic = &stochastic_mock.get();
+    stochastic& mocked_stochastic = stochastic_mock.get();
 
     vector_chromosome_metadata chromosomeX_metadata{"X", 0, {}, 0, {}, 1, num_genes, gene_infimum, gene_supremum};
     auto chromosomeX = std::make_shared<vector_chromosome>(chromosomeX_metadata, mocked_stochastic);

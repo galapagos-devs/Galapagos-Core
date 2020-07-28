@@ -9,10 +9,8 @@
 
 //region Public Members
 
-population_internal::population_internal(const population_metadata& metadata, stochastic* stochastic_instance) :
-        _metadata{metadata} {
-    _stochastic_instance = stochastic_instance;
-
+population_internal::population_internal(const population_metadata& metadata, stochastic& stochastic_instance) :
+        _metadata{metadata}, _stochastic_instance{stochastic_instance} {
     _creatures.resize(get_size());
     for (size_t i = 0; i < get_size(); i++)
         _creatures[i] = std::make_shared<creature_internal>(
