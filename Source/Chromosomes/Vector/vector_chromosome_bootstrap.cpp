@@ -9,7 +9,7 @@
 #include "gaussian_mutation.h"
 #include "randomization_mutation.h"
 
-GALAPAGOS_API void gc_bootstrap(gc_core* core) {
+GALAPAGOS_BOOTSTRAP void gc_bootstrap(gc_core* core) {
     stochastic* stochastic_instance = core->get_stochastic();
 
     core->register_chromosome(std::type_index(typeid(vector_chromosome_metadata)),

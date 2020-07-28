@@ -6,7 +6,7 @@
 
 #include "tournament_selection.h"
 
-GALAPAGOS_API void gc_bootstrap(gc_core* core) {
+GALAPAGOS_BOOTSTRAP void gc_bootstrap(gc_core* core) {
     stochastic* stochastic_instance = core->get_stochastic();
 
     core->register_selection_algorithm(std::type_index(typeid(tournament_selection_metadata)),

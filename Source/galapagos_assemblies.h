@@ -6,8 +6,10 @@
  * 'gc_satellite' is the interface to any assembly that wishes to inject custom API objects into galapagos on startup.*/
 
 #include <string>
-#include <Windows.h> // TODO: currently only windows implementation exist. posix implementations will be needed as well.
 #include <utility>
+#include <filesystem>
+#include <memory>
+#include <Windows.h> // TODO: currently only windows implementation exist. posix implementations will be needed as well.
 
 #include "API/galapagos.h"
 
@@ -22,12 +24,11 @@ inline std::function<TSignature> load_assembly_func(HMODULE assembly, const std:
     return func;
 }
 
+class gc_satellite;
 class gc_core {
 private:
     HMODULE _assembly;
-
-    std::function<void(void)> _initialize;
-    std::function<void(void)> _reset;
+    std::vector<std::shared_ptr<gc_satellite>> _satellites;
 
     std::function<void(std::type_index, const create_selection_algorithm_t&)> _register_selection_algorithm;
     std::function<void(std::type_index, const create_termination_condition_t&)> _register_termination_condition;
@@ -41,33 +42,8 @@ private:
     std::function<void(population*)> _delete_population;
 
 public:
-    inline explicit gc_core() {
-        _assembly = nullptr;
-
-        _initialize = gc_initialize;
-        _reset = gc_reset;
-
-        _register_selection_algorithm = gc_register_selection_algorithm;
-        _register_termination_condition = gc_register_termination_condition;
-        _register_chromosome = gc_register_chromosome;
-        _register_crossover = gc_register_crossover;
-        _register_mutation = gc_register_mutation;
-
-        _get_stochastic = gc_get_stochastic;
-
-        _create_population = gc_create_population;
-        _delete_population = gc_delete_population;
-    }
-
     inline explicit gc_core(const std::string& assembly_location) {
         _assembly = LoadLibrary(assembly_location.c_str());
-
-        _initialize =
-                load_assembly_func<void(void)>(
-                        _assembly, "gc_initialize");
-        _reset =
-                load_assembly_func<void(void)>(
-                        _assembly, "gc_reset");
 
         _register_selection_algorithm =
                 load_assembly_func<void(std::type_index, const create_selection_algorithm_t&)>(
@@ -95,21 +71,12 @@ public:
         _delete_population =
                 load_assembly_func<void(population*)>(
                         _assembly, "gc_delete_population");
+
+        load_satellites();
     }
 
     inline ~gc_core() {
-        reset();
-
-        if(_assembly != nullptr)
-            FreeLibrary(_assembly);
-    }
-
-    inline void initialize() {
-        _initialize();
-    }
-
-    inline void reset() {
-        _reset();
+        FreeLibrary(_assembly);
     }
 
     inline void register_selection_algorithm(std::type_index index, const create_selection_algorithm_t& create_selection_algorithm) {
@@ -139,6 +106,9 @@ public:
     inline std::shared_ptr<population> create_population(const population_metadata& metadata) {
         return std::shared_ptr<population>(_create_population(metadata), _delete_population);
     }
+
+private:
+    void load_satellites();
 };
 
 class gc_satellite {
@@ -153,7 +123,7 @@ public:
 
         _bootstrap =
                 load_assembly_func<void(gc_core*)>(
-                        _assembly, "gc_bootstrap");
+                _assembly, "gc_bootstrap");
     }
 
     inline ~gc_satellite() {
@@ -164,5 +134,19 @@ public:
         _bootstrap(core);
     }
 };
+
+inline void gc_core::load_satellites() {
+    // find all dlls in current directory that export the symbol 'gc_bootstrap'
+    for (const auto &dir_entry : std::filesystem::recursive_directory_iterator(".")) {
+        const std::filesystem::path& entry_path = dir_entry.path();
+        if (entry_path.extension() == ".dll" &&  // FIXME: This will not work on linux
+            entry_path.filename() != "Galapagos.dll") {
+            const std::string filename = entry_path.filename().string();
+            auto satellite = std::make_shared<gc_satellite>(filename);
+            satellite->bootstrap(this);
+            _satellites.push_back(satellite);
+        }
+    }
+}
 
 #endif /* _GALAPAGOS_ASSEMBLIES_H_ */

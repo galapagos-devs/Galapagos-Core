@@ -25,8 +25,6 @@ public:
 
     //region plugin registration
 
-    void reset();
-
     void register_selection_algorithm(std::type_index index, const create_selection_algorithm_t& create_selection_algorithm);
     void register_termination_condition(std::type_index index, const create_termination_condition_t& create_termination_condition);
 
