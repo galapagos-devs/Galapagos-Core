@@ -2,6 +2,7 @@
 #define _GENETIC_FACTORY_H_
 
 #include <map>
+#include <tuple>
 #include <typeindex>
 
 #include "API/galapagos.h"
@@ -14,23 +15,33 @@
 
 class genetic_factory {
 private:
-    std::map<std::type_index, create_selection_algorithm_t> _registered_selection_algorithms;
-    std::map<std::type_index, create_termination_condition_t> _registered_termination_conditions;
-    std::map<std::type_index, create_chromosome_t> _registered_chromosomes;
-    std::map<std::type_index, create_crossover_t> _registered_crossovers;
-    std::map<std::type_index, create_mutation_t> _registered_mutations;
+    std::map<std::type_index, std::tuple<create_selection_algorithm_t, delete_selection_algorithm_t>> _registered_selection_algorithms;
+    std::map<std::type_index, std::tuple<create_termination_condition_t, delete_termination_condition_t>> _registered_termination_conditions;
+    std::map<std::type_index, std::tuple<create_chromosome_t, delete_chromosome_t>> _registered_chromosomes;
+    std::map<std::type_index, std::tuple<create_crossover_t, delete_crossover_t>> _registered_crossovers;
+    std::map<std::type_index, std::tuple<create_mutation_t, delete_mutation_t>> _registered_mutations;
 
 public:
     static genetic_factory& get_instance(); // singleton access
 
     //region plugin registration
 
-    void register_selection_algorithm(std::type_index index, const create_selection_algorithm_t& create_selection_algorithm);
-    void register_termination_condition(std::type_index index, const create_termination_condition_t& create_termination_condition);
+    void register_selection_algorithm(std::type_index index,
+            const create_selection_algorithm_t& create_selection_algorithm,
+            const delete_selection_algorithm_t& delete_selection_algorithm);
+    void register_termination_condition(std::type_index index,
+            const create_termination_condition_t& create_termination_condition,
+            const delete_termination_condition_t& delete_termination_condition);
 
-    void register_chromosome(std::type_index index, const create_chromosome_t& create_chromosome);
-    void register_crossover(std::type_index index, const create_crossover_t& create_crossover);
-    void register_mutation(std::type_index index, const create_mutation_t& create_mutation);
+    void register_chromosome(std::type_index index,
+            const create_chromosome_t& create_chromosome,
+            const delete_chromosome_t& delete_chromosome);
+    void register_crossover(std::type_index index,
+            const create_crossover_t& create_crossover,
+            const delete_crossover_t& delete_crossover);
+    void register_mutation(std::type_index index,
+            const create_mutation_t& create_mutation,
+            const delete_mutation_t& delete_mutation);
 
     //endregion
 

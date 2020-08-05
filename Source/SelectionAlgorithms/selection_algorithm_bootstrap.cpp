@@ -1,5 +1,4 @@
 #include <typeindex>
-#include <memory>
 
 #include "../API/galapagos.h"
 #include "../galapagos_assemblies.h"
@@ -13,7 +12,6 @@ GALAPAGOS_BOOTSTRAP void gc_bootstrap(gc_core* core) {
     core->register_selection_algorithm(std::type_index(typeid(tournament_selection_metadata)),
             [&stochastic_instance](const selection_algorithm_metadata& metadata) {
                 const auto& dynamic = dynamic_cast<const tournament_selection_metadata&>(metadata);
-                std::shared_ptr<tournament_selection> selection_algorithm(new tournament_selection(dynamic, stochastic_instance));
-                return selection_algorithm;
-    });
+                return new tournament_selection(dynamic, stochastic_instance);
+    }, [](selection_algorithm* selection_algorithm) { delete selection_algorithm; });
 }

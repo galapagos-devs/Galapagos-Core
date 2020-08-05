@@ -30,11 +30,11 @@ private:
     HMODULE _assembly;
     std::vector<std::shared_ptr<gc_satellite>> _satellites;
 
-    std::function<void(std::type_index, const create_selection_algorithm_t&)> _register_selection_algorithm;
-    std::function<void(std::type_index, const create_termination_condition_t&)> _register_termination_condition;
-    std::function<void(std::type_index, const create_chromosome_t&)> _register_chromosome;
-    std::function<void(std::type_index, const create_crossover_t&)> _register_crossover;
-    std::function<void(std::type_index, const create_mutation_t&)> _register_mutation;
+    std::function<void(std::type_index, const create_selection_algorithm_t&, const delete_selection_algorithm_t&)> _register_selection_algorithm;
+    std::function<void(std::type_index, const create_termination_condition_t&, const delete_termination_condition_t&)> _register_termination_condition;
+    std::function<void(std::type_index, const create_chromosome_t&, const delete_chromosome_t&)> _register_chromosome;
+    std::function<void(std::type_index, const create_crossover_t&, const delete_crossover_t&)> _register_crossover;
+    std::function<void(std::type_index, const create_mutation_t&, const delete_mutation_t&)> _register_mutation;
 
     std::function<population*(const population_metadata&)> _create_population;
     std::function<void(population*)> _delete_population;
@@ -44,19 +44,19 @@ public:
         _assembly = LoadLibrary(assembly_location.c_str());
 
         _register_selection_algorithm =
-                load_assembly_func<void(std::type_index, const create_selection_algorithm_t&)>(
+                load_assembly_func<void(std::type_index, const create_selection_algorithm_t&, const delete_selection_algorithm_t&)>(
                         _assembly, "gc_register_selection_algorithm");
         _register_termination_condition =
-                load_assembly_func<void(std::type_index, const create_termination_condition_t&)>(
+                load_assembly_func<void(std::type_index, const create_termination_condition_t&, const delete_termination_condition_t&)>(
                         _assembly, "gc_register_termination_condition");
         _register_chromosome =
-                load_assembly_func<void(std::type_index, const create_chromosome_t&)>(
+                load_assembly_func<void(std::type_index, const create_chromosome_t&, const delete_chromosome_t&)>(
                         _assembly, "gc_register_chromosome");
         _register_crossover =
-                load_assembly_func<void(std::type_index, const create_crossover_t&)>(
+                load_assembly_func<void(std::type_index, const create_crossover_t&, const delete_crossover_t&)>(
                         _assembly, "gc_register_crossover");
         _register_mutation =
-                load_assembly_func<void(std::type_index, const create_mutation_t&)>(
+                load_assembly_func<void(std::type_index, const create_mutation_t&, const delete_mutation_t&)>(
                         _assembly, "gc_register_mutation");
 
         _create_population =
@@ -73,24 +73,34 @@ public:
         FreeLibrary(_assembly);
     }
 
-    inline void register_selection_algorithm(std::type_index index, const create_selection_algorithm_t& create_selection_algorithm) {
-        _register_selection_algorithm(index, create_selection_algorithm);
+    inline void register_selection_algorithm(std::type_index index,
+            const create_selection_algorithm_t& create_selection_algorithm,
+            const delete_selection_algorithm_t& delete_selection_algorithm) {
+        _register_selection_algorithm(index, create_selection_algorithm, delete_selection_algorithm);
     }
 
-    inline void register_termination_condition(std::type_index index, const create_termination_condition_t& create_termination_condition) {
-        _register_termination_condition(index, create_termination_condition);
+    inline void register_termination_condition(std::type_index index,
+            const create_termination_condition_t& create_termination_condition,
+            const delete_termination_condition_t& delete_termination_condition) {
+        _register_termination_condition(index, create_termination_condition, delete_termination_condition);
     }
 
-    inline void register_chromosome(std::type_index index, const create_chromosome_t& create_chromosome) {
-        _register_chromosome(index, create_chromosome);
+    inline void register_chromosome(std::type_index index,
+            const create_chromosome_t& create_chromosome,
+            const delete_chromosome_t& delete_chromosome) {
+        _register_chromosome(index, create_chromosome, delete_chromosome);
     }
 
-    inline void register_crossover(std::type_index index, const create_crossover_t& create_crossover) {
-        _register_crossover(index, create_crossover);
+    inline void register_crossover(std::type_index index,
+            const create_crossover_t& create_crossover,
+            const delete_crossover_t& delete_crossover) {
+        _register_crossover(index, create_crossover, delete_crossover);
     }
 
-    inline void register_mutation(std::type_index index, const create_mutation_t& create_mutation) {
-        _register_mutation(index, create_mutation);
+    inline void register_mutation(std::type_index index,
+            const create_mutation_t& create_mutation,
+            const delete_mutation_t& delete_mutation) {
+        _register_mutation(index, create_mutation, delete_mutation);
     }
 
     inline std::shared_ptr<population> create_population(const population_metadata& metadata) {
