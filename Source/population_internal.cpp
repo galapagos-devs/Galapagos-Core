@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <memory>
 
-#include "genetic_factory.h"
+#include "API/genetic_factory.h"
 
 #include "population_internal.h"
 #include "creature_internal.h"
@@ -14,9 +14,9 @@ population_internal::population_internal(const population_metadata& metadata, st
     _this = std::shared_ptr<population_internal>(this, [](population_internal*){});
 
     _creatures.resize(get_size());
+    genetic_factory& factory = genetic_factory::get_instance();
     for (size_t i = 0; i < get_size(); i++)
-        _creatures[i] = std::make_shared<creature_internal>(
-                metadata.creature_metadata, stochastic_instance);
+        _creatures[i] = factory.create_creature(metadata.creature_metadata);
     _optimal_creature = _creatures[0];
 }
 

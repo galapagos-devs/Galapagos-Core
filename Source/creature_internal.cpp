@@ -3,7 +3,7 @@
 #include "API/stochastic.h"
 
 #include "creature_internal.h"
-#include "genetic_factory.h"
+#include "API/genetic_factory.h"
 
 // Constructor/Destructor
 creature_internal::creature_internal(const creature_metadata& metadata, stochastic& stochastic_instance) :
@@ -19,7 +19,8 @@ double creature_internal::get_fitness() {
 }
 
 std::shared_ptr<creature> creature_internal::breed_with(const std::shared_ptr<const creature>& mate) const {
-    auto child = std::make_shared<creature_internal>(_metadata, _stochastic_instance);
+    genetic_factory& factory = genetic_factory::get_instance();
+    auto child = factory.create_creature(_metadata);
 
     //for(size_t i = 0; i < _metadata.num_chromosomes; i++)
     for(const auto& chromosome_metadatum : _metadata.chromosome_metadata) {

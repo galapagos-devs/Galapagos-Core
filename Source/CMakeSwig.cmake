@@ -7,8 +7,6 @@ swig_add_library(galapagos_swig
         SOURCES
             galapagos.swg
             galapagos.cpp
-            stochastic_internal.cpp
-            genetic_factory.cpp
             population_internal.cpp
             creature_internal.cpp)
 
