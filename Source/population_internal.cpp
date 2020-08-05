@@ -11,6 +11,8 @@
 
 population_internal::population_internal(const population_metadata& metadata, stochastic& stochastic_instance) :
         _metadata{metadata}, _stochastic_instance{stochastic_instance} {
+    _this = std::shared_ptr<population_internal>(this, [](population_internal*){});
+
     _creatures.resize(get_size());
     for (size_t i = 0; i < get_size(); i++)
         _creatures[i] = std::make_shared<creature_internal>(
@@ -83,8 +85,8 @@ void population_internal::_breed_new_generation(std::vector<std::shared_ptr<crea
     size_t population_size = get_size();
 
     for (size_t i = surviving_creature_count; i < population_size; i++) {
-        auto parent1 = (*selection_algorithm)(std::shared_ptr<population>(this, [](population*){}));
-        auto parent2 = (*selection_algorithm)(std::shared_ptr<population>(this, [](population*){}));
+        auto parent1 = (*selection_algorithm)(_this);
+        auto parent2 = (*selection_algorithm)(_this);
         auto child = parent1->breed_with(parent2);
         new_generation[i] = child;
     }
@@ -99,7 +101,7 @@ bool population_internal::_has_terminated(std::vector<std::shared_ptr<terminatio
 
     for (size_t i = 0; i < num_termination_conditions; i++) {
         auto current_termination_condition = termination_conditions[i];
-        if ((*current_termination_condition)(std::shared_ptr<population>(this, [](population*){})))
+        if ((*current_termination_condition)(_this))
             return true;
     }
     return false;

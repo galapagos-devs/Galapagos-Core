@@ -33,8 +33,10 @@ struct vector_chromosome_metadata : chromosome_metadata {
     }
 };
 
-class vector_chromosome : public chromosome, public std::enable_shared_from_this<vector_chromosome> {
+class vector_chromosome : public chromosome {
 private:
+    std::shared_ptr<vector_chromosome> _this;
+
     const vector_chromosome_metadata& _metadata;
     stochastic& _stochastic_instance;
     std::vector<double> _genes;

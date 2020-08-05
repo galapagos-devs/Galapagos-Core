@@ -18,6 +18,8 @@ class population_internal : public population {
     The internal implementation of the population object from the public API.
     */
 private:
+    std::shared_ptr<population_internal> _this;
+
     const population_metadata& _metadata;
     stochastic& _stochastic_instance;
     log_entry _current_log_entry{};

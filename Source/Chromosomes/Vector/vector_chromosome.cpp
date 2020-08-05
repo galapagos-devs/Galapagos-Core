@@ -11,12 +11,14 @@
 
 vector_chromosome::vector_chromosome(const vector_chromosome_metadata& metadata, stochastic& stochastic_instance) :
     _metadata{metadata}, _stochastic_instance{stochastic_instance} {
+    _this = std::shared_ptr<vector_chromosome>(this, [](vector_chromosome*){});
     for(size_t i = 0; i < _metadata.size; ++i)
         _genes.push_back(_stochastic_instance.rand_double(_metadata.gene_infimum, _metadata.gene_supremum));
 }
 
 vector_chromosome::vector_chromosome(const std::shared_ptr<const vector_chromosome>& other) :
     _metadata{other->_metadata}, _stochastic_instance{other->_stochastic_instance} {
+    _this = std::shared_ptr<vector_chromosome>(this, [](vector_chromosome*){});
     for(size_t i = 0; i < _metadata.size; ++i)
         _genes.push_back(other->get_gene(i));
 
@@ -110,21 +112,21 @@ double vector_chromosome::norm() const {
 }
 
 std::shared_ptr<vector_chromosome> vector_chromosome::add(const std::shared_ptr<const vector_chromosome>& other) const {
-    auto new_chromosome = std::make_shared<vector_chromosome>(shared_from_this());
+    auto new_chromosome = std::make_shared<vector_chromosome>(_this);
     for(size_t i = 0; i < _metadata.size; ++i)
         new_chromosome->_genes[i] = get_gene(i) + other->get_gene(i);
     return new_chromosome;
 }
 
 std::shared_ptr<vector_chromosome> vector_chromosome::subtract(const std::shared_ptr<const vector_chromosome>& other) const {
-    auto new_chromosome = std::make_shared<vector_chromosome>(shared_from_this());
+    auto new_chromosome = std::make_shared<vector_chromosome>(_this);
     for(size_t i = 0; i < _metadata.size; ++i)
         new_chromosome->_genes[i] = get_gene(i) - other->get_gene(i);
     return new_chromosome;
 }
 
 std::shared_ptr<vector_chromosome> vector_chromosome::multiply(double scalar) const {
-    auto new_chromosome = std::make_shared<vector_chromosome>(shared_from_this());
+    auto new_chromosome = std::make_shared<vector_chromosome>(_this);
     for(size_t i = 0; i < _metadata.size; ++i)
         new_chromosome->_genes[i] = scalar * get_gene(i);
     return new_chromosome;
