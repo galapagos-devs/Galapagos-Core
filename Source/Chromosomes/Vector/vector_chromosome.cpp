@@ -41,10 +41,6 @@ double vector_chromosome::get_distance(const std::shared_ptr<const chromosome>& 
     return norm;
 }
 
-/*vector_chromosome* get_chromosome(creature* creature, const std::string& name) {
-    return creature->get_chromosome<vector_chromosome>(name);
-}*/
-
 //endregion
 
 //region Attributes

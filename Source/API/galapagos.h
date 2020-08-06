@@ -45,16 +45,12 @@ inline std::function<TSignature> load_assembly_func(HMODULE assembly, const std:
 }
 
 class galapagos_assembly {
-private:
-    std::string _location;
-
 protected:
     HMODULE _assembly;
     std::function<void(genetic_factory*&)> _bootstrap;
 
 public:
     inline explicit galapagos_assembly(const std::string& assembly_location) {
-        _location = assembly_location;
         _assembly = LoadLibrary(assembly_location.c_str());
         _bootstrap = load_assembly_func<void(genetic_factory*&)>(_assembly, BOOTSTRAP_FUNCTION_STRING);
     }
@@ -66,7 +62,7 @@ public:
 
 class galapagos_satellite : public galapagos_assembly {
 public:
-    inline galapagos_satellite(const std::string& assembly_location) :
+    inline explicit galapagos_satellite(const std::string& assembly_location) :
         galapagos_assembly(assembly_location) { }
 
     inline void bootstrap(genetic_factory*& factory) {
@@ -79,38 +75,36 @@ private:
     std::vector<std::shared_ptr<galapagos_satellite>> _satellites;
 
 public:
-    inline galapagos(const std::string& assembly_location) :
+    inline explicit galapagos(const std::string& assembly_location) :
         galapagos_assembly(assembly_location) { }
 
     inline ~galapagos() {
         release();
-        for(auto satellite : _satellites)
+        for(const auto& satellite : _satellites)
             satellite->release();
     }
 
     inline genetic_factory* bootstrap() {
-        genetic_factory* factory;
+        genetic_factory* factory = nullptr;
         _bootstrap(factory);
         bootstrap_satellites(factory);
         return factory;
     }
 
 private:
-    void bootstrap_satellites(genetic_factory* factory);
-};
-
-inline void galapagos::bootstrap_satellites(genetic_factory* factory) {
-    // find all dlls in current directory that export the symbol 'gc_bootstrap'
-    for (const auto &dir_entry : std::filesystem::recursive_directory_iterator(".")) {
-        const std::filesystem::path& entry_path = dir_entry.path();
-        if (entry_path.extension() == ".dll" &&  // FIXME: This will not work on linux
-            entry_path.filename() != "Galapagos.dll") {
-            const std::string filename = entry_path.filename().string();
-            auto satellite = std::make_shared<galapagos_satellite>(filename);
-            satellite->bootstrap(factory);
-            _satellites.push_back(satellite);
+    inline void bootstrap_satellites(genetic_factory* factory) {
+        // find all dlls in current directory that export the symbol 'gc_bootstrap'
+        for (const auto &dir_entry : std::filesystem::recursive_directory_iterator(".")) {
+            const std::filesystem::path& entry_path = dir_entry.path();
+            if (entry_path.extension() == ".dll" &&  // FIXME: This will not work on linux
+                entry_path.filename() != "Galapagos.dll") {
+                const std::string filename = entry_path.filename().string();
+                auto satellite = std::make_shared<galapagos_satellite>(filename);
+                satellite->bootstrap(factory);
+                _satellites.push_back(satellite);
+            }
         }
     }
-}
+};
 
 #endif /* _GALAPAGOS_H_ */
