@@ -5,8 +5,9 @@
  * bootstrapping procedure. 'galapagos_bootstrap' is the bootstrapping interface for the core galapagos_bootstrap library assembly while
  * 'galapagos_satellite' is the interface to any assembly that wishes to inject custom API objects into galapagos_bootstrap on startup.*/
 
+#define HSTRING(function_name) #function_name
+#define STRING(function_name) HSTRING(function_name)
 #define BOOTSTRAP_FUNCTION galapagos_bootstrap
-#define BOOTSTRAP_FUNCTION_STRING "galapagos_bootstrap"
 #ifdef WIN32
 #define GALAPAGOS_BOOTSTRAP extern "C" __declspec(dllexport) void BOOTSTRAP_FUNCTION
 #else
@@ -52,7 +53,7 @@ protected:
 public:
     inline explicit galapagos_assembly(const std::string& assembly_location) {
         _assembly = LoadLibrary(assembly_location.c_str());
-        _bootstrap = load_assembly_func<void(genetic_factory*&)>(_assembly, BOOTSTRAP_FUNCTION_STRING);
+        _bootstrap = load_assembly_func<void(genetic_factory*&)>(_assembly, STRING(BOOTSTRAP_FUNCTION));
     }
 
     inline void release() {
