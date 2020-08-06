@@ -56,6 +56,10 @@ public:
         _bootstrap = load_assembly_func<void(genetic_factory*&)>(_assembly, STRING(BOOTSTRAP_FUNCTION));
     }
 
+    inline virtual ~galapagos_assembly() {
+        release();
+    }
+
     inline void release() {
         FreeLibrary(_assembly);
     }
@@ -79,10 +83,8 @@ public:
     inline explicit galapagos(const std::string& assembly_location) :
         galapagos_assembly(assembly_location) { }
 
-    inline ~galapagos() {
+    inline ~galapagos() override {
         release();
-        for(const auto& satellite : _satellites)
-            satellite->release();
     }
 
     inline genetic_factory* bootstrap() {
