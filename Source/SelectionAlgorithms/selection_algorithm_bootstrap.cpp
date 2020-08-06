@@ -2,12 +2,12 @@
 
 #include "../API/galapagos.h"
 #include "../API/genetic_factory.h"
-#include "../galapagos_assemblies.h"
+
 #include "../stochastic_internal.h"
 
 #include "tournament_selection.h"
 
-GALAPAGOS_BOOTSTRAP void gc_bootstrap(genetic_factory* factory) {
+GALAPAGOS_BOOTSTRAP(genetic_factory*& factory) {
     stochastic_internal& stochastic_instance = stochastic_internal::get_instance();
 
     factory->register_selection_algorithm(std::type_index(typeid(tournament_selection_metadata)),

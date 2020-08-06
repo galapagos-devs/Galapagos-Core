@@ -2,7 +2,7 @@
 
 #include "../../API/galapagos.h"
 #include "../../API/genetic_factory.h"
-#include "../../galapagos_assemblies.h"
+
 #include "../../stochastic_internal.h"
 
 #include "vector_chromosome.h"
@@ -10,7 +10,7 @@
 #include "gaussian_mutation.h"
 #include "randomization_mutation.h"
 
-GALAPAGOS_BOOTSTRAP void gc_bootstrap(genetic_factory* factory) {
+GALAPAGOS_BOOTSTRAP(genetic_factory*& factory) {
     stochastic_internal& stochastic_instance = stochastic_internal::get_instance();
 
     factory->register_chromosome(std::type_index(typeid(vector_chromosome_metadata)),

@@ -1,7 +1,6 @@
 #include <iostream>
 
-#include "../../Source/API/galapagos_metadata.h"
-#include "../../Source/galapagos_assemblies.h"
+#include "../../Source/API/galapagos.h"
 #include "../../Source/Chromosomes/Vector/vector_chromosome.h"
 #include "../../Source/Chromosomes/Vector/gaussian_mutation.h"
 #include "../../Source/Chromosomes/Vector/randomization_mutation.h"
@@ -40,9 +39,9 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
             }}
     };
 
-    // region Invoke Algorithm Against Metadata
+    // region Invoke Algorithm Against Metadat
 
-    gc_core lib("Galapagos.dll");
+    galapagos lib("Galapagos.dll");
     auto factory = lib.bootstrap();
     auto population = factory->create_population(metadata);
     population->evolve();

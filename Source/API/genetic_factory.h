@@ -14,10 +14,10 @@
 #include "crossover.h"
 #include "mutation.h"
 
-typedef std::function<population*(const population_metadata_t&)> create_population_t;
+typedef std::function<population*(const population_metadata&)> create_population_t;
 typedef std::function<void(population*)> delete_population_t;
 
-typedef std::function<creature*(const creature_metadata_t&)> create_creature_t;
+typedef std::function<creature*(const creature_metadata&)> create_creature_t;
 typedef std::function<void(creature*)> delete_creature_t;
 
 typedef std::function<selection_algorithm*(const selection_algorithm_metadata&)> create_selection_algorithm_t;
