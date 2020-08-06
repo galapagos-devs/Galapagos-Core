@@ -55,37 +55,37 @@ public:
 
     inline void register_population(std::type_index index,
             const create_population_t& create_population, const delete_population_t& delete_population) {
-        register_obj(_registered_populations, index, create_population, delete_population);
+        _register_obj(_registered_populations, index, create_population, delete_population);
     }
 
     inline void register_creature(std::type_index index,
             const create_creature_t& create_creature, const delete_creature_t& delete_creature) {
-        register_obj(_registered_creatures, index, create_creature, delete_creature);
+        _register_obj(_registered_creatures, index, create_creature, delete_creature);
     }
 
     inline void register_selection_algorithm(std::type_index index,
             const create_selection_algorithm_t& create_selection_algorithm, const delete_selection_algorithm_t& delete_selection_algorithm) {
-        register_obj(_registered_selection_algorithms, index, create_selection_algorithm, delete_selection_algorithm);
+        _register_obj(_registered_selection_algorithms, index, create_selection_algorithm, delete_selection_algorithm);
     }
 
     inline void register_termination_condition(std::type_index index,
             const create_termination_condition_t& create_termination_condition, const delete_termination_condition_t& delete_termination_condition) {
-        register_obj(_registered_termination_conditions, index, create_termination_condition, delete_termination_condition);
+        _register_obj(_registered_termination_conditions, index, create_termination_condition, delete_termination_condition);
     }
 
     inline void register_chromosome(std::type_index index,
             const create_chromosome_t& create_chromosome, const delete_chromosome_t& delete_chromosome) {
-        register_obj(_registered_chromosomes, index, create_chromosome, delete_chromosome);
+        _register_obj(_registered_chromosomes, index, create_chromosome, delete_chromosome);
     }
 
     inline void register_crossover(std::type_index index,
             const create_crossover_t& create_crossover, const delete_crossover_t& delete_crossover) {
-        register_obj(_registered_crossovers, index, create_crossover, delete_crossover);
+        _register_obj(_registered_crossovers, index, create_crossover, delete_crossover);
     }
 
     inline void register_mutation(std::type_index index,
             const create_mutation_t& create_mutation, const delete_mutation_t& delete_mutation) {
-        register_obj(_registered_mutations, index, create_mutation, delete_mutation);
+        _register_obj(_registered_mutations, index, create_mutation, delete_mutation);
     }
 
     //endregion
@@ -93,31 +93,31 @@ public:
     //region plugin construction
 
     inline std::shared_ptr<population> create_population(const population_metadata& population_metadata) {
-        return create_obj<population>(_registered_populations, population_metadata);
+        return _create_obj<population>(_registered_populations, population_metadata);
     }
 
     inline std::shared_ptr<creature> create_creature(const creature_metadata& creature_metadata) {
-        return create_obj<creature>(_registered_creatures, creature_metadata);
+        return _create_obj<creature>(_registered_creatures, creature_metadata);
     }
 
     inline std::shared_ptr<selection_algorithm> create_selection_algorithm(const selection_algorithm_metadata& selection_algorithm_metadata) {
-        return create_obj<selection_algorithm>(_registered_selection_algorithms, selection_algorithm_metadata);
+        return _create_obj<selection_algorithm>(_registered_selection_algorithms, selection_algorithm_metadata);
     }
 
     inline std::shared_ptr<termination_condition> create_termination_condition(const termination_condition_metadata& termination_condition_metadata) {
-        return create_obj<termination_condition>(_registered_termination_conditions, termination_condition_metadata);
+        return _create_obj<termination_condition>(_registered_termination_conditions, termination_condition_metadata);
     }
 
     inline std::shared_ptr<chromosome> create_chromosome(const chromosome_metadata& chromosome_metadata) {
-        return create_obj<chromosome>(_registered_chromosomes, chromosome_metadata);
+        return _create_obj<chromosome>(_registered_chromosomes, chromosome_metadata);
     }
 
     inline std::shared_ptr<crossover> create_crossover(const crossover_metadata& crossover_metadata) {
-        return create_obj<crossover>(_registered_crossovers, crossover_metadata);
+        return _create_obj<crossover>(_registered_crossovers, crossover_metadata);
     }
 
     inline std::shared_ptr<mutation> create_mutation(const mutation_metadata& mutation_metadata) {
-        return create_obj<mutation>(_registered_mutations, mutation_metadata);
+        return _create_obj<mutation>(_registered_mutations, mutation_metadata);
     }
 
     //endregion
@@ -126,13 +126,13 @@ private:
     inline genetic_factory() = default;
 
     template<class TCreate, class TDelete>
-    inline void register_obj(std::map<std::type_index, std::tuple<TCreate, TDelete>>& registry,
+    inline void _register_obj(std::map<std::type_index, std::tuple<TCreate, TDelete>>& registry,
                                 std::type_index index, const TCreate& create_obj, const TDelete& delete_obj) {
         registry[index] = std::make_tuple(create_obj, delete_obj);
     }
 
     template<class TObj, class TMetadata, class TCreate, class TDelete>
-    inline std::shared_ptr<TObj> create_obj(std::map<std::type_index, std::tuple<TCreate, TDelete>>& registry,
+    inline std::shared_ptr<TObj> _create_obj(std::map<std::type_index, std::tuple<TCreate, TDelete>>& registry,
                                             const TMetadata& metadata) {
         auto registration = registry[std::type_index(typeid(metadata))];
         auto create_obj = std::get<0>(registration);

@@ -90,12 +90,12 @@ public:
     inline genetic_factory* bootstrap() {
         genetic_factory* factory = nullptr;
         _bootstrap(factory);
-        bootstrap_satellites(factory);
+        _bootstrap_satellites(factory);
         return factory;
     }
 
 private:
-    inline void bootstrap_satellites(genetic_factory* factory) {
+    inline void _bootstrap_satellites(genetic_factory* factory) {
         // find all dlls in current directory that export the symbol 'gc_bootstrap'
         for (const auto &dir_entry : std::filesystem::recursive_directory_iterator(".")) {
             const std::filesystem::path& entry_path = dir_entry.path();
