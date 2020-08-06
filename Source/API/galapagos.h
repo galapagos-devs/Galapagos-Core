@@ -1,9 +1,9 @@
 #ifndef _GALAPAGOS_H_
 #define _GALAPAGOS_H_
 
-/* This header file contains the definitions of the assemblies (.dll or .so) that are used in the core galapagos
- * bootstrapping procedure. 'galapagos' is the bootstrapping interface for the core galapagos library assembly while
- * 'galapagos_satellite' is the interface to any assembly that wishes to inject custom API objects into galapagos on startup.*/
+/* This header file contains the definitions of the assemblies (.dll or .so) that are used in the core galapagos_bootstrap
+ * bootstrapping procedure. 'galapagos_bootstrap' is the bootstrapping interface for the core galapagos_bootstrap library assembly while
+ * 'galapagos_satellite' is the interface to any assembly that wishes to inject custom API objects into galapagos_bootstrap on startup.*/
 
 #define BOOTSTRAP_FUNCTION galapagos_bootstrap
 #define BOOTSTRAP_FUNCTION_STRING "galapagos_bootstrap"

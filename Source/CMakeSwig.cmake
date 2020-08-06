@@ -6,7 +6,7 @@ swig_add_library(galapagos_swig
         OUTFILE_DIR ${CMAKE_SOURCE_DIR}/bin  # was `bin/swig/sources`
         SOURCES
             galapagos.swg
-            galapagos.cpp
+        galapagos_bootstrap.cpp
             population_internal.cpp
             creature_internal.cpp)
 

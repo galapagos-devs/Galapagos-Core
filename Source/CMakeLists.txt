@@ -1,7 +1,7 @@
 set(SRCS
         creature_internal.h
         creature_internal.cpp
-        galapagos.cpp
+        galapagos_bootstrap.cpp
         API/genetic_factory.h
         population_internal.h
         population_internal.cpp

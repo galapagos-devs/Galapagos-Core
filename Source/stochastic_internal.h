@@ -29,7 +29,7 @@ public:
 
     inline bool evaluate_probability(double probability) override {
         if (probability < 0 || probability > 1)
-            throw std::runtime_error("evaluate_probability"); // TODO: how do we want to format exceptions. this should probably be a clean galapagos exception.
+            throw std::runtime_error("evaluate_probability"); // TODO: how do we want to format exceptions. this should probably be a clean galapagos_bootstrap exception.
 
         double R = rand_double();
         return R < probability;
