@@ -18,6 +18,15 @@ typedef struct log_entry {  // TODO: This needs more entries in it. This is too 
 typedef std::function<void(log_entry_t)> log_func_t;
 typedef std::function<double(creature*)> fitness_func_t;
 
+template <typename TMetadata>
+struct galapagos_metadata {
+    inline operator std::shared_ptr<const TMetadata>() const {
+        //std::shared_ptr<const TMetadata> copy(new TMetadata{*this});
+        return this->copy();
+    }
+    virtual std::shared_ptr<const TMetadata> copy() const = 0;
+};
+
 typedef struct genetic_operator_metadata {
     const double weight;
 
@@ -28,33 +37,25 @@ typedef struct genetic_operator_metadata {
 // TODO: Rename `struct`s to CamelCased-metadatum naming convention.
 // TODO: Remove `typedef` from `struct`s.
 
-typedef struct crossover_metadata : genetic_operator_metadata {
+typedef struct crossover_metadata : genetic_operator_metadata, galapagos_metadata<crossover_metadata> {
     explicit crossover_metadata(const double weight) : genetic_operator_metadata{weight} {};
-    inline operator std::shared_ptr<const crossover_metadata>() const { return this->copy(); }
-    virtual std::shared_ptr<const crossover_metadata> copy() const = 0;
 } crossover_metadata_t;
 
-typedef struct mutation_metadata : genetic_operator_metadata {
+typedef struct mutation_metadata : genetic_operator_metadata, galapagos_metadata<mutation_metadata> {
     explicit mutation_metadata(const double weight) : genetic_operator_metadata{weight} {};
-    inline operator std::shared_ptr<const mutation_metadata>() const { return this->copy(); }
-    virtual std::shared_ptr<const mutation_metadata> copy() const = 0;
 } mutation_metadata_t;
 
-typedef struct selection_algorithm_metadata {
+typedef struct selection_algorithm_metadata : galapagos_metadata<selection_algorithm_metadata> {
     virtual ~selection_algorithm_metadata() = default;
-    inline operator std::shared_ptr<const selection_algorithm_metadata>() const { return this->copy(); }
-    virtual std::shared_ptr<const selection_algorithm_metadata> copy() const = 0;
 } selection_algorithm_metadata_t;
 
-typedef struct termination_condition_metadata {
+typedef struct termination_condition_metadata : galapagos_metadata<termination_condition_metadata> {
     virtual ~termination_condition_metadata() = default;
-    inline operator std::shared_ptr<const termination_condition_metadata>() const { return this->copy(); }
-    virtual std::shared_ptr<const termination_condition_metadata> copy() const = 0;
 } termination_condition_metadata_t;
 
 //typedef std::vector<const CrossoverMetadatum*> CrossoverMetadata;
 
-typedef struct chromosome_metadata {
+typedef struct chromosome_metadata : galapagos_metadata<chromosome_metadata> {
     const std::string name;
     const double crossover_rate;
     const std::vector<std::shared_ptr<const crossover_metadata_t>> crossover_metadata;
@@ -69,8 +70,6 @@ typedef struct chromosome_metadata {
                 crossover_rate{crossover_rate}, crossover_metadata{crossover_metadata},
                 mutation_rate{mutation_rate}, mutation_metadata{mutation_metadata} {}
     virtual  ~chromosome_metadata() = default;
-    inline operator std::shared_ptr<const chromosome_metadata>() const { return this->copy(); }
-    virtual std::shared_ptr<const chromosome_metadata> copy() const = 0;
 } chromosome_metadata_t;
 
 typedef struct creature_metadata {
