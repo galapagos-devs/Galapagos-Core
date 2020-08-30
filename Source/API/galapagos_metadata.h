@@ -22,7 +22,7 @@ typedef std::function<double(creature*)> fitness_func_t;
 template <typename TBase, typename TDerived>
 struct galapagos_metadata {
     virtual ~galapagos_metadata() = default;
-    
+
     inline operator std::shared_ptr<const TBase>() const {
         auto dynamic = dynamic_cast<const TDerived*>(this); // TODO: throw exception if cast fails
         std::shared_ptr<const TDerived> ptr(new TDerived{*dynamic});
