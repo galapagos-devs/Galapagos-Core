@@ -22,7 +22,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     population_metadata metadata {
             log_function, 25, 0.25, 0, false,
             {tournament_selection_metadata{2}},
-            {fitness_threshold_metadata{1500}},
+            {fitness_threshold_metadata{15000}},
             creature_metadata{fitness_function, {
                     vector_chromosome_metadata{
                             chromosome_name,
@@ -31,7 +31,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
                                     randomization_mutation_metadata{1},
                                     gaussian_mutation_metadata{4, 0, 50}
                             },
-                            1, 3, -500, 500
+                            1, 3, -5000, 5000
                     }
             }}
     };
