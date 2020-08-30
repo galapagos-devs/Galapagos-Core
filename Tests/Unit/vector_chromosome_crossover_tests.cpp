@@ -1,7 +1,7 @@
 #include <vector>
 #include <memory>
 
-#include "../../Source/Chromosomes/Vector/vector_chromosome.h"
+#include "../../Source/Chromosomes/Vector/API/vector_chromosome.h"
 #include "../../Source/Chromosomes/Vector/kpoint_crossover.h"
 
 #include "../catch.hpp"

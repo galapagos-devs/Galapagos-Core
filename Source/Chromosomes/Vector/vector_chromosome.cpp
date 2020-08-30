@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "vector_chromosome.h"
+#include "API/vector_chromosome.h"
 
 //region Constructor & Destructor
 

@@ -5,25 +5,11 @@
 #include <functional>
 #include <memory>
 
-#include "../../API/galapagos.h"
-#include "../../API/galapagos_metadata.h"
-#include "../../API/chromosome.h"
-#include "../../API/stochastic.h"
+#include "../../../API/galapagos.h"
+#include "../../../API/chromosome.h"
+#include "../../../API/stochastic.h"
 
-struct vector_chromosome_metadata : chromosome_metadata, galapagos_metadata<vector_chromosome_metadata> {
-    const uint32_t norm_rank; // k-value to be used with the k-norm defined in get_distance
-    const size_t size;
-    const double gene_infimum; // lowest possible value any gene will ever take
-    const double gene_supremum; // greatest possible value any gene will ever take
-
-    vector_chromosome_metadata(
-            std::string name,
-            double crossover_rate, std::vector<std::shared_ptr<const crossover_metadata_t>> crossover_metadata,
-            double mutation_rate, std::vector<std::shared_ptr<const mutation_metadata_t>> mutation_metadata,
-            uint32_t norm_rank, size_t size, double gene_infimum, double gene_supremum) :
-                chromosome_metadata{name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata},
-                norm_rank{norm_rank}, size{size}, gene_infimum{gene_infimum}, gene_supremum{gene_supremum} {}
-};
+#include "vector_chromosome_metadata.h"
 
 class vector_chromosome : public chromosome {
 private:

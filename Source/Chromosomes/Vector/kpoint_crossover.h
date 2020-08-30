@@ -4,21 +4,12 @@
 #include <memory>
 
 #include "../../API/crossover.h"
-#include "../../API/galapagos_metadata.h"
 #include "../../API/stochastic.h"
 
+#include "API/vector_chromosome_metadata.h"
+#include "API/vector_chromosome.h"
+
 #include "../crossover_internal.h"
-
-#include "vector_chromosome.h"
-
-struct kpoint_crossover_metadata : crossover_metadata, galapagos_metadata<kpoint_crossover_metadata> {
-    const size_t cut_points;
-
-    kpoint_crossover_metadata(
-            double weight, size_t cut_points) :
-                crossover_metadata{weight},
-                cut_points{cut_points} {}
-};
 
 class kpoint_crossover : public crossover_internal<vector_chromosome> {
 private:

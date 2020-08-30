@@ -3,18 +3,12 @@
 
 #include <memory>
 
-#include "../../API/galapagos_metadata.h"
 #include "../../API/stochastic.h"
 
+#include "API/vector_chromosome_metadata.h"
+#include "API/vector_chromosome.h"
+
 #include "../mutation_internal.h"
-
-#include "vector_chromosome.h"
-
-struct randomization_mutation_metadata : mutation_metadata, galapagos_metadata<randomization_mutation_metadata> {
-    explicit randomization_mutation_metadata(
-            double weight) :
-                mutation_metadata{weight} {}
-};
 
 class randomization_mutation : public mutation_internal<vector_chromosome> {
 private:

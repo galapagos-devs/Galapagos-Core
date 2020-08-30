@@ -3,20 +3,12 @@
 
 #include <memory>
 
-#include "../../API/galapagos_metadata.h"
 #include "../../API/stochastic.h"
+
+#include "API/vector_chromosome_metadata.h"
+#include "API/vector_chromosome.h"
+
 #include "../mutation_internal.h"
-#include "vector_chromosome.h"
-
-struct gaussian_mutation_metadata : mutation_metadata, galapagos_metadata<gaussian_mutation_metadata> {
-    const double mean;
-    const double standard_deviation;
-
-    gaussian_mutation_metadata(
-            double weight, double mean, double standard_deviation) :
-                mutation_metadata{weight},
-                mean{mean}, standard_deviation{standard_deviation} {}
-};
 
 class gaussian_mutation : public mutation_internal<vector_chromosome> {
 private:

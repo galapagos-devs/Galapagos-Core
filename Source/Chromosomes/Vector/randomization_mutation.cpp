@@ -1,4 +1,3 @@
-#include "vector_chromosome.h"
 #include "randomization_mutation.h"
 
 std::shared_ptr<chromosome> randomization_mutation::invoke(const std::shared_ptr<const vector_chromosome>& chromosome) const {

@@ -1,10 +1,7 @@
 #include <iostream>
 
 #include "../../Source/API/galapagos.h"
-#include "../../Source/Chromosomes/Vector/vector_chromosome.h"
-#include "../../Source/Chromosomes/Vector/gaussian_mutation.h"
-#include "../../Source/Chromosomes/Vector/randomization_mutation.h"
-#include "../../Source/Chromosomes/Vector/kpoint_crossover.h"
+#include "../../Source/Chromosomes/Vector/API/vector_chromosome.h"
 #include "../../Source/SelectionAlgorithms/tournament_selection.h"
 #include "../../Source/TerminationConditions/fitness_threshold.h"
 

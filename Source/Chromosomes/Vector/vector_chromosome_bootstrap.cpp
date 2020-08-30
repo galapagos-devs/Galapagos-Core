@@ -3,9 +3,9 @@
 #include "../../API/galapagos.h"
 #include "../../API/genetic_factory.h"
 
-#include "../../stochastic_internal.h"
+#include "API/vector_chromosome.h"
 
-#include "vector_chromosome.h"
+#include "../../stochastic_internal.h"
 #include "kpoint_crossover.h"
 #include "gaussian_mutation.h"
 #include "randomization_mutation.h"

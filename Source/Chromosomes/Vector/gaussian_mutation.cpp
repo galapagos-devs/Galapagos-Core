@@ -1,5 +1,3 @@
-#include <cmath>
-
 #include "gaussian_mutation.h"
 
 std::shared_ptr<chromosome> gaussian_mutation::invoke(const std::shared_ptr<const vector_chromosome>& chromosome) const {
