@@ -8,8 +8,8 @@ struct kpoint_crossover_metadata : crossover_metadata, galapagos_metadata<kpoint
 
     kpoint_crossover_metadata(
             double weight, size_t cut_points) :
-            crossover_metadata{weight},
-            cut_points{cut_points} {}
+                crossover_metadata{weight},
+                cut_points{cut_points} {}
 };
 
 struct gaussian_mutation_metadata : mutation_metadata, galapagos_metadata<gaussian_mutation_metadata> {
@@ -18,14 +18,14 @@ struct gaussian_mutation_metadata : mutation_metadata, galapagos_metadata<gaussi
 
     gaussian_mutation_metadata(
             double weight, double mean, double standard_deviation) :
-            mutation_metadata{weight},
-            mean{mean}, standard_deviation{standard_deviation} {}
+                mutation_metadata{weight},
+                mean{mean}, standard_deviation{standard_deviation} {}
 };
 
 struct randomization_mutation_metadata : mutation_metadata, galapagos_metadata<randomization_mutation_metadata> {
     explicit randomization_mutation_metadata(
             double weight) :
-            mutation_metadata{weight} {}
+                mutation_metadata{weight} {}
 };
 
 struct vector_chromosome_metadata : chromosome_metadata, galapagos_metadata<vector_chromosome_metadata> {
@@ -39,8 +39,8 @@ struct vector_chromosome_metadata : chromosome_metadata, galapagos_metadata<vect
             double crossover_rate, std::vector<std::shared_ptr<const crossover_metadata_t>> crossover_metadata,
             double mutation_rate, std::vector<std::shared_ptr<const mutation_metadata_t>> mutation_metadata,
             uint32_t norm_rank, size_t size, double gene_infimum, double gene_supremum) :
-            chromosome_metadata{name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata},
-            norm_rank{norm_rank}, size{size}, gene_infimum{gene_infimum}, gene_supremum{gene_supremum} {}
+                chromosome_metadata{name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata},
+                norm_rank{norm_rank}, size{size}, gene_infimum{gene_infimum}, gene_supremum{gene_supremum} {}
 };
 
 #endif /* _VECTOR_CHROMOSOME_METADATA_H_ */

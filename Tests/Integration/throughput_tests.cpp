@@ -3,7 +3,7 @@
 #include "../../Source/API/galapagos.h"
 #include "../../Source/Chromosomes/Vector/API/vector_chromosome.h"
 #include "../../Source/SelectionAlgorithms/API/selection_algorithm_metadata.h"
-#include "../../Source/TerminationConditions/fitness_threshold.h"
+#include "../../Source/TerminationConditions/API/termination_condition_metadata.h"
 
 #include "../catch.hpp"
 
