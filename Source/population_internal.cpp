@@ -16,7 +16,7 @@ population_internal::population_internal(const population_metadata& metadata, st
     _creatures.resize(get_size());
     genetic_factory& factory = genetic_factory::get_instance();
     for (size_t i = 0; i < get_size(); i++)
-        _creatures[i] = factory.create_creature(metadata.creature_metadata);
+        _creatures[i] = factory.create_creature(*metadata.creature_metadata);
     _optimal_creature = _creatures[0];
 }
 

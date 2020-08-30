@@ -15,7 +15,7 @@ struct kpoint_crossover_metadata : crossover_metadata, galapagos_metadata<kpoint
     const size_t cut_points;
 
     kpoint_crossover_metadata(
-            const double weight, const size_t cut_points) :
+            double weight, size_t cut_points) :
                 crossover_metadata{weight},
                 cut_points{cut_points} {}
 };

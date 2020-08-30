@@ -13,7 +13,7 @@ struct gaussian_mutation_metadata : mutation_metadata, galapagos_metadata<gaussi
     const double standard_deviation;
 
     gaussian_mutation_metadata(
-            const double weight, const double mean, const double standard_deviation) :
+            double weight, double mean, double standard_deviation) :
                 mutation_metadata{weight},
                 mean{mean}, standard_deviation{standard_deviation} {}
 };

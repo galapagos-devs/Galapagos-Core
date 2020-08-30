@@ -20,7 +20,6 @@
 #include <utility>
 #include <filesystem>
 #include <memory>
-#include <Windows.h> // TODO: currently only windows implementation exist. posix implementations will be needed as well.
 
 #include "stochastic.h"
 #include "galapagos_metadata.h"
@@ -35,6 +34,7 @@
 #include "genetic_factory.h"
 
 // TODO: this is a windows method for loading assembly functions. need a posix implementation.
+#include <Windows.h>
 template <typename TSignature>
 inline std::function<TSignature> load_assembly_func(HMODULE assembly, const std::string& func_name) {
     FARPROC address = GetProcAddress(assembly, func_name.c_str());

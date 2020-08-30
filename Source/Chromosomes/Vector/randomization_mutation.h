@@ -12,7 +12,7 @@
 
 struct randomization_mutation_metadata : mutation_metadata, galapagos_metadata<randomization_mutation_metadata> {
     explicit randomization_mutation_metadata(
-            const double weight) :
+            double weight) :
                 mutation_metadata{weight} {}
 };
 
