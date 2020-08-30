@@ -2,13 +2,9 @@ if(BUILD_SWIG)
     include(CMakeSwig.cmake)
 endif()
 set(SRCS
-        gaussian_mutation.h
         gaussian_mutation.cpp
-        kpoint_crossover.h
         kpoint_crossover.cpp
-        randomization_mutation.h
         randomization_mutation.cpp
-        vector_chromosome.h
         vector_chromosome.cpp)
 
 set(BOOTSTRAP
