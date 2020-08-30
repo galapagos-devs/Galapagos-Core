@@ -7,11 +7,7 @@
 #include "../API/selection_algorithm.h"
 #include "../API/stochastic.h"
 
-struct tournament_selection_metadata : selection_algorithm_metadata, galapagos_metadata<tournament_selection_metadata> {
-    const size_t tournament_size;
-
-    explicit tournament_selection_metadata(size_t tournament_size) : tournament_size{tournament_size} {}
-};
+#include "API/selection_algorithm_metadata.h"
 
 class tournament_selection : public selection_algorithm {
 private:

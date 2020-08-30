@@ -25,7 +25,7 @@ struct galapagos_metadata {
 
     template <typename TBase>
     inline operator std::shared_ptr<const TBase>() const {
-        auto dynamic = dynamic_cast<const TDerived*>(this);
+        auto dynamic = dynamic_cast<const TDerived*>(this); // TODO: throw exception if cast fails
         std::shared_ptr<const TDerived> ptr(new TDerived{*dynamic});
         return ptr;
     }

@@ -2,7 +2,7 @@
 
 #include "../../Source/API/galapagos.h"
 #include "../../Source/Chromosomes/Vector/API/vector_chromosome.h"
-#include "../../Source/SelectionAlgorithms/tournament_selection.h"
+#include "../../Source/SelectionAlgorithms/API/selection_algorithm_metadata.h"
 #include "../../Source/TerminationConditions/fitness_threshold.h"
 
 #include "../catch.hpp"

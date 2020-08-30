@@ -4,7 +4,6 @@
 #include "../API/genetic_factory.h"
 
 #include "../stochastic_internal.h"
-
 #include "tournament_selection.h"
 
 GALAPAGOS_BOOTSTRAP(genetic_factory*& factory) {
