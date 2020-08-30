@@ -3,7 +3,7 @@
 
 #include "../../../API/galapagos_metadata.h"
 
-struct kpoint_crossover_metadata : crossover_metadata, galapagos_metadata<kpoint_crossover_metadata> {
+struct kpoint_crossover_metadata : crossover_metadata, galapagos_metadata<crossover_metadata, kpoint_crossover_metadata> {
     const size_t cut_points;
 
     kpoint_crossover_metadata(
@@ -12,7 +12,7 @@ struct kpoint_crossover_metadata : crossover_metadata, galapagos_metadata<kpoint
                 cut_points{cut_points} {}
 };
 
-struct gaussian_mutation_metadata : mutation_metadata, galapagos_metadata<gaussian_mutation_metadata> {
+struct gaussian_mutation_metadata : mutation_metadata, galapagos_metadata<mutation_metadata, gaussian_mutation_metadata> {
     const double mean;
     const double standard_deviation;
 
@@ -22,13 +22,13 @@ struct gaussian_mutation_metadata : mutation_metadata, galapagos_metadata<gaussi
                 mean{mean}, standard_deviation{standard_deviation} {}
 };
 
-struct randomization_mutation_metadata : mutation_metadata, galapagos_metadata<randomization_mutation_metadata> {
+struct randomization_mutation_metadata : mutation_metadata, galapagos_metadata<mutation_metadata, randomization_mutation_metadata> {
     explicit randomization_mutation_metadata(
             double weight) :
                 mutation_metadata{weight} {}
 };
 
-struct vector_chromosome_metadata : chromosome_metadata, galapagos_metadata<vector_chromosome_metadata> {
+struct vector_chromosome_metadata : chromosome_metadata, galapagos_metadata<chromosome_metadata, vector_chromosome_metadata> {
     const uint32_t norm_rank; // k-value to be used with the k-norm defined in get_distance
     const size_t size;
     const double gene_infimum; // lowest possible value any gene will ever take

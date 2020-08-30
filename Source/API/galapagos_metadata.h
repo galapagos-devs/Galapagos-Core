@@ -19,11 +19,10 @@ typedef struct log_entry {  // TODO: This needs more entries in it. This is too 
 typedef std::function<void(log_entry_t)> log_func_t;
 typedef std::function<double(creature*)> fitness_func_t;
 
-template <typename TDerived>
+template <typename TBase, typename TDerived>
 struct galapagos_metadata {
     virtual ~galapagos_metadata() = default;
-
-    template <typename TBase>
+    
     inline operator std::shared_ptr<const TBase>() const {
         auto dynamic = dynamic_cast<const TDerived*>(this); // TODO: throw exception if cast fails
         std::shared_ptr<const TDerived> ptr(new TDerived{*dynamic});
@@ -76,7 +75,7 @@ typedef struct chromosome_metadata {
     virtual  ~chromosome_metadata() = default;
 } chromosome_metadata_t;
 
-typedef struct creature_metadata : galapagos_metadata<creature_metadata> {
+typedef struct creature_metadata : galapagos_metadata<creature_metadata, creature_metadata> {
     const fitness_func_t fitness_function;
     const std::vector<std::shared_ptr<const chromosome_metadata_t>> chromosome_metadata;
 
@@ -85,7 +84,7 @@ typedef struct creature_metadata : galapagos_metadata<creature_metadata> {
                 fitness_function{std::move(fitness_function)}, chromosome_metadata{std::move(chromosome_metadata)} {}
 } creature_metadata_t;
 
-typedef struct population_metadata : galapagos_metadata<population_metadata> {
+typedef struct population_metadata : galapagos_metadata<population_metadata, population_metadata> {
     const log_func_t log_function;
     const size_t size;
     const double survival_rate;
