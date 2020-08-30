@@ -10,7 +10,7 @@
 #include "../../API/chromosome.h"
 #include "../../API/stochastic.h"
 
-struct vector_chromosome_metadata : chromosome_metadata {
+struct vector_chromosome_metadata : chromosome_metadata, galapagos_metadata<chromosome_metadata, vector_chromosome_metadata> {
     const uint32_t norm_rank; // k-value to be used with the k-norm defined in get_distance
     const size_t size;
     const double gene_infimum; // lowest possible value any gene will ever take
@@ -23,14 +23,6 @@ struct vector_chromosome_metadata : chromosome_metadata {
             const uint32_t norm_rank, const size_t size, const double gene_infimum, const double gene_supremum) :
                 chromosome_metadata{name, crossover_rate, crossover_metadata, mutation_rate, mutation_metadata},
                 norm_rank{norm_rank}, size{size}, gene_infimum{gene_infimum}, gene_supremum{gene_supremum} {}
-
-    [[nodiscard]] inline std::shared_ptr<const chromosome_metadata> copy() const override {
-        std::shared_ptr<const chromosome_metadata> ptr(new vector_chromosome_metadata(
-            this->name, this->crossover_rate, this->crossover_metadata, this->mutation_rate, this->mutation_metadata,
-            this->norm_rank, this->size, this->gene_infimum, this->gene_supremum
-        ));
-        return ptr;
-    }
 };
 
 class vector_chromosome : public chromosome {

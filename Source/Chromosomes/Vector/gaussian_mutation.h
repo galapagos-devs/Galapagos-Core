@@ -8,7 +8,7 @@
 #include "../mutation_internal.h"
 #include "vector_chromosome.h"
 
-struct gaussian_mutation_metadata : mutation_metadata {
+struct gaussian_mutation_metadata : mutation_metadata, galapagos_metadata<mutation_metadata, gaussian_mutation_metadata> {
     const double mean;
     const double standard_deviation;
 
@@ -16,13 +16,6 @@ struct gaussian_mutation_metadata : mutation_metadata {
             const double weight, const double mean, const double standard_deviation) :
                 mutation_metadata{weight},
                 mean{mean}, standard_deviation{standard_deviation} {}
-
-    [[nodiscard]] inline std::shared_ptr<const mutation_metadata> copy() const override {
-        std::shared_ptr<const mutation_metadata> ptr(new gaussian_mutation_metadata(
-            this->weight, this->mean, this->standard_deviation
-        ));
-        return ptr;
-    }
 };
 
 class gaussian_mutation : public mutation_internal<vector_chromosome> {

@@ -11,20 +11,13 @@
 
 #include "vector_chromosome.h"
 
-struct kpoint_crossover_metadata : crossover_metadata {
+struct kpoint_crossover_metadata : crossover_metadata, galapagos_metadata<crossover_metadata, kpoint_crossover_metadata> {
     const size_t cut_points;
 
     kpoint_crossover_metadata(
             const double weight, const size_t cut_points) :
                 crossover_metadata{weight},
                 cut_points{cut_points} {}
-
-    [[nodiscard]] inline std::shared_ptr<const crossover_metadata> copy() const override {
-        std::shared_ptr<const crossover_metadata> ptr(new kpoint_crossover_metadata(
-                this->weight, this->cut_points
-        ));
-        return ptr;
-    }
 };
 
 class kpoint_crossover : public crossover_internal<vector_chromosome> {

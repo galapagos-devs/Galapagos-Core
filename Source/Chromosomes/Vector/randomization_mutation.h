@@ -10,17 +10,10 @@
 
 #include "vector_chromosome.h"
 
-struct randomization_mutation_metadata : mutation_metadata {
+struct randomization_mutation_metadata : mutation_metadata, galapagos_metadata<mutation_metadata, randomization_mutation_metadata> {
     explicit randomization_mutation_metadata(
             const double weight) :
                 mutation_metadata{weight} {}
-
-    [[nodiscard]] inline std::shared_ptr<const mutation_metadata> copy() const override {
-        std::shared_ptr<const mutation_metadata> ptr(new randomization_mutation_metadata(
-            this->weight
-        ));
-        return ptr;
-    }
 };
 
 class randomization_mutation : public mutation_internal<vector_chromosome> {

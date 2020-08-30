@@ -7,17 +7,10 @@
 #include "../API/galapagos.h"
 #include "../API/termination_condition.h"
 
-struct fitness_threshold_metadata : termination_condition_metadata {
+struct fitness_threshold_metadata : termination_condition_metadata, galapagos_metadata<termination_condition_metadata, fitness_threshold_metadata> {
     const size_t fitness_threshold;
 
     explicit fitness_threshold_metadata(const size_t fitness_threshold) : fitness_threshold{fitness_threshold} {}
-
-    [[nodiscard]] inline std::shared_ptr<const termination_condition_metadata> copy() const override {
-        std::shared_ptr<const termination_condition_metadata> ptr(new fitness_threshold_metadata(
-                this->fitness_threshold
-        ));
-        return ptr;
-    }
 };
 
 class fitness_threshold : public termination_condition {

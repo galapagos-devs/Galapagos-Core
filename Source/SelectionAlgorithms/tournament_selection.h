@@ -7,17 +7,10 @@
 #include "../API/selection_algorithm.h"
 #include "../API/stochastic.h"
 
-struct tournament_selection_metadata : selection_algorithm_metadata {
+struct tournament_selection_metadata : selection_algorithm_metadata, galapagos_metadata<selection_algorithm_metadata, tournament_selection_metadata> {
     const size_t tournament_size;
 
     explicit tournament_selection_metadata(const size_t tournament_size) : tournament_size{tournament_size} {}
-
-    [[nodiscard]] inline std::shared_ptr<const selection_algorithm_metadata> copy() const override {
-        std::shared_ptr<const selection_algorithm_metadata> ptr(new tournament_selection_metadata(
-                this->tournament_size
-        ));
-        return ptr;
-    }
 };
 
 class tournament_selection : public selection_algorithm {
