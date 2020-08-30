@@ -11,7 +11,7 @@
 
 #include "vector_chromosome.h"
 
-struct kpoint_crossover_metadata : crossover_metadata, galapagos_metadata<crossover_metadata, kpoint_crossover_metadata> {
+struct kpoint_crossover_metadata : crossover_metadata, galapagos_metadata<kpoint_crossover_metadata> {
     const size_t cut_points;
 
     kpoint_crossover_metadata(

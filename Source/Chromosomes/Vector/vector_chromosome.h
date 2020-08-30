@@ -10,7 +10,7 @@
 #include "../../API/chromosome.h"
 #include "../../API/stochastic.h"
 
-struct vector_chromosome_metadata : chromosome_metadata, galapagos_metadata<chromosome_metadata, vector_chromosome_metadata> {
+struct vector_chromosome_metadata : chromosome_metadata, galapagos_metadata<vector_chromosome_metadata> {
     const uint32_t norm_rank; // k-value to be used with the k-norm defined in get_distance
     const size_t size;
     const double gene_infimum; // lowest possible value any gene will ever take

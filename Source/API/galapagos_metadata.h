@@ -18,9 +18,11 @@ typedef struct log_entry {  // TODO: This needs more entries in it. This is too 
 typedef std::function<void(log_entry_t)> log_func_t;
 typedef std::function<double(creature*)> fitness_func_t;
 
-template <typename TBase, typename TDerived>
+template <typename TDerived>
 struct galapagos_metadata {
     virtual ~galapagos_metadata() = default;
+
+    template <typename TBase>
     inline operator std::shared_ptr<const TBase>() const {
         auto dynamic = dynamic_cast<const TDerived*>(this);
         std::shared_ptr<const TDerived> ptr(new TDerived{*dynamic});

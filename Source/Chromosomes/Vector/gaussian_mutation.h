@@ -8,7 +8,7 @@
 #include "../mutation_internal.h"
 #include "vector_chromosome.h"
 
-struct gaussian_mutation_metadata : mutation_metadata, galapagos_metadata<mutation_metadata, gaussian_mutation_metadata> {
+struct gaussian_mutation_metadata : mutation_metadata, galapagos_metadata<gaussian_mutation_metadata> {
     const double mean;
     const double standard_deviation;
 

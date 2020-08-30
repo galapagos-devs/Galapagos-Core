@@ -7,7 +7,7 @@
 #include "../API/galapagos.h"
 #include "../API/termination_condition.h"
 
-struct fitness_threshold_metadata : termination_condition_metadata, galapagos_metadata<termination_condition_metadata, fitness_threshold_metadata> {
+struct fitness_threshold_metadata : termination_condition_metadata, galapagos_metadata<fitness_threshold_metadata> {
     const size_t fitness_threshold;
 
     explicit fitness_threshold_metadata(const size_t fitness_threshold) : fitness_threshold{fitness_threshold} {}

@@ -10,7 +10,7 @@
 
 #include "vector_chromosome.h"
 
-struct randomization_mutation_metadata : mutation_metadata, galapagos_metadata<mutation_metadata, randomization_mutation_metadata> {
+struct randomization_mutation_metadata : mutation_metadata, galapagos_metadata<randomization_mutation_metadata> {
     explicit randomization_mutation_metadata(
             const double weight) :
                 mutation_metadata{weight} {}
