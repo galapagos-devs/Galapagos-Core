@@ -19,28 +19,38 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
         std::cout << "generation: " << entry.generation << " optimal fitness: " << entry.optimal_fitness << std::endl;
     };
 
-    population_metadata metadata {
-            log_function, 25, 0.25, 0, false,
-            {tournament_selection_metadata{2}},
-            {fitness_threshold_metadata{15000}},
-            creature_metadata{fitness_function, {
-                    vector_chromosome_metadata{
-                            chromosome_name,
-                            1, {kpoint_crossover_metadata{1, 1}},
-                            0.5, {
-                                    randomization_mutation_metadata{1},
-                                    gaussian_mutation_metadata{4, 0, 50}
-                            },
-                            1, 3, -5000, 5000
-                    }
-            }}
-    };
+    // region Metadata Construction
 
-    // region Invoke Algorithm Against Metadat
+    auto metadata_3 = POPULATION_METADATA(population_metadata(
+            log_function, 25, 0.25, 0, false,
+            {SELECTION_ALGORITHM_METADATA(tournament_selection_metadata(2))},
+            {TERMINATION_CONDITION_METADATA(fitness_threshold_metadata(15000))},
+            CREATURE_METADATA(creature_metadata(
+                    fitness_function, {
+                            CHROMOSOME_METADATA(vector_chromosome_metadata(
+                                    chromosome_name,
+                                    1, {CROSSOVER_METADATA(kpoint_crossover_metadata(1, 1))},
+                                    0.5, {
+                                            MUTATION_METADATA(randomization_mutation_metadata(1)),
+                                            MUTATION_METADATA(gaussian_mutation_metadata(4, 0, 50))
+                                    },
+                                    1, 3, -5000, 5000)
+                            )
+                    }
+            ))
+    )
+    );
+
+
+    // endregion
+
+
+    // region Invoke Algorithm Against Metadata
 
     galapagos lib("Galapagos.dll");
     auto factory = lib.bootstrap();
-    auto population = factory->create_population(metadata);
+    auto population = factory->create_population(*metadata_3);
+
     population->evolve();
 
     auto optimal = population->get_optimal_creature();

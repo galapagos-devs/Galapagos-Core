@@ -9,7 +9,7 @@
 
 //region Public Members
 
-population_internal::population_internal(const population_metadata& metadata, stochastic& stochastic_instance) :
+population_internal::population_internal(population_metadata_ptr metadata, stochastic& stochastic_instance) :
         _metadata{metadata}, _stochastic_instance{stochastic_instance} {
     _this = std::shared_ptr<population_internal>(this, [](population_internal*){});
 

@@ -9,7 +9,7 @@
 template <class TChromosome>
 class mutation_internal : public mutation {
 public:
-    inline mutation_internal(const mutation_metadata& metadata) :
+    inline mutation_internal(mutation_metadata_ptr metadata) :
         mutation{metadata} {}
 
     inline std::shared_ptr<chromosome> invoke(const std::shared_ptr<const chromosome>& chromosome) const override {

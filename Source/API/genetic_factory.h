@@ -14,26 +14,26 @@
 #include "crossover.h"
 #include "mutation.h"
 
-typedef std::function<population*(const population_metadata&)> create_population_t;
-typedef std::function<void(population*)> delete_population_t;
+using create_population_t = std::function<population*(population_metadata_ptr)>;
+using delete_population_t = std::function<void(population*)>;
 
-typedef std::function<creature*(const creature_metadata&)> create_creature_t;
-typedef std::function<void(creature*)> delete_creature_t;
+using create_creature_t = std::function<creature*(creature_metadata_ptr)>;
+using delete_creature_t = std::function<void(creature*)>;
 
-typedef std::function<selection_algorithm*(const selection_algorithm_metadata&)> create_selection_algorithm_t;
-typedef std::function<void(selection_algorithm*)> delete_selection_algorithm_t;
+using create_selection_algorithm_t = std::function<selection_algorithm*(selection_algorithm_metadata_ptr)>;
+using delete_selection_algorithm_t = std::function<void(selection_algorithm*)>;
 
-typedef std::function<termination_condition*(const termination_condition_metadata&)> create_termination_condition_t;
-typedef std::function<void(termination_condition*)> delete_termination_condition_t;
+using create_termination_condition_t = std::function<termination_condition*(termination_condition_metadata_ptr)>;
+using delete_termination_condition_t = std::function<void(termination_condition*)>;
 
-typedef std::function<chromosome*(const chromosome_metadata&)> create_chromosome_t;
-typedef std::function<void(chromosome*)> delete_chromosome_t;
+using create_chromosome_t = std::function<chromosome*(chromosome_metadata_ptr)>;
+using delete_chromosome_t = std::function<void(chromosome*)>;
 
-typedef std::function<crossover*(const crossover_metadata&)> create_crossover_t;
-typedef std::function<void(crossover*)> delete_crossover_t;
+using create_crossover_t = std::function<crossover*(crossover_metadata_ptr)>;
+using delete_crossover_t = std::function<void(crossover*)>;
 
-typedef std::function<mutation*(const mutation_metadata&)> create_mutation_t;
-typedef std::function<void(mutation*)> delete_mutation_t;
+using create_mutation_t = std::function<mutation*(mutation_metadata_ptr)>;
+using delete_mutation_t = std::function<void(mutation*)>;
 
 class genetic_factory {
 private:
@@ -92,31 +92,31 @@ public:
 
     //region plugin construction
 
-    inline std::shared_ptr<population> create_population(const population_metadata& population_metadata) {
+    inline std::shared_ptr<population> create_population(population_metadata_ptr population_metadata) {
         return _create_obj<population>(_registered_populations, population_metadata);
     }
 
-    inline std::shared_ptr<creature> create_creature(const creature_metadata& creature_metadata) {
+    inline std::shared_ptr<creature> create_creature(creature_metadata_ptr creature_metadata) {
         return _create_obj<creature>(_registered_creatures, creature_metadata);
     }
 
-    inline std::shared_ptr<selection_algorithm> create_selection_algorithm(const selection_algorithm_metadata& selection_algorithm_metadata) {
+    inline std::shared_ptr<selection_algorithm> create_selection_algorithm(selection_algorithm_metadata_ptr selection_algorithm_metadata) {
         return _create_obj<selection_algorithm>(_registered_selection_algorithms, selection_algorithm_metadata);
     }
 
-    inline std::shared_ptr<termination_condition> create_termination_condition(const termination_condition_metadata& termination_condition_metadata) {
+    inline std::shared_ptr<termination_condition> create_termination_condition(termination_condition_metadata_ptr termination_condition_metadata) {
         return _create_obj<termination_condition>(_registered_termination_conditions, termination_condition_metadata);
     }
 
-    inline std::shared_ptr<chromosome> create_chromosome(const chromosome_metadata& chromosome_metadata) {
+    inline std::shared_ptr<chromosome> create_chromosome(chromosome_metadata_ptr chromosome_metadata) {
         return _create_obj<chromosome>(_registered_chromosomes, chromosome_metadata);
     }
 
-    inline std::shared_ptr<crossover> create_crossover(const crossover_metadata& crossover_metadata) {
+    inline std::shared_ptr<crossover> create_crossover(crossover_metadata_ptr crossover_metadata) {
         return _create_obj<crossover>(_registered_crossovers, crossover_metadata);
     }
 
-    inline std::shared_ptr<mutation> create_mutation(const mutation_metadata& mutation_metadata) {
+    inline std::shared_ptr<mutation> create_mutation(mutation_metadata_ptr mutation_metadata) {
         return _create_obj<mutation>(_registered_mutations, mutation_metadata);
     }
 

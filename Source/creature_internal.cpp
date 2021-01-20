@@ -6,7 +6,7 @@
 #include "API/genetic_factory.h"
 
 // Constructor/Destructor
-creature_internal::creature_internal(const creature_metadata& metadata, stochastic& stochastic_instance) :
+creature_internal::creature_internal(creature_metadata_ptr metadata, stochastic& stochastic_instance) :
         _metadata{metadata}, _stochastic_instance{stochastic_instance} {
     genetic_factory& factory = genetic_factory::get_instance();
     for(const auto& chromosome_metadatum : _metadata.chromosome_metadata)
@@ -72,16 +72,16 @@ std::shared_ptr<TOperator> creature_internal::_select_genetic_operator(const std
     return genetic_operators[chosen_index];
 }
 
-std::shared_ptr<crossover> creature_internal::_select_crossover(const std::vector<std::shared_ptr<const crossover_metadata_t>>& crossover_metadata) const {
+std::shared_ptr<crossover> creature_internal::_select_crossover(const std::vector<crossover_metadata_ptr>& crossover_metadata) const {
     genetic_factory& factory = genetic_factory::get_instance();
     create_genetic_operator_a<crossover, crossover_metadata_t> create_crossover =
-            [&factory](const crossover_metadata_t& metadatai) { return factory.create_crossover(metadatai); };
+            [&factory](crossover_metadata_ptr metadatai) { return factory.create_crossover(metadatai); };
     return _select_genetic_operator<crossover, crossover_metadata_t>(crossover_metadata, create_crossover);
 }
 
-std::shared_ptr<mutation> creature_internal::_select_mutation(const std::vector<std::shared_ptr<const mutation_metadata_t>>& mutation_metadata) const {
+std::shared_ptr<mutation> creature_internal::_select_mutation(const std::vector<mutation_metadata_ptr>& mutation_metadata) const {
     genetic_factory& factory = genetic_factory::get_instance();
     create_genetic_operator_a<mutation, mutation_metadata_t> create_mutation =
-            [&factory](const mutation_metadata_t& metadatai) { return factory.create_mutation(metadatai); };
+            [&factory](mutation_metadata_ptr metadatai) { return factory.create_mutation(metadatai); };
     return _select_genetic_operator<mutation, mutation_metadata_t>(mutation_metadata, create_mutation);
 }

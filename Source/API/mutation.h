@@ -8,7 +8,7 @@
 
 class mutation : public genetic_operator {
 public:
-    inline mutation(const mutation_metadata& metadata) :
+    inline mutation(mutation_metadata_ptr metadata) :
         genetic_operator{metadata} {}
 
     virtual std::shared_ptr<chromosome> invoke(const std::shared_ptr<const chromosome>& chromosome) const = 0;

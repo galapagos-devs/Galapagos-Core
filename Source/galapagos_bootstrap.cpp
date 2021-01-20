@@ -11,12 +11,12 @@ GALAPAGOS_BOOTSTRAP(genetic_factory*& factory) {
     factory = &genetic_factory::get_instance();
 
     factory->register_population(std::type_index(typeid(population_metadata)),
-            [&stochastic_instance](const population_metadata& metadata) {
+            [&stochastic_instance](population_metadata_ptr metadata) {
         return new population_internal(metadata, stochastic_instance);
     }, [](population* population) { delete population; });
 
     factory->register_creature(std::type_index(typeid(creature_metadata)),
-            [&stochastic_instance](const creature_metadata& metadata) {
+            [&stochastic_instance](creature_metadata_ptr metadata) {
         return new creature_internal(metadata, stochastic_instance);
     }, [](creature* creature) { delete creature; });
 }

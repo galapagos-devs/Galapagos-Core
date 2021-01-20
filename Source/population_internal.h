@@ -20,7 +20,7 @@ class population_internal : public population {
 private:
     std::shared_ptr<population_internal> _this;
 
-    const population_metadata& _metadata;
+    population_metadata_ptr _metadata;
     stochastic& _stochastic_instance;
     log_entry _current_log_entry{};
 
@@ -28,7 +28,7 @@ private:
     std::shared_ptr<creature> _optimal_creature;
 
 public:
-    population_internal(const population_metadata& metadata, stochastic& stochastic_instance);
+    population_internal(population_metadata_ptr metadata, stochastic& stochastic_instance);
 
     // Returns the number of creates in the population.
     [[nodiscard]] size_t get_size() const override;

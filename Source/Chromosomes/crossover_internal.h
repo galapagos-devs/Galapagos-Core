@@ -9,7 +9,7 @@
 template<class TChromosome>
 class crossover_internal : public crossover {
 public:
-    inline crossover_internal(const crossover_metadata& metadata) :
+    inline crossover_internal(crossover_metadata_ptr metadata) :
         crossover{metadata} {}
 
     inline std::shared_ptr<chromosome> invoke(const std::shared_ptr<const chromosome>& x, const std::shared_ptr<const chromosome>& y) const override {

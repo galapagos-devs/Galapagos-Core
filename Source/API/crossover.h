@@ -8,7 +8,7 @@
 
 class crossover : public genetic_operator {
 public:
-    inline crossover(const crossover_metadata& metadata) :
+    inline crossover(crossover_metadata_ptr metadata) :
         genetic_operator{metadata} {}
 
     virtual std::shared_ptr<chromosome> invoke(const std::shared_ptr<const chromosome>& x, const std::shared_ptr<const chromosome>& y) const = 0;
