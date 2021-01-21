@@ -10,6 +10,7 @@ GALAPAGOS_BOOTSTRAP(genetic_factory*& factory) {
     stochastic_internal& stochastic_instance = stochastic_internal::get_instance();
     factory = &genetic_factory::get_instance();
 
+    // TODO: Figure out how to incorporate these registerations into the `GALAPAGOS_REGISTER_OBJ` macro.
     factory->register_population(std::type_index(typeid(population_metadata)),
             [&stochastic_instance](population_metadata_ptr metadata) {
         return new population_internal(metadata, stochastic_instance);

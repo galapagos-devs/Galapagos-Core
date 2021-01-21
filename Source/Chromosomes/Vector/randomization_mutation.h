@@ -15,7 +15,7 @@ private:
     stochastic& _stochastic_instance;
 
 public:
-    inline explicit randomization_mutation(const randomization_mutation_metadata& metadata, stochastic& stochastic_instance) :
+    inline explicit randomization_mutation(randomization_mutation_metadata_ptr metadata, stochastic& stochastic_instance) :
             mutation_internal{metadata}, _stochastic_instance{stochastic_instance} {}
 
 protected:

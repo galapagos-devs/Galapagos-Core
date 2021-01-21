@@ -9,13 +9,13 @@
 creature_internal::creature_internal(creature_metadata_ptr metadata, stochastic& stochastic_instance) :
         _metadata{metadata}, _stochastic_instance{stochastic_instance} {
     genetic_factory& factory = genetic_factory::get_instance();
-    for(const auto& chromosome_metadatum : _metadata.chromosome_metadata)
-        _chromosomes[chromosome_metadatum->name] = factory.create_chromosome(*chromosome_metadatum);
+    for(const auto& chromosome_metadatum : _metadata->chromosome_metadata)
+        _chromosomes[chromosome_metadatum->name] = factory.create_chromosome(chromosome_metadatum);
 }
 
 // Public methods
 double creature_internal::get_fitness() {
-    return _metadata.fitness_function(this);
+    return _metadata->fitness_function(this);
 }
 
 std::shared_ptr<creature> creature_internal::breed_with(const std::shared_ptr<const creature>& mate) const {
@@ -23,7 +23,7 @@ std::shared_ptr<creature> creature_internal::breed_with(const std::shared_ptr<co
     auto child = factory.create_creature(_metadata);
 
     //for(size_t i = 0; i < _metadata.num_chromosomes; i++)
-    for(const auto& chromosome_metadatum : _metadata.chromosome_metadata) {
+    for(const auto& chromosome_metadatum : _metadata->chromosome_metadata) {
         std::string chromosome_name = chromosome_metadatum->name;
         std::shared_ptr<chromosome> child_chromosome;
 
@@ -62,7 +62,7 @@ std::shared_ptr<TOperator> creature_internal::_select_genetic_operator(const std
 
     for(size_t i = 0; i < num_operators; i++) {
         // populate genetic_operators vector
-        genetic_operators.push_back(create_genetic_operator(*operator_metadata[i]));
+        genetic_operators.push_back(create_genetic_operator(operator_metadata[i]));
 
         // populate weights list
         weights.push_back(genetic_operators[i]->get_weight());

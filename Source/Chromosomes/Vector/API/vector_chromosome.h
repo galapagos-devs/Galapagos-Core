@@ -15,14 +15,14 @@ class vector_chromosome : public chromosome {
 private:
     std::shared_ptr<vector_chromosome> _this;
 
-    const vector_chromosome_metadata& _metadata;
+    vector_chromosome_metadata_ptr _metadata;
     stochastic& _stochastic_instance;
     std::vector<double> _genes;
 
 public:
     //region Constructor & Destructor
 
-    explicit vector_chromosome(const vector_chromosome_metadata& metadata, stochastic& stochastic_instance);
+    explicit vector_chromosome(vector_chromosome_metadata_ptr metadata, stochastic& stochastic_instance);
     explicit vector_chromosome(const std::shared_ptr<const vector_chromosome>& other);
 
     //endregion

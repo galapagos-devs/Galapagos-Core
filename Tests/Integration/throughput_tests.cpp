@@ -21,7 +21,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
 
     // region Metadata Construction
 
-    auto metadata_3 = POPULATION_METADATA(population_metadata(
+    auto metadata = POPULATION_METADATA(population_metadata(
             log_function, 25, 0.25, 0, false,
             {SELECTION_ALGORITHM_METADATA(tournament_selection_metadata(2))},
             {TERMINATION_CONDITION_METADATA(fitness_threshold_metadata(15000))},
@@ -49,7 +49,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
 
     galapagos lib("Galapagos.dll");
     auto factory = lib.bootstrap();
-    auto population = factory->create_population(*metadata_3);
+    auto population = factory->create_population(metadata);
 
     population->evolve();
 

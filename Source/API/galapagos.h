@@ -5,15 +5,6 @@
  * bootstrapping procedure. 'galapagos_bootstrap' is the bootstrapping interface for the core galapagos_bootstrap library assembly while
  * 'galapagos_satellite' is the interface to any assembly that wishes to inject custom API objects into galapagos_bootstrap on startup.*/
 
-#define HSTRING(function_name) #function_name
-#define STRING(function_name) HSTRING(function_name)
-#define BOOTSTRAP_FUNCTION galapagos_bootstrap
-#ifdef WIN32
-#define GALAPAGOS_BOOTSTRAP extern "C" __declspec(dllexport) void BOOTSTRAP_FUNCTION
-#else
-#define GALAPAGOS_BOOTSTRAP extern "C" __attribute__((visibility("default"))) void BOOTSTRAP_FUNCTION
-#endif
-
 #include <functional>
 #include <typeindex>
 #include <string>
@@ -32,6 +23,54 @@
 #include "crossover.h"
 #include "mutation.h"
 #include "genetic_factory.h"
+
+// region Macro Magic
+#define HSTRING(function_name) #function_name
+#define STRING(function_name) HSTRING(function_name)
+#define BOOTSTRAP_FUNCTION galapagos_bootstrap
+#ifdef WIN32
+#define GALAPAGOS_BOOTSTRAP extern "C" __declspec(dllexport) void BOOTSTRAP_FUNCTION
+#else
+#define GALAPAGOS_BOOTSTRAP extern "C" __attribute__((visibility("default"))) void BOOTSTRAP_FUNCTION
+#endif
+
+// Facilitates macro overload by number of args
+#define GET_MACRO(_1, _2, _3, _4, NAME,...) NAME
+
+/* Use `GALAPAGOS_REGISTER_OBJ` to register new object derivatives.
+ *
+ * The ``GALAPAGOS_REGISTER_OBJ__<X>ARGS`` are macro overloads.
+ * These overloads make the following assumptions:
+ *
+ *    #. The ``derived_type`` is built from an object with the same name as ``derived_type``,
+ *       only suffixed with ``_metadata``, i.e. ``derived_type_metadata``.
+ *
+ *    #. The ``base_type`` has a `std::shared_ptr<base_type>` type-alias with the same name as ``base_type``,
+ *       only suffixed with a ``_ptr``, i.e. ``base_type_ptr``
+ *
+ *    #. The ``factor`` pointer has a method to register an extension of ``base_type`` (i.e. ``derived_type``)
+ *       and that method is named ``register_base_type)``
+ *
+ */
+#define GALAPAGOS_REGISTER_OBJ__3ARGS(factory, base_type, derived_type) \
+    factory->register_##base_type(std::type_index(typeid(derived_type##_metadata)), \
+    [](base_type##_metadata_ptr metadata){ \
+    auto derived_metadata = std::dynamic_pointer_cast<derived_type##_metadata>(std::move(metadata)); \
+    return new derived_type(derived_metadata); \
+    }, [](base_type *obj) { delete obj; })
+
+#define GALAPAGOS_REGISTER_OBJ__4ARGS(factory, base_type, derived_type, stochastic_instance) \
+    factory->register_##base_type(std::type_index(typeid(derived_type##_metadata)), \
+    [&stochastic_instance](base_type##_metadata_ptr metadata){ \
+    auto derived_metadata = std::dynamic_pointer_cast<derived_type##_metadata>(std::move(metadata)); \
+    return new derived_type(derived_metadata, stochastic_instance); \
+    }, [](base_type *obj) { delete obj; })
+
+
+#define GALAPAGOS_REGISTER_OBJ(...) \
+    GET_MACRO(__VA_ARGS__, GALAPAGOS_REGISTER_OBJ__4ARGS, GALAPAGOS_REGISTER_OBJ__3ARGS)(__VA_ARGS__)
+
+// endregion
 
 // TODO: this is a windows method for loading assembly functions. need a posix implementation.
 #include <Windows.h>

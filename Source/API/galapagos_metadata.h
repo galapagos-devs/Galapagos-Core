@@ -11,6 +11,15 @@
 
 #include "creature.h"
 
+// TODO: Remove `typedef` from `struct`s.
+
+/* TODO: Rename `struct`s to CamelCased-metadatum naming convention e.g.:
+ *       using CrossoverMetadatum_ptr = std::shared_ptr<const CrossoverMetadatum>
+ *       using CrossoverMetadata = std::vector<CrossoverMetadatum_ptr>;
+ */
+
+#define MAKE_METADATA_POINTER_ALIAS(metadata_name) using metadata_name##_ptr = std::shared_ptr<const metadata_name>
+
 typedef struct log_entry {  // TODO: This needs more entries in it. This is too limited
     size_t generation;
     double optimal_fitness;
@@ -29,28 +38,24 @@ typedef struct genetic_operator_metadata : galapagos_metadata {
 
     explicit genetic_operator_metadata(double weight) : weight{weight} {};
 } genetic_operator_metadata_t;
+MAKE_METADATA_POINTER_ALIAS(genetic_operator_metadata);
 
-// TODO: Remove `typedef` from `struct`s.
-/* TODO: Rename `struct`s to CamelCased-metadatum naming convention e.g.:
- *       using CrossoverMetadatum_ptr = std::shared_ptr<const CrossoverMetadatum>
- *       using CrossoverMetadata = std::vector<CrossoverMetadatum_ptr>;
- */
 
 typedef struct crossover_metadata : genetic_operator_metadata {
     explicit crossover_metadata(double weight) : genetic_operator_metadata{weight} {};
 } crossover_metadata_t;
-using crossover_metadata_ptr = std::shared_ptr<const crossover_metadata>;
+MAKE_METADATA_POINTER_ALIAS(crossover_metadata);
 
 typedef struct mutation_metadata : genetic_operator_metadata {
     explicit mutation_metadata(double weight) : genetic_operator_metadata{weight} {};
 } mutation_metadata_t;
-using mutation_metadata_ptr = std::shared_ptr<const mutation_metadata>;
+MAKE_METADATA_POINTER_ALIAS(mutation_metadata);
 
 typedef struct selection_algorithm_metadata : galapagos_metadata {} selection_algorithm_metadata_t;
-using selection_algorithm_metadata_ptr = std::shared_ptr<const selection_algorithm_metadata>;
+MAKE_METADATA_POINTER_ALIAS(selection_algorithm_metadata);
 
 typedef struct termination_condition_metadata : galapagos_metadata {} termination_condition_metadata_t;
-using termination_condition_metadata_ptr = std::shared_ptr<const termination_condition_metadata>;
+MAKE_METADATA_POINTER_ALIAS(termination_condition_metadata);
 
 typedef struct chromosome_metadata : galapagos_metadata {
     const std::string name;
@@ -67,7 +72,7 @@ typedef struct chromosome_metadata : galapagos_metadata {
                 crossover_rate{crossover_rate}, crossover_metadata{std::move(crossover_metadata)},
                 mutation_rate{mutation_rate}, mutation_metadata{std::move(mutation_metadata)} {}
 } chromosome_metadata_t;
-using chromosome_metadata_ptr = std::shared_ptr<const chromosome_metadata>;
+MAKE_METADATA_POINTER_ALIAS(chromosome_metadata);
 
 typedef struct creature_metadata : galapagos_metadata{
     const fitness_func_t fitness_function;
@@ -77,7 +82,7 @@ typedef struct creature_metadata : galapagos_metadata{
             fitness_func_t fitness_function, std::vector<chromosome_metadata_ptr> chromosome_metadata) :
                 fitness_function{std::move(fitness_function)}, chromosome_metadata{std::move(chromosome_metadata)} {}
 } creature_metadata_t;
-using creature_metadata_ptr = std::shared_ptr<const creature_metadata>;
+MAKE_METADATA_POINTER_ALIAS(creature_metadata);
 
 typedef struct population_metadata : galapagos_metadata {
     const log_func_t log_function;
@@ -101,6 +106,7 @@ typedef struct population_metadata : galapagos_metadata {
                 termination_condition_metadata{std::move(termination_condition_metadata)},
                 creature_metadata{std::move(creature_metadata)} {}
 } population_metadata_t;
+// TODO: Can this be a `shared_ptr<const population_metadata>? Then we can use the MAKE_METADATA_POINTER_ALIAS macro
 using population_metadata_ptr = std::shared_ptr<population_metadata>;
 
 // Constructor Macros

@@ -16,13 +16,13 @@ population_internal::population_internal(population_metadata_ptr metadata, stoch
     _creatures.resize(get_size());
     genetic_factory& factory = genetic_factory::get_instance();
     for (size_t i = 0; i < get_size(); i++)
-        _creatures[i] = factory.create_creature(*metadata.creature_metadata);
+        _creatures[i] = factory.create_creature(metadata->creature_metadata);
     _optimal_creature = _creatures[0];
 }
 
 // Returns the number of creaters in the population.
 size_t population_internal::get_size() const {
-    return _metadata.size;
+    return _metadata->size;
 }
 
 std::shared_ptr<creature> population_internal::operator[] (int i) const {
@@ -55,8 +55,8 @@ void population_internal::evolve() {
         _optimal_creature = _find_optimal_creature();
         _current_log_entry.generation = ++generation;
 
-        if(_metadata.log_function != nullptr)  // TODO: log_functions should be processed on its own thread
-            _metadata.log_function(_current_log_entry);
+        if(_metadata->log_function != nullptr)  // TODO: log_functions should be processed on its own thread
+            _metadata->log_function(_current_log_entry);
     }
 }
 //endregion
@@ -73,7 +73,7 @@ size_t population_internal::_elitism(std::vector<std::shared_ptr<creature>>& new
                 return x->get_fitness() > y->get_fitness();
     });
 
-    auto surviving_creature_count = (size_t)(_metadata.survival_rate * population_size);
+    auto surviving_creature_count = (size_t)(_metadata->survival_rate * population_size);
     for (size_t i = 0; i < surviving_creature_count; i++)
         new_generation[i] = _creatures[i];
 
@@ -127,26 +127,26 @@ std::shared_ptr<creature> population_internal::_find_optimal_creature() {
 }
 
 std::vector<std::shared_ptr<selection_algorithm>> population_internal::_create_selection_algorithms() {
-    auto num_selection_algorithms = _metadata.selection_algorithm_metadata.size();
+    auto num_selection_algorithms = _metadata->selection_algorithm_metadata.size();
     std::vector<std::shared_ptr<selection_algorithm>> selection_algorithms;
 
     for(size_t i = 0; i < num_selection_algorithms; i++) {
         genetic_factory& factory = genetic_factory::get_instance();
         selection_algorithms.push_back(factory.create_selection_algorithm(
-                *_metadata.selection_algorithm_metadata[i]));
+                _metadata->selection_algorithm_metadata[i]));
     }
 
     return selection_algorithms;
 }
 
 std::vector<std::shared_ptr<termination_condition>> population_internal::_create_termination_conditions() {
-    auto num_termination_conditions = _metadata.termination_condition_metadata.size();
+    auto num_termination_conditions = _metadata->termination_condition_metadata.size();
     std::vector<std::shared_ptr<termination_condition>> termination_conditions;
 
     for(size_t i = 0; i < num_termination_conditions; i++) {
         genetic_factory& factory = genetic_factory::get_instance();
         termination_conditions.push_back(factory.create_termination_condition(
-                *_metadata.termination_condition_metadata[i]));
+                _metadata->termination_condition_metadata[i]));
     }
 
     return termination_conditions;
