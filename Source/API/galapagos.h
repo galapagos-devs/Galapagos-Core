@@ -28,6 +28,7 @@
 #define HSTRING(function_name) #function_name
 #define STRING(function_name) HSTRING(function_name)
 #define BOOTSTRAP_FUNCTION galapagos_bootstrap
+
 #ifdef WIN32
 #define GALAPAGOS_BOOTSTRAP extern "C" __declspec(dllexport) void BOOTSTRAP_FUNCTION
 #else
@@ -35,11 +36,11 @@
 #endif
 
 // Facilitates macro overload by number of args
-#define GET_MACRO(_1, _2, _3, _4, NAME,...) NAME
+
 
 /* Use `GALAPAGOS_REGISTER_OBJ` to register new object derivatives.
  *
- * The ``GALAPAGOS_REGISTER_OBJ__<X>ARGS`` are macro overloads.
+ * The ``GALAPAGOS_REGISTER_OBJ__<X>`` are macro overloads.
  * These overloads make the following assumptions:
  *
  *    #. The ``derived_type`` is built from an object with the same name as ``derived_type``,
@@ -52,24 +53,46 @@
  *       and that method is named ``register_base_type)``
  *
  */
-#define GALAPAGOS_REGISTER_OBJ__3ARGS(factory, base_type, derived_type) \
-    factory->register_##base_type(std::type_index(typeid(derived_type##_metadata)), \
+#define GALAPAGOS_REGISTER_OBJ__3(factory, base_type, derived_type) \
+    factory->register_##base_type(\
+    std::type_index(typeid(derived_type##_metadata)), \
     [](base_type##_metadata_ptr metadata){ \
-    auto derived_metadata = std::dynamic_pointer_cast<derived_type##_metadata>(std::move(metadata)); \
+    auto derived_metadata = std::dynamic_pointer_cast<const derived_type##_metadata>(std::move(metadata)); \
     return new derived_type(derived_metadata); \
     }, [](base_type *obj) { delete obj; })
 
-#define GALAPAGOS_REGISTER_OBJ__4ARGS(factory, base_type, derived_type, stochastic_instance) \
-    factory->register_##base_type(std::type_index(typeid(derived_type##_metadata)), \
-    [&stochastic_instance](base_type##_metadata_ptr metadata){ \
-    auto derived_metadata = std::dynamic_pointer_cast<derived_type##_metadata>(std::move(metadata)); \
+#define GALAPAGOS_REGISTER_OBJ__4(factory, base_type, derived_type, stochastic_instance) \
+    factory->register_##base_type(\
+    std::type_index(typeid(derived_type ## _metadata)), \
+    [&stochastic_instance](base_type ## _metadata_ptr metadata){ \
+    auto derived_metadata = std::dynamic_pointer_cast<const derived_type ## _metadata>(std::move(metadata)); \
     return new derived_type(derived_metadata, stochastic_instance); \
     }, [](base_type *obj) { delete obj; })
 
+#if ((defined(_MSVC_TRADITIONAL) && _MSVC_TRADITIONAL) || (!defined(_MSVC_TRADITIONAL) && WIN32))
 
+// region MSVC __VA_ARGS__ Bug Fix
+// https://stackoverflow.com/questions/48710758/how-to-fix-variadic-macro-related-issues-with-macro-overloading-in-msvc-mic
+
+#define CONCAT_(X,Y) X##Y
+#define CONCAT(X,Y) CONCAT_(X,Y)
+
+#define MSVC_BUG(MACRO, ARGS) MACRO ARGS  // name to remind that bug fix is due to MSVC :-)
+
+#define NUM_ARGS_2(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, TOTAL, ...) TOTAL
+#define NUM_ARGS_1(...) MSVC_BUG(NUM_ARGS_2, (__VA_ARGS__))
+#define NUM_ARGS(...) NUM_ARGS_1(__VA_ARGS__, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+#define VA_MACRO(MACRO, ...) MSVC_BUG(CONCAT, (MACRO, NUM_ARGS(__VA_ARGS__)))(__VA_ARGS__)
+
+#define GALAPAGOS_REGISTER_OBJ(...) VA_MACRO(GALAPAGOS_REGISTER_OBJ__, __VA_ARGS__)
+
+#else
+
+#define GET_MACRO(_1, _2, _3, _4, NAME,...) NAME
 #define GALAPAGOS_REGISTER_OBJ(...) \
-    GET_MACRO(__VA_ARGS__, GALAPAGOS_REGISTER_OBJ__4ARGS, GALAPAGOS_REGISTER_OBJ__3ARGS)(__VA_ARGS__)
+    GET_MACRO(__VA_ARGS__, GALAPAGOS_REGISTER_OBJ__4, GALAPAGOS_REGISTER_OBJ__3)(__VA_ARGS__)
 
+#endif
 // endregion
 
 // TODO: this is a windows method for loading assembly functions. need a posix implementation.

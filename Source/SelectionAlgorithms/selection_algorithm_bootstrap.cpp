@@ -9,9 +9,5 @@
 GALAPAGOS_BOOTSTRAP(genetic_factory*& factory) {
     stochastic_internal& stochastic_instance = stochastic_internal::get_instance();
 
-    factory->register_selection_algorithm(std::type_index(typeid(tournament_selection_metadata)),
-            [&stochastic_instance](selection_algorithm_metadata_ptr metadata) {
-                const auto& dynamic = dynamic_cast<const tournament_selection_metadata&>(metadata);
-                return new tournament_selection(dynamic, stochastic_instance);
-    }, [](selection_algorithm* selection_algorithm) { delete selection_algorithm; });
+    GALAPAGOS_REGISTER_OBJ(factory, selection_algorithm, tournament_selection, stochastic_instance);
 }
