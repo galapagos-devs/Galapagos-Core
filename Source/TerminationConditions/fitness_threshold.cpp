@@ -4,5 +4,5 @@
 
 bool fitness_threshold::invoke(const std::shared_ptr<const population>& population) const {
     const std::shared_ptr<creature> optimal_creature = population->get_optimal_creature();
-    return optimal_creature->get_fitness() >= _metadata.fitness_threshold;
+    return optimal_creature->get_fitness() >= _metadata->fitness_threshold;
 }

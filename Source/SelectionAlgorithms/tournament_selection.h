@@ -11,11 +11,11 @@
 
 class tournament_selection : public selection_algorithm {
 private:
-    const tournament_selection_metadata& _metadata;
+    tournament_selection_metadata_ptr _metadata;
     stochastic& _stochastic_instance;
 
 public:
-  inline tournament_selection(const tournament_selection_metadata& metadata, stochastic& stochastic_instance) :
+  inline tournament_selection(tournament_selection_metadata_ptr metadata, stochastic& stochastic_instance) :
           _metadata{metadata}, _stochastic_instance{stochastic_instance} {}
 
   [[nodiscard]] std::shared_ptr<creature> invoke(const std::shared_ptr<const population>& population) const override;

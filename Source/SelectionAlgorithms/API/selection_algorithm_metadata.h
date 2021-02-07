@@ -10,5 +10,6 @@ struct tournament_selection_metadata : selection_algorithm_metadata {
             size_t tournament_size) :
                 tournament_size{tournament_size} {}
 };
+MAKE_METADATA_POINTER_ALIAS(tournament_selection_metadata);
 
 #endif /* _SELECTION_ALGORITHM_METADATA_H_ */

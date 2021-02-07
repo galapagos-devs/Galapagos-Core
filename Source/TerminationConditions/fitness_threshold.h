@@ -11,10 +11,10 @@
 
 class fitness_threshold : public termination_condition {
 private:
-    const fitness_threshold_metadata& _metadata;
+    fitness_threshold_metadata_ptr _metadata;
 
 public:
-    explicit fitness_threshold(const fitness_threshold_metadata& metadata) :
+    explicit fitness_threshold(fitness_threshold_metadata_ptr metadata) :
         _metadata{metadata} {}
 
     [[nodiscard]] bool invoke(const std::shared_ptr<const population>& population) const override;
