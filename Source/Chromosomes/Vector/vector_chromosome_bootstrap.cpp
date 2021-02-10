@@ -18,5 +18,4 @@ GALAPAGOS_BOOTSTRAP(genetic_factory*& factory) {
     GALAPAGOS_REGISTER_OBJ(factory, crossover, kpoint_crossover, stochastic_instance);
     GALAPAGOS_REGISTER_OBJ(factory, mutation, gaussian_mutation, stochastic_instance);
     GALAPAGOS_REGISTER_OBJ(factory, mutation, randomization_mutation, stochastic_instance);
-
 }

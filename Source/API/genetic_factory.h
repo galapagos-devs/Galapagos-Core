@@ -134,7 +134,7 @@ private:
     template<class TObj, class TMetadata, class TCreate, class TDelete>
     inline std::shared_ptr<TObj> _create_obj(std::map<std::type_index, std::tuple<TCreate, TDelete>>& registry,
                                             const TMetadata& metadata) {
-        auto registration = registry[std::type_index(typeid(metadata))];
+        auto registration = registry[std::type_index(typeid(*metadata))]; // dereference because can't use smrt pointer as type index
         auto create_obj = std::get<0>(registration);
         auto delete_obj = std::get<1>(registration);
         return std::shared_ptr<TObj>(create_obj(metadata), delete_obj);
