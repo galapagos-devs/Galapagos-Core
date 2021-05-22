@@ -2,8 +2,8 @@
 #define _CREATURE_INTERNAL_H_
 
 #include <string>
-#include <vector>
 #include <functional>
+#include <memory>
 
 #include "API/creature.h"
 #include "API/chromosome.h"
@@ -13,33 +13,27 @@
 #include "API/stochastic.h"
 
 template <class TOperator, class TMetadata>
-using create_genetic_operator_a = std::function<TOperator*(TMetadata* metadata)>;
+using create_genetic_operator_a = std::function< std::shared_ptr<TOperator>(std::shared_ptr<const TMetadata>) >;
 
-class creature_internal : creature {
-
+class creature_internal : public creature {
 private:
-    creature_metadata* _creature_metadata;
-    stochastic* _stochastic_instance;
+    creature_metadata_ptr _metadata;
+    stochastic& _stochastic_instance;
 
 public:
-    creature_internal(creature_metadata* creature_metadata, stochastic* stochastic_instance);
-
-    ~creature_internal() override;
+    creature_internal(creature_metadata_ptr metadata, stochastic& stochastic_instance);
 
     double get_fitness() override;
 
-    creature_internal* breed_with(creature_internal* mate);
+    [[nodiscard]] std::shared_ptr<creature> breed_with(const std::shared_ptr<const creature>& mate) const override;
 
 private:
-    // Templated function for _get_crossover and _get_mutation.
+    // Templated function for _select_crossover and _select_mutation.
     template <class TOperator, class TMetadata>
-    TOperator* _get_genetic_operator(TMetadata** operator_metadata, size_t num_operators,
-        create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator);
-
-    crossover* _get_crossover(crossover_metadata** metadata, size_t num_crossovers);
-    mutation* _get_mutation(mutation_metadata** metadata, size_t num_mutations);
-
-    void _set_chromosome(std::string name, chromosome* new_chromosome);
+    std::shared_ptr<TOperator> _select_genetic_operator(std::vector<std::shared_ptr<const TMetadata>> operator_metadata,
+                                        create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator) const;
+    [[nodiscard]] std::shared_ptr<crossover> _select_crossover(const std::vector<crossover_metadata_ptr>& crossover_metadata) const;
+    [[nodiscard]] std::shared_ptr<mutation> _select_mutation(const std::vector<mutation_metadata_ptr>& mutation_metadata) const;
 };
 
 #endif /* _CREATURE_INTERNAL_H_ */

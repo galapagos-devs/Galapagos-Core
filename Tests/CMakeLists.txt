@@ -1,4 +1,4 @@
-include(CTest)
+enable_testing()
 include(../External/Catch/Catch.cmake)
 
 add_subdirectory(Integration)

@@ -1,17 +1,13 @@
-#include "../API/galapagos.h"
-#include "../galapagos_assemblies.h"
+#include <typeindex>
 
+#include "../API/galapagos.h"
+#include "../API/genetic_factory.h"
+
+#include "../stochastic_internal.h"
 #include "tournament_selection.h"
 
-GALAPAGOS_API void gc_bootstrap(gc_core* core) {
-    stochastic* stochastic_instance = core->get_stochastic();
+GALAPAGOS_BOOTSTRAP(genetic_factory*& factory) {
+    stochastic_internal& stochastic_instance = stochastic_internal::get_instance();
 
-    core->register_selection_algorithm([stochastic_instance](selection_algorithm_metadata *metadata, selection_algorithm*& selection_algorithm) {
-        auto *dynamic = dynamic_cast<tournament_selection_metadata *>(metadata);
-        if (dynamic != nullptr) {
-            selection_algorithm = new tournament_selection(stochastic_instance, dynamic);
-            return true;
-        }
-        return false;
-    });
+    GALAPAGOS_REGISTER_OBJ(factory, selection_algorithm, tournament_selection, stochastic_instance);
 }

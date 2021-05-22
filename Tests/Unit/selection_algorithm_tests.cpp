@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "../../Source/API/galapagos.h"
 #include "../../Source/API/creature.h"
 #include "../../Source/SelectionAlgorithms/tournament_selection.h"
@@ -13,31 +15,27 @@ TEST_CASE( "tournament-selection invoked", "[unit][selection-algorithm][tourname
 
   Mock<stochastic> stochastic_mock;
   When(OverloadedMethod(stochastic_mock, rand_int, int(int))).Return(0,0,1);
-  stochastic* mocked_stochastic = &stochastic_mock.get();
+  stochastic& mocked_stochastic = stochastic_mock.get();
 
   Mock<creature> creature_mock0;
   When(Method(creature_mock0, get_fitness)).AlwaysReturn(1);
-  creature* mocked_creature0 = &creature_mock0.get();
+  std::shared_ptr<creature> mocked_creature0(&creature_mock0.get(), [](creature*){});
 
   Mock<creature> creature_mock1;
   When(Method(creature_mock1, get_fitness)).AlwaysReturn(2);
-  creature* mocked_creature1 = &creature_mock1.get();
+  std::shared_ptr<creature> mocked_creature1(&creature_mock1.get(), [](creature*){});
 
   Mock<population> population_mock;
   When(Method(population_mock, get_size)).AlwaysReturn(2);
   When(Method(population_mock, get_creature)).AlwaysDo([mocked_creature0, mocked_creature1](int i) {
     return i == 0 ? mocked_creature0 : mocked_creature1;
   });
-  population* mocked_population = &population_mock.get();
+  std::shared_ptr<population> mocked_population(&population_mock.get(), [](population*){});
 
-  tournament_selection_metadata* selection_algorithm_metadata = new tournament_selection_metadata();
-  selection_algorithm_metadata->tournament_size = test_tournament_size;
-
-  tournament_selection selection_algorithm(mocked_stochastic, selection_algorithm_metadata);
-  creature* selected_creature = selection_algorithm.invoke(mocked_population);
-  creature* desired_creature = mocked_population->get_creature(desired_creature_index);
+  auto selection_algorithm_metadata = tournament_selection_metadata_ptr(new tournament_selection_metadata{test_tournament_size});
+  tournament_selection selection_algorithm(selection_algorithm_metadata, mocked_stochastic);
+  auto selected_creature = selection_algorithm.invoke(mocked_population);
+  auto desired_creature = mocked_population->get_creature(desired_creature_index);
 
   REQUIRE(selected_creature == desired_creature);
-
-  delete selection_algorithm_metadata;
 }

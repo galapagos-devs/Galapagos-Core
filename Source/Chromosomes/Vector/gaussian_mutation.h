@@ -1,30 +1,26 @@
 #ifndef _GAUSSIAN_MUTATION_H_
 #define _GAUSSIAN_MUTATION_H_
 
-#include "../../API/galapagos_metadata.h"
-#include "../../API/stochastic.h"
-#include "../mutation_internal.h"
-#include "vector_chromosome.h"
+#include <memory>
 
-struct gaussian_mutation_metadata : mutation_metadata {
-    double mean;
-    double standard_deviation;
-};
+#include "../../API/stochastic.h"
+
+#include "API/vector_chromosome_metadata.h"
+#include "API/vector_chromosome.h"
+
+#include "../mutation_internal.h"
 
 class gaussian_mutation : public mutation_internal<vector_chromosome> {
 private:
-    double _mean;
-    double _standard_deviation;
-
-    stochastic* _stochastic_instance;
-
-protected:
-    chromosome* invoke(vector_chromosome* chromosome) override;
+    gaussian_mutation_metadata_ptr _metadata;
+    stochastic& _stochastic_instance;
 
 public:
-    explicit  gaussian_mutation(gaussian_mutation_metadata* metadata, stochastic* stochastic_instance);
+    inline explicit gaussian_mutation(gaussian_mutation_metadata_ptr metadata, stochastic& stochastic_instance) :
+            _metadata{metadata}, _stochastic_instance{stochastic_instance}, mutation_internal{metadata} {}
 
-    ~gaussian_mutation() /*override*/;
+protected:
+    [[nodiscard]] std::shared_ptr<chromosome> invoke(const std::shared_ptr<const vector_chromosome>& chromosome) const override;
 };
 
 #endif /* _GAUSSIAN_MUTATION_H_ */
