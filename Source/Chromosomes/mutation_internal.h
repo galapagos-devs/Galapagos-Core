@@ -1,33 +1,26 @@
-#ifndef _GALAPAGOS_MUTATION_INTERNAL_H_
-#define _GALAPAGOS_MUTATION_INTERNAL_H_
+#ifndef _MUTATION_INTERNAL_H_
+#define _MUTATION_INTERNAL_H_
 
 #include <stdexcept>
+#include <memory>
 
 #include "../API/mutation.h"
 
 template <class TChromosome>
 class mutation_internal : public mutation {
-private:
-    double _weight = 1;
-
 public:
-    inline mutation_internal(const mutation_metadata* mutation_metadata) {
-        _weight = mutation_metadata->weight;
-    }
+    inline mutation_internal(mutation_metadata_ptr metadata) :
+        mutation{metadata} {}
 
-    inline double get_weight() const override {
-        return  _weight;
-    };
-
-    inline chromosome* invoke(const chromosome* const chromosome) const override {
-        const auto* const dynamic = dynamic_cast<const TChromosome* const>(chromosome);
+    inline std::shared_ptr<chromosome> invoke(const std::shared_ptr<const chromosome>& chromosome) const override {
+        const auto dynamic = std::dynamic_pointer_cast<const TChromosome>(chromosome);
         if(dynamic == nullptr)
             throw std::runtime_error("mutation::invoke mismatched types");
         return invoke(dynamic);
     }
 
 protected:
-    virtual chromosome* invoke(const TChromosome* const chromosome) const = 0;
+    virtual std::shared_ptr<chromosome> invoke(const std::shared_ptr<const TChromosome>& chromosome) const = 0;
 };
 
-#endif /* _GALAPAGOS_MUTATION_INTERNAL_H_ */
+#endif /* _MUTATION_INTERNAL_H_ */

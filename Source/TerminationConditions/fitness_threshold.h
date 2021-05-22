@@ -2,27 +2,22 @@
 #define _FITNESS_THRESHOLD_H_
 
 #include <cstdint>
+#include <memory>
 
 #include "../API/galapagos.h"
 #include "../API/termination_condition.h"
 
-struct fitness_threshold_metadata : termination_condition_metadata {
-    const size_t fitness_threshold;
-
-    explicit fitness_threshold_metadata(const size_t fitness_threshold) : fitness_threshold{fitness_threshold} {}
-};
+#include "API/termination_condition_metadata.h"
 
 class fitness_threshold : public termination_condition {
 private:
-    const fitness_threshold_metadata* const _metadata;
+    fitness_threshold_metadata_ptr _metadata;
 
 public:
-    explicit fitness_threshold(const fitness_threshold_metadata* const metadata) :
-            _metadata{metadata} {}
-    ~fitness_threshold() override = default;
+    explicit fitness_threshold(fitness_threshold_metadata_ptr metadata) :
+        _metadata{metadata} {}
 
-    bool operator()(const population* const population) const override;
-    bool invoke(const population* const population) const override;
+    [[nodiscard]] bool invoke(const std::shared_ptr<const population>& population) const override;
 };
 
 #endif /* _FITNESS_THRESHOLD_H_ */

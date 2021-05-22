@@ -1,15 +1,10 @@
+#include <typeindex>
+
 #include "../API/galapagos.h"
-#include "../galapagos_assemblies.h"
+#include "../API/genetic_factory.h"
 
 #include "fitness_threshold.h"
 
-GALAPAGOS_API void gc_bootstrap(gc_core* core) {
-    core->register_termination_condition([](const termination_condition_metadata *metadata, termination_condition*& termination_condition) {
-        auto *dynamic = dynamic_cast<const fitness_threshold_metadata *>(metadata);
-        if (dynamic != nullptr) {
-            termination_condition = new fitness_threshold(dynamic);
-            return true;
-        }
-        return false;
-    });
+GALAPAGOS_BOOTSTRAP(genetic_factory*& factory) {
+    GALAPAGOS_REGISTER_OBJ(factory, termination_condition, fitness_threshold);
 }

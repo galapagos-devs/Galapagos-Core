@@ -1,61 +1,52 @@
+#include <vector>
+
 #include "API/stochastic.h"
 
 #include "creature_internal.h"
-#include "genetic_factory.h"
+#include "API/genetic_factory.h"
 
 // Constructor/Destructor
-creature_internal::creature_internal(const creature_metadata creature_metadata, stochastic* stochastic_instance) :
-    _creature_metadata{creature_metadata}, _stochastic_instance{stochastic_instance} {
-
-
+creature_internal::creature_internal(creature_metadata_ptr metadata, stochastic& stochastic_instance) :
+        _metadata{metadata}, _stochastic_instance{stochastic_instance} {
     genetic_factory& factory = genetic_factory::get_instance();
-    for(auto chromosome_metadatum : _creature_metadata.chromosome_metadata)
+    for(const auto& chromosome_metadatum : _metadata->chromosome_metadata)
         _chromosomes[chromosome_metadatum->name] = factory.create_chromosome(chromosome_metadatum);
-}
-
-creature_internal::~creature_internal() {
-    // Delete all chromosomes
-    for(auto it = _chromosomes.begin(); it != _chromosomes.end(); ++it) {
-        delete it->second;
-    }
 }
 
 // Public methods
 double creature_internal::get_fitness() {
-    return _creature_metadata.fitness_function(this);
+    return _metadata->fitness_function(this);
 }
 
-creature_internal* creature_internal::breed_with(const creature_internal* const mate) const {
-    auto* child = new creature_internal(_creature_metadata, _stochastic_instance);
+std::shared_ptr<creature> creature_internal::breed_with(const std::shared_ptr<const creature>& mate) const {
+    genetic_factory& factory = genetic_factory::get_instance();
+    auto child = factory.create_creature(_metadata);
 
-    //for(size_t i = 0; i < _creature_metadata.num_chromosomes; i++)
-    for(auto chromosome_metadatum : _creature_metadata.chromosome_metadata) {
+    //for(size_t i = 0; i < _metadata.num_chromosomes; i++)
+    for(const auto& chromosome_metadatum : _metadata->chromosome_metadata) {
         std::string chromosome_name = chromosome_metadatum->name;
-        chromosome* child_chromosome;
+        std::shared_ptr<chromosome> child_chromosome;
 
         // Select crossover & mutation proportional to their weight
-        crossover* crossover = _select_crossover(chromosome_metadatum->crossover_metadata);
-        mutation* mutation = _select_mutation(chromosome_metadatum->mutation_metadata);
+        auto crossover = _select_crossover(chromosome_metadatum->crossover_metadata);
+        auto mutation = _select_mutation(chromosome_metadatum->mutation_metadata);
 
-        auto* my_chromosome = get_chromosome<chromosome>(chromosome_name);  // chromosome of this creature
-        auto* mate_chromosome = mate->get_chromosome<chromosome>(chromosome_name);
+        auto x = get_chromosome<chromosome>(chromosome_name);  // chromosome of this creature
+        auto y = mate->get_chromosome<chromosome>(chromosome_name);
+
+        // TODO: mem leak as crossovers and mutations create a new chromosome
 
         // Conditionally apply cross-over
-        if(_stochastic_instance->evaluate_probability(chromosome_metadatum->crossover_rate))
-            child_chromosome = crossover->invoke(my_chromosome, mate_chromosome);
+        if(_stochastic_instance.evaluate_probability(chromosome_metadatum->crossover_rate))
+            child_chromosome = (*crossover)(x, y);
         else
-            child_chromosome = my_chromosome;
+            child_chromosome = x;
 
         // Conditionally apply mutation
-        if(_stochastic_instance->evaluate_probability(chromosome_metadatum->mutation_rate))
-            child_chromosome = mutation->invoke(child_chromosome);
+        if(_stochastic_instance.evaluate_probability(chromosome_metadatum->mutation_rate))
+            child_chromosome = (*mutation)(child_chromosome);
 
-        child->_set_chromosome(chromosome_name, child_chromosome);
-
-        // memory clean up
-        // TODO: virtual destructor?
-        delete crossover;
-        delete mutation;
+        child->set_chromosome(chromosome_name, child_chromosome);
     }
 
     return child;
@@ -63,48 +54,34 @@ creature_internal* creature_internal::breed_with(const creature_internal* const 
 
 // Private methods
 template <class TOperator, class TMetadata>
-TOperator* creature_internal::_select_genetic_operator(const std::vector<const TMetadata*> operator_metadata,
+std::shared_ptr<TOperator> creature_internal::_select_genetic_operator(const std::vector<std::shared_ptr<const TMetadata>> operator_metadata,
                                                        create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator) const {
     auto num_operators = operator_metadata.size();
-    std::vector<TOperator*> genetic_operators;
-    auto* weights = new double[num_operators];
+    std::vector<std::shared_ptr<TOperator>> genetic_operators;
+    std::vector<double> weights;
 
     for(size_t i = 0; i < num_operators; i++) {
         // populate genetic_operators vector
-        TOperator* genetic_operator = create_genetic_operator(operator_metadata[i]);
-        genetic_operators.push_back(genetic_operator);
+        genetic_operators.push_back(create_genetic_operator(operator_metadata[i]));
 
         // populate weights list
-        weights[i] = genetic_operator->get_weight();
+        weights.push_back(genetic_operators[i]->get_weight());
     }
 
-    size_t chosen_index = _stochastic_instance->weight_proportionate_selection(weights, num_operators);
-
-    for(size_t i = 0; i < num_operators; i++) {  // memory clean up
-        if(i != chosen_index)
-            delete genetic_operators[i];
-    }
-
+    size_t chosen_index = _stochastic_instance.weight_proportionate_selection(weights);
     return genetic_operators[chosen_index];
 }
 
-crossover* creature_internal::_select_crossover(const std::vector<const crossover_metadata_t*>& crossover_metadata) const {
+std::shared_ptr<crossover> creature_internal::_select_crossover(const std::vector<crossover_metadata_ptr>& crossover_metadata) const {
     genetic_factory& factory = genetic_factory::get_instance();
-    create_genetic_operator_a<crossover, crossover_metadata_t>  create_crossover = [&factory](const crossover_metadata_t* metadatai) {
-        return factory.create_crossover(metadatai);
-    };
+    create_genetic_operator_a<crossover, crossover_metadata_t> create_crossover =
+            [&factory](crossover_metadata_ptr metadatai) { return factory.create_crossover(metadatai); };
     return _select_genetic_operator<crossover, crossover_metadata_t>(crossover_metadata, create_crossover);
 }
 
-mutation* creature_internal::_select_mutation(const std::vector<const mutation_metadata_t*>& mutation_metadata) const {
+std::shared_ptr<mutation> creature_internal::_select_mutation(const std::vector<mutation_metadata_ptr>& mutation_metadata) const {
     genetic_factory& factory = genetic_factory::get_instance();
-    create_genetic_operator_a<mutation, mutation_metadata_t>  create_mutation = [&factory](const mutation_metadata_t* metadatai) {
-        return factory.create_mutation(metadatai);
-    };
+    create_genetic_operator_a<mutation, mutation_metadata_t> create_mutation =
+            [&factory](mutation_metadata_ptr metadatai) { return factory.create_mutation(metadatai); };
     return _select_genetic_operator<mutation, mutation_metadata_t>(mutation_metadata, create_mutation);
-}
-
-void creature_internal::_set_chromosome(std::string name, chromosome* new_chromosome) {
-    delete _chromosomes[name];
-    _chromosomes[name] = new_chromosome;
 }

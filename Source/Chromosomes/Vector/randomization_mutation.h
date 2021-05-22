@@ -1,34 +1,25 @@
-//
-// Created by kosie on 12/3/2019.
-//
-
 #ifndef _RANDOMIZATION_MUTATION_H_
 #define _RANDOMIZATION_MUTATION_H_
 
-#include "../../API/galapagos_metadata.h"
+#include <memory>
+
 #include "../../API/stochastic.h"
+
+#include "API/vector_chromosome_metadata.h"
+#include "API/vector_chromosome.h"
 
 #include "../mutation_internal.h"
 
-#include "vector_chromosome.h"
-
-struct randomization_mutation_metadata : mutation_metadata {
-    explicit randomization_mutation_metadata(
-            const double weight) :
-                mutation_metadata{weight} {}
-};
-
 class randomization_mutation : public mutation_internal<vector_chromosome> {
 private:
-    stochastic* _stochastic_instance;
-
-protected:
-    chromosome* invoke(const vector_chromosome* const chromosome) const override;
+    stochastic& _stochastic_instance;
 
 public:
-    explicit randomization_mutation(const randomization_mutation_metadata* const metadata, stochastic* stochastic_instance);
+    inline explicit randomization_mutation(randomization_mutation_metadata_ptr metadata, stochastic& stochastic_instance) :
+            mutation_internal{metadata}, _stochastic_instance{stochastic_instance} {}
 
-    ~randomization_mutation() /*override*/;
+protected:
+    [[nodiscard]] std::shared_ptr<chromosome> invoke(const std::shared_ptr<const vector_chromosome>& chromosome) const override;
 
 };
 

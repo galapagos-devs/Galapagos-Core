@@ -2,7 +2,6 @@ if(BUILD_SWIG)
     include(CMakeSwig.cmake)
 endif()
 set(SRCS
-        fitness_threshold.h
         fitness_threshold.cpp)
 
 set(BOOTSTRAP

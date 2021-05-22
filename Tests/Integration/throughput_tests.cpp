@@ -1,23 +1,17 @@
 #include <iostream>
 
 #include "../../Source/API/galapagos.h"
-#include "../../Source/API/galapagos_metadata.h"
-#include "../../Source/galapagos_assemblies.h"
-#include "../../Source/Chromosomes/Vector/vector_chromosome.h"
-#include "../../Source/Chromosomes/Vector/gaussian_mutation.h"
-#include "../../Source/Chromosomes/Vector/randomization_mutation.h"
-#include "../../Source/Chromosomes/Vector/kpoint_crossover.h"
-#include "../../Source/SelectionAlgorithms/tournament_selection.h"
-#include "../../Source/TerminationConditions/fitness_threshold.h"
+#include "../../Source/Chromosomes/Vector/API/vector_chromosome.h"
+#include "../../Source/SelectionAlgorithms/API/selection_algorithm_metadata.h"
+#include "../../Source/TerminationConditions/API/termination_condition_metadata.h"
 
 #include "../catch.hpp"
 
 TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
-
     const std::string chromosome_name = "X";
 
     fitness_func_t fitness_function = [chromosome_name](creature* creature) {
-        auto* X = creature->get_chromosome<vector_chromosome>(chromosome_name);
+        auto X = creature->get_chromosome<vector_chromosome>(chromosome_name);
         return X->get_gene(0) - X->get_gene(1) + X->get_gene(2);
     };
 
@@ -25,38 +19,46 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
         std::cout << "generation: " << entry.generation << " optimal fitness: " << entry.optimal_fitness << std::endl;
     };
 
-    auto* population_metadata1 = new population_metadata(
+    // region Metadata Construction
+
+    auto metadata = POPULATION_METADATA(population_metadata(
             log_function, 25, 0.25, 0, false,
-            {new tournament_selection_metadata(2)},
-            {new fitness_threshold_metadata(1500)},
-            creature_metadata(fitness_function,{
-                    new vector_chromosome_metadata(
-                            chromosome_name,
-                            1, {new kpoint_crossover_metadata(1, 1)},
-                            0.5, {
-                                    new randomization_mutation_metadata(1),
-                                    new gaussian_mutation_metadata(4, 0, 50)
-                            },
-                            1, 3, -500, 500)}
-            )
+            {SELECTION_ALGORITHM_METADATA(tournament_selection_metadata(2))},
+            {TERMINATION_CONDITION_METADATA(fitness_threshold_metadata(15000))},
+            CREATURE_METADATA(creature_metadata(
+                    fitness_function, {
+                            CHROMOSOME_METADATA(vector_chromosome_metadata(
+                                    chromosome_name,
+                                    1, {CROSSOVER_METADATA(kpoint_crossover_metadata(1, 1))},
+                                    0.5, {
+                                            MUTATION_METADATA(randomization_mutation_metadata(1)),
+                                            MUTATION_METADATA(gaussian_mutation_metadata(4, 0, 50))
+                                    },
+                                    1, 3, -5000, 5000)
+                            )
+                    }
+            ))
+    )
     );
+
+
+    // endregion
+
 
     // region Invoke Algorithm Against Metadata
 
-    gc_core lib("Galapagos.dll");
-    lib.initialize();
+    galapagos lib("Galapagos.dll");
+    auto factory = lib.bootstrap();
+    auto population = factory->create_population(metadata);
 
-    population* population1 = lib.create_population(population_metadata1);
-    population1->evolve();
+    population->evolve();
 
-    creature* optimal = population1->get_optimal_creature();
-    auto* X = optimal->get_chromosome<vector_chromosome>(chromosome_name);
+    auto optimal = population->get_optimal_creature();
+    auto X = optimal->get_chromosome<vector_chromosome>(chromosome_name);
     REQUIRE(X->get_gene(0) == X->gene_sup());
     REQUIRE(X->get_gene(1) == X->gene_inf());
     REQUIRE(X->get_gene(2) == X->gene_sup());
 
-    lib.delete_population(population1);
-    lib.reset();
     // endregion
 }
 
