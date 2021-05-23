@@ -1,0 +1,393 @@
+---
+Checks:          'clang-diagnostic-*,clang-analyzer-*'
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+AnalyzeTemporaryDtors: false
+FormatStyle:     file
+User:            Galapagos-Devs
+CheckOptions:
+  # region readability-identifier-naming
+
+  # region AbstractClass
+  - key: readability-identifier-naming.AbstractClassPrefix
+    value: I
+
+  - key: readability-identifier-naming.AbstractClassCase
+    value: CamelCase
+  # endregion
+
+  # region Class
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  # endregion
+
+  # region ClassConst
+  - key: readability-identifier-naming.ClassConstCase
+    value: UPPER_CASE
+  # endregion
+
+  # region ClassMember
+  - key: readability-identifier-naming.ClassMemberPrefix
+    value: _
+
+  - key: readability-identifier-naming.ClassMemberCase
+    value: lower_case
+  # endregion
+
+  # region ClassMethod
+  - key: readability-identifier-naming.ClassMethodCase
+    value: camelBack
+  # endregion
+
+  # region Constant
+  - key: readability-identifier-naming.ConstantCase
+    value: UPPER_CASE
+  # endregion
+
+  # region ConstantMember
+  - key: readability-identifier-naming.ConstantMemberCase
+    value: UPPER_CASE
+  # endregion
+
+  # region ConstantParameter
+  - key: readability-identifier-naming.ConstantParameterCase
+    value: lower_case
+  # endregion
+
+  # region ConstantPointerParameter
+  - key: readability-identifier-naming.ConstantPointerParameterCase
+    value: lower_case
+
+  - key: readability-identifier-naming.ConstantPointerParameterSuffix
+    value: _ptr
+  # endregion
+
+  # region ConstexprFunction
+  - key: readability-identifier-naming.ConstexprFunctionCase
+    value: camelBack
+  # endregion
+
+  # region ConstexprMethod
+  - key: readability-identifier-naming.ConstexprMethodCase
+    value: camelBack
+  # endregion
+
+  # region ConstexprVariable
+  - key: readability-identifier-naming.ConstexprVariableCase
+    value: lower_case
+  # endregion
+
+  # region Enum
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
+  # endregion
+
+  # region EnumConstant
+  - key: readability-identifier-naming.EnumConstantCase
+    value: UPPER_CASE
+  # endregion
+
+  # region Function
+  - key: readability-identifier-naming.FunctionCase
+    value: camelBack
+  # endregion
+
+  # region GlobalConstant
+  - key: readability-identifier-naming.GlobalConstantPrefix
+    value: G_
+
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: UPPER_CASE
+  # endregion
+
+  # region GlobalConstantPointer
+  - key: readability-identifier-naming.GlobalConstantPointerPrefix
+    value: G_
+
+  - key: readability-identifier-naming.GlobalConstantPointerCase
+    value: UPPER_CASE
+
+  - key: readability-identifier-naming.GlobalConstantPointerSuffix
+    value: _ptr
+  # endregion
+
+  # region GlobalFunction
+  - key: readability-identifier-naming.GlobalFunctionPrefix
+    value: G_
+
+  - key: readability-identifier-naming.GlobalFunctionCase
+    value: camelBack
+  # endregion
+
+  # region GlobalPointer
+  - key: readability-identifier-naming.GlobalPointerPrefix
+    value: G_
+
+  - key: readability-identifier-naming.GlobalPointerCase
+    value: lower_case
+
+  - key: readability-identifier-naming.GlobalPointerSuffix
+    value: _ptr
+  # endregion
+
+  # region GlobalVariable
+  - key: readability-identifier-naming.GlobalVariablePrefix
+    value: G_
+
+  - key: readability-identifier-naming.GlobalVariableCase
+    value: lower_case
+  # endregion
+
+  # region InlineNamespace
+  - key: readability-identifier-naming.InlineNamespaceCase
+    value: CamelCase
+  # endregion
+
+  # region LocalConstant
+  - key: readability-identifier-naming.LocalConstantCase
+    value: UPPER_CASE
+  # endregion
+
+  # region LocalConstantPointer
+  - key: readability-identifier-naming.LocalConstantPointerCase
+    value: UPPER_CASE
+
+  - key: readability-identifier-naming.LocalConstantPointerSuffix
+    value: _ptr
+  # endregion
+
+  # region LocalPointer
+  - key: readability-identifier-naming.LocalPointerCase
+    value: lower_case
+
+  - key: readability-identifier-naming.LocalPointerSuffix
+    value: _ptr
+  # endregion
+
+  # region LocalVariable
+  - key: readability-identifier-naming.LocalVariableCase
+    value: lower_case
+  # endregion
+
+  # region MacroDefinition
+  - key: readability-identifier-naming.MacroDefinitionPrefix
+    value: __
+
+  - key: readability-identifier-naming.MacroDefinitionCase
+    value: UPPER_CASE
+
+  - key: readability-identifier-naming.MacroDefinitionCaseSuffix
+    value: __
+  # endregion
+
+  # region Member
+  - key: readability-identifier-naming.MemberPrefix
+    value: _
+
+  - key: readability-identifier-naming.MemberCase
+    value: lower_case
+  # endregion
+
+  # region Method
+  - key: readability-identifier-naming.MethodCase
+    value: camelBack
+  # endregion
+
+  # region Namespace
+  - key: readability-identifier-naming.NamespaceCase
+    value: CamelCase
+  # endregion
+
+  # region Parameter
+  - key: readability-identifier-naming.ParameterCase
+    value: lower_case
+  # endregion
+
+  # region ParameterPack
+  - key: readability-identifier-naming.ParameterPackCase
+    value: lower_case
+  # endregion
+
+  # region PointerParameter
+  - key: readability-identifier-naming.PointerParameterCase
+    value: lower_case
+
+  - key: readability-identifier-naming.PointerParameterSuffix
+    value: _ptr
+  # endregion
+
+  # region PrivateMember
+  - key: readability-identifier-naming.PrivateMemberPrefix
+    value: _
+
+  - key: readability-identifier-naming.PrivateMemberCase
+    value: lower_case
+  # endregion
+
+  # region PrivateMethod
+  - key: readability-identifier-naming.PrivateMethodPrefix
+    value: _
+
+  - key: readability-identifier-naming.PrivateMethodCase
+    value: camelBack
+  # endregion
+
+  # region ProtectedMember
+  - key: readability-identifier-naming.ProtectedMemberPrefix
+    value: _
+
+  - key: readability-identifier-naming.ProtectedMemberCase
+    value: lower_case
+  # endregion
+
+  # region ProtectedMethod
+  - key: readability-identifier-naming.ProtectedMethodPrefix
+    value: _
+
+  - key: readability-identifier-naming.ProtectedMethodCase
+    value: camelBack
+  # endregion
+
+  # region PublicMember
+  - key: readability-identifier-naming.PublicMemberCase
+    value: lower_case
+  # endregion
+
+  # region PublicMethod
+  - key: readability-identifier-naming.PublicMethodCase
+    value: camelBack
+  # endregion
+
+  # region ScopedEnumConstant
+  - key: readability-identifier-naming.ScopedEnumConstantCase
+    value: UPPER_CASE
+  # endregion
+
+  # region StaticConstant
+  - key: readability-identifier-naming.StaticConstantPrefix
+    value: S_
+
+  - key: readability-identifier-naming.StaticConstantCase
+    value: UPPER_CASE
+  # endregion
+
+  # region StaticVariable
+  - key: readability-identifier-naming.StaticVariablePrefix
+    value: S_
+
+  - key: readability-identifier-naming.StaticVariableCase
+    value: lower_case
+  # endregion
+
+  # region Struct
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+  # endregion
+
+  # region TemplateParameter
+  - key: readability-identifier-naming.TemplateParameterPrefix
+    value: T
+
+  - key: readability-identifier-naming.TemplateParameterCase
+    value: CamelCase
+  # endregion
+
+  # region TemplateTemplateParameter
+  - key: readability-identifier-naming.TemplateTemplateParameterPrefix
+    value: TT
+
+  - key: readability-identifier-naming.TemplateTemplateParameterCase
+    value: CamelCase
+  # endregion
+
+  # region TypeAlias
+  - key: readability-identifier-naming.TypeAliasCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.TypeAliasSuffix
+    value: _t
+  # endregion
+
+  # region Typedef
+  - key: readability-identifier-naming.TypedefCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.TypedefSuffix
+    value: _t
+  # endregion
+
+  # region TypeTemplateParameter (WHAT IS THIS)
+  - key: readability-identifier-naming.TypeTemplateParameterPrefix
+    value: TypeT
+
+  - key: readability-identifier-naming.TypeTemplateParameterCase
+    value: CamelCase
+  # endregion
+
+  # region Union
+  - key: readability-identifier-naming.UnionCase
+    value: CamelCase
+  # endregion
+
+  # region ValueTemplateParameter (WHAT IS THIS)
+  - key: readability-identifier-naming.ValueTemplateParameterPrefix
+    value: ValueT
+
+  - key: readability-identifier-naming.ValueTemplateParameterCase
+    value: CamelCase
+  # endregion
+
+  # region Variable
+  - key: readability-identifier-naming.VariableCase
+    value: lower_case
+  # endregion
+
+  # region VirtualMethod
+  - key: readability-identifier-naming.VirtualMethodCase
+    value: camelBack
+  # endregion
+
+  # endregion
+
+  # region Default Clang Checks
+
+  - key:             cert-dcl16-c.NewSuffixes
+    value:           'L;LL;LU;LLU'
+  - key:             cert-oop54-cpp.WarnOnlyIfThisHasSuspiciousField
+    value:           '0'
+  - key:             cert-str34-c.DiagnoseSignedUnsignedCharComparisons
+    value:           '0'
+  - key:             cppcoreguidelines-explicit-virtual-functions.IgnoreDestructors
+    value:           '1'
+  - key:             cppcoreguidelines-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
+    value:           '1'
+  - key:             google-readability-braces-around-statements.ShortStatementLines
+    value:           '1'
+  - key:             google-readability-function-size.StatementThreshold
+    value:           '800'
+  - key:             google-readability-namespace-comments.ShortNamespaceLines
+    value:           '10'
+  - key:             google-readability-namespace-comments.SpacesBeforeComments
+    value:           '2'
+  - key:             llvm-else-after-return.WarnOnConditionVariables
+    value:           '0'
+  - key:             llvm-else-after-return.WarnOnUnfixable
+    value:           '0'
+  - key:             llvm-qualified-auto.AddConstToQualified
+    value:           '0'
+  - key:             modernize-loop-convert.MaxCopySize
+    value:           '16'
+  - key:             modernize-loop-convert.MinConfidence
+    value:           reasonable
+  - key:             modernize-loop-convert.NamingStyle
+    value:           CamelCase
+  - key:             modernize-pass-by-value.IncludeStyle
+    value:           llvm
+  - key:             modernize-replace-auto-ptr.IncludeStyle
+    value:           llvm
+  - key:             modernize-use-nullptr.NullMacros
+    value:           'NULL'
+
+  # endregion
+...
+
