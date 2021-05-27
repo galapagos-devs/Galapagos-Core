@@ -6,6 +6,30 @@ AnalyzeTemporaryDtors: false
 FormatStyle:     file
 User:            Galapagos-Devs
 CheckOptions:
+  # region performance-inefficient-string-concatentation
+
+  - key: performance-inefficient-string-concatentation.StrictMode
+    value: true
+
+  # endregion
+
+  # region performance-inefficient-algorithm
+
+  - key: performance-inefficient-algorithm
+    value: true
+
+  # endregion
+
+  # region performance-inefficient-vector-operation
+
+  - key: performance-inefficient-vector-operation.VectorLikeClasses
+    value: true
+
+  - key: performance-inefficeient-vector-operation.EnableProto
+    value: true
+
+  # endregion
+
   # region readability-identifier-naming
 
   # region AbstractClass
@@ -346,6 +370,83 @@ CheckOptions:
   - key: readability-identifier-naming.VirtualMethodCase
     value: camelBack
   # endregion
+
+  # endregion
+
+  # region readability-function-size
+
+    # TUNING needed
+
+  - key: readability-function-size.LineThreshold
+    value: 20
+
+  - key: readability-function-size.BranchThreshold
+    value: 5
+
+  - key: readability-function-size.ParameterThreshold
+    value: 6
+
+  - key: readability-function-size.NestingThreshold
+    value: 3
+
+  - key: readability-function-size.VariableThreshold
+    value: 20
+
+  # endregion
+
+  # region readability-non-const-parameter
+
+  - key: readability-non-const-parameter
+    value: true
+
+  # endregion
+
+  # region readability-misplaced-array-index
+
+  - key: readability-misplaced-array-index
+    value: true
+
+  # endregion
+
+  # region readability-redundant-control-flow
+
+  - key: readability-redundant-control-flow
+    value: true
+
+  # endregion
+
+  # region readability-magic-numbers
+
+  - key: readability-magic-numbers
+    value: true
+
+  # endregion
+
+  # region readability-delete-null-pointer
+
+  - key: readability-delete-null-pointer
+    value: true
+
+  # endregion
+
+  # region readability-redundant-declaration
+
+  - key: readability-redundant-declaration
+    value: true
+
+  # endregion
+
+  # region readability-convert-member-functions-to-static
+
+  - key: readability-convert-member-functions-to-static
+    value: true
+
+  # endregion
+
+  # region readability-static-accessed-through-instance
+
+  - key: readability-static-accessed-through-instance
+    value: true
 
   # endregion
 
