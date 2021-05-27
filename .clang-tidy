@@ -6,6 +6,34 @@ AnalyzeTemporaryDtors: false
 FormatStyle:     file
 User:            Galapagos-Devs
 CheckOptions:
+  # region modernize-avoid-c-arrays
+
+  - key: modernize-avoid-c-arrays
+    value: true
+
+  # endregion
+
+  # region modernize-concat-nested-namespaces
+
+  - key: modernize-concat-nested-namespaces
+    value: true
+
+  # endregion
+
+  # region modernize-deprecated-headers
+
+  - key: modernize-deprecated-headers
+    value: true
+
+  # endregion
+
+  # region modernize-deprecated-ios-base-aliases
+
+  - key: modernize-deprecated-ios-base-aliases
+    value: true
+
+  # endregion
+
   # region performance-inefficient-string-concatentation
 
   - key: performance-inefficient-string-concatentation.StrictMode
