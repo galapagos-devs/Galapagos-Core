@@ -1,11 +1,12 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*'
+Checks:          'modernize-*,performance-*,readability-*' # 'clang-diagnostic-*,clang-analyzer-*'
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false
 FormatStyle:     file
 User:            Galapagos-Devs
 CheckOptions:
+  # region modernize-
   # region modernize-avoid-c-arrays
 
   - key: modernize-avoid-c-arrays
@@ -33,7 +34,9 @@ CheckOptions:
     value: true
 
   # endregion
+  # endregion
 
+  # region performance-
   # region performance-inefficient-string-concatentation
 
   - key: performance-inefficient-string-concatentation.StrictMode
@@ -57,7 +60,9 @@ CheckOptions:
     value: true
 
   # endregion
+  # endregion
 
+  # region readability-
   # region readability-identifier-naming
 
   # region AbstractClass
@@ -422,6 +427,8 @@ CheckOptions:
 
   # endregion
 
+  # endregion
+
   # region readability-non-const-parameter
 
   - key: readability-non-const-parameter
@@ -476,6 +483,7 @@ CheckOptions:
   - key: readability-static-accessed-through-instance
     value: true
 
+  # endregion
   # endregion
 
   # region Default Clang Checks
