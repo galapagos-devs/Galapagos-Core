@@ -114,7 +114,7 @@ PenaltyExcessCharacter: 1000000
 PenaltyReturnTypeOnItsOwnLine: 60
 #PointerAlignment: Right
 ReflowComments:  true  # MAYBE
-SortIncludes:    CaseInsensitive  # TUNING NEEDED
+SortIncludes: false  # TUNING NEEDED
 #SortUsingDeclarations: true
 #SpaceAfterCStyleCast: false
 #SpaceAfterLogicalNot: false
