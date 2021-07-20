@@ -143,7 +143,7 @@ auto vector_chromosome::cross(const std::vector<std::shared_ptr<vector_chromosom
 //endregion
 
 // TODO: better way to expose this with swig
-auto gc_get_vector_chromosome(std::shared_ptr<creature> creature, const std::string& name) -> std::shared_ptr<vector_chromosome> {
+auto gc_get_vector_chromosome(const std::shared_ptr<creature>& creature, const std::string& name) -> std::shared_ptr<vector_chromosome> {
     return creature->get_chromosome<vector_chromosome>(name);
 }
 

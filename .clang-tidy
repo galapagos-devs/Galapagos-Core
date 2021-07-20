@@ -2,7 +2,8 @@
 # 'clang-diagnostic-*,clang-analyzer-*'
 Checks: >-
   -*,
-  modernize-*
+  modernize-*,
+  performance-*
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false

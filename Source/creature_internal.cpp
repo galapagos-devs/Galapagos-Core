@@ -76,13 +76,13 @@ auto creature_internal::_select_genetic_operator(const std::vector<std::shared_p
 auto creature_internal::_select_crossover(const std::vector<crossover_metadata_ptr>& crossover_metadata) const -> std::shared_ptr<crossover> {
     genetic_factory& factory = genetic_factory::get_instance();
     create_genetic_operator_a<crossover, crossover_metadata_t> create_crossover =
-            [&factory](crossover_metadata_ptr metadatai) { return factory.create_crossover(metadatai); };
+            [&factory](crossover_metadata_ptr metadatai) { return factory.create_crossover(std::move(metadatai)); };
     return _select_genetic_operator<crossover, crossover_metadata_t>(crossover_metadata, create_crossover);
 }
 
 auto creature_internal::_select_mutation(const std::vector<mutation_metadata_ptr>& mutation_metadata) const -> std::shared_ptr<mutation> {
     genetic_factory& factory = genetic_factory::get_instance();
     create_genetic_operator_a<mutation, mutation_metadata_t> create_mutation =
-            [&factory](mutation_metadata_ptr metadatai) { return factory.create_mutation(metadatai); };
+            [&factory](mutation_metadata_ptr metadatai) { return factory.create_mutation(std::move(metadatai)); };
     return _select_genetic_operator<mutation, mutation_metadata_t>(mutation_metadata, create_mutation);
 }

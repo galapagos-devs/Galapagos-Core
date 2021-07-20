@@ -387,21 +387,21 @@
 - [ ] objc-super-self
 - [ ] openmp-exception-escape
 - [ ] openmp-use-default-none
-- [ ] performance-faster-string-find
-- [ ] performance-for-range-copy
-- [ ] performance-implicit-conversion-in-loop
-- [ ] performance-inefficient-algorithm
-- [ ] performance-inefficient-string-concatenation
-- [ ] performance-inefficient-vector-operation
-- [ ] performance-move-const-arg
-- [ ] performance-move-constructor-init
-- [ ] performance-no-automatic-move
-- [ ] performance-no-int-to-ptr
-- [ ] performance-noexcept-move-constructor
-- [ ] performance-trivially-destructible
-- [ ] performance-type-promotion-in-math-fn
-- [ ] performance-unnecessary-copy-initialization
-- [ ] performance-unnecessary-value-param
+- [x] performance-faster-string-find
+- [x] performance-for-range-copy
+- [x] performance-implicit-conversion-in-loop
+- [x] performance-inefficient-algorithm
+- [x] performance-inefficient-string-concatenation
+- [x] performance-inefficient-vector-operation
+- [x] performance-move-const-arg
+- [x] performance-move-constructor-init
+- [x] performance-no-automatic-move
+- [x] performance-no-int-to-ptr
+- [x] performance-noexcept-move-constructor
+- [x] performance-trivially-destructible
+- [x] performance-type-promotion-in-math-fn
+- [x] performance-unnecessary-copy-initialization
+- [x] performance-unnecessary-value-param
 - [ ] portability-restrict-system-includes
 - [ ] portability-simd-intrinsics
 - [ ] readability-avoid-const-params-in-decls

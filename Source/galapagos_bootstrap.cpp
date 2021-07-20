@@ -1,4 +1,5 @@
 #include <typeindex>
+#include <utility>
 
 #include "API/galapagos.h"
 #include "API/genetic_factory.h"
@@ -13,11 +14,11 @@ GALAPAGOS_BOOTSTRAP(genetic_factory*& factory) {
     // TODO: Figure out how to incorporate these registerations into the `GALAPAGOS_REGISTER_OBJ` macro.
     factory->register_population(std::type_index(typeid(population_metadata)),
             [&stochastic_instance](population_metadata_ptr metadata) {
-        return new population_internal(metadata, stochastic_instance);
+        return new population_internal(std::move(metadata), stochastic_instance);
     }, [](population* population) { delete population; });
 
     factory->register_creature(std::type_index(typeid(creature_metadata)),
             [&stochastic_instance](creature_metadata_ptr metadata) {
-        return new creature_internal(metadata, stochastic_instance);
+        return new creature_internal(std::move(metadata), stochastic_instance);
     }, [](creature* creature) { delete creature; });
 }

@@ -9,7 +9,7 @@
 
 //region Public Members
 
-population_internal::population_internal(population_metadata_ptr metadata, stochastic& stochastic_instance) :
+population_internal::population_internal(const population_metadata_ptr& metadata, stochastic& stochastic_instance) :
         _metadata{metadata}, _stochastic_instance{stochastic_instance} {
     _this = std::shared_ptr<population_internal>(this, [](population_internal*){});
 
@@ -81,7 +81,7 @@ auto population_internal::_elitism(std::vector<std::shared_ptr<creature>>& new_g
 }
 
 // Breeds population_size - surviving_creature_count, new creates from the current population.
-void population_internal::_breed_new_generation(std::vector<std::shared_ptr<creature>>& new_generation, size_t surviving_creature_count, std::shared_ptr<selection_algorithm> selection_algorithm) {
+void population_internal::_breed_new_generation(std::vector<std::shared_ptr<creature>>& new_generation, size_t surviving_creature_count, const std::shared_ptr<selection_algorithm>& selection_algorithm) {
     size_t population_size = get_size();
 
     for (size_t i = surviving_creature_count; i < population_size; i++) {
