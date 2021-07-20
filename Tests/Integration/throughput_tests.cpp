@@ -48,7 +48,7 @@ TEST_CASE("simple equation solved", "[integration][vector-chromosome]") {
     // region Invoke Algorithm Against Metadata
 
     galapagos lib("Galapagos.dll");
-    auto factory = lib.bootstrap();
+    auto *factory = lib.bootstrap();
     auto population = factory->create_population(metadata);
 
     population->evolve();

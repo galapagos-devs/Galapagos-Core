@@ -3,7 +3,11 @@
 Checks: >-
   -*,
   modernize-*,
-  performance-*
+  performance-*,
+  readability-*,
+  -readability-braces-around-statements,
+  -readability-identifier-naming,
+  -readability-named-parameter
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false

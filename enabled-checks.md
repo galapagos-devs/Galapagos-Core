@@ -404,42 +404,42 @@
 - [x] performance-unnecessary-value-param
 - [ ] portability-restrict-system-includes
 - [ ] portability-simd-intrinsics
-- [ ] readability-avoid-const-params-in-decls
+- [x] readability-avoid-const-params-in-decls
 - [ ] readability-braces-around-statements
-- [ ] readability-const-return-type
-- [ ] readability-container-size-empty
-- [ ] readability-convert-member-functions-to-static
-- [ ] readability-delete-null-pointer
-- [ ] readability-deleted-default
-- [ ] readability-else-after-return
-- [ ] readability-function-cognitive-complexity
-- [ ] readability-function-size
+- [x] readability-const-return-type
+- [x] readability-container-size-empty
+- [x] readability-convert-member-functions-to-static
+- [x] readability-delete-null-pointer
+- [x] readability-deleted-default
+- [x] readability-else-after-return
+- [x] readability-function-cognitive-complexity
+- [x] readability-function-size
 - [ ] readability-identifier-naming
-- [ ] readability-implicit-bool-conversion
-- [ ] readability-inconsistent-declaration-parameter-name
-- [ ] readability-isolate-declaration
-- [ ] readability-magic-numbers
-- [ ] readability-make-member-function-const
-- [ ] readability-misleading-indentation
-- [ ] readability-misplaced-array-index
+- [x] readability-implicit-bool-conversion
+- [x] readability-inconsistent-declaration-parameter-name
+- [x] readability-isolate-declaration
+- [x] readability-magic-numbers
+- [x] readability-make-member-function-const
+- [x] readability-misleading-indentation
+- [x] readability-misplaced-array-index
 - [ ] readability-named-parameter
-- [ ] readability-non-const-parameter
-- [ ] readability-qualified-auto
-- [ ] readability-redundant-access-specifiers
-- [ ] readability-redundant-control-flow
-- [ ] readability-redundant-declaration
-- [ ] readability-redundant-function-ptr-dereference
-- [ ] readability-redundant-member-init
-- [ ] readability-redundant-preprocessor
-- [ ] readability-redundant-smartptr-get
-- [ ] readability-redundant-string-cstr
-- [ ] readability-redundant-string-init
-- [ ] readability-simplify-boolean-expr
-- [ ] readability-simplify-subscript-expr
-- [ ] readability-static-accessed-through-instance
-- [ ] readability-static-definition-in-anonymous-namespace
-- [ ] readability-string-compare
-- [ ] readability-uniqueptr-delete-release
-- [ ] readability-uppercase-literal-suffix
-- [ ] readability-use-anyofallof
+- [x] readability-non-const-parameter
+- [x] readability-qualified-auto
+- [x] readability-redundant-access-specifiers
+- [x] readability-redundant-control-flow
+- [x] readability-redundant-declaration
+- [x] readability-redundant-function-ptr-dereference
+- [x] readability-redundant-member-init
+- [x] readability-redundant-preprocessor
+- [x] readability-redundant-smartptr-get
+- [x] readability-redundant-string-cstr
+- [x] readability-redundant-string-init
+- [x] readability-simplify-boolean-expr
+- [x] readability-simplify-subscript-expr
+- [x] readability-static-accessed-through-instance
+- [x] readability-static-definition-in-anonymous-namespace
+- [x] readability-string-compare
+- [x] readability-uniqueptr-delete-release
+- [x] readability-uppercase-literal-suffix
+- [x] readability-use-anyofallof
 - [ ] zircon-temporary-objects
