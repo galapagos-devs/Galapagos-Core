@@ -345,37 +345,37 @@
 - [ ] misc-unused-alias-decls
 - [ ] misc-unused-parameters
 - [ ] misc-unused-using-decls
-- [ ] modernize-avoid-bind
-- [ ] modernize-avoid-c-arrays
-- [ ] modernize-concat-nested-namespaces
-- [ ] modernize-deprecated-headers
-- [ ] modernize-deprecated-ios-base-aliases
-- [ ] modernize-loop-convert
-- [ ] modernize-make-shared
-- [ ] modernize-make-unique
-- [ ] modernize-pass-by-value
-- [ ] modernize-raw-string-literal
-- [ ] modernize-redundant-void-arg
-- [ ] modernize-replace-auto-ptr
-- [ ] modernize-replace-disallow-copy-and-assign-macro
-- [ ] modernize-replace-random-shuffle
-- [ ] modernize-return-braced-init-list
-- [ ] modernize-shrink-to-fit
-- [ ] modernize-unary-static-assert
-- [ ] modernize-use-auto
-- [ ] modernize-use-bool-literals
-- [ ] modernize-use-default-member-init
-- [ ] modernize-use-emplace
-- [ ] modernize-use-equals-default
-- [ ] modernize-use-equals-delete
-- [ ] modernize-use-nodiscard
-- [ ] modernize-use-noexcept
-- [ ] modernize-use-nullptr
-- [ ] modernize-use-override
-- [ ] modernize-use-trailing-return-type
-- [ ] modernize-use-transparent-functors
-- [ ] modernize-use-uncaught-exceptions
-- [ ] modernize-use-using
+- [x] modernize-avoid-bind
+- [x] modernize-avoid-c-arrays
+- [x] modernize-concat-nested-namespaces
+- [x] modernize-deprecated-headers
+- [x] modernize-deprecated-ios-base-aliases
+- [x] modernize-loop-convert
+- [x] modernize-make-shared
+- [x] modernize-make-unique
+- [x] modernize-pass-by-value
+- [x] modernize-raw-string-literal
+- [x] modernize-redundant-void-arg
+- [x] modernize-replace-auto-ptr
+- [x] modernize-replace-disallow-copy-and-assign-macro
+- [x] modernize-replace-random-shuffle
+- [x] modernize-return-braced-init-list
+- [x] modernize-shrink-to-fit
+- [x] modernize-unary-static-assert
+- [x] modernize-use-auto
+- [x] modernize-use-bool-literals
+- [x] modernize-use-default-member-init
+- [x] modernize-use-emplace
+- [x] modernize-use-equals-default
+- [x] modernize-use-equals-delete
+- [x] modernize-use-nodiscard
+- [x] modernize-use-noexcept
+- [x] modernize-use-nullptr
+- [x] modernize-use-override
+- [x] modernize-use-trailing-return-type
+- [x] modernize-use-transparent-functors
+- [x] modernize-use-uncaught-exceptions
+- [x] modernize-use-using
 - [ ] mpi-buffer-deref
 - [ ] mpi-type-mismatch
 - [ ] objc-avoid-nserror-init

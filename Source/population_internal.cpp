@@ -21,20 +21,20 @@ population_internal::population_internal(population_metadata_ptr metadata, stoch
 }
 
 // Returns the number of creaters in the population.
-size_t population_internal::get_size() const {
+auto population_internal::get_size() const -> size_t {
     return _metadata->size;
 }
 
-std::shared_ptr<creature> population_internal::operator[] (int i) const {
+auto population_internal::operator[] (int i) const -> std::shared_ptr<creature> {
     return get_creature(i);
 }
 
-std::shared_ptr<creature> population_internal::get_creature(int i) const {
+auto population_internal::get_creature(int i) const -> std::shared_ptr<creature> {
     return _creatures[i];
 }
 
-// Returns the most optimal creature in turms of fitness.
-std::shared_ptr<creature> population_internal::get_optimal_creature() const {
+// Returns the most optimal creature in terms of fitness.
+auto population_internal::get_optimal_creature() const -> std::shared_ptr<creature> {
     return _optimal_creature;
 }
 
@@ -64,7 +64,7 @@ void population_internal::evolve() {
 //region Private Members
 
 // Copies the n best creatures into the next generation based on the survival rate as definied in the metadata.
-size_t population_internal::_elitism(std::vector<std::shared_ptr<creature>>& new_generation) {
+auto population_internal::_elitism(std::vector<std::shared_ptr<creature>>& new_generation) -> size_t {
     size_t population_size = get_size();
 
     // Sorts the creatures by descending fitness
@@ -96,7 +96,7 @@ void population_internal::_breed_new_generation(std::vector<std::shared_ptr<crea
 }
 
 // Checks if any of the termination conditions have been met.
-bool population_internal::_has_terminated(std::vector<std::shared_ptr<termination_condition>>& termination_conditions) {
+auto population_internal::_has_terminated(std::vector<std::shared_ptr<termination_condition>>& termination_conditions) -> bool {
     size_t num_termination_conditions = termination_conditions.size();
 
     for (size_t i = 0; i < num_termination_conditions; i++) {
@@ -107,7 +107,7 @@ bool population_internal::_has_terminated(std::vector<std::shared_ptr<terminatio
     return false;
 }
 
-std::shared_ptr<creature> population_internal::_find_optimal_creature() {
+auto population_internal::_find_optimal_creature() -> std::shared_ptr<creature> {
     std::shared_ptr<creature> optimal_creature = nullptr;
     double optimal_fitness = 0;
 
@@ -126,7 +126,7 @@ std::shared_ptr<creature> population_internal::_find_optimal_creature() {
     return optimal_creature;
 }
 
-std::vector<std::shared_ptr<selection_algorithm>> population_internal::_create_selection_algorithms() {
+auto population_internal::_create_selection_algorithms() -> std::vector<std::shared_ptr<selection_algorithm>> {
     auto num_selection_algorithms = _metadata->selection_algorithm_metadata.size();
     std::vector<std::shared_ptr<selection_algorithm>> selection_algorithms;
 
@@ -139,7 +139,7 @@ std::vector<std::shared_ptr<selection_algorithm>> population_internal::_create_s
     return selection_algorithms;
 }
 
-std::vector<std::shared_ptr<termination_condition>> population_internal::_create_termination_conditions() {
+auto population_internal::_create_termination_conditions() -> std::vector<std::shared_ptr<termination_condition>> {
     auto num_termination_conditions = _metadata->termination_condition_metadata.size();
     std::vector<std::shared_ptr<termination_condition>> termination_conditions;
 

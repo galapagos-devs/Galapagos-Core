@@ -1,3 +1,4 @@
+#include <utility>
 #include <vector>
 
 #include "API/stochastic.h"
@@ -7,18 +8,18 @@
 
 // Constructor/Destructor
 creature_internal::creature_internal(creature_metadata_ptr metadata, stochastic& stochastic_instance) :
-        _metadata{metadata}, _stochastic_instance{stochastic_instance} {
+        _metadata{std::move(metadata)}, _stochastic_instance{stochastic_instance} {
     genetic_factory& factory = genetic_factory::get_instance();
     for(const auto& chromosome_metadatum : _metadata->chromosome_metadata)
         _chromosomes[chromosome_metadatum->name] = factory.create_chromosome(chromosome_metadatum);
 }
 
 // Public methods
-double creature_internal::get_fitness() {
+auto creature_internal::get_fitness() -> double {
     return _metadata->fitness_function(this);
 }
 
-std::shared_ptr<creature> creature_internal::breed_with(const std::shared_ptr<const creature>& mate) const {
+auto creature_internal::breed_with(const std::shared_ptr<const creature>& mate) const -> std::shared_ptr<creature> {
     genetic_factory& factory = genetic_factory::get_instance();
     auto child = factory.create_creature(_metadata);
 
@@ -54,8 +55,8 @@ std::shared_ptr<creature> creature_internal::breed_with(const std::shared_ptr<co
 
 // Private methods
 template <class TOperator, class TMetadata>
-std::shared_ptr<TOperator> creature_internal::_select_genetic_operator(const std::vector<std::shared_ptr<const TMetadata>> operator_metadata,
-                                                       create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator) const {
+auto creature_internal::_select_genetic_operator(const std::vector<std::shared_ptr<const TMetadata>> operator_metadata,
+                                                       create_genetic_operator_a<TOperator, TMetadata> create_genetic_operator) const -> std::shared_ptr<TOperator> {
     auto num_operators = operator_metadata.size();
     std::vector<std::shared_ptr<TOperator>> genetic_operators;
     std::vector<double> weights;
@@ -72,14 +73,14 @@ std::shared_ptr<TOperator> creature_internal::_select_genetic_operator(const std
     return genetic_operators[chosen_index];
 }
 
-std::shared_ptr<crossover> creature_internal::_select_crossover(const std::vector<crossover_metadata_ptr>& crossover_metadata) const {
+auto creature_internal::_select_crossover(const std::vector<crossover_metadata_ptr>& crossover_metadata) const -> std::shared_ptr<crossover> {
     genetic_factory& factory = genetic_factory::get_instance();
     create_genetic_operator_a<crossover, crossover_metadata_t> create_crossover =
             [&factory](crossover_metadata_ptr metadatai) { return factory.create_crossover(metadatai); };
     return _select_genetic_operator<crossover, crossover_metadata_t>(crossover_metadata, create_crossover);
 }
 
-std::shared_ptr<mutation> creature_internal::_select_mutation(const std::vector<mutation_metadata_ptr>& mutation_metadata) const {
+auto creature_internal::_select_mutation(const std::vector<mutation_metadata_ptr>& mutation_metadata) const -> std::shared_ptr<mutation> {
     genetic_factory& factory = genetic_factory::get_instance();
     create_genetic_operator_a<mutation, mutation_metadata_t> create_mutation =
             [&factory](mutation_metadata_ptr metadatai) { return factory.create_mutation(metadatai); };
