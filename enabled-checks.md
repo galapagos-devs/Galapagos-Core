@@ -1,0 +1,445 @@
+- [ ] abseil-duration-addition
+- [ ] abseil-duration-comparison
+- [ ] abseil-duration-conversion-cast
+- [ ] abseil-duration-division
+- [ ] abseil-duration-factory-float
+- [ ] abseil-duration-factory-scale
+- [ ] abseil-duration-subtraction
+- [ ] abseil-duration-unnecessary-conversion
+- [ ] abseil-faster-strsplit-delimiter
+- [ ] abseil-no-internal-dependencies
+- [ ] abseil-no-namespace
+- [ ] abseil-redundant-strcat-calls
+- [ ] abseil-str-cat-append
+- [ ] abseil-string-find-startswith
+- [ ] abseil-string-find-str-contains
+- [ ] abseil-time-comparison
+- [ ] abseil-time-subtraction
+- [ ] abseil-upgrade-duration-conversions
+- [ ] altera-kernel-name-restriction
+- [ ] altera-single-work-item-barrier
+- [ ] altera-struct-pack-align
+- [ ] android-cloexec-accept
+- [ ] android-cloexec-accept4
+- [ ] android-cloexec-creat
+- [ ] android-cloexec-dup
+- [ ] android-cloexec-epoll-create
+- [ ] android-cloexec-epoll-create1
+- [ ] android-cloexec-fopen
+- [ ] android-cloexec-inotify-init
+- [ ] android-cloexec-inotify-init1
+- [ ] android-cloexec-memfd-create
+- [ ] android-cloexec-open
+- [ ] android-cloexec-pipe
+- [ ] android-cloexec-pipe2
+- [ ] android-cloexec-socket
+- [ ] android-comparison-in-temp-failure-retry
+- [ ] boost-use-to-string
+- [ ] bugprone-argument-comment
+- [ ] bugprone-assert-side-effect
+- [ ] bugprone-bad-signal-to-kill-thread
+- [ ] bugprone-bool-pointer-implicit-conversion
+- [ ] bugprone-branch-clone
+- [ ] bugprone-copy-constructor-init
+- [ ] bugprone-dangling-handle
+- [ ] bugprone-dynamic-static-initializers
+- [ ] bugprone-exception-escape
+- [ ] bugprone-fold-init-type
+- [ ] bugprone-forward-declaration-namespace
+- [ ] bugprone-forwarding-reference-overload
+- [ ] bugprone-inaccurate-erase
+- [ ] bugprone-incorrect-roundings
+- [ ] bugprone-infinite-loop
+- [ ] bugprone-integer-division
+- [ ] bugprone-lambda-function-name
+- [ ] bugprone-macro-parentheses
+- [ ] bugprone-macro-repeated-side-effects
+- [ ] bugprone-misplaced-operator-in-strlen-in-alloc
+- [ ] bugprone-misplaced-pointer-arithmetic-in-alloc
+- [ ] bugprone-misplaced-widening-cast
+- [ ] bugprone-move-forwarding-reference
+- [ ] bugprone-multiple-statement-macro
+- [ ] bugprone-narrowing-conversions
+- [ ] bugprone-no-escape
+- [ ] bugprone-not-null-terminated-result
+- [ ] bugprone-parent-virtual-call
+- [ ] bugprone-posix-return
+- [ ] bugprone-redundant-branch-condition
+- [ ] bugprone-reserved-identifier
+- [ ] bugprone-signal-handler
+- [ ] bugprone-signed-char-misuse
+- [ ] bugprone-sizeof-container
+- [ ] bugprone-sizeof-expression
+- [ ] bugprone-spuriously-wake-up-functions
+- [ ] bugprone-string-constructor
+- [ ] bugprone-string-integer-assignment
+- [ ] bugprone-string-literal-with-embedded-nul
+- [ ] bugprone-suspicious-enum-usage
+- [ ] bugprone-suspicious-include
+- [ ] bugprone-suspicious-memset-usage
+- [ ] bugprone-suspicious-missing-comma
+- [ ] bugprone-suspicious-semicolon
+- [ ] bugprone-suspicious-string-compare
+- [ ] bugprone-swapped-arguments
+- [ ] bugprone-terminating-continue
+- [ ] bugprone-throw-keyword-missing
+- [ ] bugprone-too-small-loop-variable
+- [ ] bugprone-undefined-memory-manipulation
+- [ ] bugprone-undelegated-constructor
+- [ ] bugprone-unhandled-self-assignment
+- [ ] bugprone-unused-raii
+- [ ] bugprone-unused-return-value
+- [ ] bugprone-use-after-move
+- [ ] bugprone-virtual-near-miss
+- [ ] cert-con36-c
+- [ ] cert-con54-cpp
+- [ ] cert-dcl03-c
+- [ ] cert-dcl16-c
+- [ ] cert-dcl21-cpp
+- [ ] cert-dcl37-c
+- [ ] cert-dcl50-cpp
+- [ ] cert-dcl51-cpp
+- [ ] cert-dcl54-cpp
+- [ ] cert-dcl58-cpp
+- [ ] cert-dcl59-cpp
+- [ ] cert-env33-c
+- [ ] cert-err09-cpp
+- [ ] cert-err34-c
+- [ ] cert-err52-cpp
+- [ ] cert-err58-cpp
+- [ ] cert-err60-cpp
+- [ ] cert-err61-cpp
+- [ ] cert-fio38-c
+- [ ] cert-flp30-c
+- [ ] cert-mem57-cpp
+- [ ] cert-msc30-c
+- [ ] cert-msc32-c
+- [ ] cert-msc50-cpp
+- [ ] cert-msc51-cpp
+- [ ] cert-oop11-cpp
+- [ ] cert-oop54-cpp
+- [ ] cert-oop57-cpp
+- [ ] cert-oop58-cpp
+- [ ] cert-pos44-c
+- [ ] cert-sig30-c
+- [ ] cert-str34-c
+- [ ] clang-analyzer-apiModeling.StdCLibraryFunctions
+- [ ] clang-analyzer-apiModeling.TrustNonnull
+- [ ] clang-analyzer-apiModeling.google.GTest
+- [ ] clang-analyzer-apiModeling.llvm.CastValue
+- [ ] clang-analyzer-apiModeling.llvm.ReturnValue
+- [ ] clang-analyzer-core.CallAndMessage
+- [ ] clang-analyzer-core.CallAndMessageModeling
+- [ ] clang-analyzer-core.DivideZero
+- [ ] clang-analyzer-core.DynamicTypePropagation
+- [ ] clang-analyzer-core.NonNullParamChecker
+- [ ] clang-analyzer-core.NonnilStringConstants
+- [ ] clang-analyzer-core.NullDereference
+- [ ] clang-analyzer-core.StackAddrEscapeBase
+- [ ] clang-analyzer-core.StackAddressEscape
+- [ ] clang-analyzer-core.UndefinedBinaryOperatorResult
+- [ ] clang-analyzer-core.VLASize
+- [ ] clang-analyzer-core.builtin.BuiltinFunctions
+- [ ] clang-analyzer-core.builtin.NoReturnFunctions
+- [ ] clang-analyzer-core.uninitialized.ArraySubscript
+- [ ] clang-analyzer-core.uninitialized.Assign
+- [ ] clang-analyzer-core.uninitialized.Branch
+- [ ] clang-analyzer-core.uninitialized.CapturedBlockVariable
+- [ ] clang-analyzer-core.uninitialized.UndefReturn
+- [ ] clang-analyzer-cplusplus.InnerPointer
+- [ ] clang-analyzer-cplusplus.Move
+- [ ] clang-analyzer-cplusplus.NewDelete
+- [ ] clang-analyzer-cplusplus.NewDeleteLeaks
+- [ ] clang-analyzer-cplusplus.PlacementNew
+- [ ] clang-analyzer-cplusplus.PureVirtualCall
+- [ ] clang-analyzer-cplusplus.SelfAssignment
+- [ ] clang-analyzer-cplusplus.SmartPtrModeling
+- [ ] clang-analyzer-cplusplus.VirtualCallModeling
+- [ ] clang-analyzer-deadcode.DeadStores
+- [ ] clang-analyzer-fuchsia.HandleChecker
+- [ ] clang-analyzer-nullability.NullPassedToNonnull
+- [ ] clang-analyzer-nullability.NullReturnedFromNonnull
+- [ ] clang-analyzer-nullability.NullabilityBase
+- [ ] clang-analyzer-nullability.NullableDereferenced
+- [ ] clang-analyzer-nullability.NullablePassedToNonnull
+- [ ] clang-analyzer-nullability.NullableReturnedFromNonnull
+- [ ] clang-analyzer-optin.cplusplus.UninitializedObject
+- [ ] clang-analyzer-optin.cplusplus.VirtualCall
+- [ ] clang-analyzer-optin.mpi.MPI-Checker
+- [ ] clang-analyzer-optin.osx.OSObjectCStyleCast
+- [ ] clang-analyzer-optin.osx.cocoa.localizability.EmptyLocalizationContextChecker
+- [ ] clang-analyzer-optin.osx.cocoa.localizability.NonLocalizedStringChecker
+- [ ] clang-analyzer-optin.performance.GCDAntipattern
+- [ ] clang-analyzer-optin.performance.Padding
+- [ ] clang-analyzer-optin.portability.UnixAPI
+- [ ] clang-analyzer-osx.API
+- [ ] clang-analyzer-osx.MIG
+- [ ] clang-analyzer-osx.NSOrCFErrorDerefChecker
+- [ ] clang-analyzer-osx.NumberObjectConversion
+- [ ] clang-analyzer-osx.OSObjectRetainCount
+- [ ] clang-analyzer-osx.ObjCProperty
+- [ ] clang-analyzer-osx.SecKeychainAPI
+- [ ] clang-analyzer-osx.cocoa.AtSync
+- [ ] clang-analyzer-osx.cocoa.AutoreleaseWrite
+- [ ] clang-analyzer-osx.cocoa.ClassRelease
+- [ ] clang-analyzer-osx.cocoa.Dealloc
+- [ ] clang-analyzer-osx.cocoa.IncompatibleMethodTypes
+- [ ] clang-analyzer-osx.cocoa.Loops
+- [ ] clang-analyzer-osx.cocoa.MissingSuperCall
+- [ ] clang-analyzer-osx.cocoa.NSAutoreleasePool
+- [ ] clang-analyzer-osx.cocoa.NSError
+- [ ] clang-analyzer-osx.cocoa.NilArg
+- [ ] clang-analyzer-osx.cocoa.NonNilReturnValue
+- [ ] clang-analyzer-osx.cocoa.ObjCGenerics
+- [ ] clang-analyzer-osx.cocoa.RetainCount
+- [ ] clang-analyzer-osx.cocoa.RetainCountBase
+- [ ] clang-analyzer-osx.cocoa.RunLoopAutoreleaseLeak
+- [ ] clang-analyzer-osx.cocoa.SelfInit
+- [ ] clang-analyzer-osx.cocoa.SuperDealloc
+- [ ] clang-analyzer-osx.cocoa.UnusedIvars
+- [ ] clang-analyzer-osx.cocoa.VariadicMethodTypes
+- [ ] clang-analyzer-osx.coreFoundation.CFError
+- [ ] clang-analyzer-osx.coreFoundation.CFNumber
+- [ ] clang-analyzer-osx.coreFoundation.CFRetainRelease
+- [ ] clang-analyzer-osx.coreFoundation.containers.OutOfBounds
+- [ ] clang-analyzer-osx.coreFoundation.containers.PointerSizedValues
+- [ ] clang-analyzer-security.FloatLoopCounter
+- [ ] clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling
+- [ ] clang-analyzer-security.insecureAPI.SecuritySyntaxChecker
+- [ ] clang-analyzer-security.insecureAPI.UncheckedReturn
+- [ ] clang-analyzer-security.insecureAPI.bcmp
+- [ ] clang-analyzer-security.insecureAPI.bcopy
+- [ ] clang-analyzer-security.insecureAPI.bzero
+- [ ] clang-analyzer-security.insecureAPI.decodeValueOfObjCType
+- [ ] clang-analyzer-security.insecureAPI.getpw
+- [ ] clang-analyzer-security.insecureAPI.gets
+- [ ] clang-analyzer-security.insecureAPI.mkstemp
+- [ ] clang-analyzer-security.insecureAPI.mktemp
+- [ ] clang-analyzer-security.insecureAPI.rand
+- [ ] clang-analyzer-security.insecureAPI.strcpy
+- [ ] clang-analyzer-security.insecureAPI.vfork
+- [ ] clang-analyzer-unix.API
+- [ ] clang-analyzer-unix.DynamicMemoryModeling
+- [ ] clang-analyzer-unix.Malloc
+- [ ] clang-analyzer-unix.MallocSizeof
+- [ ] clang-analyzer-unix.MismatchedDeallocator
+- [ ] clang-analyzer-unix.Vfork
+- [ ] clang-analyzer-unix.cstring.BadSizeArg
+- [ ] clang-analyzer-unix.cstring.CStringModeling
+- [ ] clang-analyzer-unix.cstring.NullArg
+- [ ] clang-analyzer-valist.CopyToSelf
+- [ ] clang-analyzer-valist.Uninitialized
+- [ ] clang-analyzer-valist.Unterminated
+- [ ] clang-analyzer-valist.ValistBase
+- [ ] clang-analyzer-webkit.NoUncountedMemberChecker
+- [ ] clang-analyzer-webkit.RefCntblBaseVirtualDtor
+- [ ] clang-analyzer-webkit.UncountedLambdaCapturesChecker
+- [ ] concurrency-mt-unsafe
+- [ ] cppcoreguidelines-avoid-c-arrays
+- [ ] cppcoreguidelines-avoid-goto
+- [ ] cppcoreguidelines-avoid-magic-numbers
+- [ ] cppcoreguidelines-avoid-non-const-global-variables
+- [ ] cppcoreguidelines-c-copy-assignment-signature
+- [ ] cppcoreguidelines-explicit-virtual-functions
+- [ ] cppcoreguidelines-init-variables
+- [ ] cppcoreguidelines-interfaces-global-init
+- [ ] cppcoreguidelines-macro-usage
+- [ ] cppcoreguidelines-narrowing-conversions
+- [ ] cppcoreguidelines-no-malloc
+- [ ] cppcoreguidelines-non-private-member-variables-in-classes
+- [ ] cppcoreguidelines-owning-memory
+- [ ] cppcoreguidelines-pro-bounds-array-to-pointer-decay
+- [ ] cppcoreguidelines-pro-bounds-constant-array-index
+- [ ] cppcoreguidelines-pro-bounds-pointer-arithmetic
+- [ ] cppcoreguidelines-pro-type-const-cast
+- [ ] cppcoreguidelines-pro-type-cstyle-cast
+- [ ] cppcoreguidelines-pro-type-member-init
+- [ ] cppcoreguidelines-pro-type-reinterpret-cast
+- [ ] cppcoreguidelines-pro-type-static-cast-downcast
+- [ ] cppcoreguidelines-pro-type-union-access
+- [ ] cppcoreguidelines-pro-type-vararg
+- [ ] cppcoreguidelines-slicing
+- [ ] cppcoreguidelines-special-member-functions
+- [ ] darwin-avoid-spinlock
+- [ ] darwin-dispatch-once-nonstatic
+- [ ] fuchsia-default-arguments-calls
+- [ ] fuchsia-default-arguments-declarations
+- [ ] fuchsia-header-anon-namespaces
+- [ ] fuchsia-multiple-inheritance
+- [ ] fuchsia-overloaded-operator
+- [ ] fuchsia-statically-constructed-objects
+- [ ] fuchsia-trailing-return
+- [ ] fuchsia-virtual-inheritance
+- [ ] google-build-explicit-make-pair
+- [ ] google-build-namespaces
+- [ ] google-build-using-namespace
+- [ ] google-default-arguments
+- [ ] google-explicit-constructor
+- [ ] google-global-names-in-headers
+- [ ] google-objc-avoid-nsobject-new
+- [ ] google-objc-avoid-throwing-exception
+- [ ] google-objc-function-naming
+- [ ] google-objc-global-variable-declaration
+- [ ] google-readability-avoid-underscore-in-googletest-name
+- [ ] google-readability-braces-around-statements
+- [ ] google-readability-casting
+- [ ] google-readability-function-size
+- [ ] google-readability-namespace-comments
+- [ ] google-readability-todo
+- [ ] google-runtime-int
+- [ ] google-runtime-operator
+- [ ] google-upgrade-googletest-case
+- [ ] hicpp-avoid-c-arrays
+- [ ] hicpp-avoid-goto
+- [ ] hicpp-braces-around-statements
+- [ ] hicpp-deprecated-headers
+- [ ] hicpp-exception-baseclass
+- [ ] hicpp-explicit-conversions
+- [ ] hicpp-function-size
+- [ ] hicpp-invalid-access-moved
+- [ ] hicpp-member-init
+- [ ] hicpp-move-const-arg
+- [ ] hicpp-multiway-paths-covered
+- [ ] hicpp-named-parameter
+- [ ] hicpp-new-delete-operators
+- [ ] hicpp-no-array-decay
+- [ ] hicpp-no-assembler
+- [ ] hicpp-no-malloc
+- [ ] hicpp-noexcept-move
+- [ ] hicpp-signed-bitwise
+- [ ] hicpp-special-member-functions
+- [ ] hicpp-static-assert
+- [ ] hicpp-undelegated-constructor
+- [ ] hicpp-uppercase-literal-suffix
+- [ ] hicpp-use-auto
+- [ ] hicpp-use-emplace
+- [ ] hicpp-use-equals-default
+- [ ] hicpp-use-equals-delete
+- [ ] hicpp-use-noexcept
+- [ ] hicpp-use-nullptr
+- [ ] hicpp-use-override
+- [ ] hicpp-vararg
+- [ ] linuxkernel-must-check-errs
+- [ ] llvm-else-after-return
+- [ ] llvm-header-guard
+- [ ] llvm-include-order
+- [ ] llvm-namespace-comment
+- [ ] llvm-prefer-isa-or-dyn-cast-in-conditionals
+- [ ] llvm-prefer-register-over-unsigned
+- [ ] llvm-qualified-auto
+- [ ] llvm-twine-local
+- [ ] llvmlibc-callee-namespace
+- [ ] llvmlibc-implementation-in-namespace
+- [ ] llvmlibc-restrict-system-libc-headers
+- [ ] misc-definitions-in-headers
+- [ ] misc-misplaced-const
+- [ ] misc-new-delete-overloads
+- [ ] misc-no-recursion
+- [ ] misc-non-copyable-objects
+- [ ] misc-non-private-member-variables-in-classes
+- [ ] misc-redundant-expression
+- [ ] misc-static-assert
+- [ ] misc-throw-by-value-catch-by-reference
+- [ ] misc-unconventional-assign-operator
+- [ ] misc-uniqueptr-reset-release
+- [ ] misc-unused-alias-decls
+- [ ] misc-unused-parameters
+- [ ] misc-unused-using-decls
+- [x] modernize-avoid-bind
+- [x] modernize-avoid-c-arrays
+- [x] modernize-concat-nested-namespaces
+- [x] modernize-deprecated-headers
+- [x] modernize-deprecated-ios-base-aliases
+- [x] modernize-loop-convert
+- [x] modernize-make-shared
+- [x] modernize-make-unique
+- [x] modernize-pass-by-value
+- [x] modernize-raw-string-literal
+- [x] modernize-redundant-void-arg
+- [x] modernize-replace-auto-ptr
+- [x] modernize-replace-disallow-copy-and-assign-macro
+- [x] modernize-replace-random-shuffle
+- [x] modernize-return-braced-init-list
+- [x] modernize-shrink-to-fit
+- [x] modernize-unary-static-assert
+- [x] modernize-use-auto
+- [x] modernize-use-bool-literals
+- [x] modernize-use-default-member-init
+- [x] modernize-use-emplace
+- [x] modernize-use-equals-default
+- [x] modernize-use-equals-delete
+- [x] modernize-use-nodiscard
+- [x] modernize-use-noexcept
+- [x] modernize-use-nullptr
+- [x] modernize-use-override
+- [x] modernize-use-trailing-return-type
+- [x] modernize-use-transparent-functors
+- [x] modernize-use-uncaught-exceptions
+- [x] modernize-use-using
+- [ ] mpi-buffer-deref
+- [ ] mpi-type-mismatch
+- [ ] objc-avoid-nserror-init
+- [ ] objc-dealloc-in-category
+- [ ] objc-forbidden-subclassing
+- [ ] objc-missing-hash
+- [ ] objc-nsinvocation-argument-lifetime
+- [ ] objc-property-declaration
+- [ ] objc-super-self
+- [ ] openmp-exception-escape
+- [ ] openmp-use-default-none
+- [x] performance-faster-string-find
+- [x] performance-for-range-copy
+- [x] performance-implicit-conversion-in-loop
+- [x] performance-inefficient-algorithm
+- [x] performance-inefficient-string-concatenation
+- [x] performance-inefficient-vector-operation
+- [x] performance-move-const-arg
+- [x] performance-move-constructor-init
+- [x] performance-no-automatic-move
+- [x] performance-no-int-to-ptr
+- [x] performance-noexcept-move-constructor
+- [x] performance-trivially-destructible
+- [x] performance-type-promotion-in-math-fn
+- [x] performance-unnecessary-copy-initialization
+- [x] performance-unnecessary-value-param
+- [ ] portability-restrict-system-includes
+- [ ] portability-simd-intrinsics
+- [x] readability-avoid-const-params-in-decls
+- [ ] readability-braces-around-statements
+- [x] readability-const-return-type
+- [x] readability-container-size-empty
+- [x] readability-convert-member-functions-to-static
+- [x] readability-delete-null-pointer
+- [x] readability-deleted-default
+- [x] readability-else-after-return
+- [x] readability-function-cognitive-complexity
+- [x] readability-function-size
+- [ ] readability-identifier-naming
+- [x] readability-implicit-bool-conversion
+- [x] readability-inconsistent-declaration-parameter-name
+- [x] readability-isolate-declaration
+- [x] readability-magic-numbers
+- [x] readability-make-member-function-const
+- [x] readability-misleading-indentation
+- [x] readability-misplaced-array-index
+- [ ] readability-named-parameter
+- [x] readability-non-const-parameter
+- [x] readability-qualified-auto
+- [x] readability-redundant-access-specifiers
+- [x] readability-redundant-control-flow
+- [x] readability-redundant-declaration
+- [x] readability-redundant-function-ptr-dereference
+- [x] readability-redundant-member-init
+- [x] readability-redundant-preprocessor
+- [x] readability-redundant-smartptr-get
+- [x] readability-redundant-string-cstr
+- [x] readability-redundant-string-init
+- [x] readability-simplify-boolean-expr
+- [x] readability-simplify-subscript-expr
+- [x] readability-static-accessed-through-instance
+- [x] readability-static-definition-in-anonymous-namespace
+- [x] readability-string-compare
+- [x] readability-uniqueptr-delete-release
+- [x] readability-uppercase-literal-suffix
+- [x] readability-use-anyofallof
+- [ ] zircon-temporary-objects

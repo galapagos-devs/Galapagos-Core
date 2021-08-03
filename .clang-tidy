@@ -1,57 +1,60 @@
 ---
-Checks:          'modernize-*,performance-*,readability-*' # 'clang-diagnostic-*,clang-analyzer-*'
+# 'clang-diagnostic-*,clang-analyzer-*'
+Checks: >-
+  -*,
+  modernize-*,
+  performance-*,
+  readability-*,
+  -readability-braces-around-statements,
+  -readability-identifier-naming,
+  -readability-named-parameter
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false
-FormatStyle:     file
+FormatStyle:     none #file
 User:            Galapagos-Devs
 CheckOptions:
   # region modernize-
-  # region modernize-avoid-c-arrays
 
   - key: modernize-avoid-c-arrays
     value: true
 
-  # endregion
-
-  # region modernize-concat-nested-namespaces
-
   - key: modernize-concat-nested-namespaces
     value: true
-
-  # endregion
-
-  # region modernize-deprecated-headers
 
   - key: modernize-deprecated-headers
     value: true
 
-  # endregion
-
-  # region modernize-deprecated-ios-base-aliases
-
   - key: modernize-deprecated-ios-base-aliases
     value: true
 
-  # endregion
+  - key: modernize-loop-convert.MaxCopySize
+    value: '16'
+
+  - key: modernize-loop-convert.MinConfidence
+    value: reasonable
+
+  - key: modernize-loop-convert.NamingStyle
+    value: CamelCase
+
+  - key: modernize-pass-by-value.IncludeStyle
+    value: llvm
+
+  - key: modernize-replace-auto-ptr.IncludeStyle
+    value: llvm
+
+  - key: modernize-use-nullptr.NullMacros
+    value: 'NULL'
+
   # endregion
 
   # region performance-
-  # region performance-inefficient-string-concatentation
 
   - key: performance-inefficient-string-concatentation.StrictMode
     value: true
 
-  # endregion
-
-  # region performance-inefficient-algorithm
-
   - key: performance-inefficient-algorithm
     value: true
-
-  # endregion
-
-  # region performance-inefficient-vector-operation
 
   - key: performance-inefficient-vector-operation.VectorLikeClasses
     value: true
@@ -60,9 +63,9 @@ CheckOptions:
     value: true
 
   # endregion
-  # endregion
 
   # region readability-
+
   # region readability-identifier-naming
 
   # region AbstractClass
@@ -429,101 +432,69 @@ CheckOptions:
 
   # endregion
 
-  # region readability-non-const-parameter
-
   - key: readability-non-const-parameter
     value: true
-
-  # endregion
-
-  # region readability-misplaced-array-index
 
   - key: readability-misplaced-array-index
     value: true
 
-  # endregion
-
-  # region readability-redundant-control-flow
-
   - key: readability-redundant-control-flow
     value: true
-
-  # endregion
-
-  # region readability-magic-numbers
 
   - key: readability-magic-numbers
     value: true
 
-  # endregion
-
-  # region readability-delete-null-pointer
-
   - key: readability-delete-null-pointer
     value: true
-
-  # endregion
-
-  # region readability-redundant-declaration
 
   - key: readability-redundant-declaration
     value: true
 
-  # endregion
-
-  # region readability-convert-member-functions-to-static
-
   - key: readability-convert-member-functions-to-static
     value: true
-
-  # endregion
-
-  # region readability-static-accessed-through-instance
 
   - key: readability-static-accessed-through-instance
     value: true
 
   # endregion
-  # endregion
 
-  # region Default Clang Checks
+  # region miscellaneous
 
   - key:             cert-dcl16-c.NewSuffixes
     value:           'L;LL;LU;LLU'
+
   - key:             cert-oop54-cpp.WarnOnlyIfThisHasSuspiciousField
     value:           '0'
+
   - key:             cert-str34-c.DiagnoseSignedUnsignedCharComparisons
     value:           '0'
+
   - key:             cppcoreguidelines-explicit-virtual-functions.IgnoreDestructors
     value:           '1'
+
   - key:             cppcoreguidelines-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
     value:           '1'
+
   - key:             google-readability-braces-around-statements.ShortStatementLines
     value:           '1'
+
   - key:             google-readability-function-size.StatementThreshold
     value:           '800'
+
   - key:             google-readability-namespace-comments.ShortNamespaceLines
     value:           '10'
+
   - key:             google-readability-namespace-comments.SpacesBeforeComments
     value:           '2'
+
   - key:             llvm-else-after-return.WarnOnConditionVariables
     value:           '0'
+
   - key:             llvm-else-after-return.WarnOnUnfixable
     value:           '0'
+
   - key:             llvm-qualified-auto.AddConstToQualified
     value:           '0'
-  - key:             modernize-loop-convert.MaxCopySize
-    value:           '16'
-  - key:             modernize-loop-convert.MinConfidence
-    value:           reasonable
-  - key:             modernize-loop-convert.NamingStyle
-    value:           CamelCase
-  - key:             modernize-pass-by-value.IncludeStyle
-    value:           llvm
-  - key:             modernize-replace-auto-ptr.IncludeStyle
-    value:           llvm
-  - key:             modernize-use-nullptr.NullMacros
-    value:           'NULL'
 
   # endregion
 ...

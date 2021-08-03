@@ -67,6 +67,6 @@ public:
     //endregion
 };
 
-std::shared_ptr<vector_chromosome> gc_get_vector_chromosome(std::shared_ptr<creature> creature, const std::string& name);
+std::shared_ptr<vector_chromosome> gc_get_vector_chromosome(const std::shared_ptr<creature>& creature, const std::string& name);
 
 #endif /* _VECTOR_CHROMOSOME_H_ */
