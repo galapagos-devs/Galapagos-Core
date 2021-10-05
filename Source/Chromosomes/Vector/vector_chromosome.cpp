@@ -1,6 +1,3 @@
-#ifndef _VECTOR_CHROMOSOME_
-#define _VECTOR_CHROMOSOME_
-
 #include <cmath>
 #include <algorithm>
 #include <stdexcept>
@@ -28,6 +25,7 @@ vector_chromosome::vector_chromosome(const std::shared_ptr<const vector_chromoso
 
 //region Inherited Methods
 
+// LN norm (L2 norm is euclidean distance)
 double vector_chromosome::get_distance(const std::shared_ptr<const chromosome>& other) const {
     const auto downcast = std::dynamic_pointer_cast<const vector_chromosome>(other);
     if(downcast == nullptr)
@@ -136,6 +134,7 @@ double vector_chromosome::dot(const std::shared_ptr<const vector_chromosome>& ot
 }
 
 std::shared_ptr<vector_chromosome> vector_chromosome::cross(const std::vector<std::shared_ptr<vector_chromosome>>& others, size_t num_chromosomes) const {
+    // this is an odd member to have on the API because cross product is only defined in R3 as far as I know
     throw std::runtime_error("vector_chromosome.cross not implemented");
 }
 
@@ -145,6 +144,4 @@ std::shared_ptr<vector_chromosome> vector_chromosome::cross(const std::vector<st
 std::shared_ptr<vector_chromosome> gc_get_vector_chromosome(std::shared_ptr<creature> creature, const std::string& name) {
     return creature->get_chromosome<vector_chromosome>(name);
 }
-
-#endif /* _VECTOR_CHROMOSOME_ */
 
