@@ -28,6 +28,9 @@ double permutation_chromosome::get_distance(const std::shared_ptr<const chromoso
     for(size_t i = 0; i < _metadata->size; i++)
         map[_genes[i]] = i;
 
+    // this is an out of place implementation of merge sort using O(N) additional memory.
+    // in place implementations exist but are complicated.
+    // naive inplace increases the time complexity to O(N^2).
     std::vector<size_t> buff(_metadata->size);
     std::vector<size_t> temp(_metadata->size);
 
