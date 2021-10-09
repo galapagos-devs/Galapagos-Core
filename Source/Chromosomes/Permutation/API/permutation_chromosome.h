@@ -11,7 +11,9 @@
 
 class permutation_chromosome : public chromosome {
 private:
-    std::vector<uint64_t> _genes;
+    permutation_chromosome_metadata_ptr _metadata;
+    stochastic& _stochastic_instance;
+    std::vector<size_t> _genes;
 
 public:
     // region Inherited Methods
@@ -30,7 +32,7 @@ public:
 
     //region Getters & Setters
 
-    virtual double get_gene(size_t index) const;
+    virtual size_t get_gene(size_t index) const;
 
     //endregion
 };
