@@ -1,7 +1,6 @@
 #ifndef _STOCHASTIC_INTERNAL_H_
 #define _STOCHASTIC_INTERNAL_H_
 
-#include <ctime>
 #include <cstdlib>
 #include <stdexcept>
 #include <random>
@@ -20,7 +19,8 @@ public:
     }
 
     inline stochastic_internal() {
-        _rng.seed(std::time(0));
+        std::random_device rng;
+        _rng.seed(rng());
     }
 
     inline bool flip_coin() override {
