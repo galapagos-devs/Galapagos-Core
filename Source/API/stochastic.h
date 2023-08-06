@@ -17,6 +17,10 @@ public:
 
     virtual size_t weight_proportionate_selection(std::vector<double> weights) = 0;
 
+    /*!
+     * @param[max] maximum size of the random int.
+     * @return a random integer
+     * */
     virtual int rand_int(int max) = 0;
 
     virtual int rand_int(int min, int max) = 0;
